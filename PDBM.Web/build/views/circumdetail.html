@@ -1,0 +1,91 @@
+﻿<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+    <title>周边资源</title>
+    <meta name="full-screen" content="yes">
+    <meta name="x5-fullscreen" content="true">
+    <meta name="browsermode" content="application">
+    <meta name="x5-page-mode" content="app">
+    <link href="../styles/vendors.css?d929f52dcc155c46116b" rel="stylesheet">
+</head>
+<body>
+    <div class="detail">
+        <div class="content" id="siteMessage">
+            <script id="siteMessageTemp" type="text/html">
+                <div class="item">
+                    <label for="">站点名称:</label>
+                    <div class="message">{{data.PlaceName}}</div>
+                </div>
+                <div class="item">
+                    <label for="">站点类型:</label>
+                    <div class="message type">
+                        <label>{{data.PlaceCategoryName}}</label>
+                    </div>
+                </div>
+                <div class="item">
+                    <label for="">区&nbsp;&nbsp;域:</label>
+                    <div class="message">{{data.AreaName}}</div>
+                </div>
+                <div class="item">
+                    <label for="">网&nbsp;&nbsp;格:</label>
+                    <div class="message">{{data.ReseauName}}</div>
+                </div>
+                <div class="item">
+                    <label for="">经&nbsp;&nbsp;度:</label>
+                    <div class="message">{{data.Lng}}</div>
+                </div>
+                <div class="item">
+                    <label for="">纬&nbsp;&nbsp;度:</label>
+                    <div class="message">{{data.Lat}}</div>
+                </div>
+                <div class="item">
+                    <label for="">导航图:</label>
+                    <div class="message map">
+                        <a href="./fwgx.html?lng={{data.Lng}}&lat={{data.Lat}}&id={{data.Id}}&sn={{data.PlaceName}}">
+                            <span>地图</span>
+                            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAAA8CAYAAAA6/NlyAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNi1jMDY3IDc5LjE1Nzc0NywgMjAxNS8wMy8zMC0yMzo0MDo0MiAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6NDEyREYyQUVCMTQ3MTFFNkJBNThGNjZGQTQxMTcxNUEiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6NDEyREYyQURCMTQ3MTFFNkJBNThGNjZGQTQxMTcxNUEiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIDIwMTUgKFdpbmRvd3MpIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6MjkwMjc5OTZCMTQ3MTFFNkEzN0ZGQTNCREQ3MDI3NEUiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6MjkwMjc5OTdCMTQ3MTFFNkEzN0ZGQTNCREQ3MDI3NEUiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz4EjCLZAAAFkElEQVR42uxba2wVRRSee2kqGEtojUQbFeuLl8TgI/7QmKKJT6ICGoxgQsRYUtSqFSFGJYoKKD5Q0VZEiY+oP6whatJglET9QRqIhmK1WtsImqiUUoNabJHrd7Lfmptxdnfu3t3b3t49yZe7d3fO7HzzODNz5mwqk8moUpK0KjEpq2ruGY73jgUORZFRX13NiGzhC4GngZ3AX8AA8Dcgtf0OMK9QZSmLOf+rgYeBcw3PyoFTiPnA10A98FmxjuHlwIceZE0yHdhGvaIjfBOwOmR51gCrionwFGAjkMojjwdYaZFLqrKp2zbtTGAPsD8g3UfAVRGUbR9wJtAfkG4l8KUMH1jsI1G08AnAJmAH8FBA2isjIityHHC7RdkeBLYAuzHFzsmHsFjRRqATuIVp69llveTuiHvgIgtbMYbXU4EWkN4GTM+V8BxOE+uACm0ae8ZDpxK4JGLCpwGTfZ7fbLhXC7SB9G02hM/g1NACnG5I3wGs93j5+Vm17SWDQANwLFDF68EAHb9pbQnwLjCk3T8aaAbpJmCMF+HruRKqNWTcz/F0NtDq8fJJFi12H/CcrAiBA7wOsgvH+zzbDkN1I35neJSrTlZy2aRdwrO5xKvQFA4DL7LlN/B/PgbwDcO9jQE6R1mspzsBMZgLgT+0x9KQr4F0yi2kWMPNhu7YyhZdCvRakNmv4pEDOWwk3sLPBcCPhrHe4BK+g2PKlX+AxZxiOnIo2C6LNCYjc2uATleOuycp80UGvTVo5alCeK72QOa1V0O0xPfc/fjJE8CdtOiVvPZbRkrlbw+xZfyJDdavDY3n0wZr/ELIrpexqKhyWvk+Yj3vecnHhjFpS7rL0HsuTRuMwsE8xtsGLgmjkk15Ogfei3vzIAbmnojykoXP+8WwW3oTuD+CfO7lGI6c8OEYSK+m8QsrL/kscPIm/GdMrf6oTPgh9Fo5VRbMAVARYf71XK7aikxrC+LoyoXwaYkc4jz/u0Va8WbO43SlipWwopek0SLdXfRcqGInrLgg2erzfIvFJqKoCGe4eB8yrQ+4jVOjibDIt9xq6iIeyl9HI2GRx7S1sYzZlwtZgEIT3qdtTlbFOQWNBMIiTynnMK2DxqqgUjYMhHu53pbNwZFSICzSHPcCY6QR3jlM7y29kIeEcCkQHm/YtYxqwvrB9VDSpRPCCeGEcEI4IZwQTgiPRMInKufA6wvgmpgqMM28P1fOqcTM4SAs4RHihRSvxXXKCQ8W70W7cmK6yiMgWs682pm3nOpfrpwAudeBk8MS1s+WJgboSBiRnMo/q/5/LDNNOWe6cmSyzLBOt5Hx1O1hXtMMZZbQCfGCrqtq7pnglRGeVWm3BkT5G+3mZR76x5CkkD0voNDVyglv2Kuc6NhqC6LVTLuXukE645RzotENYo3AWEOaGdr/H4TwJ9rNZYYueS27b4PBSyJxFC0emw5preVsrVeUEx6oyxQ+62ZaU6+QvN9m99ZFYkUkYrATpBcC2cNUj73cIdG00mV2a7smia0Qd6pE9ywCLvaoZYntkvjKX4CTlHP6v1h5n0CK006CxtfyvxCc7WNLDrJbS7jjHqaT8qz0GcPi616hHPfvB+wJrsx3w4fFi7ggh3EmSkuV+dBaxs0S9oaJIQ3Wb8oJeGlSZmffOOYvFTbBMs+fgVPdmpXwoe8slIbYOmcp7xN6KeDjyglFFOK5xFl1UWcS8/DybA5wvEuEoHw8MmiRd0NfXc1gOquQs4BPfRS20kKv4AuDRM6GxR0r0bA3AG0+aduYZjJ1bD/x6QWJRtoBGeNeX5094kb06BHxKc51MtHX8MW7uLj4KoK5tVY5AaZX8L/0kieVE8EbSrK/W4LBOocGbBYbUebstUjzX0Pm8glAlOJOF+35ZpTrh1r/CjAAeBVI3jDAfb0AAAAASUVORK5CYII=" alt="">
+                        </a>
+                        <a href="./xzmapdh.html?srclng={{data.Lng}}&srclat={{data.Lat}}"><em>点击查看</em></a>
+                    </div>
+                </div>
+                <div class="item">
+                    <label for="">产&nbsp;&nbsp;权:</label>
+                    <div class="message">{{data.PlaceOwnerName}}</div>
+                </div>
+                <div class="item">
+                    <label for="">重要性程度:</label>
+                    <div class="message">{{data.ImportanceName}}</div>
+                </div>
+                <div class="item">
+                    <label for="">租赁人:</label>
+                    <div class="message">{{data.AddressingRealName}}</div>
+                </div>
+                <div class="item">
+                    <label for="">业主名称:</label>
+                    <div class="message">{{data.OwnerName}}</div>
+                </div>
+                <div class="item">
+                    <label for="">联系方式:</label>
+                    <div class="message">{{data.OwnerPhoneNumber}}</div>
+                </div>
+                <div class="item">
+                    <label for="">2G逻辑号:</label>
+                    <div class="message">{{data.G2Number}}</div>
+                </div>
+                <div class="item">
+                    <label for="">3G逻辑号:</label>
+                    <div class="message">{{data.G3Number}}</div>
+                </div>
+                <div class="item">
+                    <label for="">4G逻辑号:</label>
+                    <div class="message">{{data.G4Number}}</div>
+                </div>
+            </script>
+        </div>
+    </div>
+    <script type="text/javascript" src="../scripts/vendors.js?d929f52dcc155c46116b"></script>
+    <script type="text/javascript" src="../scripts/circumdetail.js?d929f52dcc155c46116b"></script>
+</body>
+</html>

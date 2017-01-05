@@ -46,6 +46,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="obj\Debug\TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" />
+    <Compile Include="obj\Debug\TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs" />
+    <Compile Include="obj\Debug\TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs" />
+    <Compile Include="obj\Release\TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" />
+    <Compile Include="obj\Release\TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs" />
+    <Compile Include="obj\Release\TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -153,10 +159,85 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="obj\Debug\DesignTimeResolveAssemblyReferencesInput.cache" />
+    <None Include="obj\Debug\PDBM.ApplicationService.csprojResolveAssemblyReference.cache" />
+    <None Include="obj\Release\DesignTimeResolveAssemblyReferencesInput.cache" />
+    <None Include="obj\Release\PDBM.ApplicationService.csprojResolveAssemblyReference.cache" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="bin\Debug\EmitMapper.dll" />
+    <Content Include="bin\Debug\log4net.dll" />
+    <Content Include="bin\Debug\log4net.xml" />
+    <Content Include="bin\Debug\Microsoft.Practices.EnterpriseLibrary.Common.dll" />
+    <Content Include="bin\Debug\Microsoft.Practices.EnterpriseLibrary.Common.xml" />
+    <Content Include="bin\Debug\Microsoft.Practices.EnterpriseLibrary.Data.dll" />
+    <Content Include="bin\Debug\Microsoft.Practices.EnterpriseLibrary.Data.xml" />
+    <Content Include="bin\Debug\Microsoft.Practices.Unity.Configuration.dll" />
+    <Content Include="bin\Debug\Microsoft.Practices.Unity.Configuration.xml" />
+    <Content Include="bin\Debug\Microsoft.Practices.Unity.dll" />
+    <Content Include="bin\Debug\Microsoft.Practices.Unity.Interception.dll" />
+    <Content Include="bin\Debug\Microsoft.Practices.Unity.Interception.xml" />
+    <Content Include="bin\Debug\Microsoft.Practices.Unity.xml" />
+    <Content Include="bin\Debug\Newtonsoft.Json.dll" />
+    <Content Include="bin\Debug\Newtonsoft.Json.xml" />
+    <Content Include="bin\Debug\PDBM.ApplicationService.dll" />
+    <Content Include="bin\Debug\PDBM.ApplicationService.pdb" />
+    <Content Include="bin\Debug\PDBM.DataTransferObjects.dll" />
+    <Content Include="bin\Debug\PDBM.DataTransferObjects.pdb" />
+    <Content Include="bin\Debug\PDBM.Domain.dll" />
+    <Content Include="bin\Debug\PDBM.Domain.pdb" />
+    <Content Include="bin\Debug\PDBM.Infrastructure.dll" />
+    <Content Include="bin\Debug\PDBM.Infrastructure.pdb" />
+    <Content Include="bin\Debug\PDBM.ServiceContracts.dll" />
+    <Content Include="bin\Debug\PDBM.ServiceContracts.pdb" />
+    <Content Include="bin\Debug\protobuf-net.dll" />
+    <Content Include="bin\Debug\protobuf-net.pdb" />
+    <Content Include="bin\Debug\protobuf-net.xml" />
+    <Content Include="bin\Release\EmitMapper.dll" />
+    <Content Include="bin\Release\log4net.dll" />
+    <Content Include="bin\Release\log4net.xml" />
+    <Content Include="bin\Release\Microsoft.Practices.EnterpriseLibrary.Common.dll" />
+    <Content Include="bin\Release\Microsoft.Practices.EnterpriseLibrary.Common.xml" />
+    <Content Include="bin\Release\Microsoft.Practices.EnterpriseLibrary.Data.dll" />
+    <Content Include="bin\Release\Microsoft.Practices.EnterpriseLibrary.Data.xml" />
+    <Content Include="bin\Release\Microsoft.Practices.Unity.Configuration.dll" />
+    <Content Include="bin\Release\Microsoft.Practices.Unity.Configuration.xml" />
+    <Content Include="bin\Release\Microsoft.Practices.Unity.dll" />
+    <Content Include="bin\Release\Microsoft.Practices.Unity.Interception.dll" />
+    <Content Include="bin\Release\Microsoft.Practices.Unity.Interception.xml" />
+    <Content Include="bin\Release\Microsoft.Practices.Unity.xml" />
+    <Content Include="bin\Release\Newtonsoft.Json.dll" />
+    <Content Include="bin\Release\Newtonsoft.Json.xml" />
+    <Content Include="bin\Release\PDBM.ApplicationService.dll" />
+    <Content Include="bin\Release\PDBM.ApplicationService.pdb" />
+    <Content Include="bin\Release\PDBM.DataTransferObjects.dll" />
+    <Content Include="bin\Release\PDBM.DataTransferObjects.pdb" />
+    <Content Include="bin\Release\PDBM.Domain.dll" />
+    <Content Include="bin\Release\PDBM.Domain.pdb" />
+    <Content Include="bin\Release\PDBM.Infrastructure.dll" />
+    <Content Include="bin\Release\PDBM.Infrastructure.pdb" />
+    <Content Include="bin\Release\PDBM.ServiceContracts.dll" />
+    <Content Include="bin\Release\PDBM.ServiceContracts.pdb" />
+    <Content Include="bin\Release\protobuf-net.dll" />
+    <Content Include="bin\Release\protobuf-net.pdb" />
+    <Content Include="bin\Release\protobuf-net.xml" />
+    <Content Include="obj\Debug\PDBM.ApplicationService.csproj.FileListAbsolute.txt" />
+    <Content Include="obj\Debug\PDBM.ApplicationService.dll" />
+    <Content Include="obj\Debug\PDBM.ApplicationService.pdb" />
+    <Content Include="obj\Debug\TempPE\Service References.PDWebService.Reference.cs.dll" />
+    <Content Include="obj\Debug\TempPE\Service References.ServiceReference1.Reference.cs.dll" />
+    <Content Include="obj\Debug\TempPE\Service References.ServiceReference2.Reference.cs.dll" />
+    <Content Include="obj\Debug\TempPE\Web References.WebReference.Reference.cs.dll" />
+    <Content Include="obj\Release\PDBM.ApplicationService.csproj.FileListAbsolute.txt" />
+    <Content Include="obj\Release\PDBM.ApplicationService.dll" />
+    <Content Include="obj\Release\PDBM.ApplicationService.pdb" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="obj\Release\TempPE\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

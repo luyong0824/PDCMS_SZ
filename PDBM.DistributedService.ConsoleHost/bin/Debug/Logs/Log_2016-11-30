@@ -1,0 +1,9 @@
+--------------------------------Time:2016-11-30 13:31:38,477--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.ArgumentException: 无效的filePath
+   在 PDBM.Infrastructure.Utils.FileHelper.FileToStream(String filePath) 位置 e:\PDCMS_SZ\PDBM.Infrastructure\Utils\FileHelper.cs:行号 65
+   在 PDBM.ApplicationService.Services.FileMgmt.FileService.DownloadFile(String filePath)
+   在 DynamicModule.ns.Wrapped_IFileService_d0c2e874a88948aaa7ab539e9a211f61.<DownloadFile_DelegateImplementation>__1(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+

@@ -1,0 +1,36 @@
+﻿<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+    <title>规划站点</title>
+    <script src="https://api.map.baidu.com/api?v=2.0&ak=myGpMwuxu7Lf3IjBrYGiAuPwC3fzjoZF"></script>
+    <link href="../styles/vendors.css?d929f52dcc155c46116b" rel="stylesheet">
+</head>
+<body>
+    <div class="zdxgyjpmap"><div class="container" id="container"></div></div><div class="circum-detail" id="siteDetail" style="display: none" ontouchmove="return false;">
+        <div class="layer" id="layerBox">
+            <script id="layerBoxTemp" type="text/html">
+                <div class="item">
+                    <label for="">站点名称:<em>{{data.PlanningName}}</em></label>
+                    <a href="./zdxgghdetail.html?guid={{data.Id}}">详细</a>
+                </div>
+                <div class="item">
+                    <label for="">类型:<em>{{data.PlaceCategoryName}}</em></label>
+                </div>
+                <div class="item">
+                    <label for="">网格:<em>{{data.ReseauName}}</em></label>
+                </div>
+                <div class="item">
+                    <label>产权:<em>{{data.PlaceOwnerName}}</em></label>
+                </div>
+                <div class="item">
+                    <label>已有网络:<em>{{data.NetWorks}}</em></label>
+                </div>
+            </script>
+        </div>
+    </div><div class="circum-detail-layer" id="siteLayer" style="display: none" ontouchmove="return false;"></div>
+    <script type="text/javascript" src="../scripts/vendors.js?d929f52dcc155c46116b"></script>
+    <script type="text/javascript" src="../scripts/zdxgghmap.js?d929f52dcc155c46116b"></script>
+</body>
+</html>

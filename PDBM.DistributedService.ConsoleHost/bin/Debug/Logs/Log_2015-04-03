@@ -1,0 +1,201 @@
+--------------------------------Time:2015-04-03 14:28:06,876--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.Data.OleDb.OleDbException (0x80004005): 'Sheet1$' 不是一个有效名称。请确认它不包含无效的字符或标点，且名称不太长。
+   在 System.Data.OleDb.OleDbCommand.ExecuteCommandTextErrorHandling(OleDbHResult hr)
+   在 System.Data.OleDb.OleDbCommand.ExecuteCommandTextForSingleResult(tagDBPARAMS dbParams, Object& executeResult)
+   在 System.Data.OleDb.OleDbCommand.ExecuteCommandText(Object& executeResult)
+   在 System.Data.OleDb.OleDbCommand.ExecuteCommand(CommandBehavior behavior, Object& executeResult)
+   在 System.Data.OleDb.OleDbCommand.ExecuteReaderInternal(CommandBehavior behavior, String method)
+   在 System.Data.OleDb.OleDbCommand.ExecuteReader(CommandBehavior behavior)
+   在 System.Data.OleDb.OleDbCommand.System.Data.IDbCommand.ExecuteReader(CommandBehavior behavior)
+   在 System.Data.Common.DbDataAdapter.FillInternal(DataSet dataset, DataTable[] datatables, Int32 startRecord, Int32 maxRecords, String srcTable, IDbCommand command, CommandBehavior behavior)
+   在 System.Data.Common.DbDataAdapter.Fill(DataTable[] dataTables, Int32 startRecord, Int32 maxRecords, IDbCommand command, CommandBehavior behavior)
+   在 System.Data.Common.DbDataAdapter.Fill(DataTable dataTable)
+   在 PDBM.Infrastructure.Utils.ExcelHelper.ExcelToDataTable(String filePath, String sheetName) 位置 e:\PDSOFT\PDBM\PDBM.Infrastructure\Utils\ExcelHelper.cs:行号 25
+   在 PDBM.ApplicationService.Services.DataImport.DataImportService.ImportOperatorsSharingBS(Guid excelFileId, Guid createUserId, Guid companyId, Int32 currentCompanyNature)
+   在 DynamicModule.ns.Wrapped_IDataImportService_9c0eb3611247438eaae5ac4a0c2e9fff.<ImportOperatorsSharingBS_DelegateImplementation>__1(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+
+--------------------------------Time:2015-04-03 14:29:42,834--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.Data.OleDb.OleDbException (0x80004005): 'Sheet1$' 不是一个有效名称。请确认它不包含无效的字符或标点，且名称不太长。
+   在 System.Data.OleDb.OleDbCommand.ExecuteCommandTextErrorHandling(OleDbHResult hr)
+   在 System.Data.OleDb.OleDbCommand.ExecuteCommandTextForSingleResult(tagDBPARAMS dbParams, Object& executeResult)
+   在 System.Data.OleDb.OleDbCommand.ExecuteCommandText(Object& executeResult)
+   在 System.Data.OleDb.OleDbCommand.ExecuteCommand(CommandBehavior behavior, Object& executeResult)
+   在 System.Data.OleDb.OleDbCommand.ExecuteReaderInternal(CommandBehavior behavior, String method)
+   在 System.Data.OleDb.OleDbCommand.ExecuteReader(CommandBehavior behavior)
+   在 System.Data.OleDb.OleDbCommand.System.Data.IDbCommand.ExecuteReader(CommandBehavior behavior)
+   在 System.Data.Common.DbDataAdapter.FillInternal(DataSet dataset, DataTable[] datatables, Int32 startRecord, Int32 maxRecords, String srcTable, IDbCommand command, CommandBehavior behavior)
+   在 System.Data.Common.DbDataAdapter.Fill(DataTable[] dataTables, Int32 startRecord, Int32 maxRecords, IDbCommand command, CommandBehavior behavior)
+   在 System.Data.Common.DbDataAdapter.Fill(DataTable dataTable)
+   在 PDBM.Infrastructure.Utils.ExcelHelper.ExcelToDataTable(String filePath, String sheetName) 位置 e:\PDSOFT\PDBM\PDBM.Infrastructure\Utils\ExcelHelper.cs:行号 25
+   在 PDBM.ApplicationService.Services.DataImport.DataImportService.ImportOperatorsSharingBS(Guid excelFileId, Guid createUserId, Guid companyId, Int32 currentCompanyNature)
+   在 DynamicModule.ns.Wrapped_IDataImportService_9c0eb3611247438eaae5ac4a0c2e9fff.<ImportOperatorsSharingBS_DelegateImplementation>__1(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+
+--------------------------------Time:2015-04-03 14:29:45,480--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.Data.OleDb.OleDbException (0x80004005): 'Sheet1$' 不是一个有效名称。请确认它不包含无效的字符或标点，且名称不太长。
+   在 System.Data.OleDb.OleDbCommand.ExecuteCommandTextErrorHandling(OleDbHResult hr)
+   在 System.Data.OleDb.OleDbCommand.ExecuteCommandTextForSingleResult(tagDBPARAMS dbParams, Object& executeResult)
+   在 System.Data.OleDb.OleDbCommand.ExecuteCommandText(Object& executeResult)
+   在 System.Data.OleDb.OleDbCommand.ExecuteCommand(CommandBehavior behavior, Object& executeResult)
+   在 System.Data.OleDb.OleDbCommand.ExecuteReaderInternal(CommandBehavior behavior, String method)
+   在 System.Data.OleDb.OleDbCommand.ExecuteReader(CommandBehavior behavior)
+   在 System.Data.OleDb.OleDbCommand.System.Data.IDbCommand.ExecuteReader(CommandBehavior behavior)
+   在 System.Data.Common.DbDataAdapter.FillInternal(DataSet dataset, DataTable[] datatables, Int32 startRecord, Int32 maxRecords, String srcTable, IDbCommand command, CommandBehavior behavior)
+   在 System.Data.Common.DbDataAdapter.Fill(DataTable[] dataTables, Int32 startRecord, Int32 maxRecords, IDbCommand command, CommandBehavior behavior)
+   在 System.Data.Common.DbDataAdapter.Fill(DataTable dataTable)
+   在 PDBM.Infrastructure.Utils.ExcelHelper.ExcelToDataTable(String filePath, String sheetName) 位置 e:\PDSOFT\PDBM\PDBM.Infrastructure\Utils\ExcelHelper.cs:行号 25
+   在 PDBM.ApplicationService.Services.DataImport.DataImportService.ImportOperatorsSharingBS(Guid excelFileId, Guid createUserId, Guid companyId, Int32 currentCompanyNature)
+   在 DynamicModule.ns.Wrapped_IDataImportService_9c0eb3611247438eaae5ac4a0c2e9fff.<ImportOperatorsSharingBS_DelegateImplementation>__1(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+
+--------------------------------Time:2015-04-03 14:30:12,045--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.Data.OleDb.OleDbException (0x80004005): 'Sheet1$' 不是一个有效名称。请确认它不包含无效的字符或标点，且名称不太长。
+   在 System.Data.OleDb.OleDbCommand.ExecuteCommandTextErrorHandling(OleDbHResult hr)
+   在 System.Data.OleDb.OleDbCommand.ExecuteCommandTextForSingleResult(tagDBPARAMS dbParams, Object& executeResult)
+   在 System.Data.OleDb.OleDbCommand.ExecuteCommandText(Object& executeResult)
+   在 System.Data.OleDb.OleDbCommand.ExecuteCommand(CommandBehavior behavior, Object& executeResult)
+   在 System.Data.OleDb.OleDbCommand.ExecuteReaderInternal(CommandBehavior behavior, String method)
+   在 System.Data.OleDb.OleDbCommand.ExecuteReader(CommandBehavior behavior)
+   在 System.Data.OleDb.OleDbCommand.System.Data.IDbCommand.ExecuteReader(CommandBehavior behavior)
+   在 System.Data.Common.DbDataAdapter.FillInternal(DataSet dataset, DataTable[] datatables, Int32 startRecord, Int32 maxRecords, String srcTable, IDbCommand command, CommandBehavior behavior)
+   在 System.Data.Common.DbDataAdapter.Fill(DataTable[] dataTables, Int32 startRecord, Int32 maxRecords, IDbCommand command, CommandBehavior behavior)
+   在 System.Data.Common.DbDataAdapter.Fill(DataTable dataTable)
+   在 PDBM.Infrastructure.Utils.ExcelHelper.ExcelToDataTable(String filePath, String sheetName) 位置 e:\PDSOFT\PDBM\PDBM.Infrastructure\Utils\ExcelHelper.cs:行号 25
+   在 PDBM.ApplicationService.Services.DataImport.DataImportService.ImportOperatorsSharingBS(Guid excelFileId, Guid createUserId, Guid companyId, Int32 currentCompanyNature)
+   在 DynamicModule.ns.Wrapped_IDataImportService_9c0eb3611247438eaae5ac4a0c2e9fff.<ImportOperatorsSharingBS_DelegateImplementation>__1(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+
+--------------------------------Time:2015-04-03 14:30:55,231--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.Data.OleDb.OleDbException (0x80004005): 'Sheet1$' 不是一个有效名称。请确认它不包含无效的字符或标点，且名称不太长。
+   在 System.Data.OleDb.OleDbCommand.ExecuteCommandTextErrorHandling(OleDbHResult hr)
+   在 System.Data.OleDb.OleDbCommand.ExecuteCommandTextForSingleResult(tagDBPARAMS dbParams, Object& executeResult)
+   在 System.Data.OleDb.OleDbCommand.ExecuteCommandText(Object& executeResult)
+   在 System.Data.OleDb.OleDbCommand.ExecuteCommand(CommandBehavior behavior, Object& executeResult)
+   在 System.Data.OleDb.OleDbCommand.ExecuteReaderInternal(CommandBehavior behavior, String method)
+   在 System.Data.OleDb.OleDbCommand.ExecuteReader(CommandBehavior behavior)
+   在 System.Data.OleDb.OleDbCommand.System.Data.IDbCommand.ExecuteReader(CommandBehavior behavior)
+   在 System.Data.Common.DbDataAdapter.FillInternal(DataSet dataset, DataTable[] datatables, Int32 startRecord, Int32 maxRecords, String srcTable, IDbCommand command, CommandBehavior behavior)
+   在 System.Data.Common.DbDataAdapter.Fill(DataTable[] dataTables, Int32 startRecord, Int32 maxRecords, IDbCommand command, CommandBehavior behavior)
+   在 System.Data.Common.DbDataAdapter.Fill(DataTable dataTable)
+   在 PDBM.Infrastructure.Utils.ExcelHelper.ExcelToDataTable(String filePath, String sheetName) 位置 e:\PDSOFT\PDBM\PDBM.Infrastructure\Utils\ExcelHelper.cs:行号 25
+   在 PDBM.ApplicationService.Services.DataImport.DataImportService.ImportOperatorsSharingBS(Guid excelFileId, Guid createUserId, Guid companyId, Int32 currentCompanyNature)
+   在 DynamicModule.ns.Wrapped_IDataImportService_9c0eb3611247438eaae5ac4a0c2e9fff.<ImportOperatorsSharingBS_DelegateImplementation>__1(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+
+--------------------------------Time:2015-04-03 14:32:53,501--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.Data.OleDb.OleDbException (0x80004005): 'Sheet1$' 不是一个有效名称。请确认它不包含无效的字符或标点，且名称不太长。
+   在 System.Data.OleDb.OleDbCommand.ExecuteCommandTextErrorHandling(OleDbHResult hr)
+   在 System.Data.OleDb.OleDbCommand.ExecuteCommandTextForSingleResult(tagDBPARAMS dbParams, Object& executeResult)
+   在 System.Data.OleDb.OleDbCommand.ExecuteCommandText(Object& executeResult)
+   在 System.Data.OleDb.OleDbCommand.ExecuteCommand(CommandBehavior behavior, Object& executeResult)
+   在 System.Data.OleDb.OleDbCommand.ExecuteReaderInternal(CommandBehavior behavior, String method)
+   在 System.Data.OleDb.OleDbCommand.ExecuteReader(CommandBehavior behavior)
+   在 System.Data.OleDb.OleDbCommand.System.Data.IDbCommand.ExecuteReader(CommandBehavior behavior)
+   在 System.Data.Common.DbDataAdapter.FillInternal(DataSet dataset, DataTable[] datatables, Int32 startRecord, Int32 maxRecords, String srcTable, IDbCommand command, CommandBehavior behavior)
+   在 System.Data.Common.DbDataAdapter.Fill(DataTable[] dataTables, Int32 startRecord, Int32 maxRecords, IDbCommand command, CommandBehavior behavior)
+   在 System.Data.Common.DbDataAdapter.Fill(DataTable dataTable)
+   在 PDBM.Infrastructure.Utils.ExcelHelper.ExcelToDataTable(String filePath, String sheetName) 位置 e:\PDSOFT\PDBM\PDBM.Infrastructure\Utils\ExcelHelper.cs:行号 25
+   在 PDBM.ApplicationService.Services.DataImport.DataImportService.ImportOperatorsSharingBS(Guid excelFileId, Guid createUserId, Guid companyId, Int32 currentCompanyNature)
+   在 DynamicModule.ns.Wrapped_IDataImportService_9c0eb3611247438eaae5ac4a0c2e9fff.<ImportOperatorsSharingBS_DelegateImplementation>__1(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+
+--------------------------------Time:2015-04-03 14:55:58,754--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.Data.OleDb.OleDbException (0x80004005): 'Sheet1$' 不是一个有效名称。请确认它不包含无效的字符或标点，且名称不太长。
+   在 System.Data.OleDb.OleDbCommand.ExecuteCommandTextErrorHandling(OleDbHResult hr)
+   在 System.Data.OleDb.OleDbCommand.ExecuteCommandTextForSingleResult(tagDBPARAMS dbParams, Object& executeResult)
+   在 System.Data.OleDb.OleDbCommand.ExecuteCommandText(Object& executeResult)
+   在 System.Data.OleDb.OleDbCommand.ExecuteCommand(CommandBehavior behavior, Object& executeResult)
+   在 System.Data.OleDb.OleDbCommand.ExecuteReaderInternal(CommandBehavior behavior, String method)
+   在 System.Data.OleDb.OleDbCommand.ExecuteReader(CommandBehavior behavior)
+   在 System.Data.OleDb.OleDbCommand.System.Data.IDbCommand.ExecuteReader(CommandBehavior behavior)
+   在 System.Data.Common.DbDataAdapter.FillInternal(DataSet dataset, DataTable[] datatables, Int32 startRecord, Int32 maxRecords, String srcTable, IDbCommand command, CommandBehavior behavior)
+   在 System.Data.Common.DbDataAdapter.Fill(DataTable[] dataTables, Int32 startRecord, Int32 maxRecords, IDbCommand command, CommandBehavior behavior)
+   在 System.Data.Common.DbDataAdapter.Fill(DataTable dataTable)
+   在 PDBM.Infrastructure.Utils.ExcelHelper.ExcelToDataTable(String filePath, String sheetName) 位置 e:\PDSOFT\PDBM\PDBM.Infrastructure\Utils\ExcelHelper.cs:行号 25
+   在 PDBM.ApplicationService.Services.DataImport.DataImportService.ImportOperatorsPlanningBS(Guid excelFileId, Guid createUserId, Guid companyId, Int32 currentCompanyNature)
+   在 DynamicModule.ns.Wrapped_IDataImportService_2a7d7adaef6b4eb395976589702495ee.<ImportOperatorsPlanningBS_DelegateImplementation>__0(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+
+--------------------------------Time:2015-04-03 15:07:09,383--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.InvalidOperationException: GetOleDbSchemaTable 要求已打开且可用的 Connection。连接的当前状态为已关闭。
+   在 System.Data.OleDb.OleDbConnection.CheckStateOpen(String method)
+   在 System.Data.OleDb.OleDbConnection.GetOleDbSchemaTable(Guid schema, Object[] restrictions)
+   在 PDBM.Infrastructure.Utils.ExcelHelper.ExcelToDataTable(String filePath, String sheetName) 位置 e:\PDSOFT\PDBM\PDBM.Infrastructure\Utils\ExcelHelper.cs:行号 21
+   在 PDBM.ApplicationService.Services.DataImport.DataImportService.ImportOperatorsPlanningBS(Guid excelFileId, Guid createUserId, Guid companyId, Int32 currentCompanyNature)
+   在 DynamicModule.ns.Wrapped_IDataImportService_4bece5da838a45738ac842000d59b02c.<ImportOperatorsPlanningBS_DelegateImplementation>__0(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+
+--------------------------------Time:2015-04-03 15:10:12,219--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.InvalidOperationException: GetOleDbSchemaTable 要求已打开且可用的 Connection。连接的当前状态为已关闭。
+   在 System.Data.OleDb.OleDbConnection.CheckStateOpen(String method)
+   在 System.Data.OleDb.OleDbConnection.GetOleDbSchemaTable(Guid schema, Object[] restrictions)
+   在 PDBM.Infrastructure.Utils.ExcelHelper.ExcelToDataTable(String filePath, String sheetName) 位置 e:\PDSOFT\PDBM\PDBM.Infrastructure\Utils\ExcelHelper.cs:行号 21
+   在 PDBM.ApplicationService.Services.DataImport.DataImportService.ImportOperatorsPlanningBS(Guid excelFileId, Guid createUserId, Guid companyId, Int32 currentCompanyNature)
+   在 DynamicModule.ns.Wrapped_IDataImportService_a02ee10a7c7b4adb96de9f8584b5022c.<ImportOperatorsPlanningBS_DelegateImplementation>__0(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+
+--------------------------------Time:2015-04-03 15:13:36,476--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.Data.OleDb.OleDbException (0x80004005): 'Sheet1$' 不是一个有效名称。请确认它不包含无效的字符或标点，且名称不太长。
+   在 System.Data.OleDb.OleDbCommand.ExecuteCommandTextErrorHandling(OleDbHResult hr)
+   在 System.Data.OleDb.OleDbCommand.ExecuteCommandTextForSingleResult(tagDBPARAMS dbParams, Object& executeResult)
+   在 System.Data.OleDb.OleDbCommand.ExecuteCommandText(Object& executeResult)
+   在 System.Data.OleDb.OleDbCommand.ExecuteCommand(CommandBehavior behavior, Object& executeResult)
+   在 System.Data.OleDb.OleDbCommand.ExecuteReaderInternal(CommandBehavior behavior, String method)
+   在 System.Data.OleDb.OleDbCommand.ExecuteReader(CommandBehavior behavior)
+   在 System.Data.OleDb.OleDbCommand.System.Data.IDbCommand.ExecuteReader(CommandBehavior behavior)
+   在 System.Data.Common.DbDataAdapter.FillInternal(DataSet dataset, DataTable[] datatables, Int32 startRecord, Int32 maxRecords, String srcTable, IDbCommand command, CommandBehavior behavior)
+   在 System.Data.Common.DbDataAdapter.Fill(DataTable[] dataTables, Int32 startRecord, Int32 maxRecords, IDbCommand command, CommandBehavior behavior)
+   在 System.Data.Common.DbDataAdapter.Fill(DataTable dataTable)
+   在 PDBM.Infrastructure.Utils.ExcelHelper.ExcelToDataTable(String filePath, String sheetName) 位置 e:\PDSOFT\PDBM\PDBM.Infrastructure\Utils\ExcelHelper.cs:行号 28
+   在 PDBM.ApplicationService.Services.DataImport.DataImportService.ImportOperatorsPlanningBS(Guid excelFileId, Guid createUserId, Guid companyId, Int32 currentCompanyNature)
+   在 DynamicModule.ns.Wrapped_IDataImportService_b7c01d97315b4a9289fed3ae17e25590.<ImportOperatorsPlanningBS_DelegateImplementation>__0(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+
+--------------------------------Time:2015-04-03 15:22:10,003--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.ArgumentException: Excel文件中不存在名称为Sheet1的工作表
+   在 PDBM.Infrastructure.Utils.ExcelHelper.ExcelToDataTable(String filePath, String sheetName) 位置 e:\PDSOFT\PDBM\PDBM.Infrastructure\Utils\ExcelHelper.cs:行号 45
+   在 PDBM.ApplicationService.Services.DataImport.DataImportService.ImportOperatorsPlanningBS(Guid excelFileId, Guid createUserId, Guid companyId, Int32 currentCompanyNature)
+   在 DynamicModule.ns.Wrapped_IDataImportService_2d63533b1d864670a50cff9e16220196.<ImportOperatorsPlanningBS_DelegateImplementation>__0(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+
+--------------------------------Time:2015-04-03 15:22:21,900--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.ArgumentException: Excel文件中不存在名称为Sheet1的工作表
+   在 PDBM.Infrastructure.Utils.ExcelHelper.ExcelToDataTable(String filePath, String sheetName) 位置 e:\PDSOFT\PDBM\PDBM.Infrastructure\Utils\ExcelHelper.cs:行号 45
+   在 PDBM.ApplicationService.Services.DataImport.DataImportService.ImportOperatorsPlanningBS(Guid excelFileId, Guid createUserId, Guid companyId, Int32 currentCompanyNature)
+   在 DynamicModule.ns.Wrapped_IDataImportService_2d63533b1d864670a50cff9e16220196.<ImportOperatorsPlanningBS_DelegateImplementation>__0(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+
+--------------------------------Time:2015-04-03 15:25:44,797--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.ArgumentException: Excel文件中不存在名称为Sheet1的工作表
+   在 PDBM.Infrastructure.Utils.ExcelHelper.ExcelToDataTable(String filePath, String sheetName) 位置 e:\PDSOFT\PDBM\PDBM.Infrastructure\Utils\ExcelHelper.cs:行号 45
+   在 PDBM.ApplicationService.Services.DataImport.DataImportService.ImportOperatorsPlanningBS(Guid excelFileId, Guid createUserId, Guid companyId, Int32 currentCompanyNature)
+   在 DynamicModule.ns.Wrapped_IDataImportService_f7054b106532439cbf1548bb02ed1fa7.<ImportOperatorsPlanningBS_DelegateImplementation>__0(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+

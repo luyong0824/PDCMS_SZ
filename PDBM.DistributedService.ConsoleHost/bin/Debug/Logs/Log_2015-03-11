@@ -1,0 +1,505 @@
+--------------------------------Time:2015-03-11 13:19:39,559--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.Data.SqlClient.SqlException (0x80131904): 找不到存储过程 'prc_GetMenuInfoByUserId'。
+   在 System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   在 System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   在 System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   在 System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   在 System.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   在 System.Data.SqlClient.SqlDataReader.get_MetaData()
+   在 System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString)
+   在 System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, SqlDataReader ds)
+   在 System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean asyncWrite)
+   在 System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   在 System.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior, String method)
+   在 System.Data.SqlClient.SqlCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   在 System.Data.Common.DbCommand.System.Data.IDbCommand.ExecuteReader(CommandBehavior behavior)
+   在 System.Data.Common.DbDataAdapter.FillInternal(DataSet dataset, DataTable[] datatables, Int32 startRecord, Int32 maxRecords, String srcTable, IDbCommand command, CommandBehavior behavior)
+   在 System.Data.Common.DbDataAdapter.Fill(DataSet dataSet, Int32 startRecord, Int32 maxRecords, String srcTable, IDbCommand command, CommandBehavior behavior)
+   在 System.Data.Common.DbDataAdapter.Fill(DataSet dataSet)
+   在 Microsoft.Practices.EnterpriseLibrary.Data.Database.DoLoadDataSet(IDbCommand command, DataSet dataSet, String[] tableNames)
+   在 Microsoft.Practices.EnterpriseLibrary.Data.Database.LoadDataSet(DbCommand command, DataSet dataSet, String[] tableNames)
+   在 Microsoft.Practices.EnterpriseLibrary.Data.Database.LoadDataSet(DbCommand command, DataSet dataSet, String tableName)
+   在 Microsoft.Practices.EnterpriseLibrary.Data.Database.ExecuteDataSet(DbCommand command)
+   在 PDBM.Infrastructure.DataAccess.EnterpriseLibrary.SqlHelper.ExecuteDataTable(String procName, IList`1 parameters) 位置 e:\PDSOFT\PDBM\PDBM.Infrastructure\DataAccess\EnterpriseLibrary\SqlHelper.cs:行号 33
+   在 PDBM.ApplicationService.Services.BaseData.MenuService.GetMenuInfo(Guid userId)
+   在 DynamicModule.ns.Wrapped_IMenuService_90b8a70ba5bf451794694c28dc098f45.<GetMenuInfo_DelegateImplementation>__0(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+ClientConnectionId:1cdea807-0d8f-4fa1-947e-891f34b8a3f1
+Error Number:2812,State:62,Class:16
+--------------------------------END--------------------------------
+
+--------------------------------Time:2015-03-11 13:57:04,894--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.InvalidOperationException: The changes to the database were committed successfully, but an error occurred while updating the object context. The ObjectContext might be in an inconsistent state. Inner exception message: A referential integrity constraint violation occurred: The property value(s) of 'Planning.Id' on one end of a relationship do not match the property value(s) of 'OperatorsPlanning.PlanningId' on the other end. ---> System.InvalidOperationException: A referential integrity constraint violation occurred: The property value(s) of 'Planning.Id' on one end of a relationship do not match the property value(s) of 'OperatorsPlanning.PlanningId' on the other end.
+   在 System.Data.Entity.Core.Objects.DataClasses.RelatedEnd.CheckReferentialConstraintProperties(EntityEntry ownerEntry)
+   在 System.Data.Entity.Core.Objects.DataClasses.RelationshipManager.CheckReferentialConstraintProperties(EntityEntry ownerEntry)
+   在 System.Data.Entity.Core.Objects.EntityEntry.AcceptChanges()
+   在 System.Data.Entity.Core.Objects.ObjectContext.AcceptAllChanges()
+   在 System.Data.Entity.Core.Objects.ObjectContext.SaveChangesToStore(SaveOptions options, IDbExecutionStrategy executionStrategy, Boolean startLocalTransaction)
+   --- 内部异常堆栈跟踪的结尾 ---
+   在 PDBM.ApplicationService.Services.BMMgmt.OperatorsPlanningService.Associate(Guid planningId, Guid currentUserId, IList`1 operatorsPlanningMaintObjects)
+   在 DynamicModule.ns.Wrapped_IOperatorsPlanningService_5bee07191b3146f3bf9d3cf431557962.<Associate_DelegateImplementation>__5(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+
+--------------------------------Time:2015-03-11 13:57:44,997--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.InvalidOperationException: The changes to the database were committed successfully, but an error occurred while updating the object context. The ObjectContext might be in an inconsistent state. Inner exception message: A referential integrity constraint violation occurred: The property value(s) of 'Planning.Id' on one end of a relationship do not match the property value(s) of 'OperatorsPlanning.PlanningId' on the other end. ---> System.InvalidOperationException: A referential integrity constraint violation occurred: The property value(s) of 'Planning.Id' on one end of a relationship do not match the property value(s) of 'OperatorsPlanning.PlanningId' on the other end.
+   在 System.Data.Entity.Core.Objects.DataClasses.RelatedEnd.CheckReferentialConstraintProperties(EntityEntry ownerEntry)
+   在 System.Data.Entity.Core.Objects.DataClasses.RelationshipManager.CheckReferentialConstraintProperties(EntityEntry ownerEntry)
+   在 System.Data.Entity.Core.Objects.EntityEntry.AcceptChanges()
+   在 System.Data.Entity.Core.Objects.ObjectContext.AcceptAllChanges()
+   在 System.Data.Entity.Core.Objects.ObjectContext.SaveChangesToStore(SaveOptions options, IDbExecutionStrategy executionStrategy, Boolean startLocalTransaction)
+   --- 内部异常堆栈跟踪的结尾 ---
+   在 PDBM.ApplicationService.Services.BMMgmt.OperatorsPlanningService.Associate(Guid planningId, Guid currentUserId, IList`1 operatorsPlanningMaintObjects)
+   在 DynamicModule.ns.Wrapped_IOperatorsPlanningService_5bee07191b3146f3bf9d3cf431557962.<Associate_DelegateImplementation>__5(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+
+--------------------------------Time:2015-03-11 13:58:36,844--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.InvalidOperationException: The changes to the database were committed successfully, but an error occurred while updating the object context. The ObjectContext might be in an inconsistent state. Inner exception message: A referential integrity constraint violation occurred: The property value(s) of 'Planning.Id' on one end of a relationship do not match the property value(s) of 'OperatorsPlanning.PlanningId' on the other end. ---> System.InvalidOperationException: A referential integrity constraint violation occurred: The property value(s) of 'Planning.Id' on one end of a relationship do not match the property value(s) of 'OperatorsPlanning.PlanningId' on the other end.
+   在 System.Data.Entity.Core.Objects.DataClasses.RelatedEnd.CheckReferentialConstraintProperties(EntityEntry ownerEntry)
+   在 System.Data.Entity.Core.Objects.DataClasses.RelationshipManager.CheckReferentialConstraintProperties(EntityEntry ownerEntry)
+   在 System.Data.Entity.Core.Objects.EntityEntry.AcceptChanges()
+   在 System.Data.Entity.Core.Objects.ObjectContext.AcceptAllChanges()
+   在 System.Data.Entity.Core.Objects.ObjectContext.SaveChangesToStore(SaveOptions options, IDbExecutionStrategy executionStrategy, Boolean startLocalTransaction)
+   --- 内部异常堆栈跟踪的结尾 ---
+   在 PDBM.ApplicationService.Services.BMMgmt.OperatorsPlanningService.Associate(Guid planningId, Guid currentUserId, IList`1 operatorsPlanningMaintObjects)
+   在 DynamicModule.ns.Wrapped_IOperatorsPlanningService_5bee07191b3146f3bf9d3cf431557962.<Associate_DelegateImplementation>__5(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+
+--------------------------------Time:2015-03-11 14:00:57,081--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.InvalidOperationException: The changes to the database were committed successfully, but an error occurred while updating the object context. The ObjectContext might be in an inconsistent state. Inner exception message: A referential integrity constraint violation occurred: The property value(s) of 'Planning.Id' on one end of a relationship do not match the property value(s) of 'OperatorsPlanning.PlanningId' on the other end. ---> System.InvalidOperationException: A referential integrity constraint violation occurred: The property value(s) of 'Planning.Id' on one end of a relationship do not match the property value(s) of 'OperatorsPlanning.PlanningId' on the other end.
+   在 System.Data.Entity.Core.Objects.DataClasses.RelatedEnd.CheckReferentialConstraintProperties(EntityEntry ownerEntry)
+   在 System.Data.Entity.Core.Objects.DataClasses.RelationshipManager.CheckReferentialConstraintProperties(EntityEntry ownerEntry)
+   在 System.Data.Entity.Core.Objects.EntityEntry.AcceptChanges()
+   在 System.Data.Entity.Core.Objects.ObjectContext.AcceptAllChanges()
+   在 System.Data.Entity.Core.Objects.ObjectContext.SaveChangesToStore(SaveOptions options, IDbExecutionStrategy executionStrategy, Boolean startLocalTransaction)
+   --- 内部异常堆栈跟踪的结尾 ---
+   在 PDBM.ApplicationService.Services.BMMgmt.OperatorsPlanningService.Associate(Guid planningId, Guid currentUserId, IList`1 operatorsPlanningMaintObjects)
+   在 DynamicModule.ns.Wrapped_IOperatorsPlanningService_5bee07191b3146f3bf9d3cf431557962.<Associate_DelegateImplementation>__5(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+
+--------------------------------Time:2015-03-11 14:07:34,610--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.Data.SqlClient.SqlException (0x80131904): 找不到存储过程 'prc_GetMenuInfoByUserId'。
+   在 System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   在 System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   在 System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   在 System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   在 System.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   在 System.Data.SqlClient.SqlDataReader.get_MetaData()
+   在 System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString)
+   在 System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, SqlDataReader ds)
+   在 System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean asyncWrite)
+   在 System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   在 System.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior, String method)
+   在 System.Data.SqlClient.SqlCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   在 System.Data.Common.DbCommand.System.Data.IDbCommand.ExecuteReader(CommandBehavior behavior)
+   在 System.Data.Common.DbDataAdapter.FillInternal(DataSet dataset, DataTable[] datatables, Int32 startRecord, Int32 maxRecords, String srcTable, IDbCommand command, CommandBehavior behavior)
+   在 System.Data.Common.DbDataAdapter.Fill(DataSet dataSet, Int32 startRecord, Int32 maxRecords, String srcTable, IDbCommand command, CommandBehavior behavior)
+   在 System.Data.Common.DbDataAdapter.Fill(DataSet dataSet)
+   在 Microsoft.Practices.EnterpriseLibrary.Data.Database.DoLoadDataSet(IDbCommand command, DataSet dataSet, String[] tableNames)
+   在 Microsoft.Practices.EnterpriseLibrary.Data.Database.LoadDataSet(DbCommand command, DataSet dataSet, String[] tableNames)
+   在 Microsoft.Practices.EnterpriseLibrary.Data.Database.LoadDataSet(DbCommand command, DataSet dataSet, String tableName)
+   在 Microsoft.Practices.EnterpriseLibrary.Data.Database.ExecuteDataSet(DbCommand command)
+   在 PDBM.Infrastructure.DataAccess.EnterpriseLibrary.SqlHelper.ExecuteDataTable(String procName, IList`1 parameters) 位置 e:\PDSOFT\PDBM\PDBM.Infrastructure\DataAccess\EnterpriseLibrary\SqlHelper.cs:行号 33
+   在 PDBM.ApplicationService.Services.BaseData.MenuService.GetMenuInfo(Guid userId)
+   在 DynamicModule.ns.Wrapped_IMenuService_de8915092e7b4a28b57a8eff4889f281.<GetMenuInfo_DelegateImplementation>__0(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+ClientConnectionId:308dae8c-5195-4782-a1e5-ae792090a5d3
+Error Number:2812,State:62,Class:16
+--------------------------------END--------------------------------
+
+--------------------------------Time:2015-03-11 14:15:33,069--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.InvalidOperationException: The changes to the database were committed successfully, but an error occurred while updating the object context. The ObjectContext might be in an inconsistent state. Inner exception message: A referential integrity constraint violation occurred: The property value(s) of 'Planning.Id' on one end of a relationship do not match the property value(s) of 'OperatorsPlanning.PlanningId' on the other end. ---> System.InvalidOperationException: A referential integrity constraint violation occurred: The property value(s) of 'Planning.Id' on one end of a relationship do not match the property value(s) of 'OperatorsPlanning.PlanningId' on the other end.
+   在 System.Data.Entity.Core.Objects.DataClasses.RelatedEnd.CheckReferentialConstraintProperties(EntityEntry ownerEntry)
+   在 System.Data.Entity.Core.Objects.DataClasses.RelationshipManager.CheckReferentialConstraintProperties(EntityEntry ownerEntry)
+   在 System.Data.Entity.Core.Objects.EntityEntry.AcceptChanges()
+   在 System.Data.Entity.Core.Objects.ObjectContext.AcceptAllChanges()
+   在 System.Data.Entity.Core.Objects.ObjectContext.SaveChangesToStore(SaveOptions options, IDbExecutionStrategy executionStrategy, Boolean startLocalTransaction)
+   --- 内部异常堆栈跟踪的结尾 ---
+   在 PDBM.ApplicationService.Services.BMMgmt.OperatorsPlanningService.Associate(Guid planningId, Guid currentUserId, IList`1 operatorsPlanningMaintObjects)
+   在 DynamicModule.ns.Wrapped_IOperatorsPlanningService_34c0219a3a69420db0f72c7e13b61b52.<Associate_DelegateImplementation>__5(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+
+--------------------------------Time:2015-03-11 14:15:57,521--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.InvalidOperationException: The changes to the database were committed successfully, but an error occurred while updating the object context. The ObjectContext might be in an inconsistent state. Inner exception message: A referential integrity constraint violation occurred: The property value(s) of 'Planning.Id' on one end of a relationship do not match the property value(s) of 'OperatorsPlanning.PlanningId' on the other end. ---> System.InvalidOperationException: A referential integrity constraint violation occurred: The property value(s) of 'Planning.Id' on one end of a relationship do not match the property value(s) of 'OperatorsPlanning.PlanningId' on the other end.
+   在 System.Data.Entity.Core.Objects.DataClasses.RelatedEnd.CheckReferentialConstraintProperties(EntityEntry ownerEntry)
+   在 System.Data.Entity.Core.Objects.DataClasses.RelationshipManager.CheckReferentialConstraintProperties(EntityEntry ownerEntry)
+   在 System.Data.Entity.Core.Objects.EntityEntry.AcceptChanges()
+   在 System.Data.Entity.Core.Objects.ObjectContext.AcceptAllChanges()
+   在 System.Data.Entity.Core.Objects.ObjectContext.SaveChangesToStore(SaveOptions options, IDbExecutionStrategy executionStrategy, Boolean startLocalTransaction)
+   --- 内部异常堆栈跟踪的结尾 ---
+   在 PDBM.ApplicationService.Services.BMMgmt.OperatorsPlanningService.Associate(Guid planningId, Guid currentUserId, IList`1 operatorsPlanningMaintObjects)
+   在 DynamicModule.ns.Wrapped_IOperatorsPlanningService_34c0219a3a69420db0f72c7e13b61b52.<Associate_DelegateImplementation>__5(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+
+--------------------------------Time:2015-03-11 14:22:28,331--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.InvalidOperationException: The changes to the database were committed successfully, but an error occurred while updating the object context. The ObjectContext might be in an inconsistent state. Inner exception message: A referential integrity constraint violation occurred: The property value(s) of 'Planning.Id' on one end of a relationship do not match the property value(s) of 'OperatorsPlanning.PlanningId' on the other end. ---> System.InvalidOperationException: A referential integrity constraint violation occurred: The property value(s) of 'Planning.Id' on one end of a relationship do not match the property value(s) of 'OperatorsPlanning.PlanningId' on the other end.
+   在 System.Data.Entity.Core.Objects.DataClasses.RelatedEnd.CheckReferentialConstraintProperties(EntityEntry ownerEntry)
+   在 System.Data.Entity.Core.Objects.DataClasses.RelationshipManager.CheckReferentialConstraintProperties(EntityEntry ownerEntry)
+   在 System.Data.Entity.Core.Objects.EntityEntry.AcceptChanges()
+   在 System.Data.Entity.Core.Objects.ObjectContext.AcceptAllChanges()
+   在 System.Data.Entity.Core.Objects.ObjectContext.SaveChangesToStore(SaveOptions options, IDbExecutionStrategy executionStrategy, Boolean startLocalTransaction)
+   --- 内部异常堆栈跟踪的结尾 ---
+   在 PDBM.ApplicationService.Services.BMMgmt.OperatorsPlanningService.Associate(Guid planningId, Guid currentUserId, IList`1 operatorsPlanningMaintObjects)
+   在 DynamicModule.ns.Wrapped_IOperatorsPlanningService_60dfbb4e44444183a87ac95f75373943.<Associate_DelegateImplementation>__5(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+
+--------------------------------Time:2015-03-11 14:22:56,914--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.InvalidOperationException: The changes to the database were committed successfully, but an error occurred while updating the object context. The ObjectContext might be in an inconsistent state. Inner exception message: A referential integrity constraint violation occurred: The property value(s) of 'Planning.Id' on one end of a relationship do not match the property value(s) of 'OperatorsPlanning.PlanningId' on the other end. ---> System.InvalidOperationException: A referential integrity constraint violation occurred: The property value(s) of 'Planning.Id' on one end of a relationship do not match the property value(s) of 'OperatorsPlanning.PlanningId' on the other end.
+   在 System.Data.Entity.Core.Objects.DataClasses.RelatedEnd.CheckReferentialConstraintProperties(EntityEntry ownerEntry)
+   在 System.Data.Entity.Core.Objects.DataClasses.RelationshipManager.CheckReferentialConstraintProperties(EntityEntry ownerEntry)
+   在 System.Data.Entity.Core.Objects.EntityEntry.AcceptChanges()
+   在 System.Data.Entity.Core.Objects.ObjectContext.AcceptAllChanges()
+   在 System.Data.Entity.Core.Objects.ObjectContext.SaveChangesToStore(SaveOptions options, IDbExecutionStrategy executionStrategy, Boolean startLocalTransaction)
+   --- 内部异常堆栈跟踪的结尾 ---
+   在 PDBM.ApplicationService.Services.BMMgmt.OperatorsPlanningService.Associate(Guid planningId, Guid currentUserId, IList`1 operatorsPlanningMaintObjects)
+   在 DynamicModule.ns.Wrapped_IOperatorsPlanningService_60dfbb4e44444183a87ac95f75373943.<Associate_DelegateImplementation>__5(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+
+--------------------------------Time:2015-03-11 14:26:27,530--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.InvalidOperationException: The changes to the database were committed successfully, but an error occurred while updating the object context. The ObjectContext might be in an inconsistent state. Inner exception message: A referential integrity constraint violation occurred: The property value(s) of 'Planning.Id' on one end of a relationship do not match the property value(s) of 'OperatorsPlanning.PlanningId' on the other end. ---> System.InvalidOperationException: A referential integrity constraint violation occurred: The property value(s) of 'Planning.Id' on one end of a relationship do not match the property value(s) of 'OperatorsPlanning.PlanningId' on the other end.
+   在 System.Data.Entity.Core.Objects.DataClasses.RelatedEnd.CheckReferentialConstraintProperties(EntityEntry ownerEntry)
+   在 System.Data.Entity.Core.Objects.DataClasses.RelationshipManager.CheckReferentialConstraintProperties(EntityEntry ownerEntry)
+   在 System.Data.Entity.Core.Objects.EntityEntry.AcceptChanges()
+   在 System.Data.Entity.Core.Objects.ObjectContext.AcceptAllChanges()
+   在 System.Data.Entity.Core.Objects.ObjectContext.SaveChangesToStore(SaveOptions options, IDbExecutionStrategy executionStrategy, Boolean startLocalTransaction)
+   --- 内部异常堆栈跟踪的结尾 ---
+   在 PDBM.ApplicationService.Services.BMMgmt.OperatorsPlanningService.Associate(Guid planningId, Guid currentUserId, IList`1 operatorsPlanningMaintObjects)
+   在 DynamicModule.ns.Wrapped_IOperatorsPlanningService_60567cf489774f6982247e1b840c0698.<Associate_DelegateImplementation>__5(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+
+--------------------------------Time:2015-03-11 14:26:34,719--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.InvalidOperationException: The changes to the database were committed successfully, but an error occurred while updating the object context. The ObjectContext might be in an inconsistent state. Inner exception message: A referential integrity constraint violation occurred: The property value(s) of 'Planning.Id' on one end of a relationship do not match the property value(s) of 'OperatorsPlanning.PlanningId' on the other end. ---> System.InvalidOperationException: A referential integrity constraint violation occurred: The property value(s) of 'Planning.Id' on one end of a relationship do not match the property value(s) of 'OperatorsPlanning.PlanningId' on the other end.
+   在 System.Data.Entity.Core.Objects.DataClasses.RelatedEnd.CheckReferentialConstraintProperties(EntityEntry ownerEntry)
+   在 System.Data.Entity.Core.Objects.DataClasses.RelationshipManager.CheckReferentialConstraintProperties(EntityEntry ownerEntry)
+   在 System.Data.Entity.Core.Objects.EntityEntry.AcceptChanges()
+   在 System.Data.Entity.Core.Objects.ObjectContext.AcceptAllChanges()
+   在 System.Data.Entity.Core.Objects.ObjectContext.SaveChangesToStore(SaveOptions options, IDbExecutionStrategy executionStrategy, Boolean startLocalTransaction)
+   --- 内部异常堆栈跟踪的结尾 ---
+   在 PDBM.ApplicationService.Services.BMMgmt.OperatorsPlanningService.Associate(Guid planningId, Guid currentUserId, IList`1 operatorsPlanningMaintObjects)
+   在 DynamicModule.ns.Wrapped_IOperatorsPlanningService_60567cf489774f6982247e1b840c0698.<Associate_DelegateImplementation>__5(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+
+--------------------------------Time:2015-03-11 14:27:18,395--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.InvalidOperationException: The changes to the database were committed successfully, but an error occurred while updating the object context. The ObjectContext might be in an inconsistent state. Inner exception message: A referential integrity constraint violation occurred: The property value(s) of 'Planning.Id' on one end of a relationship do not match the property value(s) of 'OperatorsPlanning.PlanningId' on the other end. ---> System.InvalidOperationException: A referential integrity constraint violation occurred: The property value(s) of 'Planning.Id' on one end of a relationship do not match the property value(s) of 'OperatorsPlanning.PlanningId' on the other end.
+   在 System.Data.Entity.Core.Objects.DataClasses.RelatedEnd.CheckReferentialConstraintProperties(EntityEntry ownerEntry)
+   在 System.Data.Entity.Core.Objects.DataClasses.RelationshipManager.CheckReferentialConstraintProperties(EntityEntry ownerEntry)
+   在 System.Data.Entity.Core.Objects.EntityEntry.AcceptChanges()
+   在 System.Data.Entity.Core.Objects.ObjectContext.AcceptAllChanges()
+   在 System.Data.Entity.Core.Objects.ObjectContext.SaveChangesToStore(SaveOptions options, IDbExecutionStrategy executionStrategy, Boolean startLocalTransaction)
+   --- 内部异常堆栈跟踪的结尾 ---
+   在 PDBM.ApplicationService.Services.BMMgmt.OperatorsPlanningService.Associate(Guid planningId, Guid currentUserId, IList`1 operatorsPlanningMaintObjects)
+   在 DynamicModule.ns.Wrapped_IOperatorsPlanningService_60567cf489774f6982247e1b840c0698.<Associate_DelegateImplementation>__5(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+
+--------------------------------Time:2015-03-11 14:27:39,065--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.InvalidOperationException: The changes to the database were committed successfully, but an error occurred while updating the object context. The ObjectContext might be in an inconsistent state. Inner exception message: A referential integrity constraint violation occurred: The property value(s) of 'Planning.Id' on one end of a relationship do not match the property value(s) of 'OperatorsPlanning.PlanningId' on the other end. ---> System.InvalidOperationException: A referential integrity constraint violation occurred: The property value(s) of 'Planning.Id' on one end of a relationship do not match the property value(s) of 'OperatorsPlanning.PlanningId' on the other end.
+   在 System.Data.Entity.Core.Objects.DataClasses.RelatedEnd.CheckReferentialConstraintProperties(EntityEntry ownerEntry)
+   在 System.Data.Entity.Core.Objects.DataClasses.RelationshipManager.CheckReferentialConstraintProperties(EntityEntry ownerEntry)
+   在 System.Data.Entity.Core.Objects.EntityEntry.AcceptChanges()
+   在 System.Data.Entity.Core.Objects.ObjectContext.AcceptAllChanges()
+   在 System.Data.Entity.Core.Objects.ObjectContext.SaveChangesToStore(SaveOptions options, IDbExecutionStrategy executionStrategy, Boolean startLocalTransaction)
+   --- 内部异常堆栈跟踪的结尾 ---
+   在 PDBM.ApplicationService.Services.BMMgmt.OperatorsPlanningService.Associate(Guid planningId, Guid currentUserId, IList`1 operatorsPlanningMaintObjects)
+   在 DynamicModule.ns.Wrapped_IOperatorsPlanningService_60567cf489774f6982247e1b840c0698.<Associate_DelegateImplementation>__5(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+
+--------------------------------Time:2015-03-11 14:27:52,823--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.InvalidOperationException: The changes to the database were committed successfully, but an error occurred while updating the object context. The ObjectContext might be in an inconsistent state. Inner exception message: A referential integrity constraint violation occurred: The property value(s) of 'Planning.Id' on one end of a relationship do not match the property value(s) of 'OperatorsPlanning.PlanningId' on the other end. ---> System.InvalidOperationException: A referential integrity constraint violation occurred: The property value(s) of 'Planning.Id' on one end of a relationship do not match the property value(s) of 'OperatorsPlanning.PlanningId' on the other end.
+   在 System.Data.Entity.Core.Objects.DataClasses.RelatedEnd.CheckReferentialConstraintProperties(EntityEntry ownerEntry)
+   在 System.Data.Entity.Core.Objects.DataClasses.RelationshipManager.CheckReferentialConstraintProperties(EntityEntry ownerEntry)
+   在 System.Data.Entity.Core.Objects.EntityEntry.AcceptChanges()
+   在 System.Data.Entity.Core.Objects.ObjectContext.AcceptAllChanges()
+   在 System.Data.Entity.Core.Objects.ObjectContext.SaveChangesToStore(SaveOptions options, IDbExecutionStrategy executionStrategy, Boolean startLocalTransaction)
+   --- 内部异常堆栈跟踪的结尾 ---
+   在 PDBM.ApplicationService.Services.BMMgmt.OperatorsPlanningService.Associate(Guid planningId, Guid currentUserId, IList`1 operatorsPlanningMaintObjects)
+   在 DynamicModule.ns.Wrapped_IOperatorsPlanningService_60567cf489774f6982247e1b840c0698.<Associate_DelegateImplementation>__5(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+
+--------------------------------Time:2015-03-11 14:28:16,021--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.InvalidOperationException: The changes to the database were committed successfully, but an error occurred while updating the object context. The ObjectContext might be in an inconsistent state. Inner exception message: A referential integrity constraint violation occurred: The property value(s) of 'Planning.Id' on one end of a relationship do not match the property value(s) of 'OperatorsPlanning.PlanningId' on the other end. ---> System.InvalidOperationException: A referential integrity constraint violation occurred: The property value(s) of 'Planning.Id' on one end of a relationship do not match the property value(s) of 'OperatorsPlanning.PlanningId' on the other end.
+   在 System.Data.Entity.Core.Objects.DataClasses.RelatedEnd.CheckReferentialConstraintProperties(EntityEntry ownerEntry)
+   在 System.Data.Entity.Core.Objects.DataClasses.RelationshipManager.CheckReferentialConstraintProperties(EntityEntry ownerEntry)
+   在 System.Data.Entity.Core.Objects.EntityEntry.AcceptChanges()
+   在 System.Data.Entity.Core.Objects.ObjectContext.AcceptAllChanges()
+   在 System.Data.Entity.Core.Objects.ObjectContext.SaveChangesToStore(SaveOptions options, IDbExecutionStrategy executionStrategy, Boolean startLocalTransaction)
+   --- 内部异常堆栈跟踪的结尾 ---
+   在 PDBM.ApplicationService.Services.BMMgmt.OperatorsPlanningService.Associate(Guid planningId, Guid currentUserId, IList`1 operatorsPlanningMaintObjects)
+   在 DynamicModule.ns.Wrapped_IOperatorsPlanningService_60567cf489774f6982247e1b840c0698.<Associate_DelegateImplementation>__5(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+
+--------------------------------Time:2015-03-11 14:28:31,310--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.InvalidOperationException: The changes to the database were committed successfully, but an error occurred while updating the object context. The ObjectContext might be in an inconsistent state. Inner exception message: A referential integrity constraint violation occurred: The property value(s) of 'Planning.Id' on one end of a relationship do not match the property value(s) of 'OperatorsPlanning.PlanningId' on the other end. ---> System.InvalidOperationException: A referential integrity constraint violation occurred: The property value(s) of 'Planning.Id' on one end of a relationship do not match the property value(s) of 'OperatorsPlanning.PlanningId' on the other end.
+   在 System.Data.Entity.Core.Objects.DataClasses.RelatedEnd.CheckReferentialConstraintProperties(EntityEntry ownerEntry)
+   在 System.Data.Entity.Core.Objects.DataClasses.RelationshipManager.CheckReferentialConstraintProperties(EntityEntry ownerEntry)
+   在 System.Data.Entity.Core.Objects.EntityEntry.AcceptChanges()
+   在 System.Data.Entity.Core.Objects.ObjectContext.AcceptAllChanges()
+   在 System.Data.Entity.Core.Objects.ObjectContext.SaveChangesToStore(SaveOptions options, IDbExecutionStrategy executionStrategy, Boolean startLocalTransaction)
+   --- 内部异常堆栈跟踪的结尾 ---
+   在 PDBM.ApplicationService.Services.BMMgmt.OperatorsPlanningService.Associate(Guid planningId, Guid currentUserId, IList`1 operatorsPlanningMaintObjects)
+   在 DynamicModule.ns.Wrapped_IOperatorsPlanningService_60567cf489774f6982247e1b840c0698.<Associate_DelegateImplementation>__5(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+
+--------------------------------Time:2015-03-11 14:30:54,436--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.InvalidOperationException: The changes to the database were committed successfully, but an error occurred while updating the object context. The ObjectContext might be in an inconsistent state. Inner exception message: A referential integrity constraint violation occurred: The property value(s) of 'Planning.Id' on one end of a relationship do not match the property value(s) of 'OperatorsPlanning.PlanningId' on the other end. ---> System.InvalidOperationException: A referential integrity constraint violation occurred: The property value(s) of 'Planning.Id' on one end of a relationship do not match the property value(s) of 'OperatorsPlanning.PlanningId' on the other end.
+   在 System.Data.Entity.Core.Objects.DataClasses.RelatedEnd.CheckReferentialConstraintProperties(EntityEntry ownerEntry)
+   在 System.Data.Entity.Core.Objects.DataClasses.RelationshipManager.CheckReferentialConstraintProperties(EntityEntry ownerEntry)
+   在 System.Data.Entity.Core.Objects.EntityEntry.AcceptChanges()
+   在 System.Data.Entity.Core.Objects.ObjectContext.AcceptAllChanges()
+   在 System.Data.Entity.Core.Objects.ObjectContext.SaveChangesToStore(SaveOptions options, IDbExecutionStrategy executionStrategy, Boolean startLocalTransaction)
+   --- 内部异常堆栈跟踪的结尾 ---
+   在 PDBM.ApplicationService.Services.BMMgmt.OperatorsPlanningService.Associate(Guid planningId, Guid currentUserId, IList`1 operatorsPlanningMaintObjects)
+   在 DynamicModule.ns.Wrapped_IOperatorsPlanningService_60567cf489774f6982247e1b840c0698.<Associate_DelegateImplementation>__5(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+
+--------------------------------Time:2015-03-11 14:37:04,941--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.InvalidOperationException: The changes to the database were committed successfully, but an error occurred while updating the object context. The ObjectContext might be in an inconsistent state. Inner exception message: A referential integrity constraint violation occurred: The property value(s) of 'Planning.Id' on one end of a relationship do not match the property value(s) of 'OperatorsPlanning.PlanningId' on the other end. ---> System.InvalidOperationException: A referential integrity constraint violation occurred: The property value(s) of 'Planning.Id' on one end of a relationship do not match the property value(s) of 'OperatorsPlanning.PlanningId' on the other end.
+   在 System.Data.Entity.Core.Objects.DataClasses.RelatedEnd.CheckReferentialConstraintProperties(EntityEntry ownerEntry)
+   在 System.Data.Entity.Core.Objects.DataClasses.RelationshipManager.CheckReferentialConstraintProperties(EntityEntry ownerEntry)
+   在 System.Data.Entity.Core.Objects.EntityEntry.AcceptChanges()
+   在 System.Data.Entity.Core.Objects.ObjectContext.AcceptAllChanges()
+   在 System.Data.Entity.Core.Objects.ObjectContext.SaveChangesToStore(SaveOptions options, IDbExecutionStrategy executionStrategy, Boolean startLocalTransaction)
+   --- 内部异常堆栈跟踪的结尾 ---
+   在 PDBM.ApplicationService.Services.BMMgmt.OperatorsPlanningService.Associate(Guid planningId, Guid currentUserId, IList`1 operatorsPlanningMaintObjects)
+   在 DynamicModule.ns.Wrapped_IOperatorsPlanningService_2514e6fadfdb438bb40cd6e4592ad535.<Associate_DelegateImplementation>__5(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+
+--------------------------------Time:2015-03-11 14:41:40,953--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.InvalidOperationException: The changes to the database were committed successfully, but an error occurred while updating the object context. The ObjectContext might be in an inconsistent state. Inner exception message: A referential integrity constraint violation occurred: The property value(s) of 'Planning.Id' on one end of a relationship do not match the property value(s) of 'OperatorsPlanning.PlanningId' on the other end. ---> System.InvalidOperationException: A referential integrity constraint violation occurred: The property value(s) of 'Planning.Id' on one end of a relationship do not match the property value(s) of 'OperatorsPlanning.PlanningId' on the other end.
+   在 System.Data.Entity.Core.Objects.DataClasses.RelatedEnd.CheckReferentialConstraintProperties(EntityEntry ownerEntry)
+   在 System.Data.Entity.Core.Objects.DataClasses.RelationshipManager.CheckReferentialConstraintProperties(EntityEntry ownerEntry)
+   在 System.Data.Entity.Core.Objects.EntityEntry.AcceptChanges()
+   在 System.Data.Entity.Core.Objects.ObjectContext.AcceptAllChanges()
+   在 System.Data.Entity.Core.Objects.ObjectContext.SaveChangesToStore(SaveOptions options, IDbExecutionStrategy executionStrategy, Boolean startLocalTransaction)
+   --- 内部异常堆栈跟踪的结尾 ---
+   在 PDBM.ApplicationService.Services.BMMgmt.OperatorsPlanningService.Associate(Guid planningId, Guid currentUserId, IList`1 operatorsPlanningMaintObjects)
+   在 DynamicModule.ns.Wrapped_IOperatorsPlanningService_ad9371c113fc4191a24d6603eb9472b3.<Associate_DelegateImplementation>__5(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+
+--------------------------------Time:2015-03-11 14:41:49,964--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.InvalidOperationException: The changes to the database were committed successfully, but an error occurred while updating the object context. The ObjectContext might be in an inconsistent state. Inner exception message: A referential integrity constraint violation occurred: The property value(s) of 'Planning.Id' on one end of a relationship do not match the property value(s) of 'OperatorsPlanning.PlanningId' on the other end. ---> System.InvalidOperationException: A referential integrity constraint violation occurred: The property value(s) of 'Planning.Id' on one end of a relationship do not match the property value(s) of 'OperatorsPlanning.PlanningId' on the other end.
+   在 System.Data.Entity.Core.Objects.DataClasses.RelatedEnd.CheckReferentialConstraintProperties(EntityEntry ownerEntry)
+   在 System.Data.Entity.Core.Objects.DataClasses.RelationshipManager.CheckReferentialConstraintProperties(EntityEntry ownerEntry)
+   在 System.Data.Entity.Core.Objects.EntityEntry.AcceptChanges()
+   在 System.Data.Entity.Core.Objects.ObjectContext.AcceptAllChanges()
+   在 System.Data.Entity.Core.Objects.ObjectContext.SaveChangesToStore(SaveOptions options, IDbExecutionStrategy executionStrategy, Boolean startLocalTransaction)
+   --- 内部异常堆栈跟踪的结尾 ---
+   在 PDBM.ApplicationService.Services.BMMgmt.OperatorsPlanningService.Associate(Guid planningId, Guid currentUserId, IList`1 operatorsPlanningMaintObjects)
+   在 DynamicModule.ns.Wrapped_IOperatorsPlanningService_ad9371c113fc4191a24d6603eb9472b3.<Associate_DelegateImplementation>__5(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+
+--------------------------------Time:2015-03-11 17:37:54,182--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.Data.SqlClient.SqlException (0x80131904): 找不到存储过程 'prc_GetMenuInfoByUserId'。
+   在 System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   在 System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   在 System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   在 System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   在 System.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   在 System.Data.SqlClient.SqlDataReader.get_MetaData()
+   在 System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString)
+   在 System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, SqlDataReader ds)
+   在 System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean asyncWrite)
+   在 System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   在 System.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior, String method)
+   在 System.Data.SqlClient.SqlCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   在 System.Data.Common.DbCommand.System.Data.IDbCommand.ExecuteReader(CommandBehavior behavior)
+   在 System.Data.Common.DbDataAdapter.FillInternal(DataSet dataset, DataTable[] datatables, Int32 startRecord, Int32 maxRecords, String srcTable, IDbCommand command, CommandBehavior behavior)
+   在 System.Data.Common.DbDataAdapter.Fill(DataSet dataSet, Int32 startRecord, Int32 maxRecords, String srcTable, IDbCommand command, CommandBehavior behavior)
+   在 System.Data.Common.DbDataAdapter.Fill(DataSet dataSet)
+   在 Microsoft.Practices.EnterpriseLibrary.Data.Database.DoLoadDataSet(IDbCommand command, DataSet dataSet, String[] tableNames)
+   在 Microsoft.Practices.EnterpriseLibrary.Data.Database.LoadDataSet(DbCommand command, DataSet dataSet, String[] tableNames)
+   在 Microsoft.Practices.EnterpriseLibrary.Data.Database.LoadDataSet(DbCommand command, DataSet dataSet, String tableName)
+   在 Microsoft.Practices.EnterpriseLibrary.Data.Database.ExecuteDataSet(DbCommand command)
+   在 PDBM.Infrastructure.DataAccess.EnterpriseLibrary.SqlHelper.ExecuteDataTable(String procName, IList`1 parameters) 位置 e:\PDSOFT\PDBM\PDBM.Infrastructure\DataAccess\EnterpriseLibrary\SqlHelper.cs:行号 33
+   在 PDBM.ApplicationService.Services.BaseData.MenuService.GetMenuInfo(Guid userId)
+   在 DynamicModule.ns.Wrapped_IMenuService_9548b77f05c84f409ceb468fe44b7cc4.<GetMenuInfo_DelegateImplementation>__0(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+ClientConnectionId:48193731-cdee-4893-b0c3-6287223d7205
+Error Number:2812,State:62,Class:16
+--------------------------------END--------------------------------
+
+--------------------------------Time:2015-03-11 20:47:42,416--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.Data.SqlClient.SqlException (0x80131904): 找不到存储过程 'prc_GetMenuInfoByUserId'。
+   在 System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   在 System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   在 System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   在 System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   在 System.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   在 System.Data.SqlClient.SqlDataReader.get_MetaData()
+   在 System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString)
+   在 System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, SqlDataReader ds)
+   在 System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean asyncWrite)
+   在 System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   在 System.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior, String method)
+   在 System.Data.SqlClient.SqlCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   在 System.Data.Common.DbCommand.System.Data.IDbCommand.ExecuteReader(CommandBehavior behavior)
+   在 System.Data.Common.DbDataAdapter.FillInternal(DataSet dataset, DataTable[] datatables, Int32 startRecord, Int32 maxRecords, String srcTable, IDbCommand command, CommandBehavior behavior)
+   在 System.Data.Common.DbDataAdapter.Fill(DataSet dataSet, Int32 startRecord, Int32 maxRecords, String srcTable, IDbCommand command, CommandBehavior behavior)
+   在 System.Data.Common.DbDataAdapter.Fill(DataSet dataSet)
+   在 Microsoft.Practices.EnterpriseLibrary.Data.Database.DoLoadDataSet(IDbCommand command, DataSet dataSet, String[] tableNames)
+   在 Microsoft.Practices.EnterpriseLibrary.Data.Database.LoadDataSet(DbCommand command, DataSet dataSet, String[] tableNames)
+   在 Microsoft.Practices.EnterpriseLibrary.Data.Database.LoadDataSet(DbCommand command, DataSet dataSet, String tableName)
+   在 Microsoft.Practices.EnterpriseLibrary.Data.Database.ExecuteDataSet(DbCommand command)
+   在 PDBM.Infrastructure.DataAccess.EnterpriseLibrary.SqlHelper.ExecuteDataTable(String procName, IList`1 parameters) 位置 e:\PDSOFT\PDBM\PDBM.Infrastructure\DataAccess\EnterpriseLibrary\SqlHelper.cs:行号 33
+   在 PDBM.ApplicationService.Services.BaseData.MenuService.GetMenuInfo(Guid userId)
+   在 DynamicModule.ns.Wrapped_IMenuService_368e1db3804d473cbf0e4ab125377683.<GetMenuInfo_DelegateImplementation>__0(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+ClientConnectionId:d01b212f-b08b-4295-b154-9cd95c6dcdf6
+Error Number:2812,State:62,Class:16
+--------------------------------END--------------------------------
+
+--------------------------------Time:2015-03-11 22:03:30,987--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.Data.SqlClient.SqlException (0x80131904): 找不到存储过程 'prc_GetMenuInfoByUserId'。
+   在 System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   在 System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   在 System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   在 System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   在 System.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   在 System.Data.SqlClient.SqlDataReader.get_MetaData()
+   在 System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString)
+   在 System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, SqlDataReader ds)
+   在 System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean asyncWrite)
+   在 System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   在 System.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior, String method)
+   在 System.Data.SqlClient.SqlCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   在 System.Data.Common.DbCommand.System.Data.IDbCommand.ExecuteReader(CommandBehavior behavior)
+   在 System.Data.Common.DbDataAdapter.FillInternal(DataSet dataset, DataTable[] datatables, Int32 startRecord, Int32 maxRecords, String srcTable, IDbCommand command, CommandBehavior behavior)
+   在 System.Data.Common.DbDataAdapter.Fill(DataSet dataSet, Int32 startRecord, Int32 maxRecords, String srcTable, IDbCommand command, CommandBehavior behavior)
+   在 System.Data.Common.DbDataAdapter.Fill(DataSet dataSet)
+   在 Microsoft.Practices.EnterpriseLibrary.Data.Database.DoLoadDataSet(IDbCommand command, DataSet dataSet, String[] tableNames)
+   在 Microsoft.Practices.EnterpriseLibrary.Data.Database.LoadDataSet(DbCommand command, DataSet dataSet, String[] tableNames)
+   在 Microsoft.Practices.EnterpriseLibrary.Data.Database.LoadDataSet(DbCommand command, DataSet dataSet, String tableName)
+   在 Microsoft.Practices.EnterpriseLibrary.Data.Database.ExecuteDataSet(DbCommand command)
+   在 PDBM.Infrastructure.DataAccess.EnterpriseLibrary.SqlHelper.ExecuteDataTable(String procName, IList`1 parameters) 位置 e:\PDSOFT\PDBM\PDBM.Infrastructure\DataAccess\EnterpriseLibrary\SqlHelper.cs:行号 33
+   在 PDBM.ApplicationService.Services.BaseData.MenuService.GetMenuInfo(Guid userId)
+   在 DynamicModule.ns.Wrapped_IMenuService_94ccf2cc97294133a22a7278a16f6052.<GetMenuInfo_DelegateImplementation>__0(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+ClientConnectionId:8e960d31-279d-4316-a03d-b95e2cab40ef
+Error Number:2812,State:62,Class:16
+--------------------------------END--------------------------------
+
+--------------------------------Time:2015-03-11 23:17:59,377--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.InvalidOperationException: The changes to the database were committed successfully, but an error occurred while updating the object context. The ObjectContext might be in an inconsistent state. Inner exception message: A referential integrity constraint violation occurred: The property value(s) of 'Planning.Id' on one end of a relationship do not match the property value(s) of 'OperatorsPlanning.PlanningId' on the other end. ---> System.InvalidOperationException: A referential integrity constraint violation occurred: The property value(s) of 'Planning.Id' on one end of a relationship do not match the property value(s) of 'OperatorsPlanning.PlanningId' on the other end.
+   在 System.Data.Entity.Core.Objects.DataClasses.RelatedEnd.CheckReferentialConstraintProperties(EntityEntry ownerEntry)
+   在 System.Data.Entity.Core.Objects.DataClasses.RelationshipManager.CheckReferentialConstraintProperties(EntityEntry ownerEntry)
+   在 System.Data.Entity.Core.Objects.EntityEntry.AcceptChanges()
+   在 System.Data.Entity.Core.Objects.ObjectContext.AcceptAllChanges()
+   在 System.Data.Entity.Core.Objects.ObjectContext.SaveChangesToStore(SaveOptions options, IDbExecutionStrategy executionStrategy, Boolean startLocalTransaction)
+   --- 内部异常堆栈跟踪的结尾 ---
+   在 PDBM.ApplicationService.Services.BMMgmt.OperatorsPlanningService.Associate(Guid planningId, Guid currentUserId, IList`1 operatorsPlanningMaintObjects)
+   在 DynamicModule.ns.Wrapped_IOperatorsPlanningService_39a24173f2f74de6ad3647715e88e72d.<Associate_DelegateImplementation>__5(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+
+--------------------------------Time:2015-03-11 23:19:57,234--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.InvalidOperationException: The changes to the database were committed successfully, but an error occurred while updating the object context. The ObjectContext might be in an inconsistent state. Inner exception message: A referential integrity constraint violation occurred: The property value(s) of 'Planning.Id' on one end of a relationship do not match the property value(s) of 'OperatorsPlanning.PlanningId' on the other end. ---> System.InvalidOperationException: A referential integrity constraint violation occurred: The property value(s) of 'Planning.Id' on one end of a relationship do not match the property value(s) of 'OperatorsPlanning.PlanningId' on the other end.
+   在 System.Data.Entity.Core.Objects.DataClasses.RelatedEnd.CheckReferentialConstraintProperties(EntityEntry ownerEntry)
+   在 System.Data.Entity.Core.Objects.DataClasses.RelationshipManager.CheckReferentialConstraintProperties(EntityEntry ownerEntry)
+   在 System.Data.Entity.Core.Objects.EntityEntry.AcceptChanges()
+   在 System.Data.Entity.Core.Objects.ObjectContext.AcceptAllChanges()
+   在 System.Data.Entity.Core.Objects.ObjectContext.SaveChangesToStore(SaveOptions options, IDbExecutionStrategy executionStrategy, Boolean startLocalTransaction)
+   --- 内部异常堆栈跟踪的结尾 ---
+   在 PDBM.ApplicationService.Services.BMMgmt.OperatorsPlanningService.Associate(Guid planningId, Guid currentUserId, IList`1 operatorsPlanningMaintObjects)
+   在 DynamicModule.ns.Wrapped_IOperatorsPlanningService_39a24173f2f74de6ad3647715e88e72d.<Associate_DelegateImplementation>__5(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+
+--------------------------------Time:2015-03-11 23:50:16,386--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.InvalidOperationException: The changes to the database were committed successfully, but an error occurred while updating the object context. The ObjectContext might be in an inconsistent state. Inner exception message: A referential integrity constraint violation occurred: The property value(s) of 'Planning.Id' on one end of a relationship do not match the property value(s) of 'OperatorsPlanning.PlanningId' on the other end. ---> System.InvalidOperationException: A referential integrity constraint violation occurred: The property value(s) of 'Planning.Id' on one end of a relationship do not match the property value(s) of 'OperatorsPlanning.PlanningId' on the other end.
+   在 System.Data.Entity.Core.Objects.DataClasses.RelatedEnd.CheckReferentialConstraintProperties(EntityEntry ownerEntry)
+   在 System.Data.Entity.Core.Objects.DataClasses.RelationshipManager.CheckReferentialConstraintProperties(EntityEntry ownerEntry)
+   在 System.Data.Entity.Core.Objects.EntityEntry.AcceptChanges()
+   在 System.Data.Entity.Core.Objects.ObjectContext.AcceptAllChanges()
+   在 System.Data.Entity.Core.Objects.ObjectContext.SaveChangesToStore(SaveOptions options, IDbExecutionStrategy executionStrategy, Boolean startLocalTransaction)
+   --- 内部异常堆栈跟踪的结尾 ---
+   在 PDBM.ApplicationService.Services.BMMgmt.OperatorsPlanningService.Associate(Guid planningId, Guid currentUserId, IList`1 operatorsPlanningMaintObjects)
+   在 DynamicModule.ns.Wrapped_IOperatorsPlanningService_61ce3396ae8549ee8ad33f81de48979d.<Associate_DelegateImplementation>__5(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+
+--------------------------------Time:2015-03-11 23:55:31,505--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.InvalidOperationException: The changes to the database were committed successfully, but an error occurred while updating the object context. The ObjectContext might be in an inconsistent state. Inner exception message: A referential integrity constraint violation occurred: The property value(s) of 'Planning.Id' on one end of a relationship do not match the property value(s) of 'OperatorsPlanning.PlanningId' on the other end. ---> System.InvalidOperationException: A referential integrity constraint violation occurred: The property value(s) of 'Planning.Id' on one end of a relationship do not match the property value(s) of 'OperatorsPlanning.PlanningId' on the other end.
+   在 System.Data.Entity.Core.Objects.DataClasses.RelatedEnd.CheckReferentialConstraintProperties(EntityEntry ownerEntry)
+   在 System.Data.Entity.Core.Objects.DataClasses.RelationshipManager.CheckReferentialConstraintProperties(EntityEntry ownerEntry)
+   在 System.Data.Entity.Core.Objects.EntityEntry.AcceptChanges()
+   在 System.Data.Entity.Core.Objects.ObjectContext.AcceptAllChanges()
+   在 System.Data.Entity.Core.Objects.ObjectContext.SaveChangesToStore(SaveOptions options, IDbExecutionStrategy executionStrategy, Boolean startLocalTransaction)
+   --- 内部异常堆栈跟踪的结尾 ---
+   在 PDBM.ApplicationService.Services.BMMgmt.OperatorsPlanningService.Associate(Guid planningId, Guid currentUserId, IList`1 operatorsPlanningMaintObjects)
+   在 DynamicModule.ns.Wrapped_IOperatorsPlanningService_71829f55da0243caa748e6bac0f577d2.<Associate_DelegateImplementation>__5(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+
+--------------------------------Time:2015-03-11 23:55:44,481--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.InvalidOperationException: The changes to the database were committed successfully, but an error occurred while updating the object context. The ObjectContext might be in an inconsistent state. Inner exception message: A referential integrity constraint violation occurred: The property value(s) of 'Planning.Id' on one end of a relationship do not match the property value(s) of 'OperatorsPlanning.PlanningId' on the other end. ---> System.InvalidOperationException: A referential integrity constraint violation occurred: The property value(s) of 'Planning.Id' on one end of a relationship do not match the property value(s) of 'OperatorsPlanning.PlanningId' on the other end.
+   在 System.Data.Entity.Core.Objects.DataClasses.RelatedEnd.CheckReferentialConstraintProperties(EntityEntry ownerEntry)
+   在 System.Data.Entity.Core.Objects.DataClasses.RelationshipManager.CheckReferentialConstraintProperties(EntityEntry ownerEntry)
+   在 System.Data.Entity.Core.Objects.EntityEntry.AcceptChanges()
+   在 System.Data.Entity.Core.Objects.ObjectContext.AcceptAllChanges()
+   在 System.Data.Entity.Core.Objects.ObjectContext.SaveChangesToStore(SaveOptions options, IDbExecutionStrategy executionStrategy, Boolean startLocalTransaction)
+   --- 内部异常堆栈跟踪的结尾 ---
+   在 PDBM.ApplicationService.Services.BMMgmt.OperatorsPlanningService.Associate(Guid planningId, Guid currentUserId, IList`1 operatorsPlanningMaintObjects)
+   在 DynamicModule.ns.Wrapped_IOperatorsPlanningService_71829f55da0243caa748e6bac0f577d2.<Associate_DelegateImplementation>__5(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+
+--------------------------------Time:2015-03-11 23:59:19,695--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.InvalidOperationException: The changes to the database were committed successfully, but an error occurred while updating the object context. The ObjectContext might be in an inconsistent state. Inner exception message: A referential integrity constraint violation occurred: The property value(s) of 'Planning.Id' on one end of a relationship do not match the property value(s) of 'OperatorsPlanning.PlanningId' on the other end. ---> System.InvalidOperationException: A referential integrity constraint violation occurred: The property value(s) of 'Planning.Id' on one end of a relationship do not match the property value(s) of 'OperatorsPlanning.PlanningId' on the other end.
+   在 System.Data.Entity.Core.Objects.DataClasses.RelatedEnd.CheckReferentialConstraintProperties(EntityEntry ownerEntry)
+   在 System.Data.Entity.Core.Objects.DataClasses.RelationshipManager.CheckReferentialConstraintProperties(EntityEntry ownerEntry)
+   在 System.Data.Entity.Core.Objects.EntityEntry.AcceptChanges()
+   在 System.Data.Entity.Core.Objects.ObjectContext.AcceptAllChanges()
+   在 System.Data.Entity.Core.Objects.ObjectContext.SaveChangesToStore(SaveOptions options, IDbExecutionStrategy executionStrategy, Boolean startLocalTransaction)
+   --- 内部异常堆栈跟踪的结尾 ---
+   在 PDBM.ApplicationService.Services.BMMgmt.OperatorsPlanningService.Associate(Guid planningId, Guid currentUserId, IList`1 operatorsPlanningMaintObjects)
+   在 DynamicModule.ns.Wrapped_IOperatorsPlanningService_e3080c6e261d4e209d8c22fbc8fd2e9c.<Associate_DelegateImplementation>__5(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+

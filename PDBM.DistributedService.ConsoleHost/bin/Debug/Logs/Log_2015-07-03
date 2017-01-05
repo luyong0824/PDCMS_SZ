@@ -1,0 +1,27 @@
+--------------------------------Time:2015-07-03 14:43:07,349--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.ArgumentException: 无法根据指定的Key找到所需的聚合根。
+   在 PDBM.Infrastructure.Data.EntityFramework.Repositories.EntityFrameworkRepository`1.GetByKey(Guid key) 位置 e:\PDBM\PDBM.Infrastructure.Data\EntityFramework\Repositories\EntityFrameworkRepository.cs:行号 88
+   在 PDBM.ApplicationService.Services.BMMgmt.AddressingService.GetAddressingEditorById(Guid id)
+   在 DynamicModule.ns.Wrapped_IAddressingService_03e3ea33804e4a48963fb800a433fc7b.<GetAddressingEditorById_DelegateImplementation>__2(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+
+--------------------------------Time:2015-07-03 14:47:17,412--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.ArgumentException: 无法根据指定的Key找到所需的聚合根。
+   在 PDBM.Infrastructure.Data.EntityFramework.Repositories.EntityFrameworkRepository`1.GetByKey(Guid key) 位置 e:\PDBM\PDBM.Infrastructure.Data\EntityFramework\Repositories\EntityFrameworkRepository.cs:行号 88
+   在 PDBM.ApplicationService.Services.BMMgmt.AddressingService.GetAddressingEditorById(Guid id)
+   在 DynamicModule.ns.Wrapped_IAddressingService_1989e85665af476d8450420c6c2f5873.<GetAddressingEditorById_DelegateImplementation>__2(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+
+--------------------------------Time:2015-07-03 14:48:20,725--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.ArgumentException: 无法根据指定的Key找到所需的聚合根。
+   在 PDBM.Infrastructure.Data.EntityFramework.Repositories.EntityFrameworkRepository`1.GetByKey(Guid key) 位置 e:\PDBM\PDBM.Infrastructure.Data\EntityFramework\Repositories\EntityFrameworkRepository.cs:行号 88
+   在 PDBM.ApplicationService.Services.BMMgmt.AddressingService.GetAddressingEditorById(Guid id)
+   在 DynamicModule.ns.Wrapped_IAddressingService_1989e85665af476d8450420c6c2f5873.<GetAddressingEditorById_DelegateImplementation>__2(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+

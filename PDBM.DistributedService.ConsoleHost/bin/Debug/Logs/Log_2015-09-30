@@ -1,0 +1,8 @@
+--------------------------------Time:2015-09-30 12:49:24,963--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.NullReferenceException: 未将对象引用设置到对象的实例。
+   在 PDBM.ApplicationService.Services.BaseData.PlaceService.GetPlaceInfoById(Guid id)
+   在 DynamicModule.ns.Wrapped_IPlaceService_d6ba836406c340418478e379489a7e90.<GetPlaceInfoById_DelegateImplementation>__4(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+

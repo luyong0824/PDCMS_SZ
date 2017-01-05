@@ -1,0 +1,313 @@
+--------------------------------Time:2015-05-07 10:48:05,203--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.Reflection.TargetException: 非静态方法需要一个目标。
+   在 System.Reflection.RuntimeMethodInfo.CheckConsistency(Object target)
+   在 System.Reflection.RuntimeMethodInfo.InvokeArgumentsCheck(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   在 System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   在 System.Reflection.RuntimePropertyInfo.GetValue(Object obj, BindingFlags invokeAttr, Binder binder, Object[] index, CultureInfo culture)
+   在 System.Reflection.RuntimePropertyInfo.GetValue(Object obj, Object[] index)
+   在 System.Data.Entity.Core.Objects.ELinq.QueryParameterExpression.TryGetFieldOrPropertyValue(MemberExpression me, Object instance, Object& memberValue)
+   在 System.Data.Entity.Core.Objects.ELinq.QueryParameterExpression.TryEvaluatePath(Expression expression, ConstantExpression& constantExpression)
+   在 System.Data.Entity.Core.Objects.ELinq.QueryParameterExpression.EvaluateParameter(Object[] arguments)
+   在 System.Data.Entity.Core.Objects.ELinq.ELinqQueryState.GetExecutionPlan(Nullable`1 forMergeOption)
+   在 System.Data.Entity.Core.Objects.ObjectQuery`1.<>c__DisplayClass7.<GetResults>b__6()
+   在 System.Data.Entity.Core.Objects.ObjectContext.ExecuteInTransaction[T](Func`1 func, IDbExecutionStrategy executionStrategy, Boolean startLocalTransaction, Boolean releaseConnectionOnSuccess)
+   在 System.Data.Entity.Core.Objects.ObjectQuery`1.<>c__DisplayClass7.<GetResults>b__5()
+   在 System.Data.Entity.SqlServer.DefaultSqlExecutionStrategy.Execute[TResult](Func`1 operation)
+   在 System.Data.Entity.Core.Objects.ObjectQuery`1.GetResults(Nullable`1 forMergeOption)
+   在 System.Data.Entity.Core.Objects.ObjectQuery`1.<System.Collections.Generic.IEnumerable<T>.GetEnumerator>b__0()
+   在 System.Data.Entity.Internal.LazyEnumerator`1.MoveNext()
+   在 System.Collections.Generic.List`1..ctor(IEnumerable`1 collection)
+   在 System.Linq.Enumerable.ToList[TSource](IEnumerable`1 source)
+   在 PDBM.Infrastructure.Data.EntityFramework.Repositories.EntityFrameworkRepository`1.FindAll(ISpecification`1 specification, String sortString, Expression`1 eagerLodingProperty) 位置 e:\PDSOFT\PDBM\PDBM.Infrastructure.Data\EntityFramework\Repositories\EntityFrameworkRepository.cs:行号 191
+   在 PDBM.Domain.EventHandlers.WorkFlow.WFActivityChangedEventHandler.Handle(WFActivityChangedEvent evt) 位置 e:\PDSOFT\PDBM\PDBM.Domain\EventHandlers\WorkFlow\WFActivityChangedEventHandler.cs:行号 33
+   在 DynamicModule.ns.Wrapped_IDomainEventHandler`1_cd6076798395445fb924e88aa1535336.<Handle_DelegateImplementation>__0(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+
+--------------------------------Time:2015-05-07 10:48:05,850--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.Reflection.TargetException: 非静态方法需要一个目标。
+   在 PDBM.ApplicationService.Services.WorkFlow.WFActivityService.AddOrUpdateWFActivitys(IList`1 wfActivityMaintObjects)
+   在 DynamicModule.ns.Wrapped_IWFActivityService_f8729b8fe86d454991dea2cfc9776fd1.<AddOrUpdateWFActivitys_DelegateImplementation>__2(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+
+--------------------------------Time:2015-05-07 10:50:30,403--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.Reflection.TargetException: 非静态方法需要一个目标。
+   在 System.Reflection.RuntimeMethodInfo.CheckConsistency(Object target)
+   在 System.Reflection.RuntimeMethodInfo.InvokeArgumentsCheck(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   在 System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   在 System.Reflection.RuntimePropertyInfo.GetValue(Object obj, BindingFlags invokeAttr, Binder binder, Object[] index, CultureInfo culture)
+   在 System.Reflection.RuntimePropertyInfo.GetValue(Object obj, Object[] index)
+   在 System.Data.Entity.Core.Objects.ELinq.QueryParameterExpression.TryGetFieldOrPropertyValue(MemberExpression me, Object instance, Object& memberValue)
+   在 System.Data.Entity.Core.Objects.ELinq.QueryParameterExpression.TryEvaluatePath(Expression expression, ConstantExpression& constantExpression)
+   在 System.Data.Entity.Core.Objects.ELinq.QueryParameterExpression.EvaluateParameter(Object[] arguments)
+   在 System.Data.Entity.Core.Objects.ELinq.ELinqQueryState.GetExecutionPlan(Nullable`1 forMergeOption)
+   在 System.Data.Entity.Core.Objects.ObjectQuery`1.<>c__DisplayClass7.<GetResults>b__6()
+   在 System.Data.Entity.Core.Objects.ObjectContext.ExecuteInTransaction[T](Func`1 func, IDbExecutionStrategy executionStrategy, Boolean startLocalTransaction, Boolean releaseConnectionOnSuccess)
+   在 System.Data.Entity.Core.Objects.ObjectQuery`1.<>c__DisplayClass7.<GetResults>b__5()
+   在 System.Data.Entity.SqlServer.DefaultSqlExecutionStrategy.Execute[TResult](Func`1 operation)
+   在 System.Data.Entity.Core.Objects.ObjectQuery`1.GetResults(Nullable`1 forMergeOption)
+   在 System.Data.Entity.Core.Objects.ObjectQuery`1.<System.Collections.Generic.IEnumerable<T>.GetEnumerator>b__0()
+   在 System.Data.Entity.Internal.LazyEnumerator`1.MoveNext()
+   在 System.Collections.Generic.List`1..ctor(IEnumerable`1 collection)
+   在 System.Linq.Enumerable.ToList[TSource](IEnumerable`1 source)
+   在 PDBM.Infrastructure.Data.EntityFramework.Repositories.EntityFrameworkRepository`1.FindAll(ISpecification`1 specification, String sortString, Expression`1 eagerLodingProperty) 位置 e:\PDSOFT\PDBM\PDBM.Infrastructure.Data\EntityFramework\Repositories\EntityFrameworkRepository.cs:行号 191
+   在 PDBM.Domain.EventHandlers.WorkFlow.WFActivityChangedEventHandler.Handle(WFActivityChangedEvent evt) 位置 e:\PDSOFT\PDBM\PDBM.Domain\EventHandlers\WorkFlow\WFActivityChangedEventHandler.cs:行号 33
+   在 DynamicModule.ns.Wrapped_IDomainEventHandler`1_cd6076798395445fb924e88aa1535336.<Handle_DelegateImplementation>__0(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+
+--------------------------------Time:2015-05-07 10:50:30,407--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.Reflection.TargetException: 非静态方法需要一个目标。
+   在 PDBM.ApplicationService.Services.WorkFlow.WFActivityService.AddOrUpdateWFActivitys(IList`1 wfActivityMaintObjects)
+   在 DynamicModule.ns.Wrapped_IWFActivityService_f8729b8fe86d454991dea2cfc9776fd1.<AddOrUpdateWFActivitys_DelegateImplementation>__2(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+
+--------------------------------Time:2015-05-07 14:43:37,043--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.NotSupportedException: LINQ to Entities does not recognize the method 'PDBM.DataTransferObjects.WorkFlow.WFActivityMaintObject get_Item(Int32)' method, and this method cannot be translated into a store expression.
+   在 System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MethodCallTranslator.DefaultTranslator.Translate(ExpressionConverter parent, MethodCallExpression call)
+   在 System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MethodCallTranslator.TypedTranslate(ExpressionConverter parent, MethodCallExpression linq)
+   在 System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TypedTranslator`1.Translate(ExpressionConverter parent, Expression linq)
+   在 System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TranslateExpression(Expression linq)
+   在 System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MemberAccessTranslator.TypedTranslate(ExpressionConverter parent, MemberExpression linq)
+   在 System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TypedTranslator`1.Translate(ExpressionConverter parent, Expression linq)
+   在 System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TranslateExpression(Expression linq)
+   在 System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.EqualsTranslator.TypedTranslate(ExpressionConverter parent, BinaryExpression linq)
+   在 System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TypedTranslator`1.Translate(ExpressionConverter parent, Expression linq)
+   在 System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TranslateExpression(Expression linq)
+   在 System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TranslateLambda(LambdaExpression lambda, DbExpression input)
+   在 System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TranslateLambda(LambdaExpression lambda, DbExpression input, DbExpressionBinding& binding)
+   在 System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MethodCallTranslator.OneLambdaTranslator.Translate(ExpressionConverter parent, MethodCallExpression call, DbExpression& source, DbExpressionBinding& sourceBinding, DbExpression& lambda)
+   在 System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MethodCallTranslator.OneLambdaTranslator.Translate(ExpressionConverter parent, MethodCallExpression call)
+   在 System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MethodCallTranslator.SequenceMethodTranslator.Translate(ExpressionConverter parent, MethodCallExpression call, SequenceMethod sequenceMethod)
+   在 System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MethodCallTranslator.TypedTranslate(ExpressionConverter parent, MethodCallExpression linq)
+   在 System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TypedTranslator`1.Translate(ExpressionConverter parent, Expression linq)
+   在 System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TranslateExpression(Expression linq)
+   在 System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.Convert()
+   在 System.Data.Entity.Core.Objects.ELinq.ELinqQueryState.GetExecutionPlan(Nullable`1 forMergeOption)
+   在 System.Data.Entity.Core.Objects.ObjectQuery`1.<>c__DisplayClass7.<GetResults>b__6()
+   在 System.Data.Entity.Core.Objects.ObjectContext.ExecuteInTransaction[T](Func`1 func, IDbExecutionStrategy executionStrategy, Boolean startLocalTransaction, Boolean releaseConnectionOnSuccess)
+   在 System.Data.Entity.Core.Objects.ObjectQuery`1.<>c__DisplayClass7.<GetResults>b__5()
+   在 System.Data.Entity.SqlServer.DefaultSqlExecutionStrategy.Execute[TResult](Func`1 operation)
+   在 System.Data.Entity.Core.Objects.ObjectQuery`1.GetResults(Nullable`1 forMergeOption)
+   在 System.Data.Entity.Core.Objects.ObjectQuery`1.<System.Collections.Generic.IEnumerable<T>.GetEnumerator>b__0()
+   在 System.Data.Entity.Internal.LazyEnumerator`1.MoveNext()
+   在 System.Collections.Generic.List`1..ctor(IEnumerable`1 collection)
+   在 System.Linq.Enumerable.ToList[TSource](IEnumerable`1 source)
+   在 PDBM.Infrastructure.Data.EntityFramework.Repositories.EntityFrameworkRepository`1.FindAll(ISpecification`1 specification, String sortString, Expression`1 eagerLodingProperty) 位置 e:\PDSOFT\PDBM\PDBM.Infrastructure.Data\EntityFramework\Repositories\EntityFrameworkRepository.cs:行号 191
+   在 PDBM.ApplicationService.Services.WorkFlow.WFActivityService.AddOrUpdateWFActivitys(IList`1 wfActivityMaintObjects)
+   在 DynamicModule.ns.Wrapped_IWFActivityService_d1d7b600b5274035b6189885e0d60be9.<AddOrUpdateWFActivitys_DelegateImplementation>__2(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+
+--------------------------------Time:2015-05-07 14:44:29,723--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.NotSupportedException: LINQ to Entities does not recognize the method 'PDBM.DataTransferObjects.WorkFlow.WFActivityMaintObject get_Item(Int32)' method, and this method cannot be translated into a store expression.
+   在 System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MethodCallTranslator.DefaultTranslator.Translate(ExpressionConverter parent, MethodCallExpression call)
+   在 System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MethodCallTranslator.TypedTranslate(ExpressionConverter parent, MethodCallExpression linq)
+   在 System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TypedTranslator`1.Translate(ExpressionConverter parent, Expression linq)
+   在 System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TranslateExpression(Expression linq)
+   在 System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MemberAccessTranslator.TypedTranslate(ExpressionConverter parent, MemberExpression linq)
+   在 System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TypedTranslator`1.Translate(ExpressionConverter parent, Expression linq)
+   在 System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TranslateExpression(Expression linq)
+   在 System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.EqualsTranslator.TypedTranslate(ExpressionConverter parent, BinaryExpression linq)
+   在 System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TypedTranslator`1.Translate(ExpressionConverter parent, Expression linq)
+   在 System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TranslateExpression(Expression linq)
+   在 System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TranslateLambda(LambdaExpression lambda, DbExpression input)
+   在 System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TranslateLambda(LambdaExpression lambda, DbExpression input, DbExpressionBinding& binding)
+   在 System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MethodCallTranslator.OneLambdaTranslator.Translate(ExpressionConverter parent, MethodCallExpression call, DbExpression& source, DbExpressionBinding& sourceBinding, DbExpression& lambda)
+   在 System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MethodCallTranslator.OneLambdaTranslator.Translate(ExpressionConverter parent, MethodCallExpression call)
+   在 System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MethodCallTranslator.SequenceMethodTranslator.Translate(ExpressionConverter parent, MethodCallExpression call, SequenceMethod sequenceMethod)
+   在 System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MethodCallTranslator.TypedTranslate(ExpressionConverter parent, MethodCallExpression linq)
+   在 System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TypedTranslator`1.Translate(ExpressionConverter parent, Expression linq)
+   在 System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TranslateExpression(Expression linq)
+   在 System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.Convert()
+   在 System.Data.Entity.Core.Objects.ELinq.ELinqQueryState.GetExecutionPlan(Nullable`1 forMergeOption)
+   在 System.Data.Entity.Core.Objects.ObjectQuery`1.<>c__DisplayClass7.<GetResults>b__6()
+   在 System.Data.Entity.Core.Objects.ObjectContext.ExecuteInTransaction[T](Func`1 func, IDbExecutionStrategy executionStrategy, Boolean startLocalTransaction, Boolean releaseConnectionOnSuccess)
+   在 System.Data.Entity.Core.Objects.ObjectQuery`1.<>c__DisplayClass7.<GetResults>b__5()
+   在 System.Data.Entity.SqlServer.DefaultSqlExecutionStrategy.Execute[TResult](Func`1 operation)
+   在 System.Data.Entity.Core.Objects.ObjectQuery`1.GetResults(Nullable`1 forMergeOption)
+   在 System.Data.Entity.Core.Objects.ObjectQuery`1.<System.Collections.Generic.IEnumerable<T>.GetEnumerator>b__0()
+   在 System.Data.Entity.Internal.LazyEnumerator`1.MoveNext()
+   在 System.Collections.Generic.List`1..ctor(IEnumerable`1 collection)
+   在 System.Linq.Enumerable.ToList[TSource](IEnumerable`1 source)
+   在 PDBM.Infrastructure.Data.EntityFramework.Repositories.EntityFrameworkRepository`1.FindAll(ISpecification`1 specification, String sortString, Expression`1 eagerLodingProperty) 位置 e:\PDSOFT\PDBM\PDBM.Infrastructure.Data\EntityFramework\Repositories\EntityFrameworkRepository.cs:行号 191
+   在 PDBM.ApplicationService.Services.WorkFlow.WFActivityService.AddOrUpdateWFActivitys(IList`1 wfActivityMaintObjects)
+   在 DynamicModule.ns.Wrapped_IWFActivityService_d1d7b600b5274035b6189885e0d60be9.<AddOrUpdateWFActivitys_DelegateImplementation>__2(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+
+--------------------------------Time:2015-05-07 14:45:52,818--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.NotSupportedException: LINQ to Entities does not recognize the method 'PDBM.DataTransferObjects.WorkFlow.WFActivityMaintObject get_Item(Int32)' method, and this method cannot be translated into a store expression.
+   在 System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MethodCallTranslator.DefaultTranslator.Translate(ExpressionConverter parent, MethodCallExpression call)
+   在 System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MethodCallTranslator.TypedTranslate(ExpressionConverter parent, MethodCallExpression linq)
+   在 System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TypedTranslator`1.Translate(ExpressionConverter parent, Expression linq)
+   在 System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TranslateExpression(Expression linq)
+   在 System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MemberAccessTranslator.TypedTranslate(ExpressionConverter parent, MemberExpression linq)
+   在 System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TypedTranslator`1.Translate(ExpressionConverter parent, Expression linq)
+   在 System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TranslateExpression(Expression linq)
+   在 System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.EqualsTranslator.TypedTranslate(ExpressionConverter parent, BinaryExpression linq)
+   在 System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TypedTranslator`1.Translate(ExpressionConverter parent, Expression linq)
+   在 System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TranslateExpression(Expression linq)
+   在 System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TranslateLambda(LambdaExpression lambda, DbExpression input)
+   在 System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TranslateLambda(LambdaExpression lambda, DbExpression input, DbExpressionBinding& binding)
+   在 System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MethodCallTranslator.OneLambdaTranslator.Translate(ExpressionConverter parent, MethodCallExpression call, DbExpression& source, DbExpressionBinding& sourceBinding, DbExpression& lambda)
+   在 System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MethodCallTranslator.OneLambdaTranslator.Translate(ExpressionConverter parent, MethodCallExpression call)
+   在 System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MethodCallTranslator.SequenceMethodTranslator.Translate(ExpressionConverter parent, MethodCallExpression call, SequenceMethod sequenceMethod)
+   在 System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.MethodCallTranslator.TypedTranslate(ExpressionConverter parent, MethodCallExpression linq)
+   在 System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TypedTranslator`1.Translate(ExpressionConverter parent, Expression linq)
+   在 System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.TranslateExpression(Expression linq)
+   在 System.Data.Entity.Core.Objects.ELinq.ExpressionConverter.Convert()
+   在 System.Data.Entity.Core.Objects.ELinq.ELinqQueryState.GetExecutionPlan(Nullable`1 forMergeOption)
+   在 System.Data.Entity.Core.Objects.ObjectQuery`1.<>c__DisplayClass7.<GetResults>b__6()
+   在 System.Data.Entity.Core.Objects.ObjectContext.ExecuteInTransaction[T](Func`1 func, IDbExecutionStrategy executionStrategy, Boolean startLocalTransaction, Boolean releaseConnectionOnSuccess)
+   在 System.Data.Entity.Core.Objects.ObjectQuery`1.<>c__DisplayClass7.<GetResults>b__5()
+   在 System.Data.Entity.SqlServer.DefaultSqlExecutionStrategy.Execute[TResult](Func`1 operation)
+   在 System.Data.Entity.Core.Objects.ObjectQuery`1.GetResults(Nullable`1 forMergeOption)
+   在 System.Data.Entity.Core.Objects.ObjectQuery`1.<System.Collections.Generic.IEnumerable<T>.GetEnumerator>b__0()
+   在 System.Data.Entity.Internal.LazyEnumerator`1.MoveNext()
+   在 System.Collections.Generic.List`1..ctor(IEnumerable`1 collection)
+   在 System.Linq.Enumerable.ToList[TSource](IEnumerable`1 source)
+   在 PDBM.Infrastructure.Data.EntityFramework.Repositories.EntityFrameworkRepository`1.FindAll(ISpecification`1 specification, String sortString, Expression`1 eagerLodingProperty) 位置 e:\PDSOFT\PDBM\PDBM.Infrastructure.Data\EntityFramework\Repositories\EntityFrameworkRepository.cs:行号 191
+   在 PDBM.ApplicationService.Services.WorkFlow.WFActivityService.AddOrUpdateWFActivitys(IList`1 wfActivityMaintObjects)
+   在 DynamicModule.ns.Wrapped_IWFActivityService_d1d7b600b5274035b6189885e0d60be9.<AddOrUpdateWFActivitys_DelegateImplementation>__2(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+
+--------------------------------Time:2015-05-07 14:48:31,601--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.NullReferenceException: 未将对象引用设置到对象的实例。
+   在 PDBM.ApplicationService.Services.WorkFlow.WFActivityService.AddOrUpdateWFActivitys(IList`1 wfActivityMaintObjects)
+   在 DynamicModule.ns.Wrapped_IWFActivityService_497ba3e2b99a4d858c3769d2ed261baf.<AddOrUpdateWFActivitys_DelegateImplementation>__2(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+
+--------------------------------Time:2015-05-07 14:48:34,162--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.NullReferenceException: 未将对象引用设置到对象的实例。
+   在 PDBM.ApplicationService.Services.WorkFlow.WFActivityService.AddOrUpdateWFActivitys(IList`1 wfActivityMaintObjects)
+   在 DynamicModule.ns.Wrapped_IWFActivityService_497ba3e2b99a4d858c3769d2ed261baf.<AddOrUpdateWFActivitys_DelegateImplementation>__2(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+
+--------------------------------Time:2015-05-07 14:48:40,011--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.NullReferenceException: 未将对象引用设置到对象的实例。
+   在 PDBM.ApplicationService.Services.WorkFlow.WFActivityService.AddOrUpdateWFActivitys(IList`1 wfActivityMaintObjects)
+   在 DynamicModule.ns.Wrapped_IWFActivityService_497ba3e2b99a4d858c3769d2ed261baf.<AddOrUpdateWFActivitys_DelegateImplementation>__2(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+
+--------------------------------Time:2015-05-07 14:52:15,287--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.NullReferenceException: 未将对象引用设置到对象的实例。
+   在 PDBM.ApplicationService.Services.WorkFlow.WFActivityService.AddOrUpdateWFActivitys(IList`1 wfActivityMaintObjects)
+   在 DynamicModule.ns.Wrapped_IWFActivityService_b0e752d780c14f3395fc99fa777a5cb2.<AddOrUpdateWFActivitys_DelegateImplementation>__2(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+
+--------------------------------Time:2015-05-07 14:54:49,466--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.NullReferenceException: 未将对象引用设置到对象的实例。
+   在 PDBM.ApplicationService.Services.WorkFlow.WFActivityService.AddOrUpdateWFActivitys(IList`1 wfActivityMaintObjects)
+   在 DynamicModule.ns.Wrapped_IWFActivityService_b0e752d780c14f3395fc99fa777a5cb2.<AddOrUpdateWFActivitys_DelegateImplementation>__2(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+
+--------------------------------Time:2015-05-07 14:54:56,227--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.NullReferenceException: 未将对象引用设置到对象的实例。
+   在 PDBM.ApplicationService.Services.WorkFlow.WFActivityService.AddOrUpdateWFActivitys(IList`1 wfActivityMaintObjects)
+   在 DynamicModule.ns.Wrapped_IWFActivityService_b0e752d780c14f3395fc99fa777a5cb2.<AddOrUpdateWFActivitys_DelegateImplementation>__2(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+
+--------------------------------Time:2015-05-07 14:56:59,151--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.NullReferenceException: 未将对象引用设置到对象的实例。
+   在 PDBM.ApplicationService.Services.WorkFlow.WFActivityService.AddOrUpdateWFActivitys(IList`1 wfActivityMaintObjects)
+   在 DynamicModule.ns.Wrapped_IWFActivityService_c8bbe4b6717a4cbc9902394c73420d4d.<AddOrUpdateWFActivitys_DelegateImplementation>__2(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+
+--------------------------------Time:2015-05-07 14:58:57,347--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.NullReferenceException: 未将对象引用设置到对象的实例。
+   在 PDBM.ApplicationService.Services.WorkFlow.WFActivityService.AddOrUpdateWFActivitys(IList`1 wfActivityMaintObjects)
+   在 DynamicModule.ns.Wrapped_IWFActivityService_66217704a04a4bfba5134acd3b771466.<AddOrUpdateWFActivitys_DelegateImplementation>__2(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+
+--------------------------------Time:2015-05-07 15:04:29,594--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.ArgumentOutOfRangeException: 索引超出范围。必须为非负值并小于集合大小。
+参数名: index
+   在 System.ThrowHelper.ThrowArgumentOutOfRangeException(ExceptionArgument argument, ExceptionResource resource)
+   在 System.Collections.Generic.List`1.get_Item(Int32 index)
+   在 PDBM.ApplicationService.Services.WorkFlow.WFActivityService.AddOrUpdateWFActivitys(IList`1 wfActivityMaintObjects)
+   在 DynamicModule.ns.Wrapped_IWFActivityService_17778a81482b4a93ab44768c9897baeb.<AddOrUpdateWFActivitys_DelegateImplementation>__2(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+
+--------------------------------Time:2015-05-07 15:05:25,716--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.ArgumentOutOfRangeException: 索引超出范围。必须为非负值并小于集合大小。
+参数名: index
+   在 System.ThrowHelper.ThrowArgumentOutOfRangeException(ExceptionArgument argument, ExceptionResource resource)
+   在 System.Collections.Generic.List`1.get_Item(Int32 index)
+   在 PDBM.ApplicationService.Services.WorkFlow.WFActivityService.AddOrUpdateWFActivitys(IList`1 wfActivityMaintObjects)
+   在 DynamicModule.ns.Wrapped_IWFActivityService_17778a81482b4a93ab44768c9897baeb.<AddOrUpdateWFActivitys_DelegateImplementation>__2(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+
+--------------------------------Time:2015-05-07 15:06:15,000--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.ArgumentOutOfRangeException: 索引超出范围。必须为非负值并小于集合大小。
+参数名: index
+   在 System.ThrowHelper.ThrowArgumentOutOfRangeException(ExceptionArgument argument, ExceptionResource resource)
+   在 System.Collections.Generic.List`1.get_Item(Int32 index)
+   在 PDBM.ApplicationService.Services.WorkFlow.WFActivityService.AddOrUpdateWFActivitys(IList`1 wfActivityMaintObjects)
+   在 DynamicModule.ns.Wrapped_IWFActivityService_17778a81482b4a93ab44768c9897baeb.<AddOrUpdateWFActivitys_DelegateImplementation>__2(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+
+--------------------------------Time:2015-05-07 15:15:29,969--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.ArgumentOutOfRangeException: 索引超出范围。必须为非负值并小于集合大小。
+参数名: index
+   在 System.ThrowHelper.ThrowArgumentOutOfRangeException(ExceptionArgument argument, ExceptionResource resource)
+   在 System.Collections.Generic.List`1.get_Item(Int32 index)
+   在 PDBM.ApplicationService.Services.WorkFlow.WFActivityService.AddOrUpdateWFActivitys(IList`1 wfActivityMaintObjects)
+   在 DynamicModule.ns.Wrapped_IWFActivityService_b273e790e64d4ef4a7f52ad33d97e0f1.<AddOrUpdateWFActivitys_DelegateImplementation>__2(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+
+--------------------------------Time:2015-05-07 15:33:38,376--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.ArgumentOutOfRangeException: 索引超出范围。必须为非负值并小于集合大小。
+参数名: index
+   在 System.ThrowHelper.ThrowArgumentOutOfRangeException(ExceptionArgument argument, ExceptionResource resource)
+   在 System.Collections.Generic.List`1.get_Item(Int32 index)
+   在 PDBM.ApplicationService.Services.WorkFlow.WFActivityService.AddOrUpdateWFActivitys(IList`1 wfActivityMaintObjects)
+   在 DynamicModule.ns.Wrapped_IWFActivityService_2ea84a25d9694b588a3f5914c9ae2cc6.<AddOrUpdateWFActivitys_DelegateImplementation>__2(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+
+--------------------------------Time:2015-05-07 18:02:25,178--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.ArgumentOutOfRangeException: 指定的参数已超出有效值的范围。
+参数名: index
+   在 System.Linq.Enumerable.ElementAt[TSource](IEnumerable`1 source, Int32 index)
+   在 PDBM.ApplicationService.Services.WorkFlow.WFActivityService.AddOrUpdateWFActivitys(IList`1 wfActivityMaintObjects, Guid wfProcessId)
+   在 DynamicModule.ns.Wrapped_IWFActivityService_cf362c216434405281845b57c9d6aa5d.<AddOrUpdateWFActivitys_DelegateImplementation>__2(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+

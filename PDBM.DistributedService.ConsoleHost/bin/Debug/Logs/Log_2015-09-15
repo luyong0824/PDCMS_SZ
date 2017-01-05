@@ -1,0 +1,17 @@
+--------------------------------Time:2015-09-15 09:48:34,779--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.ArgumentException: 无法根据指定的Key找到所需的聚合根。
+   在 PDBM.Infrastructure.Data.EntityFramework.Repositories.EntityFrameworkRepository`1.GetByKey(Guid key) 位置 e:\PDBM\PDBM.Infrastructure.Data\EntityFramework\Repositories\EntityFrameworkRepository.cs:行号 88
+   在 PDBM.ApplicationService.Services.BaseData.ProjectService.GetProjectById(Guid id)
+   在 DynamicModule.ns.Wrapped_IProjectService_ca158f27f7ab48c48044cafcc556b107.<GetProjectById_DelegateImplementation>__0(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+
+--------------------------------Time:2015-09-15 14:42:53,048--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.NullReferenceException: 未将对象引用设置到对象的实例。
+   在 PDBM.ApplicationService.Services.BaseData.PlaceService.GetPlaceInfoById(Guid id)
+   在 DynamicModule.ns.Wrapped_IPlaceService_59ea10521549476890c8434f3f3850a0.<GetPlaceInfoById_DelegateImplementation>__4(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+

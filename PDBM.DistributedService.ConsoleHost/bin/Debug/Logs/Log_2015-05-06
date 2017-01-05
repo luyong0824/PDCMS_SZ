@@ -1,0 +1,214 @@
+--------------------------------Time:2015-05-06 14:09:51,378--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.NotImplementedException: 未实现该方法或操作。
+   在 PDBM.ApplicationService.Services.WorkFlow.WFActivityService.AddOrUpdateWFActivitys(IList`1 wfActivityMaintObjects)
+   在 DynamicModule.ns.Wrapped_IWFActivityService_ad3ddc2474014593a9c986e5caddbc71.<AddOrUpdateWFActivitys_DelegateImplementation>__2(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+
+--------------------------------Time:2015-05-06 14:13:14,201--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.NotImplementedException: 未实现该方法或操作。
+   在 PDBM.ApplicationService.Services.WorkFlow.WFActivityService.AddOrUpdateWFActivitys(IList`1 wfActivityMaintObjects)
+   在 DynamicModule.ns.Wrapped_IWFActivityService_ad3ddc2474014593a9c986e5caddbc71.<AddOrUpdateWFActivitys_DelegateImplementation>__2(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+
+--------------------------------Time:2015-05-06 14:14:10,698--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.NotImplementedException: 未实现该方法或操作。
+   在 PDBM.ApplicationService.Services.WorkFlow.WFActivityService.AddOrUpdateWFActivitys(IList`1 wfActivityMaintObjects)
+   在 DynamicModule.ns.Wrapped_IWFActivityService_ad3ddc2474014593a9c986e5caddbc71.<AddOrUpdateWFActivitys_DelegateImplementation>__2(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+
+--------------------------------Time:2015-05-06 20:11:35,246--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.Reflection.TargetException: 非静态方法需要一个目标。
+   在 System.Reflection.RuntimeMethodInfo.CheckConsistency(Object target)
+   在 System.Reflection.RuntimeMethodInfo.InvokeArgumentsCheck(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   在 System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   在 System.Reflection.RuntimePropertyInfo.GetValue(Object obj, BindingFlags invokeAttr, Binder binder, Object[] index, CultureInfo culture)
+   在 System.Reflection.RuntimePropertyInfo.GetValue(Object obj, Object[] index)
+   在 System.Data.Entity.Core.Objects.ELinq.QueryParameterExpression.TryGetFieldOrPropertyValue(MemberExpression me, Object instance, Object& memberValue)
+   在 System.Data.Entity.Core.Objects.ELinq.QueryParameterExpression.TryEvaluatePath(Expression expression, ConstantExpression& constantExpression)
+   在 System.Data.Entity.Core.Objects.ELinq.QueryParameterExpression.EvaluateParameter(Object[] arguments)
+   在 System.Data.Entity.Core.Objects.ELinq.ELinqQueryState.GetExecutionPlan(Nullable`1 forMergeOption)
+   在 System.Data.Entity.Core.Objects.ObjectQuery`1.<>c__DisplayClass7.<GetResults>b__6()
+   在 System.Data.Entity.Core.Objects.ObjectContext.ExecuteInTransaction[T](Func`1 func, IDbExecutionStrategy executionStrategy, Boolean startLocalTransaction, Boolean releaseConnectionOnSuccess)
+   在 System.Data.Entity.Core.Objects.ObjectQuery`1.<>c__DisplayClass7.<GetResults>b__5()
+   在 System.Data.Entity.SqlServer.DefaultSqlExecutionStrategy.Execute[TResult](Func`1 operation)
+   在 System.Data.Entity.Core.Objects.ObjectQuery`1.GetResults(Nullable`1 forMergeOption)
+   在 System.Data.Entity.Core.Objects.ObjectQuery`1.<System.Collections.Generic.IEnumerable<T>.GetEnumerator>b__0()
+   在 System.Data.Entity.Internal.LazyEnumerator`1.MoveNext()
+   在 System.Collections.Generic.List`1..ctor(IEnumerable`1 collection)
+   在 System.Linq.Enumerable.ToList[TSource](IEnumerable`1 source)
+   在 PDBM.Infrastructure.Data.EntityFramework.Repositories.EntityFrameworkRepository`1.FindAll(ISpecification`1 specification, String sortString, Expression`1 eagerLodingProperty) 位置 e:\PDSOFT\PDBM\PDBM.Infrastructure.Data\EntityFramework\Repositories\EntityFrameworkRepository.cs:行号 191
+   在 PDBM.Domain.EventHandlers.WorkFlow.WFActivityChangedEventHandler.Handle(WFActivityChangedEvent evt) 位置 e:\PDSOFT\PDBM\PDBM.Domain\EventHandlers\WorkFlow\WFActivityChangedEventHandler.cs:行号 33
+   在 DynamicModule.ns.Wrapped_IDomainEventHandler`1_1c175c0d4fd54bd58171d50fb0121b8f.<Handle_DelegateImplementation>__0(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+
+--------------------------------Time:2015-05-06 20:11:35,767--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.Reflection.TargetException: 非静态方法需要一个目标。
+   在 PDBM.ApplicationService.Services.WorkFlow.WFActivityService.AddOrUpdateWFActivitys(IList`1 wfActivityMaintObjects)
+   在 DynamicModule.ns.Wrapped_IWFActivityService_a2cda97bb8104b959aa6197344c24c61.<AddOrUpdateWFActivitys_DelegateImplementation>__2(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+
+--------------------------------Time:2015-05-06 20:13:23,941--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.Reflection.TargetException: 非静态方法需要一个目标。
+   在 System.Reflection.RuntimeMethodInfo.CheckConsistency(Object target)
+   在 System.Reflection.RuntimeMethodInfo.InvokeArgumentsCheck(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   在 System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   在 System.Reflection.RuntimePropertyInfo.GetValue(Object obj, BindingFlags invokeAttr, Binder binder, Object[] index, CultureInfo culture)
+   在 System.Reflection.RuntimePropertyInfo.GetValue(Object obj, Object[] index)
+   在 System.Data.Entity.Core.Objects.ELinq.QueryParameterExpression.TryGetFieldOrPropertyValue(MemberExpression me, Object instance, Object& memberValue)
+   在 System.Data.Entity.Core.Objects.ELinq.QueryParameterExpression.TryEvaluatePath(Expression expression, ConstantExpression& constantExpression)
+   在 System.Data.Entity.Core.Objects.ELinq.QueryParameterExpression.EvaluateParameter(Object[] arguments)
+   在 System.Data.Entity.Core.Objects.ELinq.ELinqQueryState.GetExecutionPlan(Nullable`1 forMergeOption)
+   在 System.Data.Entity.Core.Objects.ObjectQuery`1.<>c__DisplayClass7.<GetResults>b__6()
+   在 System.Data.Entity.Core.Objects.ObjectContext.ExecuteInTransaction[T](Func`1 func, IDbExecutionStrategy executionStrategy, Boolean startLocalTransaction, Boolean releaseConnectionOnSuccess)
+   在 System.Data.Entity.Core.Objects.ObjectQuery`1.<>c__DisplayClass7.<GetResults>b__5()
+   在 System.Data.Entity.SqlServer.DefaultSqlExecutionStrategy.Execute[TResult](Func`1 operation)
+   在 System.Data.Entity.Core.Objects.ObjectQuery`1.GetResults(Nullable`1 forMergeOption)
+   在 System.Data.Entity.Core.Objects.ObjectQuery`1.<System.Collections.Generic.IEnumerable<T>.GetEnumerator>b__0()
+   在 System.Data.Entity.Internal.LazyEnumerator`1.MoveNext()
+   在 System.Collections.Generic.List`1..ctor(IEnumerable`1 collection)
+   在 System.Linq.Enumerable.ToList[TSource](IEnumerable`1 source)
+   在 PDBM.Infrastructure.Data.EntityFramework.Repositories.EntityFrameworkRepository`1.FindAll(ISpecification`1 specification, String sortString, Expression`1 eagerLodingProperty) 位置 e:\PDSOFT\PDBM\PDBM.Infrastructure.Data\EntityFramework\Repositories\EntityFrameworkRepository.cs:行号 191
+   在 PDBM.Domain.EventHandlers.WorkFlow.WFActivityChangedEventHandler.Handle(WFActivityChangedEvent evt) 位置 e:\PDSOFT\PDBM\PDBM.Domain\EventHandlers\WorkFlow\WFActivityChangedEventHandler.cs:行号 33
+   在 DynamicModule.ns.Wrapped_IDomainEventHandler`1_1c175c0d4fd54bd58171d50fb0121b8f.<Handle_DelegateImplementation>__0(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+
+--------------------------------Time:2015-05-06 20:13:23,944--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.Reflection.TargetException: 非静态方法需要一个目标。
+   在 PDBM.ApplicationService.Services.WorkFlow.WFActivityService.AddOrUpdateWFActivitys(IList`1 wfActivityMaintObjects)
+   在 DynamicModule.ns.Wrapped_IWFActivityService_a2cda97bb8104b959aa6197344c24c61.<AddOrUpdateWFActivitys_DelegateImplementation>__2(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+
+--------------------------------Time:2015-05-06 20:13:26,819--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.Reflection.TargetException: 非静态方法需要一个目标。
+   在 System.Reflection.RuntimeMethodInfo.CheckConsistency(Object target)
+   在 System.Reflection.RuntimeMethodInfo.InvokeArgumentsCheck(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   在 System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   在 System.Reflection.RuntimePropertyInfo.GetValue(Object obj, BindingFlags invokeAttr, Binder binder, Object[] index, CultureInfo culture)
+   在 System.Reflection.RuntimePropertyInfo.GetValue(Object obj, Object[] index)
+   在 System.Data.Entity.Core.Objects.ELinq.QueryParameterExpression.TryGetFieldOrPropertyValue(MemberExpression me, Object instance, Object& memberValue)
+   在 System.Data.Entity.Core.Objects.ELinq.QueryParameterExpression.TryEvaluatePath(Expression expression, ConstantExpression& constantExpression)
+   在 System.Data.Entity.Core.Objects.ELinq.QueryParameterExpression.EvaluateParameter(Object[] arguments)
+   在 System.Data.Entity.Core.Objects.ELinq.ELinqQueryState.GetExecutionPlan(Nullable`1 forMergeOption)
+   在 System.Data.Entity.Core.Objects.ObjectQuery`1.<>c__DisplayClass7.<GetResults>b__6()
+   在 System.Data.Entity.Core.Objects.ObjectContext.ExecuteInTransaction[T](Func`1 func, IDbExecutionStrategy executionStrategy, Boolean startLocalTransaction, Boolean releaseConnectionOnSuccess)
+   在 System.Data.Entity.Core.Objects.ObjectQuery`1.<>c__DisplayClass7.<GetResults>b__5()
+   在 System.Data.Entity.SqlServer.DefaultSqlExecutionStrategy.Execute[TResult](Func`1 operation)
+   在 System.Data.Entity.Core.Objects.ObjectQuery`1.GetResults(Nullable`1 forMergeOption)
+   在 System.Data.Entity.Core.Objects.ObjectQuery`1.<System.Collections.Generic.IEnumerable<T>.GetEnumerator>b__0()
+   在 System.Data.Entity.Internal.LazyEnumerator`1.MoveNext()
+   在 System.Collections.Generic.List`1..ctor(IEnumerable`1 collection)
+   在 System.Linq.Enumerable.ToList[TSource](IEnumerable`1 source)
+   在 PDBM.Infrastructure.Data.EntityFramework.Repositories.EntityFrameworkRepository`1.FindAll(ISpecification`1 specification, String sortString, Expression`1 eagerLodingProperty) 位置 e:\PDSOFT\PDBM\PDBM.Infrastructure.Data\EntityFramework\Repositories\EntityFrameworkRepository.cs:行号 191
+   在 PDBM.Domain.EventHandlers.WorkFlow.WFActivityChangedEventHandler.Handle(WFActivityChangedEvent evt) 位置 e:\PDSOFT\PDBM\PDBM.Domain\EventHandlers\WorkFlow\WFActivityChangedEventHandler.cs:行号 33
+   在 DynamicModule.ns.Wrapped_IDomainEventHandler`1_1c175c0d4fd54bd58171d50fb0121b8f.<Handle_DelegateImplementation>__0(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+
+--------------------------------Time:2015-05-06 20:13:26,821--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.Reflection.TargetException: 非静态方法需要一个目标。
+   在 PDBM.ApplicationService.Services.WorkFlow.WFActivityService.AddOrUpdateWFActivitys(IList`1 wfActivityMaintObjects)
+   在 DynamicModule.ns.Wrapped_IWFActivityService_a2cda97bb8104b959aa6197344c24c61.<AddOrUpdateWFActivitys_DelegateImplementation>__2(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+
+--------------------------------Time:2015-05-06 20:18:28,887--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.Reflection.TargetException: 非静态方法需要一个目标。
+   在 System.Reflection.RuntimeMethodInfo.CheckConsistency(Object target)
+   在 System.Reflection.RuntimeMethodInfo.InvokeArgumentsCheck(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   在 System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   在 System.Reflection.RuntimePropertyInfo.GetValue(Object obj, BindingFlags invokeAttr, Binder binder, Object[] index, CultureInfo culture)
+   在 System.Reflection.RuntimePropertyInfo.GetValue(Object obj, Object[] index)
+   在 System.Data.Entity.Core.Objects.ELinq.QueryParameterExpression.TryGetFieldOrPropertyValue(MemberExpression me, Object instance, Object& memberValue)
+   在 System.Data.Entity.Core.Objects.ELinq.QueryParameterExpression.TryEvaluatePath(Expression expression, ConstantExpression& constantExpression)
+   在 System.Data.Entity.Core.Objects.ELinq.QueryParameterExpression.EvaluateParameter(Object[] arguments)
+   在 System.Data.Entity.Core.Objects.ELinq.ELinqQueryState.GetExecutionPlan(Nullable`1 forMergeOption)
+   在 System.Data.Entity.Core.Objects.ObjectQuery`1.<>c__DisplayClass7.<GetResults>b__6()
+   在 System.Data.Entity.Core.Objects.ObjectContext.ExecuteInTransaction[T](Func`1 func, IDbExecutionStrategy executionStrategy, Boolean startLocalTransaction, Boolean releaseConnectionOnSuccess)
+   在 System.Data.Entity.Core.Objects.ObjectQuery`1.<>c__DisplayClass7.<GetResults>b__5()
+   在 System.Data.Entity.SqlServer.DefaultSqlExecutionStrategy.Execute[TResult](Func`1 operation)
+   在 System.Data.Entity.Core.Objects.ObjectQuery`1.GetResults(Nullable`1 forMergeOption)
+   在 System.Data.Entity.Core.Objects.ObjectQuery`1.<System.Collections.Generic.IEnumerable<T>.GetEnumerator>b__0()
+   在 System.Data.Entity.Internal.LazyEnumerator`1.MoveNext()
+   在 System.Collections.Generic.List`1..ctor(IEnumerable`1 collection)
+   在 System.Linq.Enumerable.ToList[TSource](IEnumerable`1 source)
+   在 PDBM.Infrastructure.Data.EntityFramework.Repositories.EntityFrameworkRepository`1.FindAll(ISpecification`1 specification, String sortString, Expression`1 eagerLodingProperty) 位置 e:\PDSOFT\PDBM\PDBM.Infrastructure.Data\EntityFramework\Repositories\EntityFrameworkRepository.cs:行号 191
+   在 PDBM.Domain.EventHandlers.WorkFlow.WFActivityChangedEventHandler.Handle(WFActivityChangedEvent evt) 位置 e:\PDSOFT\PDBM\PDBM.Domain\EventHandlers\WorkFlow\WFActivityChangedEventHandler.cs:行号 33
+   在 DynamicModule.ns.Wrapped_IDomainEventHandler`1_9fcb04548150455a97c305363e3b6639.<Handle_DelegateImplementation>__0(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+
+--------------------------------Time:2015-05-06 20:18:28,962--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.Reflection.TargetException: 非静态方法需要一个目标。
+   在 PDBM.ApplicationService.Services.WorkFlow.WFActivityService.AddOrUpdateWFActivitys(IList`1 wfActivityMaintObjects)
+   在 DynamicModule.ns.Wrapped_IWFActivityService_49dd58ecfbbb492997cc885b98892b44.<AddOrUpdateWFActivitys_DelegateImplementation>__2(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+
+--------------------------------Time:2015-05-06 20:18:34,603--------------------------------
+Message:12345
+Level:INFO
+Exception:--------------------------------END--------------------------------
+
+--------------------------------Time:2015-05-06 20:24:32,680--------------------------------
+Message:12345
+Level:INFO
+Exception:--------------------------------END--------------------------------
+
+--------------------------------Time:2015-05-06 20:24:49,196--------------------------------
+Message:12345
+Level:INFO
+Exception:--------------------------------END--------------------------------
+
+--------------------------------Time:2015-05-06 20:33:02,458--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.Reflection.TargetException: 非静态方法需要一个目标。
+   在 System.Reflection.RuntimeMethodInfo.CheckConsistency(Object target)
+   在 System.Reflection.RuntimeMethodInfo.InvokeArgumentsCheck(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   在 System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   在 System.Reflection.RuntimePropertyInfo.GetValue(Object obj, BindingFlags invokeAttr, Binder binder, Object[] index, CultureInfo culture)
+   在 System.Reflection.RuntimePropertyInfo.GetValue(Object obj, Object[] index)
+   在 System.Data.Entity.Core.Objects.ELinq.QueryParameterExpression.TryGetFieldOrPropertyValue(MemberExpression me, Object instance, Object& memberValue)
+   在 System.Data.Entity.Core.Objects.ELinq.QueryParameterExpression.TryEvaluatePath(Expression expression, ConstantExpression& constantExpression)
+   在 System.Data.Entity.Core.Objects.ELinq.QueryParameterExpression.EvaluateParameter(Object[] arguments)
+   在 System.Data.Entity.Core.Objects.ELinq.ELinqQueryState.GetExecutionPlan(Nullable`1 forMergeOption)
+   在 System.Data.Entity.Core.Objects.ObjectQuery`1.<>c__DisplayClass7.<GetResults>b__6()
+   在 System.Data.Entity.Core.Objects.ObjectContext.ExecuteInTransaction[T](Func`1 func, IDbExecutionStrategy executionStrategy, Boolean startLocalTransaction, Boolean releaseConnectionOnSuccess)
+   在 System.Data.Entity.Core.Objects.ObjectQuery`1.<>c__DisplayClass7.<GetResults>b__5()
+   在 System.Data.Entity.SqlServer.DefaultSqlExecutionStrategy.Execute[TResult](Func`1 operation)
+   在 System.Data.Entity.Core.Objects.ObjectQuery`1.GetResults(Nullable`1 forMergeOption)
+   在 System.Data.Entity.Core.Objects.ObjectQuery`1.<System.Collections.Generic.IEnumerable<T>.GetEnumerator>b__0()
+   在 System.Data.Entity.Internal.LazyEnumerator`1.MoveNext()
+   在 System.Collections.Generic.List`1..ctor(IEnumerable`1 collection)
+   在 System.Linq.Enumerable.ToList[TSource](IEnumerable`1 source)
+   在 PDBM.Infrastructure.Data.EntityFramework.Repositories.EntityFrameworkRepository`1.FindAll(ISpecification`1 specification, String sortString, Expression`1 eagerLodingProperty) 位置 e:\PDSOFT\PDBM\PDBM.Infrastructure.Data\EntityFramework\Repositories\EntityFrameworkRepository.cs:行号 191
+   在 PDBM.Domain.EventHandlers.WorkFlow.WFActivityChangedEventHandler.Handle(WFActivityChangedEvent evt) 位置 e:\PDSOFT\PDBM\PDBM.Domain\EventHandlers\WorkFlow\WFActivityChangedEventHandler.cs:行号 33
+   在 DynamicModule.ns.Wrapped_IDomainEventHandler`1_c17147946f0845848a5985cda38efb64.<Handle_DelegateImplementation>__0(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+
+--------------------------------Time:2015-05-06 20:33:02,503--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.Reflection.TargetException: 非静态方法需要一个目标。
+   在 PDBM.ApplicationService.Services.WorkFlow.WFActivityService.AddOrUpdateWFActivitys(IList`1 wfActivityMaintObjects)
+   在 DynamicModule.ns.Wrapped_IWFActivityService_60cf3e7ec3f9447cb8579d393f3c1800.<AddOrUpdateWFActivitys_DelegateImplementation>__2(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+

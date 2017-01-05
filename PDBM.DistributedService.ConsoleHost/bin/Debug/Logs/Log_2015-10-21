@@ -1,0 +1,414 @@
+--------------------------------Time:2015-10-21 16:10:30,064--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.IndexOutOfRangeException: 索引超出了数组界限。
+   在 EmitMapper.MappingConfiguration.TypeDictionary`1.FindTypes(Type[] types)
+   在 EmitMapper.MappingConfiguration.TypeDictionary`1.GetValue(Type[] types)
+   在 EmitMapper.MappingConfiguration.MapConfigBaseImpl.GetRootMappingOperation(Type from, Type to)
+   在 EmitMapper.MappingConfiguration.DefaultMapConfig.GetRootMappingOperation(Type from, Type to)
+   在 EmitMapper.Mappers.ObjectsMapperBaseImpl.Initialize(ObjectMapperManager MapperMannager, Type TypeFrom, Type TypeTo, IMappingConfigurator mappingConfigurator, Object[] stroredObjects)
+   在 EmitObjectMapper.Mappers.MapperPrimitiveImpl..ctor(ObjectMapperManager mapperMannager, Type TypeFrom, Type TypeTo, IMappingConfigurator mappingConfigurator)
+   在 EmitMapper.ObjectMapperManager.GetMapperInt(Type from, Type to, IMappingConfigurator mappingConfigurator)
+   在 EmitMapper.EmitBuilders.MappingOperationsProcessor.ConvertByMapper(ReadWriteSimple mapping)
+   在 EmitMapper.EmitBuilders.MappingOperationsProcessor.ConvertMappingValue(ReadWriteSimple rwMapOp, Int32 operationId, IAstRefOrValue sourceValue)
+   在 EmitMapper.EmitBuilders.MappingOperationsProcessor.ProcessReadWriteSimple(ReadWriteSimple readWriteSimple, Int32 operationId)
+   在 EmitMapper.EmitBuilders.MappingOperationsProcessor.ProcessOperations()
+   在 EmitMapper.EmitBuilders.MappingBuilder.BuildCopyImplMethod()
+   在 EmitMapper.ObjectMapperManager.BuildObjectsMapper(String MapperTypeName, Type from, Type to, IMappingConfigurator mappingConfigurator)
+   在 EmitMapper.ObjectMapperManager.GetMapperInt(Type from, Type to, IMappingConfigurator mappingConfigurator)
+   在 EmitMapper.ObjectMapperManager.GetMapper[TFrom,TTo](IMappingConfigurator mappingConfigurator)
+   在 PDBM.Infrastructure.Utils.MapperHelper.Map[TFrom,TTo](TFrom from) 位置 e:\PDBM\PDBM.Infrastructure\Utils\MapperHelper.cs:行号 30
+   在 PDBM.ApplicationService.Services.BMMgmt.AddressingService.GetAddressingById(Guid id, Guid planningId)
+   在 DynamicModule.ns.Wrapped_IAddressingService_3aca2649efff40a89e4c93702c22fcc5.<GetAddressingById_DelegateImplementation>__0(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+
+--------------------------------Time:2015-10-21 16:10:34,405--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.NullReferenceException: 未将对象引用设置到对象的实例。
+   在 EmitMapper.ObjectsMapper`2.Map(TFrom from)
+   在 PDBM.Infrastructure.Utils.MapperHelper.Map[TFrom,TTo](TFrom from) 位置 e:\PDBM\PDBM.Infrastructure\Utils\MapperHelper.cs:行号 30
+   在 PDBM.ApplicationService.Services.BMMgmt.AddressingService.GetAddressingById(Guid id, Guid planningId)
+   在 DynamicModule.ns.Wrapped_IAddressingService_3aca2649efff40a89e4c93702c22fcc5.<GetAddressingById_DelegateImplementation>__0(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+
+--------------------------------Time:2015-10-21 16:10:40,470--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.NullReferenceException: 未将对象引用设置到对象的实例。
+   在 EmitMapper.ObjectsMapper`2.Map(TFrom from)
+   在 PDBM.Infrastructure.Utils.MapperHelper.Map[TFrom,TTo](TFrom from) 位置 e:\PDBM\PDBM.Infrastructure\Utils\MapperHelper.cs:行号 30
+   在 PDBM.ApplicationService.Services.BMMgmt.AddressingService.GetAddressingById(Guid id, Guid planningId)
+   在 DynamicModule.ns.Wrapped_IAddressingService_3aca2649efff40a89e4c93702c22fcc5.<GetAddressingById_DelegateImplementation>__0(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+
+--------------------------------Time:2015-10-21 16:10:48,608--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.NullReferenceException: 未将对象引用设置到对象的实例。
+   在 EmitMapper.ObjectsMapper`2.Map(TFrom from)
+   在 PDBM.Infrastructure.Utils.MapperHelper.Map[TFrom,TTo](TFrom from) 位置 e:\PDBM\PDBM.Infrastructure\Utils\MapperHelper.cs:行号 30
+   在 PDBM.ApplicationService.Services.BMMgmt.AddressingService.GetAddressingById(Guid id, Guid planningId)
+   在 DynamicModule.ns.Wrapped_IAddressingService_3aca2649efff40a89e4c93702c22fcc5.<GetAddressingById_DelegateImplementation>__0(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+
+--------------------------------Time:2015-10-21 16:12:46,668--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.NullReferenceException: 未将对象引用设置到对象的实例。
+   在 EmitMapper.ObjectsMapper`2.Map(TFrom from)
+   在 PDBM.Infrastructure.Utils.MapperHelper.Map[TFrom,TTo](TFrom from) 位置 e:\PDBM\PDBM.Infrastructure\Utils\MapperHelper.cs:行号 30
+   在 PDBM.ApplicationService.Services.BMMgmt.AddressingService.GetAddressingById(Guid id, Guid planningId)
+   在 DynamicModule.ns.Wrapped_IAddressingService_3aca2649efff40a89e4c93702c22fcc5.<GetAddressingById_DelegateImplementation>__0(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+
+--------------------------------Time:2015-10-21 16:20:20,314--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.NullReferenceException: 未将对象引用设置到对象的实例。
+   在 EmitMapper.ObjectsMapper`2.Map(TFrom from)
+   在 PDBM.Infrastructure.Utils.MapperHelper.Map[TFrom,TTo](TFrom from) 位置 e:\PDBM\PDBM.Infrastructure\Utils\MapperHelper.cs:行号 30
+   在 PDBM.ApplicationService.Services.BMMgmt.AddressingService.GetAddressingById(Guid id, Guid planningId)
+   在 DynamicModule.ns.Wrapped_IAddressingService_3aca2649efff40a89e4c93702c22fcc5.<GetAddressingById_DelegateImplementation>__0(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+
+--------------------------------Time:2015-10-21 16:24:54,032--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.NullReferenceException: 未将对象引用设置到对象的实例。
+   在 EmitMapper.ObjectsMapper`2.Map(TFrom from)
+   在 PDBM.Infrastructure.Utils.MapperHelper.Map[TFrom,TTo](TFrom from) 位置 e:\PDBM\PDBM.Infrastructure\Utils\MapperHelper.cs:行号 30
+   在 PDBM.ApplicationService.Services.BMMgmt.AddressingService.GetAddressingById(Guid id, Guid planningId)
+   在 DynamicModule.ns.Wrapped_IAddressingService_3aca2649efff40a89e4c93702c22fcc5.<GetAddressingById_DelegateImplementation>__0(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+
+--------------------------------Time:2015-10-21 16:26:51,072--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.NullReferenceException: 未将对象引用设置到对象的实例。
+   在 EmitMapper.ObjectsMapper`2.Map(TFrom from)
+   在 PDBM.Infrastructure.Utils.MapperHelper.Map[TFrom,TTo](TFrom from) 位置 e:\PDBM\PDBM.Infrastructure\Utils\MapperHelper.cs:行号 30
+   在 PDBM.ApplicationService.Services.BMMgmt.AddressingService.GetAddressingById(Guid id, Guid planningId)
+   在 DynamicModule.ns.Wrapped_IAddressingService_3aca2649efff40a89e4c93702c22fcc5.<GetAddressingById_DelegateImplementation>__0(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+
+--------------------------------Time:2015-10-21 16:30:32,504--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.NullReferenceException: 未将对象引用设置到对象的实例。
+   在 EmitMapper.ObjectsMapper`2.Map(TFrom from)
+   在 PDBM.Infrastructure.Utils.MapperHelper.Map[TFrom,TTo](TFrom from) 位置 e:\PDBM\PDBM.Infrastructure\Utils\MapperHelper.cs:行号 30
+   在 PDBM.ApplicationService.Services.BMMgmt.AddressingService.GetAddressingById(Guid id, Guid planningId)
+   在 DynamicModule.ns.Wrapped_IAddressingService_3aca2649efff40a89e4c93702c22fcc5.<GetAddressingById_DelegateImplementation>__0(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+
+--------------------------------Time:2015-10-21 16:33:52,753--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.NullReferenceException: 未将对象引用设置到对象的实例。
+   在 EmitMapper.ObjectsMapper`2.Map(TFrom from)
+   在 PDBM.Infrastructure.Utils.MapperHelper.Map[TFrom,TTo](TFrom from) 位置 e:\PDBM\PDBM.Infrastructure\Utils\MapperHelper.cs:行号 30
+   在 PDBM.ApplicationService.Services.BMMgmt.AddressingService.GetAddressingById(Guid id, Guid planningId)
+   在 DynamicModule.ns.Wrapped_IAddressingService_3aca2649efff40a89e4c93702c22fcc5.<GetAddressingById_DelegateImplementation>__0(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+
+--------------------------------Time:2015-10-21 16:39:31,769--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.NullReferenceException: 未将对象引用设置到对象的实例。
+   在 EmitMapper.ObjectsMapper`2.Map(TFrom from)
+   在 PDBM.Infrastructure.Utils.MapperHelper.Map[TFrom,TTo](TFrom from) 位置 e:\PDBM\PDBM.Infrastructure\Utils\MapperHelper.cs:行号 30
+   在 PDBM.ApplicationService.Services.BMMgmt.AddressingService.GetAddressingById(Guid id, Guid planningId)
+   在 DynamicModule.ns.Wrapped_IAddressingService_3aca2649efff40a89e4c93702c22fcc5.<GetAddressingById_DelegateImplementation>__0(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+
+--------------------------------Time:2015-10-21 16:44:26,889--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.IndexOutOfRangeException: 索引超出了数组界限。
+   在 EmitMapper.MappingConfiguration.TypeDictionary`1.FindTypes(Type[] types)
+   在 EmitMapper.MappingConfiguration.TypeDictionary`1.GetValue(Type[] types)
+   在 EmitMapper.MappingConfiguration.MapConfigBaseImpl.GetRootMappingOperation(Type from, Type to)
+   在 EmitMapper.MappingConfiguration.DefaultMapConfig.GetRootMappingOperation(Type from, Type to)
+   在 EmitMapper.Mappers.ObjectsMapperBaseImpl.Initialize(ObjectMapperManager MapperMannager, Type TypeFrom, Type TypeTo, IMappingConfigurator mappingConfigurator, Object[] stroredObjects)
+   在 EmitObjectMapper.Mappers.MapperPrimitiveImpl..ctor(ObjectMapperManager mapperMannager, Type TypeFrom, Type TypeTo, IMappingConfigurator mappingConfigurator)
+   在 EmitMapper.ObjectMapperManager.GetMapperInt(Type from, Type to, IMappingConfigurator mappingConfigurator)
+   在 EmitMapper.EmitBuilders.MappingOperationsProcessor.ConvertByMapper(ReadWriteSimple mapping)
+   在 EmitMapper.EmitBuilders.MappingOperationsProcessor.ConvertMappingValue(ReadWriteSimple rwMapOp, Int32 operationId, IAstRefOrValue sourceValue)
+   在 EmitMapper.EmitBuilders.MappingOperationsProcessor.ProcessReadWriteSimple(ReadWriteSimple readWriteSimple, Int32 operationId)
+   在 EmitMapper.EmitBuilders.MappingOperationsProcessor.ProcessOperations()
+   在 EmitMapper.EmitBuilders.MappingBuilder.BuildCopyImplMethod()
+   在 EmitMapper.ObjectMapperManager.BuildObjectsMapper(String MapperTypeName, Type from, Type to, IMappingConfigurator mappingConfigurator)
+   在 EmitMapper.ObjectMapperManager.GetMapperInt(Type from, Type to, IMappingConfigurator mappingConfigurator)
+   在 EmitMapper.ObjectMapperManager.GetMapper[TFrom,TTo](IMappingConfigurator mappingConfigurator)
+   在 PDBM.Infrastructure.Utils.MapperHelper.Map[TFrom,TTo](TFrom from) 位置 e:\PDBM\PDBM.Infrastructure\Utils\MapperHelper.cs:行号 30
+   在 PDBM.ApplicationService.Services.BMMgmt.AddressingService.GetAddressingById(Guid id, Guid planningId)
+   在 DynamicModule.ns.Wrapped_IAddressingService_4ef847a11065441bb2863f9a741d2b32.<GetAddressingById_DelegateImplementation>__0(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+
+--------------------------------Time:2015-10-21 16:44:32,157--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.NullReferenceException: 未将对象引用设置到对象的实例。
+   在 EmitMapper.ObjectsMapper`2.Map(TFrom from)
+   在 PDBM.Infrastructure.Utils.MapperHelper.Map[TFrom,TTo](TFrom from) 位置 e:\PDBM\PDBM.Infrastructure\Utils\MapperHelper.cs:行号 30
+   在 PDBM.ApplicationService.Services.BMMgmt.AddressingService.GetAddressingById(Guid id, Guid planningId)
+   在 DynamicModule.ns.Wrapped_IAddressingService_4ef847a11065441bb2863f9a741d2b32.<GetAddressingById_DelegateImplementation>__0(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+
+--------------------------------Time:2015-10-21 16:44:41,018--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.NullReferenceException: 未将对象引用设置到对象的实例。
+   在 EmitMapper.ObjectsMapper`2.Map(TFrom from)
+   在 PDBM.Infrastructure.Utils.MapperHelper.Map[TFrom,TTo](TFrom from) 位置 e:\PDBM\PDBM.Infrastructure\Utils\MapperHelper.cs:行号 30
+   在 PDBM.ApplicationService.Services.BMMgmt.AddressingService.GetAddressingById(Guid id, Guid planningId)
+   在 DynamicModule.ns.Wrapped_IAddressingService_4ef847a11065441bb2863f9a741d2b32.<GetAddressingById_DelegateImplementation>__0(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+
+--------------------------------Time:2015-10-21 16:45:51,398--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.IndexOutOfRangeException: 索引超出了数组界限。
+   在 EmitMapper.MappingConfiguration.TypeDictionary`1.FindTypes(Type[] types)
+   在 EmitMapper.MappingConfiguration.TypeDictionary`1.GetValue(Type[] types)
+   在 EmitMapper.MappingConfiguration.MapConfigBaseImpl.GetRootMappingOperation(Type from, Type to)
+   在 EmitMapper.MappingConfiguration.DefaultMapConfig.GetRootMappingOperation(Type from, Type to)
+   在 EmitMapper.Mappers.ObjectsMapperBaseImpl.Initialize(ObjectMapperManager MapperMannager, Type TypeFrom, Type TypeTo, IMappingConfigurator mappingConfigurator, Object[] stroredObjects)
+   在 EmitObjectMapper.Mappers.MapperPrimitiveImpl..ctor(ObjectMapperManager mapperMannager, Type TypeFrom, Type TypeTo, IMappingConfigurator mappingConfigurator)
+   在 EmitMapper.ObjectMapperManager.GetMapperInt(Type from, Type to, IMappingConfigurator mappingConfigurator)
+   在 EmitMapper.EmitBuilders.MappingOperationsProcessor.ConvertByMapper(ReadWriteSimple mapping)
+   在 EmitMapper.EmitBuilders.MappingOperationsProcessor.ConvertMappingValue(ReadWriteSimple rwMapOp, Int32 operationId, IAstRefOrValue sourceValue)
+   在 EmitMapper.EmitBuilders.MappingOperationsProcessor.ProcessReadWriteSimple(ReadWriteSimple readWriteSimple, Int32 operationId)
+   在 EmitMapper.EmitBuilders.MappingOperationsProcessor.ProcessOperations()
+   在 EmitMapper.EmitBuilders.MappingBuilder.BuildCopyImplMethod()
+   在 EmitMapper.ObjectMapperManager.BuildObjectsMapper(String MapperTypeName, Type from, Type to, IMappingConfigurator mappingConfigurator)
+   在 EmitMapper.ObjectMapperManager.GetMapperInt(Type from, Type to, IMappingConfigurator mappingConfigurator)
+   在 EmitMapper.ObjectMapperManager.GetMapper[TFrom,TTo](IMappingConfigurator mappingConfigurator)
+   在 PDBM.Infrastructure.Utils.MapperHelper.Map[TFrom,TTo](TFrom from) 位置 e:\PDBM\PDBM.Infrastructure\Utils\MapperHelper.cs:行号 30
+   在 PDBM.ApplicationService.Services.BMMgmt.AddressingService.GetAddressingById(Guid id, Guid planningId)
+   在 DynamicModule.ns.Wrapped_IAddressingService_a7bcda302758473d878d0e3c96e90b4f.<GetAddressingById_DelegateImplementation>__0(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+
+--------------------------------Time:2015-10-21 16:47:18,038--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.NullReferenceException: 未将对象引用设置到对象的实例。
+   在 EmitMapper.ObjectsMapper`2.Map(TFrom from)
+   在 PDBM.Infrastructure.Utils.MapperHelper.Map[TFrom,TTo](TFrom from) 位置 e:\PDBM\PDBM.Infrastructure\Utils\MapperHelper.cs:行号 30
+   在 PDBM.ApplicationService.Services.BMMgmt.AddressingService.GetAddressingById(Guid id, Guid planningId)
+   在 DynamicModule.ns.Wrapped_IAddressingService_a7bcda302758473d878d0e3c96e90b4f.<GetAddressingById_DelegateImplementation>__0(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+
+--------------------------------Time:2015-10-21 16:47:26,549--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.NullReferenceException: 未将对象引用设置到对象的实例。
+   在 EmitMapper.ObjectsMapper`2.Map(TFrom from)
+   在 PDBM.Infrastructure.Utils.MapperHelper.Map[TFrom,TTo](TFrom from) 位置 e:\PDBM\PDBM.Infrastructure\Utils\MapperHelper.cs:行号 30
+   在 PDBM.ApplicationService.Services.BMMgmt.AddressingService.GetAddressingById(Guid id, Guid planningId)
+   在 DynamicModule.ns.Wrapped_IAddressingService_a7bcda302758473d878d0e3c96e90b4f.<GetAddressingById_DelegateImplementation>__0(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+
+--------------------------------Time:2015-10-21 16:47:45,200--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.NullReferenceException: 未将对象引用设置到对象的实例。
+   在 EmitMapper.ObjectsMapper`2.Map(TFrom from)
+   在 PDBM.Infrastructure.Utils.MapperHelper.Map[TFrom,TTo](TFrom from) 位置 e:\PDBM\PDBM.Infrastructure\Utils\MapperHelper.cs:行号 30
+   在 PDBM.ApplicationService.Services.BMMgmt.AddressingService.GetAddressingById(Guid id, Guid planningId)
+   在 DynamicModule.ns.Wrapped_IAddressingService_a7bcda302758473d878d0e3c96e90b4f.<GetAddressingById_DelegateImplementation>__0(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+
+--------------------------------Time:2015-10-21 16:50:28,589--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.NullReferenceException: 未将对象引用设置到对象的实例。
+   在 EmitMapper.ObjectsMapper`2.Map(TFrom from)
+   在 PDBM.Infrastructure.Utils.MapperHelper.Map[TFrom,TTo](TFrom from) 位置 e:\PDBM\PDBM.Infrastructure\Utils\MapperHelper.cs:行号 30
+   在 PDBM.ApplicationService.Services.BMMgmt.AddressingService.GetAddressingById(Guid id, Guid planningId)
+   在 DynamicModule.ns.Wrapped_IAddressingService_a7bcda302758473d878d0e3c96e90b4f.<GetAddressingById_DelegateImplementation>__0(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+
+--------------------------------Time:2015-10-21 16:51:27,990--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.NullReferenceException: 未将对象引用设置到对象的实例。
+   在 EmitMapper.ObjectsMapper`2.Map(TFrom from)
+   在 PDBM.Infrastructure.Utils.MapperHelper.Map[TFrom,TTo](TFrom from) 位置 e:\PDBM\PDBM.Infrastructure\Utils\MapperHelper.cs:行号 30
+   在 PDBM.ApplicationService.Services.BMMgmt.AddressingService.GetAddressingById(Guid id, Guid planningId)
+   在 DynamicModule.ns.Wrapped_IAddressingService_a7bcda302758473d878d0e3c96e90b4f.<GetAddressingById_DelegateImplementation>__0(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+
+--------------------------------Time:2015-10-21 16:54:33,461--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.NullReferenceException: 未将对象引用设置到对象的实例。
+   在 EmitMapper.ObjectsMapper`2.Map(TFrom from)
+   在 PDBM.Infrastructure.Utils.MapperHelper.Map[TFrom,TTo](TFrom from) 位置 e:\PDBM\PDBM.Infrastructure\Utils\MapperHelper.cs:行号 30
+   在 PDBM.ApplicationService.Services.BMMgmt.AddressingService.GetAddressingById(Guid id, Guid planningId)
+   在 DynamicModule.ns.Wrapped_IAddressingService_a7bcda302758473d878d0e3c96e90b4f.<GetAddressingById_DelegateImplementation>__0(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+
+--------------------------------Time:2015-10-21 16:54:36,584--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.NullReferenceException: 未将对象引用设置到对象的实例。
+   在 EmitMapper.ObjectsMapper`2.Map(TFrom from)
+   在 PDBM.Infrastructure.Utils.MapperHelper.Map[TFrom,TTo](TFrom from) 位置 e:\PDBM\PDBM.Infrastructure\Utils\MapperHelper.cs:行号 30
+   在 PDBM.ApplicationService.Services.BMMgmt.AddressingService.GetAddressingById(Guid id, Guid planningId)
+   在 DynamicModule.ns.Wrapped_IAddressingService_a7bcda302758473d878d0e3c96e90b4f.<GetAddressingById_DelegateImplementation>__0(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+
+--------------------------------Time:2015-10-21 16:55:23,711--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.NullReferenceException: 未将对象引用设置到对象的实例。
+   在 EmitMapper.ObjectsMapper`2.Map(TFrom from)
+   在 PDBM.Infrastructure.Utils.MapperHelper.Map[TFrom,TTo](TFrom from) 位置 e:\PDBM\PDBM.Infrastructure\Utils\MapperHelper.cs:行号 30
+   在 PDBM.ApplicationService.Services.BMMgmt.AddressingService.GetAddressingById(Guid id, Guid planningId)
+   在 DynamicModule.ns.Wrapped_IAddressingService_a7bcda302758473d878d0e3c96e90b4f.<GetAddressingById_DelegateImplementation>__0(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+
+--------------------------------Time:2015-10-21 16:55:26,184--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.NullReferenceException: 未将对象引用设置到对象的实例。
+   在 EmitMapper.ObjectsMapper`2.Map(TFrom from)
+   在 PDBM.Infrastructure.Utils.MapperHelper.Map[TFrom,TTo](TFrom from) 位置 e:\PDBM\PDBM.Infrastructure\Utils\MapperHelper.cs:行号 30
+   在 PDBM.ApplicationService.Services.BMMgmt.AddressingService.GetAddressingById(Guid id, Guid planningId)
+   在 DynamicModule.ns.Wrapped_IAddressingService_a7bcda302758473d878d0e3c96e90b4f.<GetAddressingById_DelegateImplementation>__0(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+
+--------------------------------Time:2015-10-21 16:58:20,032--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.IndexOutOfRangeException: 索引超出了数组界限。
+   在 EmitMapper.MappingConfiguration.TypeDictionary`1.FindTypes(Type[] types)
+   在 EmitMapper.MappingConfiguration.TypeDictionary`1.GetValue(Type[] types)
+   在 EmitMapper.MappingConfiguration.MapConfigBaseImpl.GetRootMappingOperation(Type from, Type to)
+   在 EmitMapper.MappingConfiguration.DefaultMapConfig.GetRootMappingOperation(Type from, Type to)
+   在 EmitMapper.Mappers.ObjectsMapperBaseImpl.Initialize(ObjectMapperManager MapperMannager, Type TypeFrom, Type TypeTo, IMappingConfigurator mappingConfigurator, Object[] stroredObjects)
+   在 EmitObjectMapper.Mappers.MapperPrimitiveImpl..ctor(ObjectMapperManager mapperMannager, Type TypeFrom, Type TypeTo, IMappingConfigurator mappingConfigurator)
+   在 EmitMapper.ObjectMapperManager.GetMapperInt(Type from, Type to, IMappingConfigurator mappingConfigurator)
+   在 EmitMapper.EmitBuilders.MappingOperationsProcessor.ConvertByMapper(ReadWriteSimple mapping)
+   在 EmitMapper.EmitBuilders.MappingOperationsProcessor.ConvertMappingValue(ReadWriteSimple rwMapOp, Int32 operationId, IAstRefOrValue sourceValue)
+   在 EmitMapper.EmitBuilders.MappingOperationsProcessor.ProcessReadWriteSimple(ReadWriteSimple readWriteSimple, Int32 operationId)
+   在 EmitMapper.EmitBuilders.MappingOperationsProcessor.ProcessOperations()
+   在 EmitMapper.EmitBuilders.MappingBuilder.BuildCopyImplMethod()
+   在 EmitMapper.ObjectMapperManager.BuildObjectsMapper(String MapperTypeName, Type from, Type to, IMappingConfigurator mappingConfigurator)
+   在 EmitMapper.ObjectMapperManager.GetMapperInt(Type from, Type to, IMappingConfigurator mappingConfigurator)
+   在 EmitMapper.ObjectMapperManager.GetMapper[TFrom,TTo](IMappingConfigurator mappingConfigurator)
+   在 PDBM.Infrastructure.Utils.MapperHelper.Map[TFrom,TTo](TFrom from) 位置 e:\PDBM\PDBM.Infrastructure\Utils\MapperHelper.cs:行号 30
+   在 PDBM.ApplicationService.Services.BMMgmt.AddressingService.GetAddressingById(Guid id, Guid planningId)
+   在 DynamicModule.ns.Wrapped_IAddressingService_4470e64c90544bcead321225ed03b374.<GetAddressingById_DelegateImplementation>__0(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+
+--------------------------------Time:2015-10-21 16:58:24,896--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.NullReferenceException: 未将对象引用设置到对象的实例。
+   在 EmitMapper.ObjectsMapper`2.Map(TFrom from)
+   在 PDBM.Infrastructure.Utils.MapperHelper.Map[TFrom,TTo](TFrom from) 位置 e:\PDBM\PDBM.Infrastructure\Utils\MapperHelper.cs:行号 30
+   在 PDBM.ApplicationService.Services.BMMgmt.AddressingService.GetAddressingById(Guid id, Guid planningId)
+   在 DynamicModule.ns.Wrapped_IAddressingService_4470e64c90544bcead321225ed03b374.<GetAddressingById_DelegateImplementation>__0(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+
+--------------------------------Time:2015-10-21 16:58:26,938--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.NullReferenceException: 未将对象引用设置到对象的实例。
+   在 EmitMapper.ObjectsMapper`2.Map(TFrom from)
+   在 PDBM.Infrastructure.Utils.MapperHelper.Map[TFrom,TTo](TFrom from) 位置 e:\PDBM\PDBM.Infrastructure\Utils\MapperHelper.cs:行号 30
+   在 PDBM.ApplicationService.Services.BMMgmt.AddressingService.GetAddressingById(Guid id, Guid planningId)
+   在 DynamicModule.ns.Wrapped_IAddressingService_4470e64c90544bcead321225ed03b374.<GetAddressingById_DelegateImplementation>__0(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+
+--------------------------------Time:2015-10-21 16:59:56,012--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.IndexOutOfRangeException: 索引超出了数组界限。
+   在 EmitMapper.MappingConfiguration.TypeDictionary`1.FindTypes(Type[] types)
+   在 EmitMapper.MappingConfiguration.TypeDictionary`1.GetValue(Type[] types)
+   在 EmitMapper.MappingConfiguration.MapConfigBaseImpl.GetRootMappingOperation(Type from, Type to)
+   在 EmitMapper.MappingConfiguration.DefaultMapConfig.GetRootMappingOperation(Type from, Type to)
+   在 EmitMapper.Mappers.ObjectsMapperBaseImpl.Initialize(ObjectMapperManager MapperMannager, Type TypeFrom, Type TypeTo, IMappingConfigurator mappingConfigurator, Object[] stroredObjects)
+   在 EmitObjectMapper.Mappers.MapperPrimitiveImpl..ctor(ObjectMapperManager mapperMannager, Type TypeFrom, Type TypeTo, IMappingConfigurator mappingConfigurator)
+   在 EmitMapper.ObjectMapperManager.GetMapperInt(Type from, Type to, IMappingConfigurator mappingConfigurator)
+   在 EmitMapper.EmitBuilders.MappingOperationsProcessor.ConvertByMapper(ReadWriteSimple mapping)
+   在 EmitMapper.EmitBuilders.MappingOperationsProcessor.ConvertMappingValue(ReadWriteSimple rwMapOp, Int32 operationId, IAstRefOrValue sourceValue)
+   在 EmitMapper.EmitBuilders.MappingOperationsProcessor.ProcessReadWriteSimple(ReadWriteSimple readWriteSimple, Int32 operationId)
+   在 EmitMapper.EmitBuilders.MappingOperationsProcessor.ProcessOperations()
+   在 EmitMapper.EmitBuilders.MappingBuilder.BuildCopyImplMethod()
+   在 EmitMapper.ObjectMapperManager.BuildObjectsMapper(String MapperTypeName, Type from, Type to, IMappingConfigurator mappingConfigurator)
+   在 EmitMapper.ObjectMapperManager.GetMapperInt(Type from, Type to, IMappingConfigurator mappingConfigurator)
+   在 EmitMapper.ObjectMapperManager.GetMapper[TFrom,TTo](IMappingConfigurator mappingConfigurator)
+   在 PDBM.Infrastructure.Utils.MapperHelper.Map[TFrom,TTo](TFrom from) 位置 e:\PDBM\PDBM.Infrastructure\Utils\MapperHelper.cs:行号 30
+   在 PDBM.ApplicationService.Services.BMMgmt.AddressingService.GetAddressingById(Guid id, Guid planningId)
+   在 DynamicModule.ns.Wrapped_IAddressingService_42616d50ae594953a361b6209089ba58.<GetAddressingById_DelegateImplementation>__0(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+
+--------------------------------Time:2015-10-21 16:59:58,569--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.NullReferenceException: 未将对象引用设置到对象的实例。
+   在 EmitMapper.ObjectsMapper`2.Map(TFrom from)
+   在 PDBM.Infrastructure.Utils.MapperHelper.Map[TFrom,TTo](TFrom from) 位置 e:\PDBM\PDBM.Infrastructure\Utils\MapperHelper.cs:行号 30
+   在 PDBM.ApplicationService.Services.BMMgmt.AddressingService.GetAddressingById(Guid id, Guid planningId)
+   在 DynamicModule.ns.Wrapped_IAddressingService_42616d50ae594953a361b6209089ba58.<GetAddressingById_DelegateImplementation>__0(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+
+--------------------------------Time:2015-10-21 17:00:00,559--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.NullReferenceException: 未将对象引用设置到对象的实例。
+   在 EmitMapper.ObjectsMapper`2.Map(TFrom from)
+   在 PDBM.Infrastructure.Utils.MapperHelper.Map[TFrom,TTo](TFrom from) 位置 e:\PDBM\PDBM.Infrastructure\Utils\MapperHelper.cs:行号 30
+   在 PDBM.ApplicationService.Services.BMMgmt.AddressingService.GetAddressingById(Guid id, Guid planningId)
+   在 DynamicModule.ns.Wrapped_IAddressingService_42616d50ae594953a361b6209089ba58.<GetAddressingById_DelegateImplementation>__0(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+
+--------------------------------Time:2015-10-21 17:00:03,680--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.NullReferenceException: 未将对象引用设置到对象的实例。
+   在 EmitMapper.ObjectsMapper`2.Map(TFrom from)
+   在 PDBM.Infrastructure.Utils.MapperHelper.Map[TFrom,TTo](TFrom from) 位置 e:\PDBM\PDBM.Infrastructure\Utils\MapperHelper.cs:行号 30
+   在 PDBM.ApplicationService.Services.BMMgmt.AddressingService.GetAddressingById(Guid id, Guid planningId)
+   在 DynamicModule.ns.Wrapped_IAddressingService_42616d50ae594953a361b6209089ba58.<GetAddressingById_DelegateImplementation>__0(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+
+--------------------------------Time:2015-10-21 17:01:07,353--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.IndexOutOfRangeException: 索引超出了数组界限。
+   在 EmitMapper.MappingConfiguration.TypeDictionary`1.FindTypes(Type[] types)
+   在 EmitMapper.MappingConfiguration.TypeDictionary`1.GetValue(Type[] types)
+   在 EmitMapper.MappingConfiguration.MapConfigBaseImpl.GetRootMappingOperation(Type from, Type to)
+   在 EmitMapper.MappingConfiguration.DefaultMapConfig.GetRootMappingOperation(Type from, Type to)
+   在 EmitMapper.Mappers.ObjectsMapperBaseImpl.Initialize(ObjectMapperManager MapperMannager, Type TypeFrom, Type TypeTo, IMappingConfigurator mappingConfigurator, Object[] stroredObjects)
+   在 EmitObjectMapper.Mappers.MapperPrimitiveImpl..ctor(ObjectMapperManager mapperMannager, Type TypeFrom, Type TypeTo, IMappingConfigurator mappingConfigurator)
+   在 EmitMapper.ObjectMapperManager.GetMapperInt(Type from, Type to, IMappingConfigurator mappingConfigurator)
+   在 EmitMapper.EmitBuilders.MappingOperationsProcessor.ConvertByMapper(ReadWriteSimple mapping)
+   在 EmitMapper.EmitBuilders.MappingOperationsProcessor.ConvertMappingValue(ReadWriteSimple rwMapOp, Int32 operationId, IAstRefOrValue sourceValue)
+   在 EmitMapper.EmitBuilders.MappingOperationsProcessor.ProcessReadWriteSimple(ReadWriteSimple readWriteSimple, Int32 operationId)
+   在 EmitMapper.EmitBuilders.MappingOperationsProcessor.ProcessOperations()
+   在 EmitMapper.EmitBuilders.MappingBuilder.BuildCopyImplMethod()
+   在 EmitMapper.ObjectMapperManager.BuildObjectsMapper(String MapperTypeName, Type from, Type to, IMappingConfigurator mappingConfigurator)
+   在 EmitMapper.ObjectMapperManager.GetMapperInt(Type from, Type to, IMappingConfigurator mappingConfigurator)
+   在 EmitMapper.ObjectMapperManager.GetMapper[TFrom,TTo](IMappingConfigurator mappingConfigurator)
+   在 PDBM.Infrastructure.Utils.MapperHelper.Map[TFrom,TTo](TFrom from) 位置 e:\PDBM\PDBM.Infrastructure\Utils\MapperHelper.cs:行号 30
+   在 PDBM.ApplicationService.Services.BMMgmt.AddressingService.GetAddressingById(Guid id, Guid planningId)
+   在 DynamicModule.ns.Wrapped_IAddressingService_2dd661445ab14743b9b973ef527ff9e5.<GetAddressingById_DelegateImplementation>__0(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+
+--------------------------------Time:2015-10-21 17:01:10,897--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.NullReferenceException: 未将对象引用设置到对象的实例。
+   在 EmitMapper.ObjectsMapper`2.Map(TFrom from)
+   在 PDBM.Infrastructure.Utils.MapperHelper.Map[TFrom,TTo](TFrom from) 位置 e:\PDBM\PDBM.Infrastructure\Utils\MapperHelper.cs:行号 30
+   在 PDBM.ApplicationService.Services.BMMgmt.AddressingService.GetAddressingById(Guid id, Guid planningId)
+   在 DynamicModule.ns.Wrapped_IAddressingService_2dd661445ab14743b9b973ef527ff9e5.<GetAddressingById_DelegateImplementation>__0(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+

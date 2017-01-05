@@ -1,0 +1,12 @@
+--------------------------------Time:2015-04-02 12:39:21,403--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.ArgumentException: 未找到请求的值“a”。
+   在 System.Enum.EnumResult.SetFailure(ParseFailureKind failure, String failureMessageID, Object failureMessageFormatArgument)
+   在 System.Enum.TryParseEnum(Type enumType, String value, Boolean ignoreCase, EnumResult& parseResult)
+   在 System.Enum.Parse(Type enumType, String value, Boolean ignoreCase)
+   在 System.Enum.Parse(Type enumType, String value)
+   在 PDBM.ApplicationService.Services.DataImport.DataImportService.ImportOperatorsSharingBS(Guid excelFileId, Guid createUserId, Guid companyId, Int32 currentCompanyNature)
+   在 DynamicModule.ns.Wrapped_IDataImportService_ec1942d62dcb436db534988d7736585a.<ImportOperatorsSharingBS_DelegateImplementation>__1(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+

@@ -1,0 +1,32 @@
+--------------------------------Time:2015-10-10 13:13:05,686--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.NullReferenceException: 未将对象引用设置到对象的实例。
+   在 PDBM.ApplicationService.Services.BaseData.PlaceService.GetPlaceInfoById(Guid id)
+   在 DynamicModule.ns.Wrapped_IPlaceService_5ca91d319fd346a2bd2386710093b727.<GetPlaceInfoById_DelegateImplementation>__4(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+
+--------------------------------Time:2015-10-10 14:28:07,895--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.NullReferenceException: 未将对象引用设置到对象的实例。
+   在 PDBM.ApplicationService.Services.BaseData.PlacePropertyService.GetResourceMaintenanceById(Guid id)
+   在 DynamicModule.ns.Wrapped_IPlacePropertyService_88506c88bc404ee1990df16776e092c0.<GetResourceMaintenanceById_DelegateImplementation>__3(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+
+--------------------------------Time:2015-10-10 14:29:30,370--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.NullReferenceException: 未将对象引用设置到对象的实例。
+   在 PDBM.ApplicationService.Services.BaseData.PlacePropertyService.GetResourceMaintenanceById(Guid id)
+   在 DynamicModule.ns.Wrapped_IPlacePropertyService_88506c88bc404ee1990df16776e092c0.<GetResourceMaintenanceById_DelegateImplementation>__3(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+
+--------------------------------Time:2015-10-10 14:32:01,159--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.NullReferenceException: 未将对象引用设置到对象的实例。
+   在 PDBM.ApplicationService.Services.BaseData.PlacePropertyService.GetResourceMaintenanceById(Guid id)
+   在 DynamicModule.ns.Wrapped_IPlacePropertyService_88506c88bc404ee1990df16776e092c0.<GetResourceMaintenanceById_DelegateImplementation>__3(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+

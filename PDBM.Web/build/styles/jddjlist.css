@@ -1,0 +1,158 @@
+.gcjddjlist .list .list-item,.gcjddjlist .title {
+	position: relative
+}
+
+.gcjddjlist .list .list-item:after,.gcjddjlist .title:after {
+	content: " ";
+	position: absolute;
+	left: 0;
+	bottom: 0;
+	right: 0;
+	height: 1px;
+	border-bottom: 1px solid #dcdcdc;
+	color: #dcdcdc;
+	-webkit-transform-origin: 0 100%;
+	transform-origin: 0 100%;
+	-webkit-transform: scaleY(.5);
+	transform: scaleY(.5)
+}
+
+.gcjddjlist .list li:nth-of-type(2):after {
+	content: " ";
+	position: absolute;
+	right: 0;
+	top: 0;
+	width: 1px;
+	bottom: 0;
+	border-right: 1px solid #dcdcdc;
+	color: #dcdcdc;
+	-webkit-transform-origin: 100% 0;
+	transform-origin: 100% 0;
+	-webkit-transform: scaleX(.5);
+	transform: scaleX(.5)
+}
+
+.gcjddjlist .list li:nth-of-type(2) {
+	position: relative
+}
+
+.gcjddjlist .list li:nth-of-type(2):before {
+	content: " ";
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 1px;
+	bottom: 0;
+	border-left: 1px solid #dcdcdc;
+	color: #dcdcdc;
+	-webkit-transform-origin: 100% 0;
+	transform-origin: 100% 0;
+	-webkit-transform: scaleX(.5);
+	transform: scaleX(.5)
+}
+
+body {
+	background: #f5f6f9;
+	overflow-y: scroll;
+	font-family: -apple-system-font,Helvetica Neue,sans-serif
+}
+
+body,html {
+	height: 100%;
+	-webkit-tap-highlight-color: transparent
+}
+
+html {
+	-ms-text-size-adjust: 100%;
+	-webkit-text-size-adjust: 100%
+}
+
+a,img {
+	border: 0
+}
+
+a {
+	text-decoration: none
+}
+
+input {
+	-webkit-appearance: none
+}
+
+.hide {
+	display: none
+}
+
+body {
+	background: #f5f6f9
+}
+
+.gcjddjlist {
+	margin-bottom: 68px;
+	margin-top: 44px
+}
+
+.gcjddjlist li,.gcjddjlist ul {
+	list-style: none;
+	padding: 0;
+	margin: 0
+}
+
+.gcjddjlist .title {
+	display: -webkit-box;
+	display: box;
+	height: 30px;
+	line-height: 30px;
+	color: #999;
+	font-size: 12px;
+	background: #f1f1f2
+}
+
+.gcjddjlist .title li {
+	-webkit-box-flex: 1;
+	box-flex: 1;
+	text-align: center
+}
+
+.gcjddjlist .list {
+	background: #fff;
+	box-sizing: border-box
+}
+
+.gcjddjlist .list .list-item {
+	clear: both;
+	display: -webkit-box;
+	display: box;
+	-webkit-box-pack: center;
+	-webkit-box-align: center
+}
+
+.gcjddjlist .list li {
+	-webkit-box-flex: 1;
+	box-flex: 1;
+	width: 0;
+	box-sizing: border-box;
+	text-align: center;
+	font-size: 16px
+}
+
+.gcjddjlist .list li:first-child a {
+	color: #333
+}
+
+.gcjddjlist .list a {
+	text-decoration: none;
+	display: block;
+	padding: 15px 5px;
+	box-sizing: border-box;
+	text-align: center;
+	font-size: 16px
+}
+
+.gcjddjlist .list li:nth-of-type(3n-2) {
+	color: #333
+}
+
+.gcjddjlist .list li:nth-of-type(3n) a,.gcjddjlist .list li:nth-of-type(3n-1) a {
+	color: #0781c1
+}

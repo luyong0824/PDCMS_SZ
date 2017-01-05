@@ -66,7 +66,62 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="bin\EmitMapper.dll" />
+    <Content Include="bin\EntityFramework.dll" />
+    <Content Include="bin\EntityFramework.SqlServer.dll" />
+    <Content Include="bin\EntityFramework.SqlServer.xml" />
+    <Content Include="bin\EntityFramework.xml" />
+    <Content Include="bin\log4net.dll" />
+    <Content Include="bin\log4net.xml" />
+    <Content Include="bin\Microsoft.Practices.EnterpriseLibrary.Common.dll" />
+    <Content Include="bin\Microsoft.Practices.EnterpriseLibrary.Common.xml" />
+    <Content Include="bin\Microsoft.Practices.EnterpriseLibrary.Data.dll" />
+    <Content Include="bin\Microsoft.Practices.EnterpriseLibrary.Data.xml" />
+    <Content Include="bin\Microsoft.Practices.Unity.Configuration.dll" />
+    <Content Include="bin\Microsoft.Practices.Unity.Configuration.xml" />
+    <Content Include="bin\Microsoft.Practices.Unity.dll" />
+    <Content Include="bin\Microsoft.Practices.Unity.Interception.Configuration.dll" />
+    <Content Include="bin\Microsoft.Practices.Unity.Interception.Configuration.xml" />
+    <Content Include="bin\Microsoft.Practices.Unity.Interception.dll" />
+    <Content Include="bin\Microsoft.Practices.Unity.Interception.xml" />
+    <Content Include="bin\Microsoft.Practices.Unity.RegistrationByConvention.dll" />
+    <Content Include="bin\Microsoft.Practices.Unity.RegistrationByConvention.xml" />
+    <Content Include="bin\Microsoft.Practices.Unity.xml" />
+    <Content Include="bin\Newtonsoft.Json.dll" />
+    <Content Include="bin\Newtonsoft.Json.xml" />
+    <Content Include="bin\PDBM.ApplicationService.dll" />
+    <Content Include="bin\PDBM.DataTransferObjects.dll" />
+    <Content Include="bin\PDBM.DataTransferObjects.pdb" />
+    <Content Include="bin\PDBM.DistributedService.dll" />
+    <Content Include="bin\PDBM.DistributedService.pdb" />
+    <Content Include="bin\PDBM.DistributedService.WASHost.dll" />
+    <Content Include="bin\PDBM.DistributedService.WASHost.pdb" />
+    <Content Include="bin\PDBM.Domain.dll" />
+    <Content Include="bin\PDBM.Domain.pdb" />
+    <Content Include="bin\PDBM.Infrastructure.Data.dll" />
+    <Content Include="bin\PDBM.Infrastructure.Data.pdb" />
+    <Content Include="bin\PDBM.Infrastructure.dll" />
+    <Content Include="bin\PDBM.Infrastructure.pdb" />
+    <Content Include="bin\PDBM.ServiceContracts.dll" />
+    <Content Include="bin\PDBM.ServiceContracts.pdb" />
+    <Content Include="bin\protobuf-net.dll" />
+    <Content Include="bin\protobuf-net.pdb" />
+    <Content Include="bin\protobuf-net.xml" />
+    <Content Include="bin\System.Diagnostics.Tracing.dll" />
+    <Content Include="bin\System.Runtime.dll" />
+    <Content Include="bin\System.Runtime.InteropServices.dll" />
+    <Content Include="obj\Debug\PDBM.DistributedService.WASHost.csproj.FileListAbsolute.txt" />
+    <Content Include="obj\Debug\PDBM.DistributedService.WASHost.dll" />
+    <Content Include="obj\Debug\PDBM.DistributedService.WASHost.pdb" />
+    <Content Include="obj\Release\PDBM.DistributedService.WASHost.csproj.FileListAbsolute.txt" />
+    <Content Include="obj\Release\PDBM.DistributedService.WASHost.dll" />
+    <Content Include="obj\Release\PDBM.DistributedService.WASHost.pdb" />
     <Content Include="packages.config" />
+    <Content Include="bin\PDBM.DistributedService.WASHost.dll.config" />
+    <Content Include="obj\Debug\DesignTimeResolveAssemblyReferencesInput.cache" />
+    <Content Include="obj\Debug\PDBM.DistributedService.WASHost.csprojResolveAssemblyReference.cache" />
+    <Content Include="obj\Release\DesignTimeResolveAssemblyReferencesInput.cache" />
+    <Content Include="obj\Release\PDBM.DistributedService.WASHost.csprojResolveAssemblyReference.cache" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -84,9 +139,18 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="obj\Debug\TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" />
+    <Compile Include="obj\Debug\TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs" />
+    <Compile Include="obj\Debug\TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs" />
+    <Compile Include="obj\Release\TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" />
+    <Compile Include="obj\Release\TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs" />
+    <Compile Include="obj\Release\TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="obj\Debug\TempPE\" />
+    <Folder Include="obj\Release\TempPE\" />
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\PDBM.DistributedService\PDBM.DistributedService.csproj">
       <Project>{e0a358d2-7555-4877-8eb2-6a724e42f394}</Project>

@@ -1,0 +1,163 @@
+--------------------------------Time:2015-08-24 09:30:50,956--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.Data.SqlClient.SqlException (0x80131904): 在将 varchar 值 '00000000-0000-0000-0000-000000000000' 转换成数据类型 int 时失败。
+   在 System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   在 System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   在 System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   在 System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   在 System.Data.SqlClient.SqlDataReader.TryHasMoreRows(Boolean& moreRows)
+   在 System.Data.SqlClient.SqlDataReader.TryReadInternal(Boolean setTimeout, Boolean& more)
+   在 System.Data.SqlClient.SqlDataReader.Read()
+   在 System.Data.Common.DataAdapter.FillLoadDataRow(SchemaMapping mapping)
+   在 System.Data.Common.DataAdapter.FillFromReader(DataSet dataset, DataTable datatable, String srcTable, DataReaderContainer dataReader, Int32 startRecord, Int32 maxRecords, DataColumn parentChapterColumn, Object parentChapterValue)
+   在 System.Data.Common.DataAdapter.Fill(DataSet dataSet, String srcTable, IDataReader dataReader, Int32 startRecord, Int32 maxRecords)
+   在 System.Data.Common.DbDataAdapter.FillInternal(DataSet dataset, DataTable[] datatables, Int32 startRecord, Int32 maxRecords, String srcTable, IDbCommand command, CommandBehavior behavior)
+   在 System.Data.Common.DbDataAdapter.Fill(DataSet dataSet, Int32 startRecord, Int32 maxRecords, String srcTable, IDbCommand command, CommandBehavior behavior)
+   在 System.Data.Common.DbDataAdapter.Fill(DataSet dataSet)
+   在 Microsoft.Practices.EnterpriseLibrary.Data.Database.DoLoadDataSet(IDbCommand command, DataSet dataSet, String[] tableNames)
+   在 Microsoft.Practices.EnterpriseLibrary.Data.Database.LoadDataSet(DbCommand command, DataSet dataSet, String[] tableNames)
+   在 Microsoft.Practices.EnterpriseLibrary.Data.Database.LoadDataSet(DbCommand command, DataSet dataSet, String tableName)
+   在 Microsoft.Practices.EnterpriseLibrary.Data.Database.ExecuteDataSet(DbCommand command)
+   在 PDBM.Infrastructure.DataAccess.EnterpriseLibrary.SqlHelper.ExecuteDataSet(String procName, IList`1 parameters) 位置 e:\PDBM\PDBM.Infrastructure\DataAccess\EnterpriseLibrary\SqlHelper.cs:行号 51
+   在 PDBM.ApplicationService.Services.BMMgmt.OperatorsPlanningDemandService.GetOperatorsPlanningDemandsPage(Int32 pageIndex, Int32 pageSize, String planningCode, String planningName, Int32 profession, Guid placeCategoryId, Guid areaId, Guid reseauId, Int32 demand, Guid companyId)
+   在 DynamicModule.ns.Wrapped_IOperatorsPlanningDemandService_18860b2c36fd4adf8744af01ef80ded3.<GetOperatorsPlanningDemandsPage_DelegateImplementation>__0(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+ClientConnectionId:143b7dc6-32a6-4ede-9088-b79cb047a3f2
+Error Number:245,State:1,Class:16
+--------------------------------END--------------------------------
+
+--------------------------------Time:2015-08-24 09:41:19,244--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.ArgumentException: 无法根据指定的Key找到所需的聚合根。
+   在 PDBM.Infrastructure.Data.EntityFramework.Repositories.EntityFrameworkRepository`1.GetByKey(Guid key) 位置 e:\PDBM\PDBM.Infrastructure.Data\EntityFramework\Repositories\EntityFrameworkRepository.cs:行号 88
+   在 PDBM.ApplicationService.Services.BMMgmt.OperatorsConfirmService.Confirm(Guid currentUserId, Guid currentCompanyId, Int32 currentCompanyNature, Int32 demand, IList`1 operatorsConfirmDetailMaintObjects)
+   在 DynamicModule.ns.Wrapped_IOperatorsConfirmService_8948756e8ffa4b709a2d029b4809bc0b.<Confirm_DelegateImplementation>__2(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+
+--------------------------------Time:2015-08-24 09:44:38,431--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.ArgumentException: 无法根据指定的Key找到所需的聚合根。
+   在 PDBM.Infrastructure.Data.EntityFramework.Repositories.EntityFrameworkRepository`1.GetByKey(Guid key) 位置 e:\PDBM\PDBM.Infrastructure.Data\EntityFramework\Repositories\EntityFrameworkRepository.cs:行号 88
+   在 PDBM.ApplicationService.Services.BMMgmt.OperatorsPlanningDemandService.OperatorsPlanningDemandConfirm(Guid currentUserId, Int32 demand, IList`1 operatorsPlanningDemandMaintObjects)
+   在 DynamicModule.ns.Wrapped_IOperatorsPlanningDemandService_18860b2c36fd4adf8744af01ef80ded3.<OperatorsPlanningDemandConfirm_DelegateImplementation>__2(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+
+--------------------------------Time:2015-08-24 09:48:27,179--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.ArgumentException: 无法根据指定的Key找到所需的聚合根。
+   在 PDBM.Infrastructure.Data.EntityFramework.Repositories.EntityFrameworkRepository`1.GetByKey(Guid key) 位置 e:\PDBM\PDBM.Infrastructure.Data\EntityFramework\Repositories\EntityFrameworkRepository.cs:行号 88
+   在 PDBM.ApplicationService.Services.BMMgmt.OperatorsPlanningDemandService.OperatorsPlanningDemandConfirm(Guid currentUserId, Int32 demand, IList`1 operatorsPlanningDemandMaintObjects)
+   在 DynamicModule.ns.Wrapped_IOperatorsPlanningDemandService_18860b2c36fd4adf8744af01ef80ded3.<OperatorsPlanningDemandConfirm_DelegateImplementation>__2(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+
+--------------------------------Time:2015-08-24 09:52:34,149--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.ArgumentException: 无法根据指定的Key找到所需的聚合根。
+   在 PDBM.Infrastructure.Data.EntityFramework.Repositories.EntityFrameworkRepository`1.GetByKey(Guid key) 位置 e:\PDBM\PDBM.Infrastructure.Data\EntityFramework\Repositories\EntityFrameworkRepository.cs:行号 88
+   在 PDBM.ApplicationService.Services.BMMgmt.OperatorsPlanningDemandService.OperatorsPlanningDemandConfirm(Guid currentUserId, Int32 demand, IList`1 operatorsPlanningDemandMaintObjects)
+   在 DynamicModule.ns.Wrapped_IOperatorsPlanningDemandService_18860b2c36fd4adf8744af01ef80ded3.<OperatorsPlanningDemandConfirm_DelegateImplementation>__2(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+
+--------------------------------Time:2015-08-24 09:57:36,837--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.ArgumentException: 无法根据指定的Key找到所需的聚合根。
+   在 PDBM.Infrastructure.Data.EntityFramework.Repositories.EntityFrameworkRepository`1.GetByKey(Guid key) 位置 e:\PDBM\PDBM.Infrastructure.Data\EntityFramework\Repositories\EntityFrameworkRepository.cs:行号 88
+   在 PDBM.ApplicationService.Services.BMMgmt.OperatorsPlanningDemandService.OperatorsPlanningDemandConfirm(Guid currentUserId, Int32 demand, IList`1 operatorsPlanningDemandMaintObjects)
+   在 DynamicModule.ns.Wrapped_IOperatorsPlanningDemandService_18860b2c36fd4adf8744af01ef80ded3.<OperatorsPlanningDemandConfirm_DelegateImplementation>__2(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+
+--------------------------------Time:2015-08-24 10:00:59,596--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.ArgumentException: 无法根据指定的Key找到所需的聚合根。
+   在 PDBM.Infrastructure.Data.EntityFramework.Repositories.EntityFrameworkRepository`1.GetByKey(Guid key) 位置 e:\PDBM\PDBM.Infrastructure.Data\EntityFramework\Repositories\EntityFrameworkRepository.cs:行号 88
+   在 PDBM.ApplicationService.Services.BMMgmt.OperatorsPlanningDemandService.OperatorsPlanningDemandConfirm(Guid currentUserId, Int32 demand, IList`1 operatorsPlanningDemandMaintObjects)
+   在 DynamicModule.ns.Wrapped_IOperatorsPlanningDemandService_18860b2c36fd4adf8744af01ef80ded3.<OperatorsPlanningDemandConfirm_DelegateImplementation>__2(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+
+--------------------------------Time:2015-08-24 10:01:34,612--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.ArgumentException: 无法根据指定的Key找到所需的聚合根。
+   在 PDBM.Infrastructure.Data.EntityFramework.Repositories.EntityFrameworkRepository`1.GetByKey(Guid key) 位置 e:\PDBM\PDBM.Infrastructure.Data\EntityFramework\Repositories\EntityFrameworkRepository.cs:行号 88
+   在 PDBM.ApplicationService.Services.BMMgmt.OperatorsPlanningDemandService.OperatorsPlanningDemandConfirm(Guid currentUserId, Int32 demand, IList`1 operatorsPlanningDemandMaintObjects)
+   在 DynamicModule.ns.Wrapped_IOperatorsPlanningDemandService_18860b2c36fd4adf8744af01ef80ded3.<OperatorsPlanningDemandConfirm_DelegateImplementation>__2(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+
+--------------------------------Time:2015-08-24 10:12:50,111--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.ArgumentException: 无法根据指定的Key找到所需的聚合根。
+   在 PDBM.Infrastructure.Data.EntityFramework.Repositories.EntityFrameworkRepository`1.GetByKey(Guid key) 位置 e:\PDBM\PDBM.Infrastructure.Data\EntityFramework\Repositories\EntityFrameworkRepository.cs:行号 88
+   在 PDBM.ApplicationService.Services.BMMgmt.OperatorsPlanningDemandService.OperatorsPlanningDemandConfirm(Guid currentUserId, Int32 demand, IList`1 operatorsPlanningDemandMaintObjects)
+   在 DynamicModule.ns.Wrapped_IOperatorsPlanningDemandService_e13bef6de350454d956b9385194992c1.<OperatorsPlanningDemandConfirm_DelegateImplementation>__2(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+
+--------------------------------Time:2015-08-24 12:41:32,429--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.Data.SqlClient.SqlException (0x80131904): 找不到存储过程 'prc_GetMenuInfoByUserId'。
+   在 System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   在 System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   在 System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   在 System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   在 System.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   在 System.Data.SqlClient.SqlDataReader.get_MetaData()
+   在 System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString)
+   在 System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, SqlDataReader ds)
+   在 System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean asyncWrite)
+   在 System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   在 System.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior, String method)
+   在 System.Data.SqlClient.SqlCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   在 System.Data.Common.DbCommand.System.Data.IDbCommand.ExecuteReader(CommandBehavior behavior)
+   在 System.Data.Common.DbDataAdapter.FillInternal(DataSet dataset, DataTable[] datatables, Int32 startRecord, Int32 maxRecords, String srcTable, IDbCommand command, CommandBehavior behavior)
+   在 System.Data.Common.DbDataAdapter.Fill(DataSet dataSet, Int32 startRecord, Int32 maxRecords, String srcTable, IDbCommand command, CommandBehavior behavior)
+   在 System.Data.Common.DbDataAdapter.Fill(DataSet dataSet)
+   在 Microsoft.Practices.EnterpriseLibrary.Data.Database.DoLoadDataSet(IDbCommand command, DataSet dataSet, String[] tableNames)
+   在 Microsoft.Practices.EnterpriseLibrary.Data.Database.LoadDataSet(DbCommand command, DataSet dataSet, String[] tableNames)
+   在 Microsoft.Practices.EnterpriseLibrary.Data.Database.LoadDataSet(DbCommand command, DataSet dataSet, String tableName)
+   在 Microsoft.Practices.EnterpriseLibrary.Data.Database.ExecuteDataSet(DbCommand command)
+   在 PDBM.Infrastructure.DataAccess.EnterpriseLibrary.SqlHelper.ExecuteDataTable(String procName, IList`1 parameters) 位置 e:\PDBM\PDBM.Infrastructure\DataAccess\EnterpriseLibrary\SqlHelper.cs:行号 33
+   在 PDBM.ApplicationService.Services.BaseData.MenuService.GetMenuInfo(Guid userId)
+   在 DynamicModule.ns.Wrapped_IMenuService_50fd649b7c39406d84caa311dbf4833e.<GetMenuInfo_DelegateImplementation>__0(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+ClientConnectionId:dc7f3a14-0b89-4692-9562-724d7c3769d1
+Error Number:2812,State:62,Class:16
+--------------------------------END--------------------------------
+
+--------------------------------Time:2015-08-24 14:52:08,781--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.NullReferenceException: 未将对象引用设置到对象的实例。
+   在 PDBM.ApplicationService.Services.BMMgmt.OperatorsPlanningDemandService.OperatorsPlanningDemandConfirm(Guid currentUserId, Int32 demand, IList`1 operatorsPlanningDemandMaintObjects)
+   在 DynamicModule.ns.Wrapped_IOperatorsPlanningDemandService_fd06c934ca3641bb80e2ef9ef889fae9.<OperatorsPlanningDemandConfirm_DelegateImplementation>__2(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+
+--------------------------------Time:2015-08-24 14:52:12,459--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.NullReferenceException: 未将对象引用设置到对象的实例。
+   在 PDBM.ApplicationService.Services.BMMgmt.OperatorsPlanningDemandService.OperatorsPlanningDemandConfirm(Guid currentUserId, Int32 demand, IList`1 operatorsPlanningDemandMaintObjects)
+   在 DynamicModule.ns.Wrapped_IOperatorsPlanningDemandService_fd06c934ca3641bb80e2ef9ef889fae9.<OperatorsPlanningDemandConfirm_DelegateImplementation>__2(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+
+--------------------------------Time:2015-08-24 14:52:17,450--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.NullReferenceException: 未将对象引用设置到对象的实例。
+   在 PDBM.ApplicationService.Services.BMMgmt.OperatorsPlanningDemandService.OperatorsPlanningDemandConfirm(Guid currentUserId, Int32 demand, IList`1 operatorsPlanningDemandMaintObjects)
+   在 DynamicModule.ns.Wrapped_IOperatorsPlanningDemandService_fd06c934ca3641bb80e2ef9ef889fae9.<OperatorsPlanningDemandConfirm_DelegateImplementation>__2(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+
+--------------------------------Time:2015-08-24 14:52:45,391--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.NullReferenceException: 未将对象引用设置到对象的实例。
+   在 PDBM.ApplicationService.Services.BMMgmt.OperatorsPlanningDemandService.OperatorsPlanningDemandConfirm(Guid currentUserId, Int32 demand, IList`1 operatorsPlanningDemandMaintObjects)
+   在 DynamicModule.ns.Wrapped_IOperatorsPlanningDemandService_fd06c934ca3641bb80e2ef9ef889fae9.<OperatorsPlanningDemandConfirm_DelegateImplementation>__2(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+

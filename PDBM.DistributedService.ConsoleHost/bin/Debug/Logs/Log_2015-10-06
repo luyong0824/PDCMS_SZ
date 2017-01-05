@@ -1,0 +1,32 @@
+--------------------------------Time:2015-10-06 17:36:04,796--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.NullReferenceException: 未将对象引用设置到对象的实例。
+   在 PDBM.ApplicationService.Services.BMMgmt.TaskPropertyService.GetTaskPropertyById(Guid id)
+   在 DynamicModule.ns.Wrapped_ITaskPropertyService_1cc5eadbedb5425bbe3ffef199ee70ff.<GetTaskPropertyById_DelegateImplementation>__0(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+
+--------------------------------Time:2015-10-06 18:00:37,760--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.NullReferenceException: 未将对象引用设置到对象的实例。
+   在 PDBM.ApplicationService.Services.BMMgmt.TaskPropertyService.GetTaskPropertyById(Guid id)
+   在 DynamicModule.ns.Wrapped_ITaskPropertyService_a44faccc5b514a079dcef048fe65dc2e.<GetTaskPropertyById_DelegateImplementation>__0(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+
+--------------------------------Time:2015-10-06 18:02:46,335--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.NullReferenceException: 未将对象引用设置到对象的实例。
+   在 PDBM.ApplicationService.Services.BMMgmt.TaskPropertyService.GetTaskPropertyById(Guid id)
+   在 DynamicModule.ns.Wrapped_ITaskPropertyService_a44faccc5b514a079dcef048fe65dc2e.<GetTaskPropertyById_DelegateImplementation>__0(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+
+--------------------------------Time:2015-10-06 18:03:48,715--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.NullReferenceException: 未将对象引用设置到对象的实例。
+   在 PDBM.ApplicationService.Services.BMMgmt.TaskPropertyService.GetTaskPropertyById(Guid id)
+   在 DynamicModule.ns.Wrapped_ITaskPropertyService_a44faccc5b514a079dcef048fe65dc2e.<GetTaskPropertyById_DelegateImplementation>__0(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+

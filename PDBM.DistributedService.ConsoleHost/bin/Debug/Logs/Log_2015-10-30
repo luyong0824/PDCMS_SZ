@@ -1,0 +1,88 @@
+--------------------------------Time:2015-10-30 14:39:30,434--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.NullReferenceException: 未将对象引用设置到对象的实例。
+   在 PDBM.ApplicationService.Services.BMMgmt.MaterialListService.GetMaterialListById(Guid id)
+   在 DynamicModule.ns.Wrapped_IMaterialListService_02904d0c88e5421886df9d568e742f9e.<GetMaterialListById_DelegateImplementation>__0(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+
+--------------------------------Time:2015-10-30 14:39:38,807--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.NullReferenceException: 未将对象引用设置到对象的实例。
+   在 PDBM.ApplicationService.Services.BMMgmt.MaterialListService.GetMaterialListById(Guid id)
+   在 DynamicModule.ns.Wrapped_IMaterialListService_02904d0c88e5421886df9d568e742f9e.<GetMaterialListById_DelegateImplementation>__0(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+
+--------------------------------Time:2015-10-30 14:39:48,944--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.NullReferenceException: 未将对象引用设置到对象的实例。
+   在 PDBM.ApplicationService.Services.BMMgmt.MaterialListService.GetMaterialListById(Guid id)
+   在 DynamicModule.ns.Wrapped_IMaterialListService_02904d0c88e5421886df9d568e742f9e.<GetMaterialListById_DelegateImplementation>__0(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+
+--------------------------------Time:2015-10-30 14:40:02,711--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.NullReferenceException: 未将对象引用设置到对象的实例。
+   在 PDBM.ApplicationService.Services.BMMgmt.MaterialListService.GetMaterialListById(Guid id)
+   在 DynamicModule.ns.Wrapped_IMaterialListService_02904d0c88e5421886df9d568e742f9e.<GetMaterialListById_DelegateImplementation>__0(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+
+--------------------------------Time:2015-10-30 14:40:19,284--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.NullReferenceException: 未将对象引用设置到对象的实例。
+   在 PDBM.ApplicationService.Services.BMMgmt.MaterialListService.GetMaterialListById(Guid id)
+   在 DynamicModule.ns.Wrapped_IMaterialListService_02904d0c88e5421886df9d568e742f9e.<GetMaterialListById_DelegateImplementation>__0(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+
+--------------------------------Time:2015-10-30 14:41:10,790--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.NullReferenceException: 未将对象引用设置到对象的实例。
+   在 PDBM.ApplicationService.Services.BMMgmt.MaterialListService.GetMaterialListById(Guid id)
+   在 DynamicModule.ns.Wrapped_IMaterialListService_02904d0c88e5421886df9d568e742f9e.<GetMaterialListById_DelegateImplementation>__0(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+
+--------------------------------Time:2015-10-30 14:41:32,353--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.NullReferenceException: 未将对象引用设置到对象的实例。
+   在 PDBM.ApplicationService.Services.BMMgmt.MaterialListService.GetMaterialListById(Guid id)
+   在 DynamicModule.ns.Wrapped_IMaterialListService_02904d0c88e5421886df9d568e742f9e.<GetMaterialListById_DelegateImplementation>__0(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+
+--------------------------------Time:2015-10-30 14:45:18,771--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.NullReferenceException: 未将对象引用设置到对象的实例。
+   在 PDBM.ApplicationService.Services.BMMgmt.MaterialListService.GetMaterialListById(Guid id)
+   在 DynamicModule.ns.Wrapped_IMaterialListService_02904d0c88e5421886df9d568e742f9e.<GetMaterialListById_DelegateImplementation>__0(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+
+--------------------------------Time:2015-10-30 15:02:15,359--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.NullReferenceException: 未将对象引用设置到对象的实例。
+   在 PDBM.ApplicationService.Services.BMMgmt.MaterialListService.GetMaterialListById(Guid id)
+   在 DynamicModule.ns.Wrapped_IMaterialListService_02904d0c88e5421886df9d568e742f9e.<GetMaterialListById_DelegateImplementation>__0(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+
+--------------------------------Time:2015-10-30 15:10:12,633--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.NullReferenceException: 未将对象引用设置到对象的实例。
+   在 PDBM.ApplicationService.Services.BMMgmt.MaterialListService.GetMaterialListById(Guid id)
+   在 DynamicModule.ns.Wrapped_IMaterialListService_02904d0c88e5421886df9d568e742f9e.<GetMaterialListById_DelegateImplementation>__0(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+
+--------------------------------Time:2015-10-30 15:52:32,033--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.NullReferenceException: 未将对象引用设置到对象的实例。
+   在 PDBM.ApplicationService.Services.BMMgmt.MaterialListService.GetMaterialListById(Guid id)
+   在 DynamicModule.ns.Wrapped_IMaterialListService_02904d0c88e5421886df9d568e742f9e.<GetMaterialListById_DelegateImplementation>__0(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+

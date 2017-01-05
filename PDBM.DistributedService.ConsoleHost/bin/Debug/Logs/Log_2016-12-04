@@ -1,0 +1,22 @@
+--------------------------------Time:2016-12-04 10:27:14,369--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.FormatException: 无法识别的 GUID 格式。
+   在 System.Guid.GuidResult.SetFailure(ParseFailureKind failure, String failureMessageID, Object failureMessageFormatArgument, String failureArgumentName, Exception innerException)
+   在 System.Guid.TryParseGuid(String g, GuidStyles flags, GuidResult& result)
+   在 System.Guid.Parse(String input)
+   在 PDBM.ApplicationService.Services.FileMgmt.FileService.GetProjectProgressFiles(Guid projectTaskId, String fileIdList)
+   在 DynamicModule.ns.Wrapped_IFileService_9f01a3e78b494e64b40e7481f377a6be.<GetProjectProgressFiles_DelegateImplementation>__7(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+
+--------------------------------Time:2016-12-04 10:27:19,545--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.FormatException: 无法识别的 GUID 格式。
+   在 System.Guid.GuidResult.SetFailure(ParseFailureKind failure, String failureMessageID, Object failureMessageFormatArgument, String failureArgumentName, Exception innerException)
+   在 System.Guid.TryParseGuid(String g, GuidStyles flags, GuidResult& result)
+   在 System.Guid.Parse(String input)
+   在 PDBM.ApplicationService.Services.FileMgmt.FileService.GetProjectProgressFiles(Guid projectTaskId, String fileIdList)
+   在 DynamicModule.ns.Wrapped_IFileService_9f01a3e78b494e64b40e7481f377a6be.<GetProjectProgressFiles_DelegateImplementation>__7(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+

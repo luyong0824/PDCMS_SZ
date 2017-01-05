@@ -1,0 +1,32 @@
+--------------------------------Time:2015-07-13 13:05:50,295--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.NullReferenceException: 未将对象引用设置到对象的实例。
+   在 PDBM.ApplicationService.Services.BaseData.PlaceService.GetPlaceInfoById(Guid id)
+   在 DynamicModule.ns.Wrapped_IPlaceService_94e3ef9ffc6d4c59bb4cecf7080632cc.<GetPlaceInfoById_DelegateImplementation>__4(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+
+--------------------------------Time:2015-07-13 13:12:14,706--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.NullReferenceException: 未将对象引用设置到对象的实例。
+   在 PDBM.ApplicationService.Services.BaseData.PlaceService.GetPlaceInfoById(Guid id)
+   在 DynamicModule.ns.Wrapped_IPlaceService_94e3ef9ffc6d4c59bb4cecf7080632cc.<GetPlaceInfoById_DelegateImplementation>__4(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+
+--------------------------------Time:2015-07-13 13:16:27,151--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.NullReferenceException: 未将对象引用设置到对象的实例。
+   在 PDBM.ApplicationService.Services.BaseData.PlaceService.GetPlaceInfoById(Guid id)
+   在 DynamicModule.ns.Wrapped_IPlaceService_94e3ef9ffc6d4c59bb4cecf7080632cc.<GetPlaceInfoById_DelegateImplementation>__4(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+
+--------------------------------Time:2015-07-13 13:19:05,147--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.NullReferenceException: 未将对象引用设置到对象的实例。
+   在 PDBM.ApplicationService.Services.BaseData.PlaceService.GetPlaceInfoById(Guid id)
+   在 DynamicModule.ns.Wrapped_IPlaceService_94e3ef9ffc6d4c59bb4cecf7080632cc.<GetPlaceInfoById_DelegateImplementation>__4(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+

@@ -1,0 +1,28 @@
+--------------------------------Time:2016-11-18 13:54:55,233--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.InvalidOperationException: The operation cannot be completed because the DbContext has been disposed.
+   在 System.Data.Entity.Internal.LazyInternalContext.InitializeContext()
+   在 System.Data.Entity.Internal.Linq.InternalQuery`1.GetEnumerator()
+   在 System.Data.Entity.Infrastructure.DbQuery`1.System.Collections.Generic.IEnumerable<TResult>.GetEnumerator()
+   在 System.Collections.Generic.List`1..ctor(IEnumerable`1 collection)
+   在 System.Linq.Enumerable.ToList[TSource](IEnumerable`1 source)
+   在 PDBM.Infrastructure.Data.EntityFramework.Repositories.EntityFrameworkRepository`1.FindAll(ISpecification`1 specification, String sortString, Expression`1 eagerLodingProperty) 位置 e:\PDCMS_SZ\PDBM.Infrastructure.Data\EntityFramework\Repositories\EntityFrameworkRepository.cs:行号 191
+   在 PDBM.ApplicationService.Services.BaseData.PlaceCategoryService.GetUsedPlaceCategorys(Int32 profession)
+   在 DynamicModule.ns.Wrapped_IPlaceCategoryService_da1118ee5c534a89aaf383bae1817c20.<GetUsedPlaceCategorys_DelegateImplementation>__2(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+
+--------------------------------Time:2016-11-18 13:58:52,401--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.InvalidOperationException: The operation cannot be completed because the DbContext has been disposed.
+   在 System.Data.Entity.Internal.LazyInternalContext.InitializeContext()
+   在 System.Data.Entity.Internal.Linq.InternalQuery`1.GetEnumerator()
+   在 System.Data.Entity.Infrastructure.DbQuery`1.System.Collections.Generic.IEnumerable<TResult>.GetEnumerator()
+   在 System.Collections.Generic.List`1..ctor(IEnumerable`1 collection)
+   在 System.Linq.Enumerable.ToList[TSource](IEnumerable`1 source)
+   在 PDBM.Infrastructure.Data.EntityFramework.Repositories.EntityFrameworkRepository`1.FindAll(ISpecification`1 specification, String sortString, Expression`1 eagerLodingProperty) 位置 e:\PDCMS_SZ\PDBM.Infrastructure.Data\EntityFramework\Repositories\EntityFrameworkRepository.cs:行号 191
+   在 PDBM.ApplicationService.Services.BaseData.PlaceCategoryService.GetUsedPlaceCategorys(Int32 profession)
+   在 DynamicModule.ns.Wrapped_IPlaceCategoryService_da1118ee5c534a89aaf383bae1817c20.<GetUsedPlaceCategorys_DelegateImplementation>__2(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+

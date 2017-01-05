@@ -1,0 +1,9 @@
+--------------------------------Time:2015-03-17 15:51:32,212--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.IndexOutOfRangeException: 无法找到表 1。
+   在 System.Data.DataTableCollection.get_Item(Int32 index)
+   在 PDBM.ApplicationService.Services.BMMgmt.OperatorsSharingService.GetOperatorsSharingsByPlace(Guid operatorsSharingId, Guid remodelingId)
+   在 DynamicModule.ns.Wrapped_IOperatorsSharingService_04fcd53415d6432fb38b1d9624d108bc.<GetOperatorsSharingsByPlace_DelegateImplementation>__3(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+

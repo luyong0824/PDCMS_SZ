@@ -1,0 +1,196 @@
+--------------------------------Time:2015-07-04 13:04:10,841--------------------------------
+Message:Exception
+Level:ERROR
+Exception:Microsoft.Practices.Unity.ResolutionFailedException: Resolution of the dependency failed, type = "PDBM.Domain.EventHandlers.IDomainEventHandler`1[PDBM.Domain.Events.WorkFlow.WFActivityInstanceDoingEvent][]", name = "(none)".
+Exception occurred while: while resolving.
+Exception is: InvalidOperationException - The current type, PDBM.Domain.Repositories.IRepository`1[PDBM.Domain.Models.BMMgmt.ConstructionTask], is an interface and cannot be constructed. Are you missing a type mapping?
+-----------------------------------------------
+At the time of the exception, the container was:
+
+  Resolving PDBM.Domain.EventHandlers.IDomainEventHandler`1[PDBM.Domain.Events.WorkFlow.WFActivityInstanceDoingEvent][],(none)
+    Resolving PDBM.Domain.EventHandlers.WorkFlow.WFActivityInstanceDoingEventHandler,WFActivityInstanceDoingEventHandler (mapped from PDBM.Domain.EventHandlers.IDomainEventHandler`1[PDBM.Domain.Events.WorkFlow.WFActivityInstanceDoingEvent], WFActivityInstanceDoingEventHandler)
+    Resolving parameter "constructionTaskRepository" of constructor PDBM.Domain.EventHandlers.WorkFlow.WFActivityInstanceDoingEventHandler(PDBM.Domain.Repositories.IRepository`1[[PDBM.Domain.Models.WorkFlow.WFActivityInstance, PDBM.Domain, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]] wfActivityInstanceRepository, PDBM.Domain.Repositories.IRepository`1[[PDBM.Domain.Models.WorkFlow.WFProcessInstance, PDBM.Domain, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]] wfProcessInstanceRepository, PDBM.Domain.Repositories.IRepository`1[[PDBM.Domain.Models.WorkFlow.WFProcess, PDBM.Domain, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]] wfProcessRepository, PDBM.Domain.Repositories.IRepository`1[[PDBM.Domain.Models.WorkFlow.WFCategory, PDBM.Domain, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]] wfCategoryRepository, PDBM.Domain.Repositories.IRepository`1[[PDBM.Domain.Models.BMMgmt.Addressing, PDBM.Domain, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]] addressingRepository, PDBM.Domain.Repositories.IRepository`1[[PDBM.Domain.Models.BMMgmt.Planning, PDBM.Domain, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]] planningRepository, PDBM.Domain.Repositories.IRepository`1[[PDBM.Domain.Models.BaseData.Place, PDBM.Domain, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]] placeRepository, PDBM.Domain.Repositories.IRepository`1[[PDBM.Domain.Models.FileMgmt.FileAssociation, PDBM.Domain, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]] fileAssociationRepository, PDBM.Domain.Repositories.IRepository`1[[PDBM.Domain.Models.BMMgmt.ConstructionTask, PDBM.Domain, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]] constructionTaskRepository, PDBM.Domain.Repositories.IRepository`1[[PDBM.Domain.Models.BaseData.PlaceProperty, PDBM.Domain, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]] placePropertyRepository, PDBM.Domain.Repositories.BaseData.ICodeSeedRepository codeSeedRepository, PDBM.Domain.Services.IBMMgmtService bmMgmtService)
+      Resolving PDBM.Domain.Repositories.IRepository`1[PDBM.Domain.Models.BMMgmt.ConstructionTask],(none)
+ ---> System.InvalidOperationException: The current type, PDBM.Domain.Repositories.IRepository`1[PDBM.Domain.Models.BMMgmt.ConstructionTask], is an interface and cannot be constructed. Are you missing a type mapping?
+   在 Microsoft.Practices.ObjectBuilder2.DynamicMethodConstructorStrategy.ThrowForAttemptingToConstructInterface(IBuilderContext context)
+   在 lambda_method(Closure , IBuilderContext )
+   在 Microsoft.Practices.ObjectBuilder2.DynamicBuildPlanGenerationContext.<>c__DisplayClass1.<GetBuildMethod>b__0(IBuilderContext context)
+   在 Microsoft.Practices.ObjectBuilder2.DynamicMethodBuildPlan.BuildUp(IBuilderContext context)
+   在 Microsoft.Practices.ObjectBuilder2.BuildPlanStrategy.PreBuildUp(IBuilderContext context)
+   在 Microsoft.Practices.ObjectBuilder2.StrategyChain.ExecuteBuildUp(IBuilderContext context)
+   在 Microsoft.Practices.ObjectBuilder2.BuilderContext.NewBuildUp(NamedTypeBuildKey newBuildKey)
+   在 Microsoft.Practices.Unity.ObjectBuilder.NamedTypeDependencyResolverPolicy.Resolve(IBuilderContext context)
+   在 lambda_method(Closure , IBuilderContext )
+   在 Microsoft.Practices.ObjectBuilder2.DynamicBuildPlanGenerationContext.<>c__DisplayClass1.<GetBuildMethod>b__0(IBuilderContext context)
+   在 Microsoft.Practices.ObjectBuilder2.DynamicMethodBuildPlan.BuildUp(IBuilderContext context)
+   在 Microsoft.Practices.ObjectBuilder2.BuildPlanStrategy.PreBuildUp(IBuilderContext context)
+   在 Microsoft.Practices.ObjectBuilder2.StrategyChain.ExecuteBuildUp(IBuilderContext context)
+   在 Microsoft.Practices.ObjectBuilder2.BuilderContext.NewBuildUp(NamedTypeBuildKey newBuildKey)
+   在 Microsoft.Practices.ObjectBuilder2.BuilderContextExtensions.NewBuildUp[TResult](IBuilderContext context, String name)
+   在 Microsoft.Practices.Unity.ArrayResolutionStrategy.<>c__DisplayClass2`1.<ResolveArray>b__0(String n)
+   在 System.Linq.Enumerable.WhereSelectEnumerableIterator`2.MoveNext()
+   在 System.Linq.Buffer`1..ctor(IEnumerable`1 source)
+   在 System.Linq.Enumerable.ToArray[TSource](IEnumerable`1 source)
+   在 Microsoft.Practices.Unity.ArrayResolutionStrategy.ResolveArray[T](IBuilderContext context)
+   在 Microsoft.Practices.Unity.ArrayResolutionStrategy.PreBuildUp(IBuilderContext context)
+   在 Microsoft.Practices.ObjectBuilder2.StrategyChain.ExecuteBuildUp(IBuilderContext context)
+   在 Microsoft.Practices.Unity.UnityContainer.DoBuildUp(Type t, Object existing, String name, IEnumerable`1 resolverOverrides)
+   --- 内部异常堆栈跟踪的结尾 ---
+   在 Microsoft.Practices.Unity.UnityContainer.DoBuildUp(Type t, Object existing, String name, IEnumerable`1 resolverOverrides)
+   在 Microsoft.Practices.Unity.UnityContainer.Resolve(Type t, String name, ResolverOverride[] resolverOverrides)
+   在 Microsoft.Practices.Unity.UnityContainer.ResolveAll(Type t, ResolverOverride[] resolverOverrides)
+   在 Microsoft.Practices.Unity.UnityContainerExtensions.ResolveAll[T](IUnityContainer container, ResolverOverride[] resolverOverrides)
+   在 PDBM.Infrastructure.IoC.ServiceLocator.GetServices[T]() 位置 e:\PDBM\PDBM.Infrastructure\IoC\ServiceLocator.cs:行号 105
+   在 PDBM.Domain.Events.DomainEvent.Publish[TDomainEvent](TDomainEvent domainEvent) 位置 e:\PDBM\PDBM.Domain\Events\DomainEvent.cs:行号 77
+   在 PDBM.Domain.Models.WorkFlow.WFActivityInstance.Do(WFActivityInstanceFlow wfActivityInstanceFlow, String content, IList`1 forwardWFActivityInstances) 位置 e:\PDBM\PDBM.Domain\Models\WorkFlow\WFActivityInstance.cs:行号 316
+   在 PDBM.ApplicationService.Services.WorkFlow.WFInstanceService.DoWFInstance(WFActivityInstanceDoObject wfActivityInstanceDoObject, IList`1 wfActivityInstanceSendObjects)
+   在 DynamicModule.ns.Wrapped_IWFInstanceService_ad046a0af2ec43fe96583fe1b19f0502.<DoWFInstance_DelegateImplementation>__2(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+
+--------------------------------Time:2015-07-04 13:04:53,229--------------------------------
+Message:Exception
+Level:ERROR
+Exception:Microsoft.Practices.Unity.ResolutionFailedException: Resolution of the dependency failed, type = "PDBM.Domain.EventHandlers.IDomainEventHandler`1[PDBM.Domain.Events.WorkFlow.WFActivityInstanceDoingEvent][]", name = "(none)".
+Exception occurred while: while resolving.
+Exception is: InvalidOperationException - The current type, PDBM.Domain.Repositories.IRepository`1[PDBM.Domain.Models.BMMgmt.ConstructionTask], is an interface and cannot be constructed. Are you missing a type mapping?
+-----------------------------------------------
+At the time of the exception, the container was:
+
+  Resolving PDBM.Domain.EventHandlers.IDomainEventHandler`1[PDBM.Domain.Events.WorkFlow.WFActivityInstanceDoingEvent][],(none)
+    Resolving PDBM.Domain.EventHandlers.WorkFlow.WFActivityInstanceDoingEventHandler,WFActivityInstanceDoingEventHandler (mapped from PDBM.Domain.EventHandlers.IDomainEventHandler`1[PDBM.Domain.Events.WorkFlow.WFActivityInstanceDoingEvent], WFActivityInstanceDoingEventHandler)
+    Resolving parameter "constructionTaskRepository" of constructor PDBM.Domain.EventHandlers.WorkFlow.WFActivityInstanceDoingEventHandler(PDBM.Domain.Repositories.IRepository`1[[PDBM.Domain.Models.WorkFlow.WFActivityInstance, PDBM.Domain, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]] wfActivityInstanceRepository, PDBM.Domain.Repositories.IRepository`1[[PDBM.Domain.Models.WorkFlow.WFProcessInstance, PDBM.Domain, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]] wfProcessInstanceRepository, PDBM.Domain.Repositories.IRepository`1[[PDBM.Domain.Models.WorkFlow.WFProcess, PDBM.Domain, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]] wfProcessRepository, PDBM.Domain.Repositories.IRepository`1[[PDBM.Domain.Models.WorkFlow.WFCategory, PDBM.Domain, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]] wfCategoryRepository, PDBM.Domain.Repositories.IRepository`1[[PDBM.Domain.Models.BMMgmt.Addressing, PDBM.Domain, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]] addressingRepository, PDBM.Domain.Repositories.IRepository`1[[PDBM.Domain.Models.BMMgmt.Planning, PDBM.Domain, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]] planningRepository, PDBM.Domain.Repositories.IRepository`1[[PDBM.Domain.Models.BaseData.Place, PDBM.Domain, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]] placeRepository, PDBM.Domain.Repositories.IRepository`1[[PDBM.Domain.Models.FileMgmt.FileAssociation, PDBM.Domain, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]] fileAssociationRepository, PDBM.Domain.Repositories.IRepository`1[[PDBM.Domain.Models.BMMgmt.ConstructionTask, PDBM.Domain, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]] constructionTaskRepository, PDBM.Domain.Repositories.IRepository`1[[PDBM.Domain.Models.BaseData.PlaceProperty, PDBM.Domain, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]] placePropertyRepository, PDBM.Domain.Repositories.BaseData.ICodeSeedRepository codeSeedRepository, PDBM.Domain.Services.IBMMgmtService bmMgmtService)
+      Resolving PDBM.Domain.Repositories.IRepository`1[PDBM.Domain.Models.BMMgmt.ConstructionTask],(none)
+ ---> System.InvalidOperationException: The current type, PDBM.Domain.Repositories.IRepository`1[PDBM.Domain.Models.BMMgmt.ConstructionTask], is an interface and cannot be constructed. Are you missing a type mapping?
+   在 Microsoft.Practices.ObjectBuilder2.DynamicMethodConstructorStrategy.ThrowForAttemptingToConstructInterface(IBuilderContext context)
+   在 lambda_method(Closure , IBuilderContext )
+   在 Microsoft.Practices.ObjectBuilder2.DynamicBuildPlanGenerationContext.<>c__DisplayClass1.<GetBuildMethod>b__0(IBuilderContext context)
+   在 Microsoft.Practices.ObjectBuilder2.DynamicMethodBuildPlan.BuildUp(IBuilderContext context)
+   在 Microsoft.Practices.ObjectBuilder2.BuildPlanStrategy.PreBuildUp(IBuilderContext context)
+   在 Microsoft.Practices.ObjectBuilder2.StrategyChain.ExecuteBuildUp(IBuilderContext context)
+   在 Microsoft.Practices.ObjectBuilder2.BuilderContext.NewBuildUp(NamedTypeBuildKey newBuildKey)
+   在 Microsoft.Practices.Unity.ObjectBuilder.NamedTypeDependencyResolverPolicy.Resolve(IBuilderContext context)
+   在 lambda_method(Closure , IBuilderContext )
+   在 Microsoft.Practices.ObjectBuilder2.DynamicBuildPlanGenerationContext.<>c__DisplayClass1.<GetBuildMethod>b__0(IBuilderContext context)
+   在 Microsoft.Practices.ObjectBuilder2.DynamicMethodBuildPlan.BuildUp(IBuilderContext context)
+   在 Microsoft.Practices.ObjectBuilder2.BuildPlanStrategy.PreBuildUp(IBuilderContext context)
+   在 Microsoft.Practices.ObjectBuilder2.StrategyChain.ExecuteBuildUp(IBuilderContext context)
+   在 Microsoft.Practices.ObjectBuilder2.BuilderContext.NewBuildUp(NamedTypeBuildKey newBuildKey)
+   在 Microsoft.Practices.ObjectBuilder2.BuilderContextExtensions.NewBuildUp[TResult](IBuilderContext context, String name)
+   在 Microsoft.Practices.Unity.ArrayResolutionStrategy.<>c__DisplayClass2`1.<ResolveArray>b__0(String n)
+   在 System.Linq.Enumerable.WhereSelectEnumerableIterator`2.MoveNext()
+   在 System.Linq.Buffer`1..ctor(IEnumerable`1 source)
+   在 System.Linq.Enumerable.ToArray[TSource](IEnumerable`1 source)
+   在 Microsoft.Practices.Unity.ArrayResolutionStrategy.ResolveArray[T](IBuilderContext context)
+   在 Microsoft.Practices.Unity.ArrayResolutionStrategy.PreBuildUp(IBuilderContext context)
+   在 Microsoft.Practices.ObjectBuilder2.StrategyChain.ExecuteBuildUp(IBuilderContext context)
+   在 Microsoft.Practices.Unity.UnityContainer.DoBuildUp(Type t, Object existing, String name, IEnumerable`1 resolverOverrides)
+   --- 内部异常堆栈跟踪的结尾 ---
+   在 Microsoft.Practices.Unity.UnityContainer.DoBuildUp(Type t, Object existing, String name, IEnumerable`1 resolverOverrides)
+   在 Microsoft.Practices.Unity.UnityContainer.Resolve(Type t, String name, ResolverOverride[] resolverOverrides)
+   在 Microsoft.Practices.Unity.UnityContainer.ResolveAll(Type t, ResolverOverride[] resolverOverrides)
+   在 Microsoft.Practices.Unity.UnityContainerExtensions.ResolveAll[T](IUnityContainer container, ResolverOverride[] resolverOverrides)
+   在 PDBM.Infrastructure.IoC.ServiceLocator.GetServices[T]() 位置 e:\PDBM\PDBM.Infrastructure\IoC\ServiceLocator.cs:行号 105
+   在 PDBM.Domain.Events.DomainEvent.Publish[TDomainEvent](TDomainEvent domainEvent) 位置 e:\PDBM\PDBM.Domain\Events\DomainEvent.cs:行号 77
+   在 PDBM.Domain.Models.WorkFlow.WFActivityInstance.Do(WFActivityInstanceFlow wfActivityInstanceFlow, String content, IList`1 forwardWFActivityInstances) 位置 e:\PDBM\PDBM.Domain\Models\WorkFlow\WFActivityInstance.cs:行号 316
+   在 PDBM.ApplicationService.Services.WorkFlow.WFInstanceService.DoWFInstance(WFActivityInstanceDoObject wfActivityInstanceDoObject, IList`1 wfActivityInstanceSendObjects)
+   在 DynamicModule.ns.Wrapped_IWFInstanceService_ad046a0af2ec43fe96583fe1b19f0502.<DoWFInstance_DelegateImplementation>__2(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+
+--------------------------------Time:2015-07-04 13:06:55,095--------------------------------
+Message:Exception
+Level:ERROR
+Exception:Microsoft.Practices.Unity.ResolutionFailedException: Resolution of the dependency failed, type = "PDBM.Domain.EventHandlers.IDomainEventHandler`1[PDBM.Domain.Events.WorkFlow.WFActivityInstanceDoingEvent][]", name = "(none)".
+Exception occurred while: while resolving.
+Exception is: InvalidOperationException - The current type, PDBM.Domain.Repositories.IRepository`1[PDBM.Domain.Models.BMMgmt.ConstructionTask], is an interface and cannot be constructed. Are you missing a type mapping?
+-----------------------------------------------
+At the time of the exception, the container was:
+
+  Resolving PDBM.Domain.EventHandlers.IDomainEventHandler`1[PDBM.Domain.Events.WorkFlow.WFActivityInstanceDoingEvent][],(none)
+    Resolving PDBM.Domain.EventHandlers.WorkFlow.WFActivityInstanceDoingEventHandler,WFActivityInstanceDoingEventHandler (mapped from PDBM.Domain.EventHandlers.IDomainEventHandler`1[PDBM.Domain.Events.WorkFlow.WFActivityInstanceDoingEvent], WFActivityInstanceDoingEventHandler)
+    Resolving parameter "constructionTaskRepository" of constructor PDBM.Domain.EventHandlers.WorkFlow.WFActivityInstanceDoingEventHandler(PDBM.Domain.Repositories.IRepository`1[[PDBM.Domain.Models.WorkFlow.WFActivityInstance, PDBM.Domain, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]] wfActivityInstanceRepository, PDBM.Domain.Repositories.IRepository`1[[PDBM.Domain.Models.WorkFlow.WFProcessInstance, PDBM.Domain, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]] wfProcessInstanceRepository, PDBM.Domain.Repositories.IRepository`1[[PDBM.Domain.Models.WorkFlow.WFProcess, PDBM.Domain, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]] wfProcessRepository, PDBM.Domain.Repositories.IRepository`1[[PDBM.Domain.Models.WorkFlow.WFCategory, PDBM.Domain, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]] wfCategoryRepository, PDBM.Domain.Repositories.IRepository`1[[PDBM.Domain.Models.BMMgmt.Addressing, PDBM.Domain, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]] addressingRepository, PDBM.Domain.Repositories.IRepository`1[[PDBM.Domain.Models.BMMgmt.Planning, PDBM.Domain, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]] planningRepository, PDBM.Domain.Repositories.IRepository`1[[PDBM.Domain.Models.BaseData.Place, PDBM.Domain, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]] placeRepository, PDBM.Domain.Repositories.IRepository`1[[PDBM.Domain.Models.FileMgmt.FileAssociation, PDBM.Domain, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]] fileAssociationRepository, PDBM.Domain.Repositories.IRepository`1[[PDBM.Domain.Models.BMMgmt.ConstructionTask, PDBM.Domain, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]] constructionTaskRepository, PDBM.Domain.Repositories.IRepository`1[[PDBM.Domain.Models.BaseData.PlaceProperty, PDBM.Domain, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]] placePropertyRepository, PDBM.Domain.Repositories.BaseData.ICodeSeedRepository codeSeedRepository, PDBM.Domain.Services.IBMMgmtService bmMgmtService)
+      Resolving PDBM.Domain.Repositories.IRepository`1[PDBM.Domain.Models.BMMgmt.ConstructionTask],(none)
+ ---> System.InvalidOperationException: The current type, PDBM.Domain.Repositories.IRepository`1[PDBM.Domain.Models.BMMgmt.ConstructionTask], is an interface and cannot be constructed. Are you missing a type mapping?
+   在 Microsoft.Practices.ObjectBuilder2.DynamicMethodConstructorStrategy.ThrowForAttemptingToConstructInterface(IBuilderContext context)
+   在 lambda_method(Closure , IBuilderContext )
+   在 Microsoft.Practices.ObjectBuilder2.DynamicBuildPlanGenerationContext.<>c__DisplayClass1.<GetBuildMethod>b__0(IBuilderContext context)
+   在 Microsoft.Practices.ObjectBuilder2.DynamicMethodBuildPlan.BuildUp(IBuilderContext context)
+   在 Microsoft.Practices.ObjectBuilder2.BuildPlanStrategy.PreBuildUp(IBuilderContext context)
+   在 Microsoft.Practices.ObjectBuilder2.StrategyChain.ExecuteBuildUp(IBuilderContext context)
+   在 Microsoft.Practices.ObjectBuilder2.BuilderContext.NewBuildUp(NamedTypeBuildKey newBuildKey)
+   在 Microsoft.Practices.Unity.ObjectBuilder.NamedTypeDependencyResolverPolicy.Resolve(IBuilderContext context)
+   在 lambda_method(Closure , IBuilderContext )
+   在 Microsoft.Practices.ObjectBuilder2.DynamicBuildPlanGenerationContext.<>c__DisplayClass1.<GetBuildMethod>b__0(IBuilderContext context)
+   在 Microsoft.Practices.ObjectBuilder2.DynamicMethodBuildPlan.BuildUp(IBuilderContext context)
+   在 Microsoft.Practices.ObjectBuilder2.BuildPlanStrategy.PreBuildUp(IBuilderContext context)
+   在 Microsoft.Practices.ObjectBuilder2.StrategyChain.ExecuteBuildUp(IBuilderContext context)
+   在 Microsoft.Practices.ObjectBuilder2.BuilderContext.NewBuildUp(NamedTypeBuildKey newBuildKey)
+   在 Microsoft.Practices.ObjectBuilder2.BuilderContextExtensions.NewBuildUp[TResult](IBuilderContext context, String name)
+   在 Microsoft.Practices.Unity.ArrayResolutionStrategy.<>c__DisplayClass2`1.<ResolveArray>b__0(String n)
+   在 System.Linq.Enumerable.WhereSelectEnumerableIterator`2.MoveNext()
+   在 System.Linq.Buffer`1..ctor(IEnumerable`1 source)
+   在 System.Linq.Enumerable.ToArray[TSource](IEnumerable`1 source)
+   在 Microsoft.Practices.Unity.ArrayResolutionStrategy.ResolveArray[T](IBuilderContext context)
+   在 Microsoft.Practices.Unity.ArrayResolutionStrategy.PreBuildUp(IBuilderContext context)
+   在 Microsoft.Practices.ObjectBuilder2.StrategyChain.ExecuteBuildUp(IBuilderContext context)
+   在 Microsoft.Practices.Unity.UnityContainer.DoBuildUp(Type t, Object existing, String name, IEnumerable`1 resolverOverrides)
+   --- 内部异常堆栈跟踪的结尾 ---
+   在 Microsoft.Practices.Unity.UnityContainer.DoBuildUp(Type t, Object existing, String name, IEnumerable`1 resolverOverrides)
+   在 Microsoft.Practices.Unity.UnityContainer.Resolve(Type t, String name, ResolverOverride[] resolverOverrides)
+   在 Microsoft.Practices.Unity.UnityContainer.ResolveAll(Type t, ResolverOverride[] resolverOverrides)
+   在 Microsoft.Practices.Unity.UnityContainerExtensions.ResolveAll[T](IUnityContainer container, ResolverOverride[] resolverOverrides)
+   在 PDBM.Infrastructure.IoC.ServiceLocator.GetServices[T]() 位置 e:\PDBM\PDBM.Infrastructure\IoC\ServiceLocator.cs:行号 105
+   在 PDBM.Domain.Events.DomainEvent.Publish[TDomainEvent](TDomainEvent domainEvent) 位置 e:\PDBM\PDBM.Domain\Events\DomainEvent.cs:行号 77
+   在 PDBM.Domain.Models.WorkFlow.WFActivityInstance.Do(WFActivityInstanceFlow wfActivityInstanceFlow, String content, IList`1 forwardWFActivityInstances) 位置 e:\PDBM\PDBM.Domain\Models\WorkFlow\WFActivityInstance.cs:行号 316
+   在 PDBM.ApplicationService.Services.WorkFlow.WFInstanceService.DoWFInstance(WFActivityInstanceDoObject wfActivityInstanceDoObject, IList`1 wfActivityInstanceSendObjects)
+   在 DynamicModule.ns.Wrapped_IWFInstanceService_ad046a0af2ec43fe96583fe1b19f0502.<DoWFInstance_DelegateImplementation>__2(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+
+--------------------------------Time:2015-07-04 13:15:40,502--------------------------------
+Message:Exception
+Level:ERROR
+Exception:Microsoft.Practices.Unity.ResolutionFailedException: Resolution of the dependency failed, type = "PDBM.Domain.EventHandlers.IDomainEventHandler`1[PDBM.Domain.Events.WorkFlow.WFActivityInstanceDoingEvent][]", name = "(none)".
+Exception occurred while: while resolving.
+Exception is: InvalidOperationException - The current type, PDBM.Domain.Repositories.IRepository`1[PDBM.Domain.Models.BMMgmt.ConstructionTask], is an interface and cannot be constructed. Are you missing a type mapping?
+-----------------------------------------------
+At the time of the exception, the container was:
+
+  Resolving PDBM.Domain.EventHandlers.IDomainEventHandler`1[PDBM.Domain.Events.WorkFlow.WFActivityInstanceDoingEvent][],(none)
+    Resolving PDBM.Domain.EventHandlers.WorkFlow.WFActivityInstanceDoingEventHandler,WFActivityInstanceDoingEventHandler (mapped from PDBM.Domain.EventHandlers.IDomainEventHandler`1[PDBM.Domain.Events.WorkFlow.WFActivityInstanceDoingEvent], WFActivityInstanceDoingEventHandler)
+    Resolving parameter "constructionTaskRepository" of constructor PDBM.Domain.EventHandlers.WorkFlow.WFActivityInstanceDoingEventHandler(PDBM.Domain.Repositories.IRepository`1[[PDBM.Domain.Models.WorkFlow.WFActivityInstance, PDBM.Domain, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]] wfActivityInstanceRepository, PDBM.Domain.Repositories.IRepository`1[[PDBM.Domain.Models.WorkFlow.WFProcessInstance, PDBM.Domain, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]] wfProcessInstanceRepository, PDBM.Domain.Repositories.IRepository`1[[PDBM.Domain.Models.WorkFlow.WFProcess, PDBM.Domain, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]] wfProcessRepository, PDBM.Domain.Repositories.IRepository`1[[PDBM.Domain.Models.WorkFlow.WFCategory, PDBM.Domain, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]] wfCategoryRepository, PDBM.Domain.Repositories.IRepository`1[[PDBM.Domain.Models.BMMgmt.Addressing, PDBM.Domain, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]] addressingRepository, PDBM.Domain.Repositories.IRepository`1[[PDBM.Domain.Models.BMMgmt.Planning, PDBM.Domain, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]] planningRepository, PDBM.Domain.Repositories.IRepository`1[[PDBM.Domain.Models.BaseData.Place, PDBM.Domain, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]] placeRepository, PDBM.Domain.Repositories.IRepository`1[[PDBM.Domain.Models.FileMgmt.FileAssociation, PDBM.Domain, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]] fileAssociationRepository, PDBM.Domain.Repositories.IRepository`1[[PDBM.Domain.Models.BMMgmt.ConstructionTask, PDBM.Domain, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]] constructionTaskRepository, PDBM.Domain.Repositories.IRepository`1[[PDBM.Domain.Models.BaseData.PlaceProperty, PDBM.Domain, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]] placePropertyRepository, PDBM.Domain.Repositories.BaseData.ICodeSeedRepository codeSeedRepository, PDBM.Domain.Services.IBMMgmtService bmMgmtService)
+      Resolving PDBM.Domain.Repositories.IRepository`1[PDBM.Domain.Models.BMMgmt.ConstructionTask],(none)
+ ---> System.InvalidOperationException: The current type, PDBM.Domain.Repositories.IRepository`1[PDBM.Domain.Models.BMMgmt.ConstructionTask], is an interface and cannot be constructed. Are you missing a type mapping?
+   在 Microsoft.Practices.ObjectBuilder2.DynamicMethodConstructorStrategy.ThrowForAttemptingToConstructInterface(IBuilderContext context)
+   在 lambda_method(Closure , IBuilderContext )
+   在 Microsoft.Practices.ObjectBuilder2.DynamicBuildPlanGenerationContext.<>c__DisplayClass1.<GetBuildMethod>b__0(IBuilderContext context)
+   在 Microsoft.Practices.ObjectBuilder2.DynamicMethodBuildPlan.BuildUp(IBuilderContext context)
+   在 Microsoft.Practices.ObjectBuilder2.BuildPlanStrategy.PreBuildUp(IBuilderContext context)
+   在 Microsoft.Practices.ObjectBuilder2.StrategyChain.ExecuteBuildUp(IBuilderContext context)
+   在 Microsoft.Practices.ObjectBuilder2.BuilderContext.NewBuildUp(NamedTypeBuildKey newBuildKey)
+   在 Microsoft.Practices.Unity.ObjectBuilder.NamedTypeDependencyResolverPolicy.Resolve(IBuilderContext context)
+   在 lambda_method(Closure , IBuilderContext )
+   在 Microsoft.Practices.ObjectBuilder2.DynamicBuildPlanGenerationContext.<>c__DisplayClass1.<GetBuildMethod>b__0(IBuilderContext context)
+   在 Microsoft.Practices.ObjectBuilder2.DynamicMethodBuildPlan.BuildUp(IBuilderContext context)
+   在 Microsoft.Practices.ObjectBuilder2.BuildPlanStrategy.PreBuildUp(IBuilderContext context)
+   在 Microsoft.Practices.ObjectBuilder2.StrategyChain.ExecuteBuildUp(IBuilderContext context)
+   在 Microsoft.Practices.ObjectBuilder2.BuilderContext.NewBuildUp(NamedTypeBuildKey newBuildKey)
+   在 Microsoft.Practices.ObjectBuilder2.BuilderContextExtensions.NewBuildUp[TResult](IBuilderContext context, String name)
+   在 Microsoft.Practices.Unity.ArrayResolutionStrategy.<>c__DisplayClass2`1.<ResolveArray>b__0(String n)
+   在 System.Linq.Enumerable.WhereSelectEnumerableIterator`2.MoveNext()
+   在 System.Linq.Buffer`1..ctor(IEnumerable`1 source)
+   在 System.Linq.Enumerable.ToArray[TSource](IEnumerable`1 source)
+   在 Microsoft.Practices.Unity.ArrayResolutionStrategy.ResolveArray[T](IBuilderContext context)
+   在 Microsoft.Practices.Unity.ArrayResolutionStrategy.PreBuildUp(IBuilderContext context)
+   在 Microsoft.Practices.ObjectBuilder2.StrategyChain.ExecuteBuildUp(IBuilderContext context)
+   在 Microsoft.Practices.Unity.UnityContainer.DoBuildUp(Type t, Object existing, String name, IEnumerable`1 resolverOverrides)
+   --- 内部异常堆栈跟踪的结尾 ---
+   在 Microsoft.Practices.Unity.UnityContainer.DoBuildUp(Type t, Object existing, String name, IEnumerable`1 resolverOverrides)
+   在 Microsoft.Practices.Unity.UnityContainer.Resolve(Type t, String name, ResolverOverride[] resolverOverrides)
+   在 Microsoft.Practices.Unity.UnityContainer.ResolveAll(Type t, ResolverOverride[] resolverOverrides)
+   在 Microsoft.Practices.Unity.UnityContainerExtensions.ResolveAll[T](IUnityContainer container, ResolverOverride[] resolverOverrides)
+   在 PDBM.Infrastructure.IoC.ServiceLocator.GetServices[T]() 位置 e:\PDBM\PDBM.Infrastructure\IoC\ServiceLocator.cs:行号 105
+   在 PDBM.Domain.Events.DomainEvent.Publish[TDomainEvent](TDomainEvent domainEvent) 位置 e:\PDBM\PDBM.Domain\Events\DomainEvent.cs:行号 77
+   在 PDBM.Domain.Models.WorkFlow.WFActivityInstance.Do(WFActivityInstanceFlow wfActivityInstanceFlow, String content, IList`1 forwardWFActivityInstances) 位置 e:\PDBM\PDBM.Domain\Models\WorkFlow\WFActivityInstance.cs:行号 316
+   在 PDBM.ApplicationService.Services.WorkFlow.WFInstanceService.DoWFInstance(WFActivityInstanceDoObject wfActivityInstanceDoObject, IList`1 wfActivityInstanceSendObjects)
+   在 DynamicModule.ns.Wrapped_IWFInstanceService_ad046a0af2ec43fe96583fe1b19f0502.<DoWFInstance_DelegateImplementation>__2(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+

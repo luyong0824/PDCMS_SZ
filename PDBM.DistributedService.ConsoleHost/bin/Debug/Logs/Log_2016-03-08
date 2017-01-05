@@ -1,0 +1,130 @@
+--------------------------------Time:2016-03-08 17:09:02,849--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.NullReferenceException: 未将对象引用设置到对象的实例。
+   在 PDBM.ApplicationService.Services.BMMgmt.RemodelingService.AddOrUpdateNewRemodeling(NewRemodelingMaintObject newRemodelingMaintObject)
+   在 DynamicModule.ns.Wrapped_IRemodelingService_2ec554d8dae6475f8bceec48a9b327c0.<AddOrUpdateNewRemodeling_DelegateImplementation>__16(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+
+--------------------------------Time:2016-03-08 17:14:25,995--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.NullReferenceException: 未将对象引用设置到对象的实例。
+   在 PDBM.ApplicationService.Services.BMMgmt.RemodelingService.AddOrUpdateNewRemodeling(NewRemodelingMaintObject newRemodelingMaintObject)
+   在 DynamicModule.ns.Wrapped_IRemodelingService_2ec554d8dae6475f8bceec48a9b327c0.<AddOrUpdateNewRemodeling_DelegateImplementation>__16(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+
+--------------------------------Time:2016-03-08 17:15:18,719--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.NullReferenceException: 未将对象引用设置到对象的实例。
+   在 PDBM.ApplicationService.Services.BMMgmt.RemodelingService.AddOrUpdateNewRemodeling(NewRemodelingMaintObject newRemodelingMaintObject)
+   在 DynamicModule.ns.Wrapped_IRemodelingService_2ec554d8dae6475f8bceec48a9b327c0.<AddOrUpdateNewRemodeling_DelegateImplementation>__16(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+
+--------------------------------Time:2016-03-08 17:15:46,409--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.NullReferenceException: 未将对象引用设置到对象的实例。
+   在 PDBM.ApplicationService.Services.BMMgmt.RemodelingService.AddOrUpdateNewRemodeling(NewRemodelingMaintObject newRemodelingMaintObject)
+   在 DynamicModule.ns.Wrapped_IRemodelingService_2ec554d8dae6475f8bceec48a9b327c0.<AddOrUpdateNewRemodeling_DelegateImplementation>__16(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+
+--------------------------------Time:2016-03-08 17:16:07,690--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.ArgumentNullException: 值不能为 null。
+参数名: entity
+   在 System.Data.Entity.Utilities.Check.NotNull[T](T value, String parameterName)
+   在 System.Data.Entity.DbContext.Entry[TEntity](TEntity entity)
+   在 PDBM.Infrastructure.Data.EntityFramework.Repositories.EntityFrameworkRepositoryContext.RegisterModified[TAggregateRoot](TAggregateRoot aggregateRoot) 位置 e:\PDBM\PDBM.Infrastructure.Data\EntityFramework\Repositories\EntityFrameworkRepositoryContext.cs:行号 48
+   在 PDBM.Infrastructure.Data.EntityFramework.Repositories.EntityFrameworkRepository`1.Update(TAggregateRoot aggregateRoot) 位置 e:\PDBM\PDBM.Infrastructure.Data\EntityFramework\Repositories\EntityFrameworkRepository.cs:行号 64
+   在 PDBM.ApplicationService.Services.BMMgmt.RemodelingService.AddOrUpdateNewRemodeling(NewRemodelingMaintObject newRemodelingMaintObject)
+   在 DynamicModule.ns.Wrapped_IRemodelingService_2ec554d8dae6475f8bceec48a9b327c0.<AddOrUpdateNewRemodeling_DelegateImplementation>__16(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+
+--------------------------------Time:2016-03-08 17:17:08,368--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.ArgumentNullException: 值不能为 null。
+参数名: entity
+   在 System.Data.Entity.Utilities.Check.NotNull[T](T value, String parameterName)
+   在 System.Data.Entity.DbContext.Entry[TEntity](TEntity entity)
+   在 PDBM.Infrastructure.Data.EntityFramework.Repositories.EntityFrameworkRepositoryContext.RegisterModified[TAggregateRoot](TAggregateRoot aggregateRoot) 位置 e:\PDBM\PDBM.Infrastructure.Data\EntityFramework\Repositories\EntityFrameworkRepositoryContext.cs:行号 48
+   在 PDBM.Infrastructure.Data.EntityFramework.Repositories.EntityFrameworkRepository`1.Update(TAggregateRoot aggregateRoot) 位置 e:\PDBM\PDBM.Infrastructure.Data\EntityFramework\Repositories\EntityFrameworkRepository.cs:行号 64
+   在 PDBM.ApplicationService.Services.BMMgmt.RemodelingService.AddOrUpdateNewRemodeling(NewRemodelingMaintObject newRemodelingMaintObject)
+   在 DynamicModule.ns.Wrapped_IRemodelingService_2ec554d8dae6475f8bceec48a9b327c0.<AddOrUpdateNewRemodeling_DelegateImplementation>__16(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+
+--------------------------------Time:2016-03-08 17:21:28,685--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.NullReferenceException: 未将对象引用设置到对象的实例。
+   在 PDBM.ApplicationService.Services.BMMgmt.RemodelingService.AddOrUpdateNewRemodeling(NewRemodelingMaintObject newRemodelingMaintObject)
+   在 DynamicModule.ns.Wrapped_IRemodelingService_ece0ac7e740b4d838e1b3835900d8c6e.<AddOrUpdateNewRemodeling_DelegateImplementation>__16(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+
+--------------------------------Time:2016-03-08 17:21:46,429--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.NullReferenceException: 未将对象引用设置到对象的实例。
+   在 PDBM.ApplicationService.Services.BMMgmt.RemodelingService.AddOrUpdateNewRemodeling(NewRemodelingMaintObject newRemodelingMaintObject)
+   在 DynamicModule.ns.Wrapped_IRemodelingService_ece0ac7e740b4d838e1b3835900d8c6e.<AddOrUpdateNewRemodeling_DelegateImplementation>__16(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+
+--------------------------------Time:2016-03-08 17:23:45,025--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.NullReferenceException: 未将对象引用设置到对象的实例。
+   在 PDBM.ApplicationService.Services.BMMgmt.RemodelingService.AddOrUpdateNewRemodeling(NewRemodelingMaintObject newRemodelingMaintObject)
+   在 DynamicModule.ns.Wrapped_IRemodelingService_ece0ac7e740b4d838e1b3835900d8c6e.<AddOrUpdateNewRemodeling_DelegateImplementation>__16(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+
+--------------------------------Time:2016-03-08 17:25:58,082--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.NullReferenceException: 未将对象引用设置到对象的实例。
+   在 PDBM.ApplicationService.Services.BMMgmt.RemodelingService.AddOrUpdateNewRemodeling(NewRemodelingMaintObject newRemodelingMaintObject)
+   在 DynamicModule.ns.Wrapped_IRemodelingService_431222706fcf423aa4a588db4d9afe9b.<AddOrUpdateNewRemodeling_DelegateImplementation>__16(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+
+--------------------------------Time:2016-03-08 17:30:49,429--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.NullReferenceException: 未将对象引用设置到对象的实例。
+   在 PDBM.ApplicationService.Services.BMMgmt.RemodelingService.AddOrUpdateNewRemodeling(NewRemodelingMaintObject newRemodelingMaintObject)
+   在 DynamicModule.ns.Wrapped_IRemodelingService_431222706fcf423aa4a588db4d9afe9b.<AddOrUpdateNewRemodeling_DelegateImplementation>__16(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+
+--------------------------------Time:2016-03-08 17:31:36,245--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.NullReferenceException: 未将对象引用设置到对象的实例。
+   在 PDBM.ApplicationService.Services.BMMgmt.RemodelingService.AddOrUpdateNewRemodeling(NewRemodelingMaintObject newRemodelingMaintObject)
+   在 DynamicModule.ns.Wrapped_IRemodelingService_69781976c415408cb834e9dfa5569bb8.<AddOrUpdateNewRemodeling_DelegateImplementation>__16(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+
+--------------------------------Time:2016-03-08 17:32:17,051--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.NullReferenceException: 未将对象引用设置到对象的实例。
+   在 PDBM.ApplicationService.Services.BMMgmt.RemodelingService.AddOrUpdateNewRemodeling(NewRemodelingMaintObject newRemodelingMaintObject)
+   在 DynamicModule.ns.Wrapped_IRemodelingService_69781976c415408cb834e9dfa5569bb8.<AddOrUpdateNewRemodeling_DelegateImplementation>__16(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+
+--------------------------------Time:2016-03-08 17:34:34,562--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.NullReferenceException: 未将对象引用设置到对象的实例。
+   在 PDBM.ApplicationService.Services.BMMgmt.RemodelingService.AddOrUpdateNewRemodeling(NewRemodelingMaintObject newRemodelingMaintObject)
+   在 DynamicModule.ns.Wrapped_IRemodelingService_69781976c415408cb834e9dfa5569bb8.<AddOrUpdateNewRemodeling_DelegateImplementation>__16(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+
+--------------------------------Time:2016-03-08 17:34:52,744--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.NullReferenceException: 未将对象引用设置到对象的实例。
+   在 PDBM.ApplicationService.Services.BMMgmt.RemodelingService.AddOrUpdateNewRemodeling(NewRemodelingMaintObject newRemodelingMaintObject)
+   在 DynamicModule.ns.Wrapped_IRemodelingService_69781976c415408cb834e9dfa5569bb8.<AddOrUpdateNewRemodeling_DelegateImplementation>__16(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+

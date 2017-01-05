@@ -1,0 +1,63 @@
+--------------------------------Time:2016-11-26 15:18:53,263--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.NullReferenceException: 未将对象引用设置到对象的实例。
+   在 PDBM.ApplicationService.Services.WorkFlow.WFInstanceService.CheckAgent()
+   在 PDBM.ApplicationService.Services.WorkFlow.WFInstanceService.GetTaskToDo(Guid userId)
+   在 DynamicModule.ns.Wrapped_IWFInstanceService_3308b1ce390b4a368e892285b8f36534.<GetTaskToDo_DelegateImplementation>__4(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+
+--------------------------------Time:2016-11-26 15:19:56,512--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.NullReferenceException: 未将对象引用设置到对象的实例。
+   在 PDBM.ApplicationService.Services.WorkFlow.WFInstanceService.CheckAgent()
+   在 PDBM.ApplicationService.Services.WorkFlow.WFInstanceService.GetTaskToDo(Guid userId)
+   在 DynamicModule.ns.Wrapped_IWFInstanceService_3308b1ce390b4a368e892285b8f36534.<GetTaskToDo_DelegateImplementation>__4(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+
+--------------------------------Time:2016-11-26 15:21:01,092--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.NullReferenceException: 未将对象引用设置到对象的实例。
+   在 PDBM.ApplicationService.Services.WorkFlow.WFInstanceService.CheckAgent()
+   在 PDBM.ApplicationService.Services.WorkFlow.WFInstanceService.GetTaskToDo(Guid userId)
+   在 DynamicModule.ns.Wrapped_IWFInstanceService_3308b1ce390b4a368e892285b8f36534.<GetTaskToDo_DelegateImplementation>__4(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+
+--------------------------------Time:2016-11-26 15:34:32,353--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.NullReferenceException: 未将对象引用设置到对象的实例。
+   在 PDBM.ApplicationService.Services.WorkFlow.WFInstanceService.CheckAgent()
+   在 PDBM.ApplicationService.Services.WorkFlow.WFInstanceService.GetTaskToDo(Guid userId)
+   在 DynamicModule.ns.Wrapped_IWFInstanceService_4f783b7aee5d4a949e82179bb9bea69b.<GetTaskToDo_DelegateImplementation>__4(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+
+--------------------------------Time:2016-11-26 15:35:35,307--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.NullReferenceException: 未将对象引用设置到对象的实例。
+   在 PDBM.ApplicationService.Services.WorkFlow.WFInstanceService.CheckAgent()
+   在 PDBM.ApplicationService.Services.WorkFlow.WFInstanceService.GetTaskToDo(Guid userId)
+   在 DynamicModule.ns.Wrapped_IWFInstanceService_4f783b7aee5d4a949e82179bb9bea69b.<GetTaskToDo_DelegateImplementation>__4(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+
+--------------------------------Time:2016-11-26 15:36:35,316--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.NullReferenceException: 未将对象引用设置到对象的实例。
+   在 PDBM.ApplicationService.Services.WorkFlow.WFInstanceService.CheckAgent()
+   在 PDBM.ApplicationService.Services.WorkFlow.WFInstanceService.GetTaskToDo(Guid userId)
+   在 DynamicModule.ns.Wrapped_IWFInstanceService_4f783b7aee5d4a949e82179bb9bea69b.<GetTaskToDo_DelegateImplementation>__4(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+
+--------------------------------Time:2016-11-26 15:37:35,446--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.NullReferenceException: 未将对象引用设置到对象的实例。
+   在 PDBM.ApplicationService.Services.WorkFlow.WFInstanceService.CheckAgent()
+   在 PDBM.ApplicationService.Services.WorkFlow.WFInstanceService.GetTaskToDo(Guid userId)
+   在 DynamicModule.ns.Wrapped_IWFInstanceService_4f783b7aee5d4a949e82179bb9bea69b.<GetTaskToDo_DelegateImplementation>__4(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+

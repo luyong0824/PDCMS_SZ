@@ -1,0 +1,40 @@
+--------------------------------Time:2015-09-09 09:15:14,627--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.NullReferenceException: 未将对象引用设置到对象的实例。
+   在 PDBM.ApplicationService.Services.BMMgmt.PlaceDesignService.SaveConstructionDesign(AddressingEditorObject addressingEditorObject)
+   在 DynamicModule.ns.Wrapped_IPlaceDesignService_e9a1e7f5ed3b42b7afa30542851fd57f.<SaveConstructionDesign_DelegateImplementation>__5(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+
+--------------------------------Time:2015-09-09 09:15:18,415--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.NullReferenceException: 未将对象引用设置到对象的实例。
+   在 PDBM.ApplicationService.Services.BMMgmt.PlaceDesignService.SaveConstructionDesign(AddressingEditorObject addressingEditorObject)
+   在 DynamicModule.ns.Wrapped_IPlaceDesignService_e9a1e7f5ed3b42b7afa30542851fd57f.<SaveConstructionDesign_DelegateImplementation>__5(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+
+--------------------------------Time:2015-09-09 09:17:42,037--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.NullReferenceException: 未将对象引用设置到对象的实例。
+   在 PDBM.ApplicationService.Services.BMMgmt.PlaceDesignService.SaveConstructionDesign(AddressingEditorObject addressingEditorObject)
+   在 DynamicModule.ns.Wrapped_IPlaceDesignService_e9a1e7f5ed3b42b7afa30542851fd57f.<SaveConstructionDesign_DelegateImplementation>__5(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+
+--------------------------------Time:2015-09-09 09:20:10,074--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.NullReferenceException: 未将对象引用设置到对象的实例。
+   在 PDBM.ApplicationService.Services.BMMgmt.PlaceDesignService.SaveConstructionDesign(AddressingEditorObject addressingEditorObject)
+   在 DynamicModule.ns.Wrapped_IPlaceDesignService_e9a1e7f5ed3b42b7afa30542851fd57f.<SaveConstructionDesign_DelegateImplementation>__5(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+
+--------------------------------Time:2015-09-09 09:20:26,827--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.NullReferenceException: 未将对象引用设置到对象的实例。
+   在 PDBM.ApplicationService.Services.BMMgmt.PlaceDesignService.SaveConstructionDesign(AddressingEditorObject addressingEditorObject)
+   在 DynamicModule.ns.Wrapped_IPlaceDesignService_e9a1e7f5ed3b42b7afa30542851fd57f.<SaveConstructionDesign_DelegateImplementation>__5(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+

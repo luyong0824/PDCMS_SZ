@@ -1,0 +1,9 @@
+--------------------------------Time:2015-04-07 13:51:27,329--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.ArgumentException: Excel文件中不存在名称为Sheet1的工作表
+   在 PDBM.Infrastructure.Utils.ExcelHelper.ExcelToDataTable(String filePath, String sheetName) 位置 e:\PDSOFT\PDBM\PDBM.Infrastructure\Utils\ExcelHelper.cs:行号 45
+   在 PDBM.ApplicationService.Services.DataImport.DataImportService.ImportOperatorsPlanningBS(Guid excelFileId, Guid createUserId, Guid companyId, Int32 currentCompanyNature)
+   在 DynamicModule.ns.Wrapped_IDataImportService_cef502f9ed344790bf7e0d1bc86ee96f.<ImportOperatorsPlanningBS_DelegateImplementation>__0(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+

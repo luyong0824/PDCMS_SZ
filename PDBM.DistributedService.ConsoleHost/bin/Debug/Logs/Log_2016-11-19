@@ -1,0 +1,431 @@
+--------------------------------Time:2016-11-19 22:55:44,973--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.Data.SqlClient.SqlException (0x80131904): 对象名 'tbl_AddressingID' 无效。
+   在 System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   在 System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   在 System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   在 System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   在 System.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   在 System.Data.SqlClient.SqlDataReader.get_MetaData()
+   在 System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString)
+   在 System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, SqlDataReader ds)
+   在 System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean asyncWrite)
+   在 System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   在 System.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior, String method)
+   在 System.Data.SqlClient.SqlCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   在 System.Data.Common.DbCommand.System.Data.IDbCommand.ExecuteReader(CommandBehavior behavior)
+   在 System.Data.Common.DbDataAdapter.FillInternal(DataSet dataset, DataTable[] datatables, Int32 startRecord, Int32 maxRecords, String srcTable, IDbCommand command, CommandBehavior behavior)
+   在 System.Data.Common.DbDataAdapter.Fill(DataSet dataSet, Int32 startRecord, Int32 maxRecords, String srcTable, IDbCommand command, CommandBehavior behavior)
+   在 System.Data.Common.DbDataAdapter.Fill(DataSet dataSet)
+   在 Microsoft.Practices.EnterpriseLibrary.Data.Database.DoLoadDataSet(IDbCommand command, DataSet dataSet, String[] tableNames)
+   在 Microsoft.Practices.EnterpriseLibrary.Data.Database.LoadDataSet(DbCommand command, DataSet dataSet, String[] tableNames)
+   在 Microsoft.Practices.EnterpriseLibrary.Data.Database.LoadDataSet(DbCommand command, DataSet dataSet, String tableName)
+   在 Microsoft.Practices.EnterpriseLibrary.Data.Database.ExecuteDataSet(DbCommand command)
+   在 PDBM.Infrastructure.DataAccess.EnterpriseLibrary.SqlHelper.ExecuteDataTable(String procName, IList`1 parameters) 位置 e:\PDCMS_SZ\PDBM.Infrastructure\DataAccess\EnterpriseLibrary\SqlHelper.cs:行号 33
+   在 PDBM.Infrastructure.Data.EntityFramework.Repositories.BaseData.OrderCodeSeedRepository.GenerateOrderCode(String entityName, DateTime generateDate) 位置 e:\PDCMS_SZ\PDBM.Infrastructure.Data\EntityFramework\Repositories\BaseData\OrderCodeSeedRepository.cs:行号 36
+   在 PDBM.ApplicationService.Services.WorkFlow.WFInstanceService.SendWFInstance(WFProcessInstanceSendObject wfProcessInstanceSendObject, IList`1 wfActivityInstanceSendObjects)
+   在 DynamicModule.ns.Wrapped_IWFInstanceService_0accaabfa46d40cdafb1a39c95e5712c.<SendWFInstance_DelegateImplementation>__1(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+ClientConnectionId:31ee1505-0794-40e2-8c6c-bd5263f04216
+Error Number:208,State:1,Class:16
+--------------------------------END--------------------------------
+
+--------------------------------Time:2016-11-19 23:23:57,247--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.Data.SqlClient.SqlException (0x80131904): 无法删除数据库 "PDCMS_SZ"，因为该数据库当前正在使用。
+   在 System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   在 System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   在 System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   在 System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   在 System.Data.SqlClient.SqlCommand.RunExecuteNonQueryTds(String methodName, Boolean async, Int32 timeout, Boolean asyncWrite)
+   在 System.Data.SqlClient.SqlCommand.InternalExecuteNonQuery(TaskCompletionSource`1 completion, String methodName, Boolean sendToPipe, Int32 timeout, Boolean asyncWrite)
+   在 System.Data.SqlClient.SqlCommand.ExecuteNonQuery()
+   在 System.Data.Entity.Infrastructure.Interception.DbCommandDispatcher.<NonQuery>b__0(DbCommand t, DbCommandInterceptionContext`1 c)
+   在 System.Data.Entity.Infrastructure.Interception.InternalDispatcher`1.Dispatch[TTarget,TInterceptionContext,TResult](TTarget target, Func`3 operation, TInterceptionContext interceptionContext, Action`3 executing, Action`3 executed)
+   在 System.Data.Entity.Infrastructure.Interception.DbCommandDispatcher.NonQuery(DbCommand command, DbCommandInterceptionContext interceptionContext)
+   在 System.Data.Entity.SqlServer.SqlProviderServices.<>c__DisplayClass30.<DropDatabase>b__2e(DbConnection conn)
+   在 System.Data.Entity.SqlServer.SqlProviderServices.<>c__DisplayClass33.<UsingConnection>b__32()
+   在 System.Data.Entity.SqlServer.DefaultSqlExecutionStrategy.<>c__DisplayClass1.<Execute>b__0()
+   在 System.Data.Entity.SqlServer.DefaultSqlExecutionStrategy.Execute[TResult](Func`1 operation)
+   在 System.Data.Entity.SqlServer.DefaultSqlExecutionStrategy.Execute(Action operation)
+   在 System.Data.Entity.SqlServer.SqlProviderServices.UsingConnection(DbConnection sqlConnection, Action`1 act)
+   在 System.Data.Entity.SqlServer.SqlProviderServices.UsingMasterConnection(DbConnection sqlConnection, Action`1 act)
+   在 System.Data.Entity.SqlServer.SqlProviderServices.DropDatabase(SqlConnection sqlConnection, Nullable`1 commandTimeout, String databaseName)
+   在 System.Data.Entity.SqlServer.SqlProviderServices.DbDeleteDatabase(DbConnection connection, Nullable`1 commandTimeout, StoreItemCollection storeItemCollection)
+   在 System.Data.Entity.Core.Common.DbProviderServices.DeleteDatabase(DbConnection connection, Nullable`1 commandTimeout, StoreItemCollection storeItemCollection)
+   在 System.Data.Entity.Core.Objects.ObjectContext.DeleteDatabase()
+   在 System.Data.Entity.Internal.DatabaseOperations.Delete(ObjectContext objectContext)
+   在 System.Data.Entity.Database.Delete()
+   在 System.Data.Entity.DropCreateDatabaseIfModelChanges`1.InitializeDatabase(TContext context)
+   在 System.Data.Entity.Internal.InternalContext.<>c__DisplayClassf`1.<CreateInitializationAction>b__e()
+   在 System.Data.Entity.Internal.InternalContext.PerformInitializationAction(Action action)
+   在 System.Data.Entity.Internal.InternalContext.PerformDatabaseInitialization()
+   在 System.Data.Entity.Internal.LazyInternalContext.<InitializeDatabase>b__4(InternalContext c)
+   在 System.Data.Entity.Internal.RetryAction`1.PerformAction(TInput input)
+   在 System.Data.Entity.Internal.LazyInternalContext.InitializeDatabaseAction(Action`1 action)
+   在 System.Data.Entity.Internal.LazyInternalContext.InitializeDatabase()
+   在 System.Data.Entity.Internal.InternalContext.GetEntitySetAndBaseTypeForType(Type entityType)
+   在 System.Data.Entity.Internal.Linq.InternalSet`1.Initialize()
+   在 System.Data.Entity.Internal.Linq.InternalSet`1.get_InternalContext()
+   在 System.Data.Entity.Infrastructure.DbQuery`1.System.Linq.IQueryable.get_Provider()
+   在 System.Linq.Queryable.Where[TSource](IQueryable`1 source, Expression`1 predicate)
+   在 PDBM.Infrastructure.Data.EntityFramework.Repositories.EntityFrameworkRepository`1.Find(ISpecification`1 specification) 位置 e:\PDCMS_SZ\PDBM.Infrastructure.Data\EntityFramework\Repositories\EntityFrameworkRepository.cs:行号 158
+   在 PDBM.ApplicationService.Services.BaseData.UserService.UserLogin(String userName, String userPassword)
+   在 DynamicModule.ns.Wrapped_IUserService_aaa4b0ca7a334c1297cb9bb071e3d5b7.<UserLogin_DelegateImplementation>__1(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+ClientConnectionId:a2405e4c-8488-4438-8d44-508445538993
+Error Number:3702,State:4,Class:16
+--------------------------------END--------------------------------
+
+--------------------------------Time:2016-11-19 23:26:38,981--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.Data.SqlClient.SqlException (0x80131904): 不能将值 NULL 插入列 'Profession'，表 'PDCMS_SZ.dbo.tbl_WFCategory'；列不允许有 Null 值。INSERT 失败。
+INSERT 语句与 FOREIGN KEY 约束"FK_dbo.tbl_WFActivityEditor_dbo.tbl_WFCategory_WFCategoryId"冲突。该冲突发生于数据库"PDCMS_SZ"，表"dbo.tbl_WFCategory", column 'Id'。
+INSERT 语句与 FOREIGN KEY 约束"FK_dbo.tbl_WFActivityEditor_dbo.tbl_WFCategory_WFCategoryId"冲突。该冲突发生于数据库"PDCMS_SZ"，表"dbo.tbl_WFCategory", column 'Id'。
+INSERT 语句与 FOREIGN KEY 约束"FK_dbo.tbl_WFActivityEditor_dbo.tbl_WFCategory_WFCategoryId"冲突。该冲突发生于数据库"PDCMS_SZ"，表"dbo.tbl_WFCategory", column 'Id'。
+INSERT 语句与 FOREIGN KEY 约束"FK_dbo.tbl_WFActivityEditor_dbo.tbl_WFCategory_WFCategoryId"冲突。该冲突发生于数据库"PDCMS_SZ"，表"dbo.tbl_WFCategory", column 'Id'。
+INSERT 语句与 FOREIGN KEY 约束"FK_dbo.tbl_WFActivityEditor_dbo.tbl_WFCategory_WFCategoryId"冲突。该冲突发生于数据库"PDCMS_SZ"，表"dbo.tbl_WFCategory", column 'Id'。
+不能将值 NULL 插入列 'Profession'，表 'PDCMS_SZ.dbo.tbl_WFCategory'；列不允许有 Null 值。INSERT 失败。
+INSERT 语句与 FOREIGN KEY 约束"FK_dbo.tbl_WFActivityEditor_dbo.tbl_WFCategory_WFCategoryId"冲突。该冲突发生于数据库"PDCMS_SZ"，表"dbo.tbl_WFCategory", column 'Id'。
+INSERT 语句与 FOREIGN KEY 约束"FK_dbo.tbl_WFActivityEditor_dbo.tbl_WFCategory_WFCategoryId"冲突。该冲突发生于数据库"PDCMS_SZ"，表"dbo.tbl_WFCategory", column 'Id'。
+INSERT 语句与 FOREIGN KEY 约束"FK_dbo.tbl_WFActivityEditor_dbo.tbl_WFCategory_WFCategoryId"冲突。该冲突发生于数据库"PDCMS_SZ"，表"dbo.tbl_WFCategory", column 'Id'。
+INSERT 语句与 FOREIGN KEY 约束"FK_dbo.tbl_WFActivityEditor_dbo.tbl_WFCategory_WFCategoryId"冲突。该冲突发生于数据库"PDCMS_SZ"，表"dbo.tbl_WFCategory", column 'Id'。
+INSERT 语句与 FOREIGN KEY 约束"FK_dbo.tbl_WFActivityEditor_dbo.tbl_WFCategory_WFCategoryId"冲突。该冲突发生于数据库"PDCMS_SZ"，表"dbo.tbl_WFCategory", column 'Id'。
+INSERT 语句与 FOREIGN KEY 约束"FK_dbo.tbl_WFActivityEditor_dbo.tbl_WFCategory_WFCategoryId"冲突。该冲突发生于数据库"PDCMS_SZ"，表"dbo.tbl_WFCategory", column 'Id'。
+INSERT 语句与 FOREIGN KEY 约束"FK_dbo.tbl_WFActivityEditor_dbo.tbl_WFCategory_WFCategoryId"冲突。该冲突发生于数据库"PDCMS_SZ"，表"dbo.tbl_WFCategory", column 'Id'。
+INSERT 语句与 FOREIGN KEY 约束"FK_dbo.tbl_WFActivityEditor_dbo.tbl_WFCategory_WFCategoryId"冲突。该冲突发生于数据库"PDCMS_SZ"，表"dbo.tbl_WFCategory", column 'Id'。
+INSERT 语句与 FOREIGN KEY 约束"FK_dbo.tbl_WFActivityEditor_dbo.tbl_WFCategory_WFCategoryId"冲突。该冲突发生于数据库"PDCMS_SZ"，表"dbo.tbl_WFCategory", column 'Id'。
+不能将值 NULL 插入列 'Profession'，表 'PDCMS_SZ.dbo.tbl_WFCategory'；列不允许有 Null 值。INSERT 失败。
+INSERT 语句与 FOREIGN KEY 约束"FK_dbo.tbl_WFActivityEditor_dbo.tbl_WFCategory_WFCategoryId"冲突。该冲突发生于数据库"PDCMS_SZ"，表"dbo.tbl_WFCategory", column 'Id'。
+INSERT 语句与 FOREIGN KEY 约束"FK_dbo.tbl_WFActivityEditor_dbo.tbl_WFCategory_WFCategoryId"冲突。该冲突发生于数据库"PDCMS_SZ"，表"dbo.tbl_WFCategory", column 'Id'。
+INSERT 语句与 FOREIGN KEY 约束"FK_dbo.tbl_WFActivityEditor_dbo.tbl_WFCategory_WFCategoryId"冲突。该冲突发生于数据库"PDCMS_SZ"，表"dbo.tbl_WFCategory", column 'Id'。
+INSERT 语句与 FOREIGN KEY 约束"FK_dbo.tbl_WFActivityEditor_dbo.tbl_WFCategory_WFCategoryId"冲突。该冲突发生于数据库"PDCMS_SZ"，表"dbo.tbl_WFCategory", column 'Id'。
+INSERT 语句与 FOREIGN KEY 约束"FK_dbo.tbl_WFActivityEditor_dbo.tbl_WFCategory_WFCategoryId"冲突。该冲突发生于数据库"PDCMS_SZ"，表"dbo.tbl_WFCategory", column 'Id'。
+INSERT 语句与 FOREIGN KEY 约束"FK_dbo.tbl_WFProcess_dbo.tbl_WFCategory_WFCategoryId"冲突。该冲突发生于数据库"PDCMS_SZ"，表"dbo.tbl_WFCategory", column 'Id'。
+INSERT 语句与 FOREIGN KEY 约束"FK_dbo.tbl_WFActivity_dbo.tbl_WFProcess_WFProcessId"冲突。该冲突发生于数据库"PDCMS_SZ"，表"dbo.tbl_WFProcess", column 'Id'。
+INSERT 语句与 FOREIGN KEY 约束"FK_dbo.tbl_WFActivity_dbo.tbl_WFProcess_WFProcessId"冲突。该冲突发生于数据库"PDCMS_SZ"，表"dbo.tbl_WFProcess", column 'Id'。
+INSERT 语句与 FOREIGN KEY 约束"FK_dbo.tbl_WFProcess_dbo.tbl_WFCategory_WFCategoryId"冲突。该冲突发生于数据库"PDCMS_SZ"，表"dbo.tbl_WFCategory", column 'Id'。
+INSERT 语句与 FOREIGN KEY 约束"FK_dbo.tbl_WFActivity_dbo.tbl_WFProcess_WFProcessId"冲突。该冲突发生于数据库"PDCMS_SZ"，表"dbo.tbl_WFProcess", column 'Id'。
+INSERT 语句与 FOREIGN KEY 约束"FK_dbo.tbl_WFActivity_dbo.tbl_WFProcess_WFProcessId"冲突。该冲突发生于数据库"PDCMS_SZ"，表"dbo.tbl_WFProcess", column 'Id'。
+INSERT 语句与 FOREIGN KEY 约束"FK_dbo.tbl_WFActivity_dbo.tbl_WFProcess_WFProcessId"冲突。该冲突发生于数据库"PDCMS_SZ"，表"dbo.tbl_WFProcess", column 'Id'。
+INSERT 语句与 FOREIGN KEY 约束"FK_dbo.tbl_WFActivity_dbo.tbl_WFProcess_WFProcessId"冲突。该冲突发生于数据库"PDCMS_SZ"，表"dbo.tbl_WFProcess", column 'Id'。
+INSERT 语句与 FOREIGN KEY 约束"FK_dbo.tbl_WFActivity_dbo.tbl_WFProcess_WFProcessId"冲突。该冲突发生于数据库"PDCMS_SZ"，表"dbo.tbl_WFProcess", column 'Id'。
+INSERT 语句与 FOREIGN KEY 约束"FK_dbo.tbl_WFProcess_dbo.tbl_WFCategory_WFCategoryId"冲突。该冲突发生于数据库"PDCMS_SZ"，表"dbo.tbl_WFCategory", column 'Id'。
+INSERT 语句与 FOREIGN KEY 约束"FK_dbo.tbl_WFActivity_dbo.tbl_WFProcess_WFProcessId"冲突。该冲突发生于数据库"PDCMS_SZ"，表"dbo.tbl_WFProcess", column 'Id'。
+INSERT 语句与 FOREIGN KEY 约束"FK_dbo.tbl_WFActivity_dbo.tbl_WFProcess_WFProcessId"冲突。该冲突发生于数据库"PDCMS_SZ"，表"dbo.tbl_WFProcess", column 'Id'。
+INSERT 语句与 FOREIGN KEY 约束"FK_dbo.tbl_WFActivity_dbo.tbl_WFProcess_WFProcessId"冲突。该冲突发生于数据库"PDCMS_SZ"，表"dbo.tbl_WFProcess", column 'Id'。
+INSERT 语句与 FOREIGN KEY 约束"FK_dbo.tbl_WFActivity_dbo.tbl_WFProcess_WFProcessId"冲突。该冲突发生于数据库"PDCMS_SZ"，表"dbo.tbl_WFProcess", column 'Id'。
+INSERT 语句与 FOREIGN KEY 约束"FK_dbo.tbl_WFActivity_dbo.tbl_WFProcess_WFProcessId"冲突。该冲突发生于数据库"PDCMS_SZ"，表"dbo.tbl_WFProcess", column 'Id'。
+INSERT 语句与 FOREIGN KEY 约束"FK_dbo.tbl_WFActivity_dbo.tbl_WFProcess_WFProcessId"冲突。该冲突发生于数据库"PDCMS_SZ"，表"dbo.tbl_WFProcess", column 'Id'。
+INSERT 语句与 FOREIGN KEY 约束"FK_dbo.tbl_WFProcess_dbo.tbl_WFCategory_WFCategoryId"冲突。该冲突发生于数据库"PDCMS_SZ"，表"dbo.tbl_WFCategory", column 'Id'。
+INSERT 语句与 FOREIGN KEY 约束"FK_dbo.tbl_WFActivity_dbo.tbl_WFProcess_WFProcessId"冲突。该冲突发生于数据库"PDCMS_SZ"，表"dbo.tbl_WFProcess", column 'Id'。
+INSERT 语句与 FOREIGN KEY 约束"FK_dbo.tbl_WFActivity_dbo.tbl_WFProcess_WFProcessId"冲突。该冲突发生于数据库"PDCMS_SZ"，表"dbo.tbl_WFProcess", column 'Id'。
+INSERT 语句与 FOREIGN KEY 约束"FK_dbo.tbl_WFActivity_dbo.tbl_WFProcess_WFProcessId"冲突。该冲突发生于数据库"PDCMS_SZ"，表"dbo.tbl_WFProcess", column 'Id'。
+INSERT 语句与 FOREIGN KEY 约束"FK_dbo.tbl_WFActivity_dbo.tbl_WFProcess_WFProcessId"冲突。该冲突发生于数据库"PDCMS_SZ"，表"dbo.tbl_WFProcess", column 'Id'。
+INSERT 语句与 FOREIGN KEY 约束"FK_dbo.tbl_WFProcess_dbo.tbl_WFCategory_WFCategoryId"冲突。该冲突发生于数据库"PDCMS_SZ"，表"dbo.tbl_WFCategory", column 'Id'。
+INSERT 语句与 FOREIGN KEY 约束"FK_dbo.tbl_WFActivity_dbo.tbl_WFProcess_WFProcessId"冲突。该冲突发生于数据库"PDCMS_SZ"，表"dbo.tbl_WFProcess", column 'Id'。
+INSERT 语句与 FOREIGN KEY 约束"FK_dbo.tbl_WFActivity_dbo.tbl_WFProcess_WFProcessId"冲突。该冲突发生于数据库"PDCMS_SZ"，表"dbo.tbl_WFProcess", column 'Id'。
+INSERT 语句与 FOREIGN KEY 约束"FK_dbo.tbl_WFActivity_dbo.tbl_WFProcess_WFProcessId"冲突。该冲突发生于数据库"PDCMS_SZ"，表"dbo.tbl_WFProcess", column 'Id'。
+INSERT 语句与 FOREIGN KEY 约束"FK_dbo.tbl_WFProcess_dbo.tbl_WFCategory_WFCategoryId"冲突。该冲突发生于数据库"PDCMS_SZ"，表"dbo.tbl_WFCategory", column 'Id'。
+INSERT 语句与 FOREIGN KEY 约束"FK_dbo.tbl_WFActivity_dbo.tbl_WFProcess_WFProcessId"冲突。该冲突发生于数据库"PDCMS_SZ"，表"dbo.tbl_WFProcess", column 'Id'。
+INSERT 语句与 FOREIGN KEY 约束"FK_dbo.tbl_WFActivity_dbo.tbl_WFProcess_WFProcessId"冲突。该冲突发生于数据库"PDCMS_SZ"，表"dbo.tbl_WFProcess", column 'Id'。
+INSERT 语句与 FOREIGN KEY 约束"FK_dbo.tbl_WFProcess_dbo.tbl_WFCategory_WFCategoryId"冲突。该冲突发生于数据库"PDCMS_SZ"，表"dbo.tbl_WFCategory", column 'Id'。
+INSERT 语句与 FOREIGN KEY 约束"FK_dbo.tbl_WFActivity_dbo.tbl_WFProcess_WFProcessId"冲突。该冲突发生于数据库"PDCMS_SZ"，表"dbo.tbl_WFProcess", column 'Id'。
+INSERT 语句与 FOREIGN KEY 约束"FK_dbo.tbl_WFActivity_dbo.tbl_WFProcess_WFProcessId"冲突。该冲突发生于数据库"PDCMS_SZ"，表"dbo.tbl_WFProcess", column 'Id'。
+INSERT 语句与 FOREIGN KEY 约束"FK_dbo.tbl_WFActivity_dbo.tbl_WFProcess_WFProcessId"冲突。该冲突发生于数据库"PDCMS_SZ"，表"dbo.tbl_WFProcess", column 'Id'。
+INSERT 语句与 FOREIGN KEY 约束"FK_dbo.tbl_WFActivity_dbo.tbl_WFProcess_WFProcessId"冲突。该冲突发生于数据库"PDCMS_SZ"，表"dbo.tbl_WFProcess", column 'Id'。
+INSERT 语句与 FOREIGN KEY 约束"FK_dbo.tbl_WFActivity_dbo.tbl_WFProcess_WFProcessId"冲突。该冲突发生于数据库"PDCMS_SZ"，表"dbo.tbl_WFProcess", column 'Id'。
+语句已终止。
+语句已终止。
+语句已终止。
+语句已终止。
+语句已终止。
+语句已终止。
+语句已终止。
+语句已终止。
+语句已终止。
+语句已终止。
+语句已终止。
+语句已终止。
+语句已终止。
+语句已终止。
+语句已终止。
+语句已终止。
+语句已终止。
+语句已终止。
+语句已终止。
+语句已终止。
+语句已终止。
+语句已终止。
+语句已终止。
+语句已终止。
+语句已终止。
+语句已终止。
+语句已终止。
+语句已终止。
+语句已终止。
+语句已终止。
+语句已终止。
+语句已终止。
+语句已终止。
+语句已终止。
+语句已终止。
+语句已终止。
+语句已终止。
+语句已终止。
+语句已终止。
+语句已终止。
+语句已终止。
+语句已终止。
+语句已终止。
+语句已终止。
+语句已终止。
+语句已终止。
+语句已终止。
+语句已终止。
+语句已终止。
+语句已终止。
+语句已终止。
+语句已终止。
+语句已终止。
+语句已终止。
+语句已终止。
+语句已终止。
+   在 System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   在 System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   在 System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   在 System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   在 System.Data.SqlClient.SqlCommand.RunExecuteNonQueryTds(String methodName, Boolean async, Int32 timeout, Boolean asyncWrite)
+   在 System.Data.SqlClient.SqlCommand.InternalExecuteNonQuery(TaskCompletionSource`1 completion, String methodName, Boolean sendToPipe, Int32 timeout, Boolean asyncWrite)
+   在 System.Data.SqlClient.SqlCommand.ExecuteNonQuery()
+   在 System.Data.Entity.Infrastructure.Interception.DbCommandDispatcher.<NonQuery>b__0(DbCommand t, DbCommandInterceptionContext`1 c)
+   在 System.Data.Entity.Infrastructure.Interception.InternalDispatcher`1.Dispatch[TTarget,TInterceptionContext,TResult](TTarget target, Func`3 operation, TInterceptionContext interceptionContext, Action`3 executing, Action`3 executed)
+   在 System.Data.Entity.Infrastructure.Interception.DbCommandDispatcher.NonQuery(DbCommand command, DbCommandInterceptionContext interceptionContext)
+   在 System.Data.Entity.Internal.InterceptableDbCommand.ExecuteNonQuery()
+   在 System.Data.Entity.Core.Objects.ObjectContext.<>c__DisplayClass59.<ExecuteStoreCommand>b__58()
+   在 System.Data.Entity.Core.Objects.ObjectContext.ExecuteInTransaction[T](Func`1 func, IDbExecutionStrategy executionStrategy, Boolean startLocalTransaction, Boolean releaseConnectionOnSuccess)
+   在 System.Data.Entity.Core.Objects.ObjectContext.<>c__DisplayClass59.<ExecuteStoreCommand>b__57()
+   在 System.Data.Entity.SqlServer.DefaultSqlExecutionStrategy.Execute[TResult](Func`1 operation)
+   在 System.Data.Entity.Core.Objects.ObjectContext.ExecuteStoreCommand(TransactionalBehavior transactionalBehavior, String commandText, Object[] parameters)
+   在 System.Data.Entity.Internal.InternalContext.ExecuteSqlCommand(TransactionalBehavior transactionalBehavior, String sql, Object[] parameters)
+   在 System.Data.Entity.Database.ExecuteSqlCommand(TransactionalBehavior transactionalBehavior, String sql, Object[] parameters)
+   在 System.Data.Entity.Database.ExecuteSqlCommand(String sql, Object[] parameters)
+   在 PDBM.Infrastructure.Data.EntityFramework.PDBMDbContextInitializer.Seed(PDBMDbContext context) 位置 e:\PDCMS_SZ\PDBM.Infrastructure.Data\EntityFramework\PDBMDbContextInitializer.cs:行号 24
+   在 System.Data.Entity.DropCreateDatabaseIfModelChanges`1.InitializeDatabase(TContext context)
+   在 System.Data.Entity.Internal.InternalContext.<>c__DisplayClassf`1.<CreateInitializationAction>b__e()
+   在 System.Data.Entity.Internal.InternalContext.PerformInitializationAction(Action action)
+   在 System.Data.Entity.Internal.InternalContext.PerformDatabaseInitialization()
+   在 System.Data.Entity.Internal.LazyInternalContext.<InitializeDatabase>b__4(InternalContext c)
+   在 System.Data.Entity.Internal.RetryAction`1.PerformAction(TInput input)
+   在 System.Data.Entity.Internal.LazyInternalContext.InitializeDatabaseAction(Action`1 action)
+   在 System.Data.Entity.Internal.LazyInternalContext.InitializeDatabase()
+   在 System.Data.Entity.Internal.InternalContext.GetEntitySetAndBaseTypeForType(Type entityType)
+   在 System.Data.Entity.Internal.Linq.InternalSet`1.Initialize()
+   在 System.Data.Entity.Internal.Linq.InternalSet`1.get_InternalContext()
+   在 System.Data.Entity.Infrastructure.DbQuery`1.System.Linq.IQueryable.get_Provider()
+   在 System.Linq.Queryable.Where[TSource](IQueryable`1 source, Expression`1 predicate)
+   在 PDBM.Infrastructure.Data.EntityFramework.Repositories.EntityFrameworkRepository`1.Find(ISpecification`1 specification) 位置 e:\PDCMS_SZ\PDBM.Infrastructure.Data\EntityFramework\Repositories\EntityFrameworkRepository.cs:行号 158
+   在 PDBM.ApplicationService.Services.BaseData.UserService.UserLogin(String userName, String userPassword)
+   在 DynamicModule.ns.Wrapped_IUserService_96b89d8943fe4ddcaf81ef54162d1ec7.<UserLogin_DelegateImplementation>__1(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+ClientConnectionId:2d2447d0-7859-47c0-8852-8e137b89f7a4
+Error Number:515,State:2,Class:16
+--------------------------------END--------------------------------
+
+--------------------------------Time:2016-11-19 23:28:05,618--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.Data.SqlClient.SqlException (0x80131904): INSERT 语句中列的数目小于 VALUES 子句中指定的值的数目。VALUES 子句中值的数目必须与 INSERT 语句中指定的列的数目匹配。
+   在 System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   在 System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   在 System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   在 System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   在 System.Data.SqlClient.SqlCommand.RunExecuteNonQueryTds(String methodName, Boolean async, Int32 timeout, Boolean asyncWrite)
+   在 System.Data.SqlClient.SqlCommand.InternalExecuteNonQuery(TaskCompletionSource`1 completion, String methodName, Boolean sendToPipe, Int32 timeout, Boolean asyncWrite)
+   在 System.Data.SqlClient.SqlCommand.ExecuteNonQuery()
+   在 System.Data.Entity.Infrastructure.Interception.DbCommandDispatcher.<NonQuery>b__0(DbCommand t, DbCommandInterceptionContext`1 c)
+   在 System.Data.Entity.Infrastructure.Interception.InternalDispatcher`1.Dispatch[TTarget,TInterceptionContext,TResult](TTarget target, Func`3 operation, TInterceptionContext interceptionContext, Action`3 executing, Action`3 executed)
+   在 System.Data.Entity.Infrastructure.Interception.DbCommandDispatcher.NonQuery(DbCommand command, DbCommandInterceptionContext interceptionContext)
+   在 System.Data.Entity.Internal.InterceptableDbCommand.ExecuteNonQuery()
+   在 System.Data.Entity.Core.Objects.ObjectContext.<>c__DisplayClass59.<ExecuteStoreCommand>b__58()
+   在 System.Data.Entity.Core.Objects.ObjectContext.ExecuteInTransaction[T](Func`1 func, IDbExecutionStrategy executionStrategy, Boolean startLocalTransaction, Boolean releaseConnectionOnSuccess)
+   在 System.Data.Entity.Core.Objects.ObjectContext.<>c__DisplayClass59.<ExecuteStoreCommand>b__57()
+   在 System.Data.Entity.SqlServer.DefaultSqlExecutionStrategy.Execute[TResult](Func`1 operation)
+   在 System.Data.Entity.Core.Objects.ObjectContext.ExecuteStoreCommand(TransactionalBehavior transactionalBehavior, String commandText, Object[] parameters)
+   在 System.Data.Entity.Internal.InternalContext.ExecuteSqlCommand(TransactionalBehavior transactionalBehavior, String sql, Object[] parameters)
+   在 System.Data.Entity.Database.ExecuteSqlCommand(TransactionalBehavior transactionalBehavior, String sql, Object[] parameters)
+   在 System.Data.Entity.Database.ExecuteSqlCommand(String sql, Object[] parameters)
+   在 PDBM.Infrastructure.Data.EntityFramework.PDBMDbContextInitializer.Seed(PDBMDbContext context) 位置 e:\PDCMS_SZ\PDBM.Infrastructure.Data\EntityFramework\PDBMDbContextInitializer.cs:行号 24
+   在 System.Data.Entity.DropCreateDatabaseIfModelChanges`1.InitializeDatabase(TContext context)
+   在 System.Data.Entity.Internal.InternalContext.<>c__DisplayClassf`1.<CreateInitializationAction>b__e()
+   在 System.Data.Entity.Internal.InternalContext.PerformInitializationAction(Action action)
+   在 System.Data.Entity.Internal.InternalContext.PerformDatabaseInitialization()
+   在 System.Data.Entity.Internal.LazyInternalContext.<InitializeDatabase>b__4(InternalContext c)
+   在 System.Data.Entity.Internal.RetryAction`1.PerformAction(TInput input)
+   在 System.Data.Entity.Internal.LazyInternalContext.InitializeDatabaseAction(Action`1 action)
+   在 System.Data.Entity.Internal.LazyInternalContext.InitializeDatabase()
+   在 System.Data.Entity.Internal.InternalContext.GetEntitySetAndBaseTypeForType(Type entityType)
+   在 System.Data.Entity.Internal.Linq.InternalSet`1.Initialize()
+   在 System.Data.Entity.Internal.Linq.InternalSet`1.get_InternalContext()
+   在 System.Data.Entity.Infrastructure.DbQuery`1.System.Linq.IQueryable.get_Provider()
+   在 System.Linq.Queryable.Where[TSource](IQueryable`1 source, Expression`1 predicate)
+   在 PDBM.Infrastructure.Data.EntityFramework.Repositories.EntityFrameworkRepository`1.Find(ISpecification`1 specification) 位置 e:\PDCMS_SZ\PDBM.Infrastructure.Data\EntityFramework\Repositories\EntityFrameworkRepository.cs:行号 158
+   在 PDBM.ApplicationService.Services.BaseData.UserService.UserLogin(String userName, String userPassword)
+   在 DynamicModule.ns.Wrapped_IUserService_2a2d158676184f678fe1b74c124eb945.<UserLogin_DelegateImplementation>__1(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+ClientConnectionId:33b7d8b5-fe0c-4897-9736-d8a5a856c97a
+Error Number:110,State:1,Class:15
+--------------------------------END--------------------------------
+
+--------------------------------Time:2016-11-19 23:29:16,251--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.Data.SqlClient.SqlException (0x80131904): 违反了 UNIQUE KEY 约束“IX_UQ_WFCategoryEntityName”。不能在对象“dbo.tbl_WFCategory”中插入重复键。重复键值为 (Addressing)。
+INSERT 语句与 FOREIGN KEY 约束"FK_dbo.tbl_WFActivityEditor_dbo.tbl_WFCategory_WFCategoryId"冲突。该冲突发生于数据库"PDCMS_SZ"，表"dbo.tbl_WFCategory", column 'Id'。
+INSERT 语句与 FOREIGN KEY 约束"FK_dbo.tbl_WFActivityEditor_dbo.tbl_WFCategory_WFCategoryId"冲突。该冲突发生于数据库"PDCMS_SZ"，表"dbo.tbl_WFCategory", column 'Id'。
+INSERT 语句与 FOREIGN KEY 约束"FK_dbo.tbl_WFActivityEditor_dbo.tbl_WFCategory_WFCategoryId"冲突。该冲突发生于数据库"PDCMS_SZ"，表"dbo.tbl_WFCategory", column 'Id'。
+INSERT 语句与 FOREIGN KEY 约束"FK_dbo.tbl_WFActivityEditor_dbo.tbl_WFCategory_WFCategoryId"冲突。该冲突发生于数据库"PDCMS_SZ"，表"dbo.tbl_WFCategory", column 'Id'。
+INSERT 语句与 FOREIGN KEY 约束"FK_dbo.tbl_WFActivityEditor_dbo.tbl_WFCategory_WFCategoryId"冲突。该冲突发生于数据库"PDCMS_SZ"，表"dbo.tbl_WFCategory", column 'Id'。
+INSERT 语句与 FOREIGN KEY 约束"FK_dbo.tbl_WFProcess_dbo.tbl_WFCategory_WFCategoryId"冲突。该冲突发生于数据库"PDCMS_SZ"，表"dbo.tbl_WFCategory", column 'Id'。
+INSERT 语句与 FOREIGN KEY 约束"FK_dbo.tbl_WFActivity_dbo.tbl_WFProcess_WFProcessId"冲突。该冲突发生于数据库"PDCMS_SZ"，表"dbo.tbl_WFProcess", column 'Id'。
+INSERT 语句与 FOREIGN KEY 约束"FK_dbo.tbl_WFActivity_dbo.tbl_WFProcess_WFProcessId"冲突。该冲突发生于数据库"PDCMS_SZ"，表"dbo.tbl_WFProcess", column 'Id'。
+INSERT 语句与 FOREIGN KEY 约束"FK_dbo.tbl_WFProcess_dbo.tbl_WFCategory_WFCategoryId"冲突。该冲突发生于数据库"PDCMS_SZ"，表"dbo.tbl_WFCategory", column 'Id'。
+INSERT 语句与 FOREIGN KEY 约束"FK_dbo.tbl_WFActivity_dbo.tbl_WFProcess_WFProcessId"冲突。该冲突发生于数据库"PDCMS_SZ"，表"dbo.tbl_WFProcess", column 'Id'。
+INSERT 语句与 FOREIGN KEY 约束"FK_dbo.tbl_WFActivity_dbo.tbl_WFProcess_WFProcessId"冲突。该冲突发生于数据库"PDCMS_SZ"，表"dbo.tbl_WFProcess", column 'Id'。
+INSERT 语句与 FOREIGN KEY 约束"FK_dbo.tbl_WFActivity_dbo.tbl_WFProcess_WFProcessId"冲突。该冲突发生于数据库"PDCMS_SZ"，表"dbo.tbl_WFProcess", column 'Id'。
+INSERT 语句与 FOREIGN KEY 约束"FK_dbo.tbl_WFActivity_dbo.tbl_WFProcess_WFProcessId"冲突。该冲突发生于数据库"PDCMS_SZ"，表"dbo.tbl_WFProcess", column 'Id'。
+INSERT 语句与 FOREIGN KEY 约束"FK_dbo.tbl_WFActivity_dbo.tbl_WFProcess_WFProcessId"冲突。该冲突发生于数据库"PDCMS_SZ"，表"dbo.tbl_WFProcess", column 'Id'。
+语句已终止。
+语句已终止。
+语句已终止。
+语句已终止。
+语句已终止。
+语句已终止。
+语句已终止。
+语句已终止。
+语句已终止。
+语句已终止。
+语句已终止。
+语句已终止。
+语句已终止。
+语句已终止。
+语句已终止。
+   在 System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   在 System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   在 System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   在 System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   在 System.Data.SqlClient.SqlCommand.RunExecuteNonQueryTds(String methodName, Boolean async, Int32 timeout, Boolean asyncWrite)
+   在 System.Data.SqlClient.SqlCommand.InternalExecuteNonQuery(TaskCompletionSource`1 completion, String methodName, Boolean sendToPipe, Int32 timeout, Boolean asyncWrite)
+   在 System.Data.SqlClient.SqlCommand.ExecuteNonQuery()
+   在 System.Data.Entity.Infrastructure.Interception.DbCommandDispatcher.<NonQuery>b__0(DbCommand t, DbCommandInterceptionContext`1 c)
+   在 System.Data.Entity.Infrastructure.Interception.InternalDispatcher`1.Dispatch[TTarget,TInterceptionContext,TResult](TTarget target, Func`3 operation, TInterceptionContext interceptionContext, Action`3 executing, Action`3 executed)
+   在 System.Data.Entity.Infrastructure.Interception.DbCommandDispatcher.NonQuery(DbCommand command, DbCommandInterceptionContext interceptionContext)
+   在 System.Data.Entity.Internal.InterceptableDbCommand.ExecuteNonQuery()
+   在 System.Data.Entity.Core.Objects.ObjectContext.<>c__DisplayClass59.<ExecuteStoreCommand>b__58()
+   在 System.Data.Entity.Core.Objects.ObjectContext.ExecuteInTransaction[T](Func`1 func, IDbExecutionStrategy executionStrategy, Boolean startLocalTransaction, Boolean releaseConnectionOnSuccess)
+   在 System.Data.Entity.Core.Objects.ObjectContext.<>c__DisplayClass59.<ExecuteStoreCommand>b__57()
+   在 System.Data.Entity.SqlServer.DefaultSqlExecutionStrategy.Execute[TResult](Func`1 operation)
+   在 System.Data.Entity.Core.Objects.ObjectContext.ExecuteStoreCommand(TransactionalBehavior transactionalBehavior, String commandText, Object[] parameters)
+   在 System.Data.Entity.Internal.InternalContext.ExecuteSqlCommand(TransactionalBehavior transactionalBehavior, String sql, Object[] parameters)
+   在 System.Data.Entity.Database.ExecuteSqlCommand(TransactionalBehavior transactionalBehavior, String sql, Object[] parameters)
+   在 System.Data.Entity.Database.ExecuteSqlCommand(String sql, Object[] parameters)
+   在 PDBM.Infrastructure.Data.EntityFramework.PDBMDbContextInitializer.Seed(PDBMDbContext context) 位置 e:\PDCMS_SZ\PDBM.Infrastructure.Data\EntityFramework\PDBMDbContextInitializer.cs:行号 24
+   在 System.Data.Entity.DropCreateDatabaseIfModelChanges`1.InitializeDatabase(TContext context)
+   在 System.Data.Entity.Internal.InternalContext.<>c__DisplayClassf`1.<CreateInitializationAction>b__e()
+   在 System.Data.Entity.Internal.InternalContext.PerformInitializationAction(Action action)
+   在 System.Data.Entity.Internal.InternalContext.PerformDatabaseInitialization()
+   在 System.Data.Entity.Internal.LazyInternalContext.<InitializeDatabase>b__4(InternalContext c)
+   在 System.Data.Entity.Internal.RetryAction`1.PerformAction(TInput input)
+   在 System.Data.Entity.Internal.LazyInternalContext.InitializeDatabaseAction(Action`1 action)
+   在 System.Data.Entity.Internal.LazyInternalContext.InitializeDatabase()
+   在 System.Data.Entity.Internal.InternalContext.GetEntitySetAndBaseTypeForType(Type entityType)
+   在 System.Data.Entity.Internal.Linq.InternalSet`1.Initialize()
+   在 System.Data.Entity.Internal.Linq.InternalSet`1.get_InternalContext()
+   在 System.Data.Entity.Infrastructure.DbQuery`1.System.Linq.IQueryable.get_Provider()
+   在 System.Linq.Queryable.Where[TSource](IQueryable`1 source, Expression`1 predicate)
+   在 PDBM.Infrastructure.Data.EntityFramework.Repositories.EntityFrameworkRepository`1.Find(ISpecification`1 specification) 位置 e:\PDCMS_SZ\PDBM.Infrastructure.Data\EntityFramework\Repositories\EntityFrameworkRepository.cs:行号 158
+   在 PDBM.ApplicationService.Services.BaseData.UserService.UserLogin(String userName, String userPassword)
+   在 DynamicModule.ns.Wrapped_IUserService_b16d4a8d6e6e4e48b218d63813466e62.<UserLogin_DelegateImplementation>__1(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+ClientConnectionId:f7eeafab-f8e7-40d2-a0bf-997789be8b88
+Error Number:2627,State:1,Class:14
+--------------------------------END--------------------------------
+
+--------------------------------Time:2016-11-19 23:31:37,496--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.Data.SqlClient.SqlException (0x80131904): INSERT 语句与 FOREIGN KEY 约束"FK_dbo.tbl_WFProcess_dbo.tbl_WFCategory_WFCategoryId"冲突。该冲突发生于数据库"PDCMS_SZ"，表"dbo.tbl_WFCategory", column 'Id'。
+INSERT 语句与 FOREIGN KEY 约束"FK_dbo.tbl_WFActivity_dbo.tbl_WFProcess_WFProcessId"冲突。该冲突发生于数据库"PDCMS_SZ"，表"dbo.tbl_WFProcess", column 'Id'。
+INSERT 语句与 FOREIGN KEY 约束"FK_dbo.tbl_WFActivity_dbo.tbl_WFProcess_WFProcessId"冲突。该冲突发生于数据库"PDCMS_SZ"，表"dbo.tbl_WFProcess", column 'Id'。
+语句已终止。
+语句已终止。
+语句已终止。
+   在 System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   在 System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   在 System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   在 System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   在 System.Data.SqlClient.SqlCommand.RunExecuteNonQueryTds(String methodName, Boolean async, Int32 timeout, Boolean asyncWrite)
+   在 System.Data.SqlClient.SqlCommand.InternalExecuteNonQuery(TaskCompletionSource`1 completion, String methodName, Boolean sendToPipe, Int32 timeout, Boolean asyncWrite)
+   在 System.Data.SqlClient.SqlCommand.ExecuteNonQuery()
+   在 System.Data.Entity.Infrastructure.Interception.DbCommandDispatcher.<NonQuery>b__0(DbCommand t, DbCommandInterceptionContext`1 c)
+   在 System.Data.Entity.Infrastructure.Interception.InternalDispatcher`1.Dispatch[TTarget,TInterceptionContext,TResult](TTarget target, Func`3 operation, TInterceptionContext interceptionContext, Action`3 executing, Action`3 executed)
+   在 System.Data.Entity.Infrastructure.Interception.DbCommandDispatcher.NonQuery(DbCommand command, DbCommandInterceptionContext interceptionContext)
+   在 System.Data.Entity.Internal.InterceptableDbCommand.ExecuteNonQuery()
+   在 System.Data.Entity.Core.Objects.ObjectContext.<>c__DisplayClass59.<ExecuteStoreCommand>b__58()
+   在 System.Data.Entity.Core.Objects.ObjectContext.ExecuteInTransaction[T](Func`1 func, IDbExecutionStrategy executionStrategy, Boolean startLocalTransaction, Boolean releaseConnectionOnSuccess)
+   在 System.Data.Entity.Core.Objects.ObjectContext.<>c__DisplayClass59.<ExecuteStoreCommand>b__57()
+   在 System.Data.Entity.SqlServer.DefaultSqlExecutionStrategy.Execute[TResult](Func`1 operation)
+   在 System.Data.Entity.Core.Objects.ObjectContext.ExecuteStoreCommand(TransactionalBehavior transactionalBehavior, String commandText, Object[] parameters)
+   在 System.Data.Entity.Internal.InternalContext.ExecuteSqlCommand(TransactionalBehavior transactionalBehavior, String sql, Object[] parameters)
+   在 System.Data.Entity.Database.ExecuteSqlCommand(TransactionalBehavior transactionalBehavior, String sql, Object[] parameters)
+   在 System.Data.Entity.Database.ExecuteSqlCommand(String sql, Object[] parameters)
+   在 PDBM.Infrastructure.Data.EntityFramework.PDBMDbContextInitializer.Seed(PDBMDbContext context) 位置 e:\PDCMS_SZ\PDBM.Infrastructure.Data\EntityFramework\PDBMDbContextInitializer.cs:行号 24
+   在 System.Data.Entity.DropCreateDatabaseIfModelChanges`1.InitializeDatabase(TContext context)
+   在 System.Data.Entity.Internal.InternalContext.<>c__DisplayClassf`1.<CreateInitializationAction>b__e()
+   在 System.Data.Entity.Internal.InternalContext.PerformInitializationAction(Action action)
+   在 System.Data.Entity.Internal.InternalContext.PerformDatabaseInitialization()
+   在 System.Data.Entity.Internal.LazyInternalContext.<InitializeDatabase>b__4(InternalContext c)
+   在 System.Data.Entity.Internal.RetryAction`1.PerformAction(TInput input)
+   在 System.Data.Entity.Internal.LazyInternalContext.InitializeDatabaseAction(Action`1 action)
+   在 System.Data.Entity.Internal.LazyInternalContext.InitializeDatabase()
+   在 System.Data.Entity.Internal.InternalContext.GetEntitySetAndBaseTypeForType(Type entityType)
+   在 System.Data.Entity.Internal.Linq.InternalSet`1.Initialize()
+   在 System.Data.Entity.Internal.Linq.InternalSet`1.get_InternalContext()
+   在 System.Data.Entity.Infrastructure.DbQuery`1.System.Linq.IQueryable.get_Provider()
+   在 System.Linq.Queryable.Where[TSource](IQueryable`1 source, Expression`1 predicate)
+   在 PDBM.Infrastructure.Data.EntityFramework.Repositories.EntityFrameworkRepository`1.Find(ISpecification`1 specification) 位置 e:\PDCMS_SZ\PDBM.Infrastructure.Data\EntityFramework\Repositories\EntityFrameworkRepository.cs:行号 158
+   在 PDBM.ApplicationService.Services.BaseData.UserService.UserLogin(String userName, String userPassword)
+   在 DynamicModule.ns.Wrapped_IUserService_9d9286676fed4973897ab7e735bf98b8.<UserLogin_DelegateImplementation>__1(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+ClientConnectionId:445c6bea-1da7-4912-986f-8145d8b59970
+Error Number:547,State:0,Class:16
+--------------------------------END--------------------------------
+
+--------------------------------Time:2016-11-19 23:36:27,675--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.Data.SqlClient.SqlException (0x80131904): 找不到存储过程 'prc_GetMenuInfoByUserId'。
+   在 System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   在 System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   在 System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   在 System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   在 System.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   在 System.Data.SqlClient.SqlDataReader.get_MetaData()
+   在 System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString)
+   在 System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, SqlDataReader ds)
+   在 System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean asyncWrite)
+   在 System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   在 System.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior, String method)
+   在 System.Data.SqlClient.SqlCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   在 System.Data.Common.DbCommand.System.Data.IDbCommand.ExecuteReader(CommandBehavior behavior)
+   在 System.Data.Common.DbDataAdapter.FillInternal(DataSet dataset, DataTable[] datatables, Int32 startRecord, Int32 maxRecords, String srcTable, IDbCommand command, CommandBehavior behavior)
+   在 System.Data.Common.DbDataAdapter.Fill(DataSet dataSet, Int32 startRecord, Int32 maxRecords, String srcTable, IDbCommand command, CommandBehavior behavior)
+   在 System.Data.Common.DbDataAdapter.Fill(DataSet dataSet)
+   在 Microsoft.Practices.EnterpriseLibrary.Data.Database.DoLoadDataSet(IDbCommand command, DataSet dataSet, String[] tableNames)
+   在 Microsoft.Practices.EnterpriseLibrary.Data.Database.LoadDataSet(DbCommand command, DataSet dataSet, String[] tableNames)
+   在 Microsoft.Practices.EnterpriseLibrary.Data.Database.LoadDataSet(DbCommand command, DataSet dataSet, String tableName)
+   在 Microsoft.Practices.EnterpriseLibrary.Data.Database.ExecuteDataSet(DbCommand command)
+   在 PDBM.Infrastructure.DataAccess.EnterpriseLibrary.SqlHelper.ExecuteDataTable(String procName, IList`1 parameters) 位置 e:\PDCMS_SZ\PDBM.Infrastructure\DataAccess\EnterpriseLibrary\SqlHelper.cs:行号 33
+   在 PDBM.ApplicationService.Services.BaseData.MenuService.GetMenuInfo(Guid userId)
+   在 DynamicModule.ns.Wrapped_IMenuService_83c0ea981d534a25a7f16fd4249a04fc.<GetMenuInfo_DelegateImplementation>__0(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+ClientConnectionId:1e40e2b8-5b49-4699-8c45-64538afbe66e
+Error Number:2812,State:62,Class:16
+--------------------------------END--------------------------------
+

@@ -1,0 +1,64 @@
+--------------------------------Time:2015-12-07 16:24:09,847--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.NullReferenceException: 未将对象引用设置到对象的实例。
+   在 PDBM.ApplicationService.Services.BaseData.CustomerService.GetCustomerById(Guid id)
+   在 DynamicModule.ns.Wrapped_ICustomerService_ce7c7f232ce74b758e5069769ed7ceb8.<GetCustomerById_DelegateImplementation>__0(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+
+--------------------------------Time:2015-12-07 16:24:17,927--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.NullReferenceException: 未将对象引用设置到对象的实例。
+   在 PDBM.ApplicationService.Services.BaseData.CustomerService.GetCustomerById(Guid id)
+   在 DynamicModule.ns.Wrapped_ICustomerService_ce7c7f232ce74b758e5069769ed7ceb8.<GetCustomerById_DelegateImplementation>__0(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+
+--------------------------------Time:2015-12-07 16:24:54,507--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.NullReferenceException: 未将对象引用设置到对象的实例。
+   在 PDBM.ApplicationService.Services.BaseData.CustomerService.GetCustomerById(Guid id)
+   在 DynamicModule.ns.Wrapped_ICustomerService_ce7c7f232ce74b758e5069769ed7ceb8.<GetCustomerById_DelegateImplementation>__0(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+
+--------------------------------Time:2015-12-07 16:25:11,320--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.NullReferenceException: 未将对象引用设置到对象的实例。
+   在 PDBM.ApplicationService.Services.BaseData.CustomerService.GetCustomerById(Guid id)
+   在 DynamicModule.ns.Wrapped_ICustomerService_ce7c7f232ce74b758e5069769ed7ceb8.<GetCustomerById_DelegateImplementation>__0(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+
+--------------------------------Time:2015-12-07 16:30:48,263--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.NullReferenceException: 未将对象引用设置到对象的实例。
+   在 PDBM.ApplicationService.Services.BaseData.CustomerService.GetCustomerById(Guid id)
+   在 DynamicModule.ns.Wrapped_ICustomerService_ce7c7f232ce74b758e5069769ed7ceb8.<GetCustomerById_DelegateImplementation>__0(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+
+--------------------------------Time:2015-12-07 17:09:51,947--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.NullReferenceException: 未将对象引用设置到对象的实例。
+   在 PDBM.ApplicationService.Services.BaseData.CustomerService.GetCustomerById(Guid id)
+   在 DynamicModule.ns.Wrapped_ICustomerService_ce7c7f232ce74b758e5069769ed7ceb8.<GetCustomerById_DelegateImplementation>__0(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+
+--------------------------------Time:2015-12-07 17:11:02,096--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.NullReferenceException: 未将对象引用设置到对象的实例。
+   在 PDBM.ApplicationService.Services.BaseData.CustomerService.GetCustomerById(Guid id)
+   在 DynamicModule.ns.Wrapped_ICustomerService_ce7c7f232ce74b758e5069769ed7ceb8.<GetCustomerById_DelegateImplementation>__0(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+
+--------------------------------Time:2015-12-07 18:49:20,074--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.NullReferenceException: 未将对象引用设置到对象的实例。
+   在 PDBM.ApplicationService.Services.BaseData.CustomerService.GetCustomerById(Guid id)
+   在 DynamicModule.ns.Wrapped_ICustomerService_ce7c7f232ce74b758e5069769ed7ceb8.<GetCustomerById_DelegateImplementation>__0(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+

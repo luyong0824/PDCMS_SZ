@@ -1,0 +1,216 @@
+--------------------------------Time:2015-12-08 09:41:09,817--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.NullReferenceException: 未将对象引用设置到对象的实例。
+   在 PDBM.ApplicationService.Services.BaseData.CustomerService.GetCustomerById(Guid id)
+   在 DynamicModule.ns.Wrapped_ICustomerService_26be690b72344e948da7f89e8c583ce4.<GetCustomerById_DelegateImplementation>__0(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+
+--------------------------------Time:2015-12-08 09:41:55,357--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.NullReferenceException: 未将对象引用设置到对象的实例。
+   在 PDBM.ApplicationService.Services.BaseData.CustomerService.GetCustomerById(Guid id)
+   在 DynamicModule.ns.Wrapped_ICustomerService_26be690b72344e948da7f89e8c583ce4.<GetCustomerById_DelegateImplementation>__0(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+
+--------------------------------Time:2015-12-08 09:44:28,400--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.NullReferenceException: 未将对象引用设置到对象的实例。
+   在 PDBM.ApplicationService.Services.BaseData.CustomerService.GetCustomerById(Guid id)
+   在 DynamicModule.ns.Wrapped_ICustomerService_26be690b72344e948da7f89e8c583ce4.<GetCustomerById_DelegateImplementation>__0(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+
+--------------------------------Time:2015-12-08 13:37:06,567--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.NullReferenceException: 未将对象引用设置到对象的实例。
+   在 PDBM.ApplicationService.Services.BMMgmt.WorkApplyService.SaveWorkApplyAssociate(WorkOrderMaintObject workOrderMaintObject, IList`1 workApplyMaintObjects)
+   在 DynamicModule.ns.Wrapped_IWorkApplyService_e0ea528a19b54af99ab07825d19f7666.<SaveWorkApplyAssociate_DelegateImplementation>__6(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+
+--------------------------------Time:2015-12-08 13:37:11,959--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.NullReferenceException: 未将对象引用设置到对象的实例。
+   在 PDBM.ApplicationService.Services.BMMgmt.WorkApplyService.SaveWorkApplyAssociate(WorkOrderMaintObject workOrderMaintObject, IList`1 workApplyMaintObjects)
+   在 DynamicModule.ns.Wrapped_IWorkApplyService_e0ea528a19b54af99ab07825d19f7666.<SaveWorkApplyAssociate_DelegateImplementation>__6(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+
+--------------------------------Time:2015-12-08 13:37:19,475--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.NullReferenceException: 未将对象引用设置到对象的实例。
+   在 PDBM.ApplicationService.Services.BMMgmt.WorkApplyService.SaveWorkApplyAssociate(WorkOrderMaintObject workOrderMaintObject, IList`1 workApplyMaintObjects)
+   在 DynamicModule.ns.Wrapped_IWorkApplyService_e0ea528a19b54af99ab07825d19f7666.<SaveWorkApplyAssociate_DelegateImplementation>__6(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+
+--------------------------------Time:2015-12-08 13:37:27,586--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.NullReferenceException: 未将对象引用设置到对象的实例。
+   在 PDBM.ApplicationService.Services.BMMgmt.WorkApplyService.SaveWorkApplyAssociate(WorkOrderMaintObject workOrderMaintObject, IList`1 workApplyMaintObjects)
+   在 DynamicModule.ns.Wrapped_IWorkApplyService_e0ea528a19b54af99ab07825d19f7666.<SaveWorkApplyAssociate_DelegateImplementation>__6(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+
+--------------------------------Time:2015-12-08 13:37:47,965--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.NullReferenceException: 未将对象引用设置到对象的实例。
+   在 PDBM.ApplicationService.Services.BMMgmt.WorkApplyService.SaveWorkApplyAssociate(WorkOrderMaintObject workOrderMaintObject, IList`1 workApplyMaintObjects)
+   在 DynamicModule.ns.Wrapped_IWorkApplyService_e0ea528a19b54af99ab07825d19f7666.<SaveWorkApplyAssociate_DelegateImplementation>__6(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+
+--------------------------------Time:2015-12-08 13:38:19,704--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.NullReferenceException: 未将对象引用设置到对象的实例。
+   在 PDBM.ApplicationService.Services.BMMgmt.WorkApplyService.SaveWorkApplyAssociate(WorkOrderMaintObject workOrderMaintObject, IList`1 workApplyMaintObjects)
+   在 DynamicModule.ns.Wrapped_IWorkApplyService_e0ea528a19b54af99ab07825d19f7666.<SaveWorkApplyAssociate_DelegateImplementation>__6(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+
+--------------------------------Time:2015-12-08 13:39:08,298--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.NullReferenceException: 未将对象引用设置到对象的实例。
+   在 PDBM.ApplicationService.Services.BMMgmt.WorkApplyService.SaveWorkApplyAssociate(WorkOrderMaintObject workOrderMaintObject, IList`1 workApplyMaintObjects)
+   在 DynamicModule.ns.Wrapped_IWorkApplyService_e0ea528a19b54af99ab07825d19f7666.<SaveWorkApplyAssociate_DelegateImplementation>__6(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+
+--------------------------------Time:2015-12-08 13:39:12,062--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.NullReferenceException: 未将对象引用设置到对象的实例。
+   在 PDBM.ApplicationService.Services.BMMgmt.WorkApplyService.SaveWorkApplyAssociate(WorkOrderMaintObject workOrderMaintObject, IList`1 workApplyMaintObjects)
+   在 DynamicModule.ns.Wrapped_IWorkApplyService_e0ea528a19b54af99ab07825d19f7666.<SaveWorkApplyAssociate_DelegateImplementation>__6(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+
+--------------------------------Time:2015-12-08 13:39:14,126--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.NullReferenceException: 未将对象引用设置到对象的实例。
+   在 PDBM.ApplicationService.Services.BMMgmt.WorkApplyService.SaveWorkApplyAssociate(WorkOrderMaintObject workOrderMaintObject, IList`1 workApplyMaintObjects)
+   在 DynamicModule.ns.Wrapped_IWorkApplyService_e0ea528a19b54af99ab07825d19f7666.<SaveWorkApplyAssociate_DelegateImplementation>__6(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+
+--------------------------------Time:2015-12-08 13:40:18,966--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.NullReferenceException: 未将对象引用设置到对象的实例。
+   在 PDBM.ApplicationService.Services.BMMgmt.WorkApplyService.SaveWorkApplyAssociate(WorkOrderMaintObject workOrderMaintObject, IList`1 workApplyMaintObjects)
+   在 DynamicModule.ns.Wrapped_IWorkApplyService_e0ea528a19b54af99ab07825d19f7666.<SaveWorkApplyAssociate_DelegateImplementation>__6(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+
+--------------------------------Time:2015-12-08 13:46:16,664--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.NullReferenceException: 未将对象引用设置到对象的实例。
+   在 PDBM.ApplicationService.Services.BMMgmt.WorkApplyService.SaveWorkApplyAssociate(WorkOrderMaintObject workOrderMaintObject, IList`1 workApplyMaintObjects)
+   在 DynamicModule.ns.Wrapped_IWorkApplyService_e0ea528a19b54af99ab07825d19f7666.<SaveWorkApplyAssociate_DelegateImplementation>__6(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+
+--------------------------------Time:2015-12-08 13:47:56,154--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.NullReferenceException: 未将对象引用设置到对象的实例。
+   在 PDBM.ApplicationService.Services.BMMgmt.WorkApplyService.SaveWorkApplyAssociate(WorkOrderMaintObject workOrderMaintObject, IList`1 workApplyMaintObjects)
+   在 DynamicModule.ns.Wrapped_IWorkApplyService_e0ea528a19b54af99ab07825d19f7666.<SaveWorkApplyAssociate_DelegateImplementation>__6(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+
+--------------------------------Time:2015-12-08 15:16:52,734--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.NullReferenceException: 未将对象引用设置到对象的实例。
+   在 PDBM.ApplicationService.Services.BMMgmt.WorkApplyService.SaveWorkApplyAssociate(WorkOrderMaintObject workOrderMaintObject, IList`1 workApplyMaintObjects)
+   在 DynamicModule.ns.Wrapped_IWorkApplyService_116fbe1023a84dc88887b4e430bf5bfd.<SaveWorkApplyAssociate_DelegateImplementation>__6(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+
+--------------------------------Time:2015-12-08 15:18:23,849--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.NullReferenceException: 未将对象引用设置到对象的实例。
+   在 PDBM.ApplicationService.Services.BMMgmt.WorkApplyService.SaveWorkApplyAssociate(WorkOrderMaintObject workOrderMaintObject, IList`1 workApplyMaintObjects)
+   在 DynamicModule.ns.Wrapped_IWorkApplyService_116fbe1023a84dc88887b4e430bf5bfd.<SaveWorkApplyAssociate_DelegateImplementation>__6(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+
+--------------------------------Time:2015-12-08 15:19:33,991--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.NullReferenceException: 未将对象引用设置到对象的实例。
+   在 PDBM.ApplicationService.Services.BMMgmt.WorkApplyService.SaveWorkApplyAssociate(WorkOrderMaintObject workOrderMaintObject, IList`1 workApplyMaintObjects)
+   在 DynamicModule.ns.Wrapped_IWorkApplyService_116fbe1023a84dc88887b4e430bf5bfd.<SaveWorkApplyAssociate_DelegateImplementation>__6(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+
+--------------------------------Time:2015-12-08 15:20:04,930--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.NullReferenceException: 未将对象引用设置到对象的实例。
+   在 PDBM.ApplicationService.Services.BMMgmt.WorkApplyService.SaveWorkApplyAssociate(WorkOrderMaintObject workOrderMaintObject, IList`1 workApplyMaintObjects)
+   在 DynamicModule.ns.Wrapped_IWorkApplyService_116fbe1023a84dc88887b4e430bf5bfd.<SaveWorkApplyAssociate_DelegateImplementation>__6(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+
+--------------------------------Time:2015-12-08 15:20:50,671--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.NullReferenceException: 未将对象引用设置到对象的实例。
+   在 PDBM.ApplicationService.Services.BMMgmt.WorkApplyService.SaveWorkApplyAssociate(WorkOrderMaintObject workOrderMaintObject, IList`1 workApplyMaintObjects)
+   在 DynamicModule.ns.Wrapped_IWorkApplyService_116fbe1023a84dc88887b4e430bf5bfd.<SaveWorkApplyAssociate_DelegateImplementation>__6(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+
+--------------------------------Time:2015-12-08 15:21:21,057--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.NullReferenceException: 未将对象引用设置到对象的实例。
+   在 PDBM.ApplicationService.Services.BMMgmt.WorkApplyService.SaveWorkApplyAssociate(WorkOrderMaintObject workOrderMaintObject, IList`1 workApplyMaintObjects)
+   在 DynamicModule.ns.Wrapped_IWorkApplyService_116fbe1023a84dc88887b4e430bf5bfd.<SaveWorkApplyAssociate_DelegateImplementation>__6(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+
+--------------------------------Time:2015-12-08 15:23:09,751--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.NullReferenceException: 未将对象引用设置到对象的实例。
+   在 PDBM.ApplicationService.Services.BMMgmt.WorkApplyService.SaveWorkApplyAssociate(WorkOrderMaintObject workOrderMaintObject, IList`1 workApplyMaintObjects)
+   在 DynamicModule.ns.Wrapped_IWorkApplyService_116fbe1023a84dc88887b4e430bf5bfd.<SaveWorkApplyAssociate_DelegateImplementation>__6(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+
+--------------------------------Time:2015-12-08 15:30:32,614--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.NullReferenceException: 未将对象引用设置到对象的实例。
+   在 PDBM.ApplicationService.Services.BMMgmt.WorkApplyService.SaveWorkApplyAssociate(WorkOrderMaintObject workOrderMaintObject, IList`1 workApplyMaintObjects)
+   在 DynamicModule.ns.Wrapped_IWorkApplyService_116fbe1023a84dc88887b4e430bf5bfd.<SaveWorkApplyAssociate_DelegateImplementation>__6(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+
+--------------------------------Time:2015-12-08 15:31:33,775--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.NullReferenceException: 未将对象引用设置到对象的实例。
+   在 PDBM.ApplicationService.Services.BMMgmt.WorkApplyService.SaveWorkApplyAssociate(WorkOrderMaintObject workOrderMaintObject, IList`1 workApplyMaintObjects)
+   在 DynamicModule.ns.Wrapped_IWorkApplyService_116fbe1023a84dc88887b4e430bf5bfd.<SaveWorkApplyAssociate_DelegateImplementation>__6(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+
+--------------------------------Time:2015-12-08 15:32:15,710--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.NullReferenceException: 未将对象引用设置到对象的实例。
+   在 PDBM.ApplicationService.Services.BMMgmt.WorkApplyService.SaveWorkApplyAssociate(WorkOrderMaintObject workOrderMaintObject, IList`1 workApplyMaintObjects)
+   在 DynamicModule.ns.Wrapped_IWorkApplyService_116fbe1023a84dc88887b4e430bf5bfd.<SaveWorkApplyAssociate_DelegateImplementation>__6(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+
+--------------------------------Time:2015-12-08 15:36:25,061--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.NullReferenceException: 未将对象引用设置到对象的实例。
+   在 PDBM.ApplicationService.Services.BMMgmt.WorkApplyService.SaveWorkApplyAssociate(WorkOrderMaintObject workOrderMaintObject, IList`1 workApplyMaintObjects)
+   在 DynamicModule.ns.Wrapped_IWorkApplyService_116fbe1023a84dc88887b4e430bf5bfd.<SaveWorkApplyAssociate_DelegateImplementation>__6(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+
+--------------------------------Time:2015-12-08 15:37:23,815--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.NullReferenceException: 未将对象引用设置到对象的实例。
+   在 PDBM.ApplicationService.Services.BMMgmt.WorkApplyService.SaveWorkApplyAssociate(WorkOrderMaintObject workOrderMaintObject, IList`1 workApplyMaintObjects)
+   在 DynamicModule.ns.Wrapped_IWorkApplyService_116fbe1023a84dc88887b4e430bf5bfd.<SaveWorkApplyAssociate_DelegateImplementation>__6(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+

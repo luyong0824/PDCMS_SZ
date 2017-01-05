@@ -1,0 +1,37 @@
+--------------------------------Time:2015-05-21 06:49:03,978--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.InvalidOperationException: 序列不包含任何元素
+   在 System.Linq.Enumerable.Min(IEnumerable`1 source)
+   在 System.Linq.Enumerable.Min[TSource](IEnumerable`1 source, Func`2 selector)
+   在 PDBM.Domain.EventHandlers.WorkFlow.WFActivityInstanceDoingEventHandler.Handle(WFActivityInstanceDoingEvent evt) 位置 e:\PDSOFT\PDBM\PDBM.Domain\EventHandlers\WorkFlow\WFActivityInstanceDoingEventHandler.cs:行号 82
+   在 DynamicModule.ns.Wrapped_IDomainEventHandler`1_2a4981126b2b4d6c80c663266a8476cb.<Handle_DelegateImplementation>__0(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+
+--------------------------------Time:2015-05-21 06:49:04,140--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.InvalidOperationException: 序列不包含任何元素
+   在 DynamicModule.ns.Wrapped_IDomainEventHandler`1_2a4981126b2b4d6c80c663266a8476cb.Handle(TDomainEvent evt)
+   在 PDBM.Domain.Events.DomainEvent.Publish[TDomainEvent](TDomainEvent domainEvent) 位置 e:\PDSOFT\PDBM\PDBM.Domain\Events\DomainEvent.cs:行号 88
+   在 PDBM.Domain.Models.WorkFlow.WFActivityInstance.Do(WFActivityInstanceFlow wfActivityInstanceFlow, String content) 位置 e:\PDSOFT\PDBM\PDBM.Domain\Models\WorkFlow\WFActivityInstance.cs:行号 314
+   在 PDBM.ApplicationService.Services.WorkFlow.WFInstanceService.DoWFInstance(WFActivityInstanceDoObject wfActivityInstanceDoObject, IList`1 wfActivityInstanceSendObjects)
+   在 DynamicModule.ns.Wrapped_IWFInstanceService_1753f50ebc484ae0ba6b55446ac14b86.<DoWFInstance_DelegateImplementation>__2(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+
+--------------------------------Time:2015-05-21 15:56:26,447--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.MissingMethodException: 找不到方法:“Void PDBM.Domain.Models.WorkFlow.WFActivityInstance.Do(PDBM.Domain.Models.Enum.WFActivityInstanceFlow, System.String)”。
+   在 PDBM.ApplicationService.Services.WorkFlow.WFInstanceService.DoWFInstance(WFActivityInstanceDoObject wfActivityInstanceDoObject, IList`1 wfActivityInstanceSendObjects)
+   在 DynamicModule.ns.Wrapped_IWFInstanceService_28c45d5590f64a989234fb5f52bbc790.<DoWFInstance_DelegateImplementation>__2(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+
+--------------------------------Time:2015-05-21 15:57:13,811--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.MissingMethodException: 找不到方法:“Void PDBM.Domain.Models.WorkFlow.WFActivityInstance.Do(PDBM.Domain.Models.Enum.WFActivityInstanceFlow, System.String)”。
+   在 PDBM.ApplicationService.Services.WorkFlow.WFInstanceService.DoWFInstance(WFActivityInstanceDoObject wfActivityInstanceDoObject, IList`1 wfActivityInstanceSendObjects)
+   在 DynamicModule.ns.Wrapped_IWFInstanceService_28c45d5590f64a989234fb5f52bbc790.<DoWFInstance_DelegateImplementation>__2(IMethodInvocation inputs, GetNextInterceptionBehaviorDelegate getNext)
+--------------------------------END--------------------------------
+
