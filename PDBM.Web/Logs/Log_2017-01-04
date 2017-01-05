@@ -1,0 +1,120 @@
+--------------------------------Time:2017-01-04 14:47:48,518--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.ServiceModel.FaultException`1[PDBM.DataTransferObjects.FaultObject]: 在 ServiceModel 客户端配置部分中，找不到引用协定“PDWebService.WeChatConnectSoap”的默认终结点元素。这可能是因为未找到应用程序的配置文件，或者是因为客户端元素中找不到与此协定匹配的终结点元素。 (错误详细信息等于 PDBM.DataTransferObjects.FaultObject)。
+--------------------------------END--------------------------------
+
+--------------------------------Time:2017-01-04 15:05:55,800--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.ServiceModel.FaultException`1[PDBM.DataTransferObjects.FaultObject]: 在 ServiceModel 客户端配置部分中，找不到引用协定“ServiceReference1.WeChatConnectSoap”的默认终结点元素。这可能是因为未找到应用程序的配置文件，或者是因为客户端元素中找不到与此协定匹配的终结点元素。 (错误详细信息等于 PDBM.DataTransferObjects.FaultObject)。
+--------------------------------END--------------------------------
+
+--------------------------------Time:2017-01-04 15:07:34,418--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.ServiceModel.FaultException`1[PDBM.DataTransferObjects.FaultObject]: 在 ServiceModel 客户端配置部分中，找不到引用协定“ServiceReference1.WeChatConnectSoap”的默认终结点元素。这可能是因为未找到应用程序的配置文件，或者是因为客户端元素中找不到与此协定匹配的终结点元素。 (错误详细信息等于 PDBM.DataTransferObjects.FaultObject)。
+--------------------------------END--------------------------------
+
+--------------------------------Time:2017-01-04 15:09:11,223--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.ServiceModel.FaultException`1[PDBM.DataTransferObjects.FaultObject]: 在 ServiceModel 客户端配置部分中，找不到引用协定“ServiceReference1.WeChatConnectSoap”的默认终结点元素。这可能是因为未找到应用程序的配置文件，或者是因为客户端元素中找不到与此协定匹配的终结点元素。 (错误详细信息等于 PDBM.DataTransferObjects.FaultObject)。
+--------------------------------END--------------------------------
+
+--------------------------------Time:2017-01-04 15:12:29,689--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.ServiceModel.FaultException`1[PDBM.DataTransferObjects.FaultObject]: 在 ServiceModel 客户端配置部分中，找不到引用协定“ServiceReference1.WeChatConnectSoap”的默认终结点元素。这可能是因为未找到应用程序的配置文件，或者是因为客户端元素中找不到与此协定匹配的终结点元素。 (错误详细信息等于 PDBM.DataTransferObjects.FaultObject)。
+--------------------------------END--------------------------------
+
+--------------------------------Time:2017-01-04 15:21:40,128--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.ServiceModel.FaultException`1[PDBM.DataTransferObjects.FaultObject]: 在 ServiceModel 客户端配置部分中，找不到名称“WeChatConnectSoap”和协定“ServiceReference1.WeChatConnectSoap”的终结点元素。这可能是因为未找到应用程序的配置文件，或者是因为客户端元素中找不到与此名称匹配的终结点元素。 (错误详细信息等于 PDBM.DataTransferObjects.FaultObject)。
+--------------------------------END--------------------------------
+
+--------------------------------Time:2017-01-04 15:25:58,286--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.ServiceModel.FaultException`1[PDBM.DataTransferObjects.FaultObject]: 在 ServiceModel 客户端配置部分中，找不到名称“WeChatConnectSoap”和协定“ServiceReference1.WeChatConnectSoap”的终结点元素。这可能是因为未找到应用程序的配置文件，或者是因为客户端元素中找不到与此名称匹配的终结点元素。 (错误详细信息等于 PDBM.DataTransferObjects.FaultObject)。
+--------------------------------END--------------------------------
+
+--------------------------------Time:2017-01-04 15:26:11,161--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.ServiceModel.FaultException`1[PDBM.DataTransferObjects.FaultObject]: 在 ServiceModel 客户端配置部分中，找不到名称“WeChatConnectSoap”和协定“ServiceReference1.WeChatConnectSoap”的终结点元素。这可能是因为未找到应用程序的配置文件，或者是因为客户端元素中找不到与此名称匹配的终结点元素。 (错误详细信息等于 PDBM.DataTransferObjects.FaultObject)。
+--------------------------------END--------------------------------
+
+--------------------------------Time:2017-01-04 15:31:07,190--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.ServiceModel.FaultException`1[PDBM.DataTransferObjects.FaultObject]: 在 ServiceModel 客户端配置部分中，找不到名称“WeChatConnectSoap”和协定“ServiceReference1.WeChatConnectSoap”的终结点元素。这可能是因为未找到应用程序的配置文件，或者是因为客户端元素中找不到与此名称匹配的终结点元素。 (错误详细信息等于 PDBM.DataTransferObjects.FaultObject)。
+--------------------------------END--------------------------------
+
+--------------------------------Time:2017-01-04 15:35:50,961--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.ServiceModel.FaultException`1[PDBM.DataTransferObjects.FaultObject]: 在 ServiceModel 客户端配置部分中，找不到名称“WeChatConnectSoap”和协定“ServiceReference1.WeChatConnectSoap”的终结点元素。这可能是因为未找到应用程序的配置文件，或者是因为客户端元素中找不到与此名称匹配的终结点元素。 (错误详细信息等于 PDBM.DataTransferObjects.FaultObject)。
+--------------------------------END--------------------------------
+
+--------------------------------Time:2017-01-04 15:44:13,647--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.ServiceModel.FaultException`1[PDBM.DataTransferObjects.FaultObject]: 在 ServiceModel 客户端配置部分中，找不到名称“WeChatConnectSoap”和协定“ServiceReference1.WeChatConnectSoap”的终结点元素。这可能是因为未找到应用程序的配置文件，或者是因为客户端元素中找不到与此名称匹配的终结点元素。 (错误详细信息等于 PDBM.DataTransferObjects.FaultObject)。
+--------------------------------END--------------------------------
+
+--------------------------------Time:2017-01-04 15:49:15,466--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.ServiceModel.FaultException`1[PDBM.DataTransferObjects.FaultObject]: 在 ServiceModel 客户端配置部分中，找不到名称“WeChatConnectSoap”和协定“ServiceReference1.WeChatConnectSoap”的终结点元素。这可能是因为未找到应用程序的配置文件，或者是因为客户端元素中找不到与此名称匹配的终结点元素。 (错误详细信息等于 PDBM.DataTransferObjects.FaultObject)。
+--------------------------------END--------------------------------
+
+--------------------------------Time:2017-01-04 15:52:02,700--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.ServiceModel.FaultException`1[PDBM.DataTransferObjects.FaultObject]: 在 ServiceModel 客户端配置部分中，找不到引用协定“ServiceReference1.WeChatConnectSoap”的默认终结点元素。这可能是因为未找到应用程序的配置文件，或者是因为客户端元素中找不到与此协定匹配的终结点元素。 (错误详细信息等于 PDBM.DataTransferObjects.FaultObject)。
+--------------------------------END--------------------------------
+
+--------------------------------Time:2017-01-04 15:56:24,385--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.ServiceModel.FaultException`1[PDBM.DataTransferObjects.FaultObject]: 在 ServiceModel 客户端配置部分中，找不到名称“WeChatConnectSoap”和协定“ServiceReference1.WeChatConnectSoap”的终结点元素。这可能是因为未找到应用程序的配置文件，或者是因为客户端元素中找不到与此名称匹配的终结点元素。 (错误详细信息等于 PDBM.DataTransferObjects.FaultObject)。
+--------------------------------END--------------------------------
+
+--------------------------------Time:2017-01-04 16:01:45,432--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.ServiceModel.FaultException`1[PDBM.DataTransferObjects.FaultObject]: 在 ServiceModel 客户端配置部分中，找不到名称“WeChatConnectSoap”和协定“ServiceReference1.WeChatConnectSoap”的终结点元素。这可能是因为未找到应用程序的配置文件，或者是因为客户端元素中找不到与此名称匹配的终结点元素。 (错误详细信息等于 PDBM.DataTransferObjects.FaultObject)。
+--------------------------------END--------------------------------
+
+--------------------------------Time:2017-01-04 16:02:46,508--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.ServiceModel.FaultException`1[PDBM.DataTransferObjects.FaultObject]: 在 ServiceModel 客户端配置部分中，找不到名称“WeChatConnectSoap”和协定“ServiceReference1.WeChatConnectSoap”的终结点元素。这可能是因为未找到应用程序的配置文件，或者是因为客户端元素中找不到与此名称匹配的终结点元素。 (错误详细信息等于 PDBM.DataTransferObjects.FaultObject)。
+--------------------------------END--------------------------------
+
+--------------------------------Time:2017-01-04 16:02:57,417--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.ServiceModel.FaultException`1[PDBM.DataTransferObjects.FaultObject]: 在 ServiceModel 客户端配置部分中，找不到名称“WeChatConnectSoap”和协定“ServiceReference1.WeChatConnectSoap”的终结点元素。这可能是因为未找到应用程序的配置文件，或者是因为客户端元素中找不到与此名称匹配的终结点元素。 (错误详细信息等于 PDBM.DataTransferObjects.FaultObject)。
+--------------------------------END--------------------------------
+
+--------------------------------Time:2017-01-04 16:17:08,756--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.ServiceModel.FaultException`1[PDBM.DataTransferObjects.FaultObject]: 在 ServiceModel 客户端配置部分中，找不到名称“WeChatConnectSoap”和协定“ServiceReference1.WeChatConnectSoap”的终结点元素。这可能是因为未找到应用程序的配置文件，或者是因为客户端元素中找不到与此名称匹配的终结点元素。 (错误详细信息等于 PDBM.DataTransferObjects.FaultObject)。
+--------------------------------END--------------------------------
+
+--------------------------------Time:2017-01-04 16:17:49,458--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.ServiceModel.FaultException`1[PDBM.DataTransferObjects.FaultObject]: 在 ServiceModel 客户端配置部分中，找不到名称“WeChatConnectSoap”和协定“ServiceReference1.WeChatConnectSoap”的终结点元素。这可能是因为未找到应用程序的配置文件，或者是因为客户端元素中找不到与此名称匹配的终结点元素。 (错误详细信息等于 PDBM.DataTransferObjects.FaultObject)。
+--------------------------------END--------------------------------
+
+--------------------------------Time:2017-01-04 16:28:57,711--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.ServiceModel.FaultException`1[PDBM.DataTransferObjects.FaultObject]: 服务器无法处理请求。 ---> 无法将类型为“System.Collections.Generic.Dictionary`2[System.String,System.Object]”的对象强制转换为类型“System.Collections.ArrayList”。 (错误详细信息等于 PDBM.DataTransferObjects.FaultObject)。
+--------------------------------END--------------------------------
+

@@ -1,0 +1,401 @@
+﻿<div id="frmAddressing" class="form">
+    <input class="mini-hidden" id="Id" name="Id" />
+    <input class="mini-hidden" id="WFActivityInstanceId" name="WFActivityInstanceId" />
+    <table style="width: 100%;">
+        <tr>
+            <td style="width: 80px; text-align: right;">建设项目</td>
+            <td>
+                <input id="ProjectId" name="ProjectId" style="width:200px;" allowinput="false" class="mini-buttonedit searchbox" showclose="true" text="请选择" value="00000000-0000-0000-0000-000000000000" required="true"
+                       onbuttonclick="onProjectSelectButtonClick" oncloseclick="onProjectSelectButtonCloseClick" onvalidation="onProjectIdValidation" />
+            </td>
+            <td style="width: 80px; text-align: right;">工程经理</td>
+            <td>
+                <input id="ProjectManagerId" name="ProjectManagerId" style="width:200px;" allowinput="false" class="mini-buttonedit searchbox" showclose="true" text="请选择" value="00000000-0000-0000-0000-000000000000" required="true"
+                       onbuttonclick="onUserSelectButtonClick" oncloseclick="onUserSelectButtonCloseClick" onvalidation="onBeProjectManagerIdValidation" />
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 80px; text-align: right;">规划名称</td>
+            <td>
+                <input id="PlanningName" name="PlanningName" class="mini-textbox" style="width: 200px;" readonly="true" value="@ViewData["PlanningName"]" />
+            </td>
+            <td style="width: 80px; text-align: right;">基站名称</td>
+            <td>
+                <input id="PlaceName" name="PlaceName" class="mini-textbox" style="width: 200px;" readonly="true" value="@ViewData["PlaceName"]" />
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 80px; text-align: right;">区域</td>
+            <td>
+                <input id="AreaName" name="AreaName" class="mini-textbox" style="width: 200px;" readonly="true" value="@ViewData["AreaName"]" />
+            </td>
+            <td style="width: 80px; text-align: right;">网格</td>
+            <td>
+                <input id="ReseauName" name="ReseauName" class="mini-textbox" style="width: 200px;" readonly="true" value="@ViewData["ReseauName"]" />
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 80px; text-align: right;">基站类型</td>
+            <td>
+                <input id="PlaceCategoryName" name="PlaceCategoryName" class="mini-textbox" style="width: 200px;" readonly="true" value="@ViewData["PlaceCategoryName"]" />
+            </td>
+            <td style="width: 80px; text-align: right;">重要性程度</td>
+            <td>
+                <input id="ImportanceName" name="ImportanceName" class="mini-textbox" style="width: 200px;" readonly="true" value="@ViewData["ImportanceName"]" />
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 80px; text-align: right;">经度</td>
+            <td>
+                <input id="Lng" name="Lng" class="mini-textbox" vtype='float' style="width: 200px;" readonly="true" value="@ViewData["Lng"]" />
+            </td>
+            <td style="width: 80px; text-align: right;">纬度</td>
+            <td>
+                <input id="Lat" name="Lat" class="mini-textbox" vtype='float' style="width: 200px;" readonly="true" value="@ViewData["Lat"]" />
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 80px; text-align: right;">导航图</td>
+            <td>
+                <a class="navigationmapedit" onclick="onMapClick()"></a>
+            </td>
+            <td style="width: 80px; text-align: right;">示意图</td>
+            <td>
+                <table>
+                    <tr>
+                        <td style="width:16px">
+                            <a class="fileedit" onclick="onFileClick()"></a>
+                        </td>
+                        <td>
+                            附件数量：<input id="Count" name="Count" class="mini-textbox" value="@ViewData["Count"]" />
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 80px; text-align: right;">周边场景</td>
+            <td>
+                <input id="SceneName" name="SceneName" class="mini-textbox" style="width: 200px;" readonly="true" value="@ViewData["SceneName"]" />
+            </td>
+            <td style="width: 80px; text-align: right;">寻址状态</td>
+            <td>
+                <input id="AddressingStateName" name="AddressingStateName" class="mini-textbox" style="width: 200px;" readonly="true" value="@ViewData["AddressingStateName"]" />
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 80px; text-align: right;">业主名称</td>
+            <td>
+                <input id="OwnerName" name="OwnerName" class="mini-textbox" style="width:200px;" readonly="true" value="@ViewData["OwnerName"]" />
+            </td>
+            <td style="width: 80px; text-align: right;">移动需求</td>
+            <td>
+                <input id="MobileDemand" name="MobileDemand" class="mini-combobox" value="2" style="width:200px;" data=@Html.Raw(ViewData["Demand"]) />
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 80px; text-align: right;">联系人</td>
+            <td>
+                <input id="OwnerContact" name="OwnerContact" class="mini-textbox" style="width:200px;" readonly="true" value="@ViewData["OwnerContact"]" />
+            </td>
+            <td style="width: 80px; text-align: right;">电信需求</td>
+            <td>
+                <input id="TelecomDemand" name="TelecomDemand" class="mini-combobox" value="2" style="width:200px;" data=@Html.Raw(ViewData["Demand"]) />
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 80px; text-align: right;">联系方式</td>
+            <td>
+                <input id="OwnerPhoneNumber" name="OwnerPhoneNumber" class="mini-textbox" style="width:200px;" readonly="true" value="@ViewData["OwnerPhoneNumber"]" />
+            </td>
+            <td style="width: 80px; text-align: right;">联通需求</td>
+            <td>
+                <input id="UnicomDemand" name="UnicomDemand" class="mini-combobox" value="2" style="width:200px;" data=@Html.Raw(ViewData["Demand"]) />
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 80px; text-align: right;">详细地址</td>
+            <td>
+                <input id="DetailedAddress" name="DetailedAddress" class="mini-textarea" style="width: 200px; height: 40px;" readonly="true" value="@ViewData["DetailedAddress"]" />
+            </td>
+            <td style="width: 80px; text-align: right;">备注</td>
+            <td>
+                <input id="Remarks" name="Remarks" class="mini-textarea" style="width: 200px; height: 40px;" readonly="true" value="@ViewData["Remarks"]" />
+            </td>
+        </tr>
+        <tr>
+            <td align="center" colspan="4">
+                <a class="mini-button" iconcls="icon-save" onclick="onSaveClick">保存</a>
+            </td>
+        </tr>
+    </table>
+</div>
+<script type="text/javascript">
+    mini.parse();
+
+    var frmAddressing = new mini.Form("#frmAddressing");
+    var txtAddressingId = mini.get("Id");
+    var txtWFActivityInstanceId = mini.get("WFActivityInstanceId");
+    var beProjectId = mini.get("ProjectId");
+    var beProjectManagerId = mini.get("ProjectManagerId");
+    var cbMobileDemand = mini.get("MobileDemand");
+    var cbTelecomDemand = mini.get("TelecomDemand");
+    var cbUnicomDemand = mini.get("UnicomDemand");
+
+    var count = mini.get("Count");
+    count.setWidth("10px");
+    if (count.setReadOnly) count.setReadOnly(true);     //只读
+    if (count.setIsValid) count.setIsValid(true);      //去除错误提示
+    if (count.addCls) count.addCls("asLabel");          //增加asLabel外观
+
+    init();
+
+    function init() {
+        txtAddressingId.setValue("@ViewData["Id"]");
+        txtWFActivityInstanceId.setValue("@ViewData["WFActivityInstanceId"]");
+        beProjectId.setValue("@ViewData["ProjectId"]");
+        beProjectId.setText("@ViewData["ProjectName"]");
+        beProjectManagerId.setValue("@ViewData["ProjectManagerId"]");
+        beProjectManagerId.setText("@ViewData["ProjectManagerName"]");
+        cbMobileDemand.setValue(@ViewData["MobileDemand"]);
+        cbTelecomDemand.setValue(@ViewData["TelecomDemand"]);
+        cbUnicomDemand.setValue(@ViewData["UnicomDemand"]);
+
+        if ("@ViewData["CompanyId"]" == "9d4a4487-2ad6-4c19-8633-00742e8f1d28") {
+            beProjectId.enabled = true;
+            beProjectManagerId.enabled = true;
+            cbMobileDemand.enabled = false;
+            cbTelecomDemand.enabled = false;
+            cbUnicomDemand.enabled = false;
+        }
+        else if ("@ViewData["CompanyId"]" == "6365f3de-0fc5-4930-a321-2350ee6269bb") {
+            beProjectId.enabled = false;
+            beProjectManagerId.enabled = false;
+            cbMobileDemand.enabled = true;
+            cbTelecomDemand.enabled = false;
+            cbUnicomDemand.enabled = false;
+        }
+        else if ("@ViewData["CompanyId"]" == "2e0ffe5f-c03a-4767-9915-9683f0db0b53") {
+            beProjectId.enabled = false;
+            beProjectManagerId.enabled = false;
+            cbMobileDemand.enabled = false;
+            cbTelecomDemand.enabled = true;
+            cbUnicomDemand.enabled = false;
+        }
+        else if ("@ViewData["CompanyId"]" == "0b2a7f2d-b623-4ef2-a89d-ff4eab0a1600") {
+            beProjectId.enabled = false;
+            beProjectManagerId.enabled = false;
+            cbMobileDemand.enabled = false;
+            cbTelecomDemand.enabled = false;
+            cbUnicomDemand.enabled = true;
+        }
+    }
+
+    function onProjectSelectButtonClick() {
+        var beSelect = this;
+        mini.open({
+            url: "@Url.RouteUrl(new { controller = "CustomControl", action = "ProjectSelection" })",
+            title: "选择建设项目",
+            width: 685,
+            height: 410,
+            allowResize: false,
+            ondestroy: function (action) {
+                if (action == "ok") {
+                    var iframe = this.getIFrameEl();
+                    var data = iframe.contentWindow.GetData();
+                    data = mini.clone(data);
+                    beSelect.setValue(data.id);
+                    beSelect.setText(data.text);
+                }
+                else if (action == "cancel") {
+                    beSelect.setValue("00000000-0000-0000-0000-000000000000");
+                    beSelect.setText("请选择");
+                }
+                beSelect.validate();
+            }
+        });
+    }
+
+    function onProjectSelectButtonCloseClick() {
+        this.setValue("00000000-0000-0000-0000-000000000000");
+        this.setText("请选择");
+        this.validate();
+    }
+
+    function onProjectIdValidation(e) {
+        if (e.isValid) {
+            if (e.value == "00000000-0000-0000-0000-000000000000") {
+                e.errorText = "请选择建设项目";
+                e.isValid = false;
+            }
+        }
+    }
+
+    function onMapClick() {
+        var placeId = "@ViewData["PlaceId"]";
+        var planningId = "@ViewData["PlanningId"]";
+        var el = document.body;
+        mini.mask({
+            el: el,
+            cls: 'mini-mask-loading',
+            html: '加载中...'
+        });
+        setTimeout(function () {
+            var url, data, getId;
+            if (placeId == "00000000-0000-0000-0000-000000000000") {
+                url = "@Url.RouteUrl(new { controller = "Map", action = "GetPlanningPoint" })";
+                data = { PlanningId: planningId, AreaId: "00000000-0000-0000-0000-000000000000", PlanningName: "", Lng: 0, Lat: 0, Profession: 1 };
+                getId = planningId;
+            }
+            else {
+                url = "@Url.RouteUrl(new { controller = "Map", action = "GetPlacePoint" })";
+                data = { PlaceId: placeId, AreaId: "00000000-0000-0000-0000-000000000000", PlaceName: "", Lng: 0, Lat: 0, Profession: 1 };
+                getId = placeId;
+            }
+            $.ajax({
+                url: url,
+                data: data,
+                type: "get",
+                async: false,
+                success: function (result, textStatus) {
+                    mini.unmask(el);
+                    if (result.Id != null && result.Id == getId) {
+                        var title;
+                        if (placeId == "00000000-0000-0000-0000-000000000000") {
+                            title = result.PlanningName;
+                        }
+                        else {
+                            title = result.PlaceName;
+                        }
+                        mini.open({
+                            url: "@Url.RouteUrl(new { controller = "Map", action = "NavigationMap" })",
+                            title: title,
+                            iconCls: "icon-map",
+                            width: 800,
+                            height: 550,
+                            showMaxButton: true,
+                            onload: function () {
+                                var iframe = this.getIFrameEl();
+                                var data = result;
+                                iframe.contentWindow.SetData(data);
+                            },
+                            ondestroy: function (action) {
+                                if (action == "ok") {
+                                    var iframe = this.getIFrameEl();
+                                    var data = iframe.contentWindow.GetData();
+                                    data = mini.clone(data);
+                                    txtLng.setValue(data.Lng);
+                                    txtLat.setValue(data.Lat);
+                                }
+                            }
+                        });
+                    }
+                },
+                error: function (xmlHttpRequest, textStatus, errorThrown) {
+                    mini.unmask(el);
+                }
+            });
+        }, 50);
+    }
+
+    function onFileClick() {
+        var id = "@ViewData["Id"]";
+        var el = document.body;
+        mini.mask({
+            el: el,
+            cls: 'mini-mask-loading',
+            html: '加载中...'
+        });
+        setTimeout(function () {
+            $.ajax({
+                url: "@Url.RouteUrl(new { controller = "File", action = "GetAddressingFiles" })",
+                data: { AddressingId: id, FileIdList: "" },
+                type: "get",
+                async: false,
+                success: function (result, textStatus) {
+                    mini.unmask(el);
+                    if (result.Code == null || !result.Code) {
+                        mini.open({
+                            url: "@Url.RouteUrl(new { controller = "File", action = "FileManager" })",
+                            title: "示意图",
+                            iconCls: "icon-file",
+                            width: 620,
+                            height: 250,
+                            allowResize: false,
+                            onload: function () {
+                                var iframe = this.getIFrameEl();
+                                var data = result;
+                                iframe.contentWindow.SetData(data);
+                            }
+                        });
+                    }
+                },
+                error: function (xmlHttpRequest, textStatus, errorThrown) {
+                    mini.unmask(el);
+                }
+            });
+        }, 50);
+    }
+
+    function onUserSelectButtonClick() {
+        var beSelect = this;
+        mini.open({
+            url: "@Url.RouteUrl(new { controller = "CustomControl", action = "UserSelection" })",
+            title: "选择用户",
+            width: 620,
+            height: 350,
+            allowResize: false,
+            ondestroy: function (action) {
+                if (action == "ok") {
+                    var iframe = this.getIFrameEl();
+                    var data = iframe.contentWindow.GetData();
+                    data = mini.clone(data);
+                    beSelect.setValue(data.id);
+                    beSelect.setText(data.text);
+                    beSelect.validate();
+                }
+                else if (action == "cancel") {
+                    beSelect.setValue("00000000-0000-0000-0000-000000000000");
+                    beSelect.setText("请选择");
+                    beSelect.validate();
+                }
+            }
+        });
+    }
+
+    function onUserSelectButtonCloseClick() {
+        this.setValue("00000000-0000-0000-0000-000000000000");
+        this.setText("请选择");
+        this.validate();
+    }
+
+    function onBeProjectManagerIdValidation(e) {
+        if (e.isValid) {
+            if (e.value == "00000000-0000-0000-0000-000000000000") {
+                e.errorText = "请选择工程经理";
+                e.isValid = false;
+            }
+        }
+    }
+
+    function onSaveClick() {
+        frmAddressing.validate();
+        if (frmAddressing.isValid() == false) return;
+        var loading = mini.loading("处理中,请稍后...", "保存数据");
+        var jsonData = mini.encode(frmAddressing.getData());
+        $.ajax({
+            url: "@Url.RouteUrl(new { controller = "BaseStationBM", action = "SaveAddressingEdit" })",
+            data: AddAntiForgeryToken({ data: jsonData }),
+            type: "post",
+            success: function (result, textStatus) {
+                mini.hideMessageBox(loading);
+                if (result.Code != null && result.Code == 0) {
+                    ShowSucessMessage(result.Message);
+                }
+            },
+            error: function (xmlHttpRequest, textStatus, errorThrown) {
+                mini.hideMessageBox(loading);
+            }
+        });
+    }
+</script>

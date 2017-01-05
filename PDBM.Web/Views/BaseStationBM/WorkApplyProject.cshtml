@@ -1,0 +1,319 @@
+﻿<div id="myToolbar" class="mini-toolbar" style="border-bottom: 0px; padding: 0px;">
+    <table style="width: 100%;" cellpadding="0" cellspacing="0">
+        <tr>
+            <td style="width: 100%;">当前位置：待申请项目隐患上报单</td>
+            <td style="white-space: nowrap;">
+                <a id="btnSearch" class="mini-button" iconcls="icon-search" plain="true" onclick="onSearchClick">查询</a>
+                <a class="mini-button" iconcls="icon-edit" plain="true" onclick="onProjectCodeClick">登记项目编码</a>
+                <a class="mini-button" iconcls="icon-edit" plain="true" onclick="onIsProjectClick">立项完成</a>
+                <a class="mini-button" iconcls="icon-edit" plain="true" onclick="onCancelProjectClick">取消立项</a>
+            </td>
+        </tr>
+    </table>
+</div>
+<div class="mini-fit">
+    <div id="dgWorkApply" class="mini-datagrid" style="width: 100%; height: 100%;" idfield="Id" allowmovecolumn="false"
+         multiselect="true" fitcolumns="false" onlycheckselection="true" showreloadbutton="false" pagesize="15" sizelist="[15,30,50,100]"
+         ondrawcell="onDrawCell" onload="onDgWorkApplyLoad" oncellclick="onCellClick">
+        <div property="columns">
+            <div type="indexcolumn"></div>
+            <div type="checkcolumn"></div>
+            <div field="IsFile" header=""></div>
+            <div field="CreateDate" header="申请日期" width="100" dateformat="yyyy-MM-dd"></div>
+            <div field="Title" header="标题" width="250"></div>
+            <div field="ProjectCode" header="项目编码" width="100"></div>
+            <div type="comboboxcolumn" field="IsProject" header="是否立项" width="70">
+                <input property="editor" class="mini-combobox" style="width: 100%;" data=@Html.Raw(ViewData["Bool"]) />
+            </div>
+            <div field="ApplyReason" header="申请事由" width="250"></div>
+            <div field="File" header="附件" width="40"></div>
+            <div field="CreateFullName" header="申请人" width="150"></div>
+        </div>
+    </div>
+</div>
+<div id="winQuery" class="mini-window" style="width: 350px; height: 170px;"
+     showmodal="true" allowresize="false" title="查询条件">
+    <table style="width: 100%;">
+        <tr>
+            <td style="width: 80px; text-align: right;">申请日期</td>
+            <td>
+                <table border="0" cellpadding="0" cellspacing="0">
+                    <tr>
+                        <td><input id="dpBeginDate" class="mini-datepicker" style="width:98px;" value="new Date()" showclearbutton="false" allowinput="false" /></td>
+                        <td>至</td>
+                        <td><input id="dpEndDate" class="mini-datepicker" style="width:98px;" value="new Date()" showclearbutton="false" allowinput="false" /></td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 80px; text-align: right;">标题</td>
+            <td>
+                <input id="txtTitle" class="mini-textbox" style="width:208px;" />
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 80px; text-align: right;">是否立项</td>
+            <td>
+                <input id="cbIsProject" class="mini-combobox" value="2" style="width:208px;" data=@Html.Raw(ViewData["BoolByAll"]) />
+            </td>
+        </tr>
+    </table>
+    <div style="text-align: center; padding: 10px;">
+        <a class="mini-button" iconcls="icon-ok" onclick="onOKClick">确定</a>
+    </div>
+</div>
+<div id="winProjectCode" class="mini-window" style="width: 350px; height: 120px;"
+     showmodal="true" allowresize="false">
+    <div id="frmProjectCode" class="form">
+        <input class="mini-hidden" id="Id" name="Id" />
+        <table style="width: 100%;">
+            <tr>
+                <td style="width: 80px; text-align: right;">项目编码</td>
+                <td>
+                    <input id="ProjectCode" name="ProjectCode" class="mini-textbox" requirederrortext="请输入项目编码" required="true" style="width: 200px;" />
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div style="text-align: center; padding: 10px;">
+        <a class="mini-button" iconcls="icon-save" onclick="onSaveClick" style="margin-right: 10px;">保存</a>
+    </div>
+</div>
+<script type="text/javascript">
+    mini.parse();
+
+    var btnSearch = mini.get("btnSearch");
+    var dgWorkApply = mini.get("dgWorkApply");
+    var winQuery = mini.get("winQuery");
+    var dpBeginDate = mini.get("dpBeginDate");
+    var dpEndDate = mini.get("dpEndDate");
+    var txtTitle = mini.get("txtTitle");
+    var cbIsProject = mini.get("cbIsProject");
+
+    var winProjectCode = mini.get("winProjectCode");
+    var frmProjectCode = new mini.Form("#frmProjectCode");
+    var txtWorkApplyId = mini.get("Id");
+    var txt_ProjectCode = mini.get("ProjectCode");
+
+    Init();
+
+    function Init() {
+        dgWorkApply.hideColumn(2);
+        dpBeginDate.setValue(new Date().DateAdd("m", -1));
+        BindDgWorkApply();
+    }
+
+    function BindDgWorkApply() {
+        btnSearch.setEnabled(false);
+        var query_BeginDate = dpBeginDate.getFormValue();
+        var query_EndDate = dpEndDate.getFormValue();
+        var query_Title = txtTitle.getValue();
+        var query_IsProject = cbIsProject.getValue();
+        if (dgWorkApply.getUrl() == "") {
+            dgWorkApply.setUrl("@Url.RouteUrl(new { controller = "BaseStationBM", action = "GetWorkApplyProjectPage" })");
+        }
+        dgWorkApply.clearSelect(false);
+        dgWorkApply.load({ BeginDate: query_BeginDate, EndDate: query_EndDate, Title: query_Title, ProjectCode: "", IsProject: query_IsProject });
+    }
+
+    function onDgWorkApplyLoad() {
+        btnSearch.setEnabled(true);
+    }
+
+    function onDrawCell(e) {
+        if (e.field == "Title" && e.value != "") {
+            e.cellStyle = "color:Blue;";
+        }
+        else if (e.field == "File" && e.record.IsFile != "") {
+            e.cellHtml = "<a class='file' onclick='onFileClick(\"" + e.record.Id + "\");'></a>";
+        }
+    }
+
+    function onSearchClick() {
+        winQuery.show();
+    }
+
+    function onOKClick() {
+        BindDgWorkApply();
+        winQuery.hide();
+    }
+
+    function onCellClick(e) {
+        if (e.column.field == "Title") {
+            var field = e.field;
+            var row = e.row;
+            if (row[field] != "") {
+                OpenPrintWindow("@Url.RouteUrl(new { controller = "PrintPage", action = "WorkApplyPrint" })" + "/" + e.record.Id);
+            }
+        }
+    }
+
+    function onFileClick(id) {
+        var el = document.body;
+        mini.mask({
+            el: el,
+            cls: 'mini-mask-loading',
+            html: '加载中...'
+        });
+        setTimeout(function () {
+            $.ajax({
+                url: "@Url.RouteUrl(new { controller = "File", action = "GetWorkApplyFiles" })",
+                data: { Id: id, FileIdList: "" },
+                type: "get",
+                async: false,
+                success: function (result, textStatus) {
+                    mini.unmask(el);
+                    if (result.Code == null || !result.Code) {
+                        mini.open({
+                            url: "@Url.RouteUrl(new { controller = "File", action = "FileManager" })",
+                            title: "附件",
+                            iconCls: "icon-file",
+                            width: 620,
+                            height: 250,
+                            allowResize: false,
+                            onload: function () {
+                                var iframe = this.getIFrameEl();
+                                var data = result;
+                                iframe.contentWindow.SetData(data);
+                            }
+                        });
+                    }
+                },
+                error: function (xmlHttpRequest, textStatus, errorThrown) {
+                    mini.unmask(el);
+                }
+            });
+        }, 50);
+    }
+
+    function onProjectCodeClick() {
+        var rows = dgWorkApply.getSelecteds();
+        if (rows.length == 0) {
+            mini.alert("请选择一条要登记项目编码的单据");
+        }
+        else {
+            ClearFrmProjectCode();
+            winProjectCode.setTitle("登记项目编码");
+            winProjectCode.show();
+            var el = winProjectCode.getEl();
+            mini.mask({
+                el: el,
+                cls: 'mini-mask-loading',
+                html: '加载中...'
+            });
+            setTimeout(function () {
+                $.ajax({
+                    url: "@Url.RouteUrl(new { controller = "BaseStationBM", action = "GetWorkApplyById" })" + "/" + rows[0].Id,
+                    type: "get",
+                    async: false,
+                    success: function (result, textStatus) {
+                        if (result.Id != null && result.Id == rows[0].Id) {
+                            frmProjectCode.setData(result);
+                            txt_ProjectCode.focus();
+                            txtWorkApplyId.setValue(rows[0].Id);
+                        }
+                        else {
+                            winProjectCode.hide();
+                        }
+                    },
+                    error: function (xmlHttpRequest, textStatus, errorThrown) {
+                        winProjectCode.hide();
+                    }
+                });
+            }, 50);
+            setTimeout(function () {
+                mini.unmask(el);
+            }, 300);
+        }
+    }
+
+    function ClearFrmProjectCode() {
+        frmProjectCode.clear();
+    }
+
+    function onSaveClick() {
+        frmProjectCode.validate();
+        if (frmProjectCode.isValid() == false) return;
+        var loading = mini.loading("处理中,请稍后...", "保存数据");
+        var jsonData = mini.encode(frmProjectCode.getData());
+        $.ajax({
+            url: "@Url.RouteUrl(new { controller = "BaseStationBM", action = "SaveWorkApplyProjectCode" })",
+            data: AddAntiForgeryToken({ data: jsonData }),
+            type: "post",
+            success: function (result, textStatus) {
+                mini.hideMessageBox(loading);
+                if (result.Code != null && result.Code == 0) {
+                    winProjectCode.hide();
+                    ShowSucessMessage(result.Message);
+                    BindDgWorkApply();
+                }
+            },
+            error: function (xmlHttpRequest, textStatus, errorThrown) {
+                mini.hideMessageBox(loading);
+            }
+        });
+    }
+
+    function onIsProjectClick() {
+        var rows = dgWorkApply.getSelecteds();
+        if (rows.length == 0) {
+            mini.alert("请选择要立项完成的数据");
+        }
+        else {
+            mini.confirm("确定要修改选中的数据？", "立项完成",
+            function (action) {
+                if (action == "ok") {
+                    var loading = mini.loading("处理中,请稍后...", "立项完成");
+                    var jsonData = mini.encode(rows);
+                    $.ajax({
+                        url: "@Url.RouteUrl(new { controller = "BaseStationBM", action = "SaveIsProjectWorkApplys" })",
+                        data: AddAntiForgeryToken({ data: jsonData }),
+                        type: "post",
+                        success: function (result, textStatus) {
+                            mini.hideMessageBox(loading);
+                            if (result.Code != null && result.Code == 0) {
+                                ShowSucessMessage(result.Message);
+                                BindDgWorkApply();
+                            }
+                        },
+                        error: function (xmlHttpRequest, textStatus, errorThrown) {
+                            mini.hideMessageBox(loading);
+                        }
+                    });
+                }
+            });
+        }
+    }
+
+    function onCancelProjectClick() {
+        var rows = dgWorkApply.getSelecteds();
+        if (rows.length == 0) {
+            mini.alert("请选择要取消立项的数据");
+        }
+        else {
+            mini.confirm("确定要修改选中的数据？", "取消立项",
+            function (action) {
+                if (action == "ok") {
+                    var loading = mini.loading("处理中,请稍后...", "取消立项");
+                    var jsonData = mini.encode(rows);
+                    $.ajax({
+                        url: "@Url.RouteUrl(new { controller = "BaseStationBM", action = "CancelIsProjectWorkApplys" })",
+                        data: AddAntiForgeryToken({ data: jsonData }),
+                        type: "post",
+                        success: function (result, textStatus) {
+                            mini.hideMessageBox(loading);
+                            if (result.Code != null && result.Code == 0) {
+                                ShowSucessMessage(result.Message);
+                                BindDgWorkApply();
+                            }
+                        },
+                        error: function (xmlHttpRequest, textStatus, errorThrown) {
+                            mini.hideMessageBox(loading);
+                        }
+                    });
+                }
+            });
+        }
+    }
+</script>

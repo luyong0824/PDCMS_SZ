@@ -1,0 +1,1496 @@
+﻿<div id="frmTask" class="form">
+    <div id="tabContent" class="mini-tabs" activeindex="0" style="width: 663px; height: 248px;" plain="true">
+        @*<div title="基站信息" style="height:100%">
+            <table style="width: 100%;">
+                <tr>
+                    <td style="width: 80px; text-align: right;">基站编码</td>
+                    <td>
+                        <input id="PlaceCode" name="PlaceCode" class="mini-textbox" style="width: 200px;" readonly="true" value="@ViewData["PlaceCode"]" />
+                    </td>
+                    <td style="width: 80px; text-align: right;">基站名称</td>
+                    <td>
+                        <input id="PlaceName" name="PlaceName" class="mini-textbox" style="width: 200px;" readonly="true" value="@ViewData["PlaceName"]" />
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 80px; text-align: right;">区域</td>
+                    <td>
+                        <input id="AreaName" name="AreaName" class="mini-textbox" style="width: 200px;" readonly="true" value="@ViewData["AreaName"]" />
+                    </td>
+                    <td style="width: 80px; text-align: right;">网格</td>
+                    <td>
+                        <input id="ReseauName" name="ReseauName" class="mini-textbox" style="width: 200px;" readonly="true" value="@ViewData["ReseauName"]" />
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 80px; text-align: right;">基站类型</td>
+                    <td>
+                        <input id="PlaceCategoryName" name="PlaceCategoryName" class="mini-textbox" style="width: 200px;" readonly="true" value="@ViewData["PlaceCategoryName"]" />
+                    </td>
+                    <td style="width: 80px; text-align: right;">重要性程度</td>
+                    <td>
+                        <input id="ImportanceName" name="ImportanceName" class="mini-textbox" style="width: 200px;" readonly="true" value="@ViewData["ImportanceName"]" />
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 80px; text-align: right;">经度</td>
+                    <td>
+                        <input id="Lng" name="Lng" class="mini-textbox" vtype='float' style="width: 200px;" readonly="true" value="@ViewData["Lng"]" />
+                    </td>
+                    <td style="width: 80px; text-align: right;">纬度</td>
+                    <td>
+                        <input id="Lat" name="Lat" class="mini-textbox" vtype='float' style="width: 200px;" readonly="true" value="@ViewData["Lat"]" />
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 80px; text-align: right;">导航图</td>
+                    <td>
+                        <a class="navigationmapedit" onclick="onMapClick()"></a>
+                    </td>
+                    <td style="width: 80px; text-align: right;">附件</td>
+                    <td>
+                        <table>
+                            <tr>
+                                <td style="width:16px">
+                                    <a class="fileedit" onclick="onFileClick()"></a>
+                                </td>
+                                <td>
+                                    附件数量：<input id="Count" name="Count" class="mini-textbox" value="@ViewData["Count"]" />
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 80px; text-align: right;">租赁部门</td>
+                    <td>
+                        <input id="AddressingDepartmentName" name="AddressingDepartmentName" class="mini-textbox" readonly="true" style="width: 200px;" value="@ViewData["AddressingDepartmentName"]" />
+                    </td>
+                    <td style="width: 80px; text-align: right;">租赁人</td>
+                    <td>
+                        <input id="AddressingRealName" name="AddressingRealName" readonly="true" class="mini-textbox" style="width:200px;" value="@ViewData["AddressingRealName"]" />
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 80px; text-align: right;">产权</td>
+                    <td>
+                        <input id="PlaceOwnerName" name="PlaceOwnerName" class="mini-textbox" style="width: 200px;" readonly="true" value="@ViewData["PlaceOwnerName"]" />
+                    </td>
+                    <td style="width: 80px; text-align: right;">业主名称</td>
+                    <td>
+                        <input id="OwnerName" name="OwnerName" class="mini-textbox" style="width:200px;" readonly="true" value="@ViewData["OwnerName"]" />
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 80px; text-align: right;">联系人</td>
+                    <td>
+                        <input id="OwnerContact" name="OwnerContact" class="mini-textbox" style="width:200px;" readonly="true" value="@ViewData["OwnerContact"]" />
+                    </td>
+                    <td style="width: 80px; text-align: right;">联系方式</td>
+                    <td>
+                        <input id="OwnerPhoneNumber" name="OwnerPhoneNumber" class="mini-textbox" style="width:200px;" readonly="true" value="@ViewData["OwnerPhoneNumber"]" />
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 80px; text-align: right;">详细地址</td>
+                    <td>
+                        <input id="DetailedAddress" name="DetailedAddress" class="mini-textarea" style="width: 200px; height: 40px;" readonly="true" value="@ViewData["DetailedAddress"]" />
+                    </td>
+                    <td style="width: 80px; text-align: right;">备注</td>
+                    <td>
+                        <input id="Remarks" name="Remarks" class="mini-textarea" style="width: 200px; height: 40px;" readonly="true" value="@ViewData["Remarks"]" />
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 80px; text-align: right;">2G逻辑号</td>
+                    <td>
+                        <input id="G2Number" name="G2Number" class="mini-textbox" style="width: 200px;" readonly="true" value="@ViewData["G2Number"]" />
+                    </td>
+                    <td style="width: 80px; text-align: right;">2D逻辑号</td>
+                    <td>
+                        <input id="D2Number" name="D2Number" class="mini-textbox" style="width:200px;" readonly="true" value="@ViewData["D2Number"]" />
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 80px; text-align: right;">3G逻辑号</td>
+                    <td>
+                        <input id="G3Number" name="G3Number" class="mini-textbox" style="width: 200px;" readonly="true" value="@ViewData["G3Number"]" />
+                    </td>
+                    <td style="width: 80px; text-align: right;">4G逻辑号</td>
+                    <td>
+                        <input id="G4Number" name="G4Number" class="mini-textbox" style="width:200px;" readonly="true" value="@ViewData["G4Number"]" />
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 80px; text-align: right;">5G逻辑号</td>
+                    <td colspan="3">
+                        <input id="G5Number" name="G5Number" class="mini-textbox" style="width: 200px;" readonly="true" value="@ViewData["G5Number"]" />
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 80px; text-align: right;">登记人</td>
+                    <td>
+                        <input id="CreateUserName" name="CreateUserName" class="mini-textbox" style="width: 200px;" readonly="true" value="@ViewData["CreateUserName"]" />
+                    </td>
+                    <td style="width: 80px; text-align: right;">登记日期</td>
+                    <td>
+                        <input id="CreateDate" name="CreateDate" class="mini-textbox" style="width: 200px;" readonly="true" value="@ViewData["CreateDate"]" />
+                    </td>
+                </tr>
+            </table>
+        </div>*@
+        <div title="项目信息" style="height:100%">
+            <table style="width: 100%;">
+                <tr>
+                    <td style="width: 80px; text-align: right;">项目经理</td>
+                    <td>
+                        <input id="AreaManagerName" name="AreaManagerName" class="mini-textbox" readonly="true" style="width: 200px;" value="@ViewData["AreaManagerName"]" />
+                    </td>
+                    <td style="width: 80px; text-align: right;">总设单位</td>
+                    <td>
+                        <input id="GeneralDesignName" name="GeneralDesignName" class="mini-textbox" readonly="true" style="width:200px;" value="@ViewData["GeneralDesignName"]" />
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 80px; text-align: right;">设计人</td>
+                    <td>
+                        <input id="DesignRealName" name="DesignRealName" class="mini-textbox" readonly="true" style="width: 200px;" value="@ViewData["DesignRealName"]" />
+                    </td>
+                    <td style="width: 80px; text-align: right;">设计日期</td>
+                    <td>
+                        <input id="DesignDateText" name="DesignDateText" class="mini-textbox" readonly="true" style="width: 200px;" value="@ViewData["DesignDateText"]" />
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 80px; text-align: right;">项目编码</td>
+                    <td>
+                        <input id="ProjectCode" name="ProjectCode" class="mini-textbox" readonly="true" style="width: 200px;" value="@ViewData["ProjectCode"]" />
+                    </td>
+                    <td style="width: 80px; text-align: right;">项目进度</td>
+                    <td>
+                        <input id="ProjectProgressName" name="ProjectProgressName" class="mini-textbox" readonly="true" style="width:200px;" value="@ViewData["ProjectProgressName"]" />
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 80px; text-align: right;">启动日期</td>
+                    <td>
+                        <input id="ProjectBeginDateText" name="ProjectBeginDateText" class="mini-textbox" readonly="true" style="width: 200px;" value="@ViewData["ProjectBeginDateText"]" />
+                    </td>
+                    <td style="width: 80px; text-align: right;">开通时间</td>
+                    <td>
+                        <input id="ProjectDateText" name="ProjectDateText" class="mini-textbox" readonly="true" style="width:200px;" value="@ViewData["ProjectDateText"]" />
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 80px; text-align: right;">进度简述</td>
+                    <td rowspan="2">
+                        <input id="ProgressMemos" name="ProgressMemos" class="mini-textarea" readonly="true" style="width: 200px; height: 50px;" value="@ViewData["ProgressMemos"]" />
+                    </td>
+                    <td style="width: 80px; text-align: right;">总设图</td>
+                    <td>
+                        <table>
+                            <tr>
+                                <td style="width:16px">
+                                    <a class="fileedit" onclick="onDesignFileClick();"></a>
+                                </td>
+                                <td>
+                                    附件数量：<input id="DesignCount" name="DesignCount" class="mini-textbox" value="@ViewData["DesignCount"]" />
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">&nbsp;</td>
+                    <td style="width: 80px; text-align: right;">现场摄像</td>
+                    <td>
+                        <table>
+                            <tr>
+                                <td style="width:16px">
+                                    <a class="fileedit" onclick="onImageFileClick();"></a>
+                                </td>
+                                <td>
+                                    附件数量：<input id="ImageCount" name="ImageCount" class="mini-textbox" value="@ViewData["ImageCount"]" />
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div title="天桅" style="height:100%">
+            <table style="width: 100%;">
+                <tr>
+                    <td style="width: 80px; text-align: right;">工程经理</td>
+                    <td>
+                        <input id="ProjectManagerName1" name="ProjectManagerName1" class="mini-textbox" readonly="true" style="width: 200px;" value="@ViewData["ProjectManagerName1"]" />
+                    </td>
+                    <td style="width: 80px; text-align: right;">设计单位</td>
+                    <td>
+                        <input id="DesignCustomerName1" name="DesignCustomerName1" class="mini-textbox" readonly="true" style="width:200px;" value="@ViewData["DesignCustomerName1"]" />
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 80px; text-align: right;">施工单位</td>
+                    <td>
+                        <input id="ConstructionCustomerName1" name="ConstructionCustomerName1" class="mini-textbox" readonly="true" style="width: 200px;" value="@ViewData["ConstructionCustomerName1"]" />
+                    </td>
+                    <td style="width: 80px; text-align: right;">监理单位</td>
+                    <td>
+                        <input id="SupervisionCustomerName1" name="SupervisionCustomerName1" class="mini-textbox" readonly="true" style="width: 200px;" value="@ViewData["SupervisionCustomerName1"]" />
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 80px; text-align: right;">设计人</td>
+                    <td>
+                        <input id="DesignRealName1" name="DesignRealName1" class="mini-textbox" readonly="true" style="width: 200px;" value="@ViewData["DesignRealName1"]" />
+                    </td>
+                    <td style="width: 80px; text-align: right;">施工图</td>
+                    <td>
+                        <table>
+                            <tr>
+                                <td style="width:16px">
+                                    <a class="fileedit" onclick="onDesignFile1Click();"></a>
+                                </td>
+                                <td>
+                                    附件数量：<input id="DesignCount1" name="DesignCount1" class="mini-textbox" value="@ViewData["DesignCount1"]" />
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 80px; text-align: right;">设计日期</td>
+                    <td>
+                        <input id="DesignDateText1" name="DesignDateText1" class="mini-textbox" readonly="true" style="width: 200px;" value="@ViewData["DesignDateText1"]" />
+                    </td>
+                    <td style="width: 80px; text-align: right;">设计完成</td>
+                    <td>
+                        <input id="DesignStateName1" name="DesignStateName1" class="mini-textbox" readonly="true" style="width:200px;" value="@ViewData["DesignStateName1"]" />
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 80px; text-align: right;">工程进度</td>
+                    <td>
+                        <input id="EngineeringProgressName1" name="EngineeringProgressName1" class="mini-textbox" readonly="true" style="width:200px;" value="@ViewData["EngineeringProgressName1"]" />
+                    </td>
+                    <td style="width: 80px; text-align: right;">现场摄像</td>
+                    <td>
+                        <table>
+                            <tr>
+                                <td style="width:16px">
+                                    <a class="fileedit" onclick="onImageFile1Click();"></a>
+                                </td>
+                                <td>
+                                    附件数量：<input id="ImageCount1" name="ImageCount1" class="mini-textbox" value="@ViewData["ImageCount1"]" />
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 80px; text-align: right;">设计简述</td>
+                    <td>
+                        <input id="DesignMemos1" name="DesignMemos1" class="mini-textarea" readonly="true" style="width: 200px; height: 50px;" value="@ViewData["DesignMemos1"]" />
+                    </td>
+                    <td style="width: 80px; text-align: right;">进度简述</td>
+                    <td>
+                        <input id="ProgressMemos1" name="ProgressMemos1" class="mini-textarea" readonly="true" style="width: 200px; height: 50px;" value="@ViewData["ProgressMemos1"]" />
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div title="天桅基础" style="height:100%">
+            <table style="width: 100%;">
+                <tr>
+                    <td style="width: 80px; text-align: right;">工程经理</td>
+                    <td>
+                        <input id="ProjectManagerName2" name="ProjectManagerName2" class="mini-textbox" readonly="true" style="width: 200px;" value="@ViewData["ProjectManagerName2"]" />
+                    </td>
+                    <td style="width: 80px; text-align: right;">设计单位</td>
+                    <td>
+                        <input id="DesignCustomerName2" name="DesignCustomerName2" class="mini-textbox" readonly="true" style="width:200px;" value="@ViewData["DesignCustomerName2"]" />
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 80px; text-align: right;">施工单位</td>
+                    <td>
+                        <input id="ConstructionCustomerName2" name="ConstructionCustomerName2" class="mini-textbox" readonly="true" style="width: 200px;" value="@ViewData["ConstructionCustomerName2"]" />
+                    </td>
+                    <td style="width: 80px; text-align: right;">监理单位</td>
+                    <td>
+                        <input id="SupervisionCustomerName2" name="SupervisionCustomerName2" class="mini-textbox" readonly="true" style="width: 200px;" value="@ViewData["SupervisionCustomerName2"]" />
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 80px; text-align: right;">设计人</td>
+                    <td>
+                        <input id="DesignRealName2" name="DesignRealName2" class="mini-textbox" readonly="true" style="width: 200px;" value="@ViewData["DesignRealName2"]" />
+                    </td>
+                    <td style="width: 80px; text-align: right;">施工图</td>
+                    <td>
+                        <table>
+                            <tr>
+                                <td style="width:16px">
+                                    <a class="fileedit" onclick="onDesignFile2Click();"></a>
+                                </td>
+                                <td>
+                                    附件数量：<input id="DesignCount2" name="DesignCount2" class="mini-textbox" value="@ViewData["DesignCount2"]" />
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 80px; text-align: right;">设计日期</td>
+                    <td>
+                        <input id="DesignDateText2" name="DesignDateText2" class="mini-textbox" readonly="true" style="width: 200px;" value="@ViewData["DesignDateText2"]" />
+                    </td>
+                    <td style="width: 80px; text-align: right;">设计完成</td>
+                    <td>
+                        <input id="DesignStateName2" name="DesignStateName2" class="mini-textbox" readonly="true" style="width:200px;" value="@ViewData["DesignStateName2"]" />
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 80px; text-align: right;">工程进度</td>
+                    <td>
+                        <input id="EngineeringProgressName2" name="EngineeringProgressName2" class="mini-textbox" readonly="true" style="width:200px;" value="@ViewData["EngineeringProgressName2"]" />
+                    </td>
+                    <td style="width: 80px; text-align: right;">现场摄像</td>
+                    <td>
+                        <table>
+                            <tr>
+                                <td style="width:16px">
+                                    <a class="fileedit" onclick="onImageFile2Click();"></a>
+                                </td>
+                                <td>
+                                    附件数量：<input id="ImageCount2" name="ImageCount2" class="mini-textbox" value="@ViewData["ImageCount2"]" />
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 80px; text-align: right;">设计简述</td>
+                    <td>
+                        <input id="DesignMemos2" name="DesignMemos2" class="mini-textarea" readonly="true" style="width: 200px; height: 50px;" value="@ViewData["DesignMemos2"]" />
+                    </td>
+                    <td style="width: 80px; text-align: right;">进度简述</td>
+                    <td>
+                        <input id="ProgressMemos2" name="ProgressMemos2" class="mini-textarea" readonly="true" style="width: 200px; height: 50px;" value="@ViewData["ProgressMemos2"]" />
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div title="机房" style="height:100%">
+            <table style="width: 100%;">
+                <tr>
+                    <td style="width: 80px; text-align: right;">工程经理</td>
+                    <td>
+                        <input id="ProjectManagerName3" name="ProjectManagerName3" class="mini-textbox" readonly="true" style="width: 200px;" value="@ViewData["ProjectManagerName3"]" />
+                    </td>
+                    <td style="width: 80px; text-align: right;">设计单位</td>
+                    <td>
+                        <input id="DesignCustomerName3" name="DesignCustomerName3" class="mini-textbox" readonly="true" style="width:200px;" value="@ViewData["DesignCustomerName3"]" />
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 80px; text-align: right;">施工单位</td>
+                    <td>
+                        <input id="ConstructionCustomerName3" name="ConstructionCustomerName3" class="mini-textbox" readonly="true" style="width: 200px;" value="@ViewData["ConstructionCustomerName3"]" />
+                    </td>
+                    <td style="width: 80px; text-align: right;">监理单位</td>
+                    <td>
+                        <input id="SupervisionCustomerName3" name="SupervisionCustomerName3" class="mini-textbox" readonly="true" style="width: 200px;" value="@ViewData["SupervisionCustomerName3"]" />
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 80px; text-align: right;">设计人</td>
+                    <td>
+                        <input id="DesignRealName3" name="DesignRealName3" class="mini-textbox" readonly="true" style="width: 200px;" value="@ViewData["DesignRealName3"]" />
+                    </td>
+                    <td style="width: 80px; text-align: right;">施工图</td>
+                    <td>
+                        <table>
+                            <tr>
+                                <td style="width:16px">
+                                    <a class="fileedit" onclick="onDesignFile3Click();"></a>
+                                </td>
+                                <td>
+                                    附件数量：<input id="DesignCount3" name="DesignCount3" class="mini-textbox" value="@ViewData["DesignCount3"]" />
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 80px; text-align: right;">设计日期</td>
+                    <td>
+                        <input id="DesignDateText3" name="DesignDateText3" class="mini-textbox" readonly="true" style="width: 200px;" value="@ViewData["DesignDateText3"]" />
+                    </td>
+                    <td style="width: 80px; text-align: right;">设计完成</td>
+                    <td>
+                        <input id="DesignStateName3" name="DesignStateName3" class="mini-textbox" readonly="true" style="width:200px;" value="@ViewData["DesignStateName3"]" />
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 80px; text-align: right;">工程进度</td>
+                    <td>
+                        <input id="EngineeringProgressName3" name="EngineeringProgressName3" class="mini-textbox" readonly="true" style="width:200px;" value="@ViewData["EngineeringProgressName3"]" />
+                    </td>
+                    <td style="width: 80px; text-align: right;">现场摄像</td>
+                    <td>
+                        <table>
+                            <tr>
+                                <td style="width:16px">
+                                    <a class="fileedit" onclick="onImageFile3Click();"></a>
+                                </td>
+                                <td>
+                                    附件数量：<input id="ImageCount3" name="ImageCount3" class="mini-textbox" value="@ViewData["ImageCount3"]" />
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 80px; text-align: right;">设计简述</td>
+                    <td>
+                        <input id="DesignMemos3" name="DesignMemos3" class="mini-textarea" readonly="true" style="width: 200px; height: 50px;" value="@ViewData["DesignMemos3"]" />
+                    </td>
+                    <td style="width: 80px; text-align: right;">进度简述</td>
+                    <td>
+                        <input id="ProgressMemos3" name="ProgressMemos3" class="mini-textarea" readonly="true" style="width: 200px; height: 50px;" value="@ViewData["ProgressMemos3"]" />
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div title="外电引入" style="height:100%">
+            <table style="width: 100%;">
+                <tr>
+                    <td style="width: 80px; text-align: right;">工程经理</td>
+                    <td>
+                        <input id="ProjectManagerName4" name="ProjectManagerName4" class="mini-textbox" readonly="true" style="width: 200px;" value="@ViewData["ProjectManagerName4"]" />
+                    </td>
+                    <td style="width: 80px; text-align: right;">设计单位</td>
+                    <td>
+                        <input id="DesignCustomerName4" name="DesignCustomerName4" class="mini-textbox" readonly="true" style="width:200px;" value="@ViewData["DesignCustomerName4"]" />
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 80px; text-align: right;">施工单位</td>
+                    <td>
+                        <input id="ConstructionCustomerName4" name="ConstructionCustomerName4" class="mini-textbox" readonly="true" style="width: 200px;" value="@ViewData["ConstructionCustomerName4"]" />
+                    </td>
+                    <td style="width: 80px; text-align: right;">监理单位</td>
+                    <td>
+                        <input id="SupervisionCustomerName4" name="SupervisionCustomerName4" class="mini-textbox" readonly="true" style="width: 200px;" value="@ViewData["SupervisionCustomerName4"]" />
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 80px; text-align: right;">设计人</td>
+                    <td>
+                        <input id="DesignRealName4" name="DesignRealName4" class="mini-textbox" readonly="true" style="width: 200px;" value="@ViewData["DesignRealName4"]" />
+                    </td>
+                    <td style="width: 80px; text-align: right;">施工图</td>
+                    <td>
+                        <table>
+                            <tr>
+                                <td style="width:16px">
+                                    <a class="fileedit" onclick="onDesignFile4Click();"></a>
+                                </td>
+                                <td>
+                                    附件数量：<input id="DesignCount4" name="DesignCount4" class="mini-textbox" value="@ViewData["DesignCount4"]" />
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 80px; text-align: right;">设计日期</td>
+                    <td>
+                        <input id="DesignDateText4" name="DesignDateText4" class="mini-textbox" readonly="true" style="width: 200px;" value="@ViewData["DesignDateText4"]" />
+                    </td>
+                    <td style="width: 80px; text-align: right;">设计完成</td>
+                    <td>
+                        <input id="DesignStateName4" name="DesignStateName4" class="mini-textbox" readonly="true" style="width:200px;" value="@ViewData["DesignStateName4"]" />
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 80px; text-align: right;">工程进度</td>
+                    <td>
+                        <input id="EngineeringProgressName4" name="EngineeringProgressName4" class="mini-textbox" readonly="true" style="width:200px;" value="@ViewData["EngineeringProgressName4"]" />
+                    </td>
+                    <td style="width: 80px; text-align: right;">现场摄像</td>
+                    <td>
+                        <table>
+                            <tr>
+                                <td style="width:16px">
+                                    <a class="fileedit" onclick="onImageFile4Click();"></a>
+                                </td>
+                                <td>
+                                    附件数量：<input id="ImageCount4" name="ImageCount4" class="mini-textbox" value="@ViewData["ImageCount4"]" />
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 80px; text-align: right;">设计简述</td>
+                    <td>
+                        <input id="DesignMemos4" name="DesignMemos4" class="mini-textarea" readonly="true" style="width: 200px; height: 50px;" value="@ViewData["DesignMemos4"]" />
+                    </td>
+                    <td style="width: 80px; text-align: right;">进度简述</td>
+                    <td>
+                        <input id="ProgressMemos4" name="ProgressMemos4" class="mini-textarea" readonly="true" style="width: 200px; height: 50px;" value="@ViewData["ProgressMemos4"]" />
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div title="设备安装" style="height:100%">
+            <table style="width: 100%;">
+                <tr>
+                    <td style="width: 80px; text-align: right;">工程经理</td>
+                    <td>
+                        <input id="ProjectManagerName5" name="ProjectManagerName5" class="mini-textbox" readonly="true" style="width: 200px;" value="@ViewData["ProjectManagerName5"]" />
+                    </td>
+                    <td style="width: 80px; text-align: right;">设计单位</td>
+                    <td>
+                        <input id="DesignCustomerName5" name="DesignCustomerName5" class="mini-textbox" readonly="true" style="width:200px;" value="@ViewData["DesignCustomerName5"]" />
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 80px; text-align: right;">施工单位</td>
+                    <td>
+                        <input id="ConstructionCustomerName5" name="ConstructionCustomerName5" class="mini-textbox" readonly="true" style="width: 200px;" value="@ViewData["ConstructionCustomerName5"]" />
+                    </td>
+                    <td style="width: 80px; text-align: right;">监理单位</td>
+                    <td>
+                        <input id="SupervisionCustomerName5" name="SupervisionCustomerName5" class="mini-textbox" readonly="true" style="width: 200px;" value="@ViewData["SupervisionCustomerName5"]" />
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 80px; text-align: right;">设计人</td>
+                    <td>
+                        <input id="DesignRealName5" name="DesignRealName5" class="mini-textbox" readonly="true" style="width: 200px;" value="@ViewData["DesignRealName5"]" />
+                    </td>
+                    <td style="width: 80px; text-align: right;">施工图</td>
+                    <td>
+                        <table>
+                            <tr>
+                                <td style="width:16px">
+                                    <a class="fileedit" onclick="onDesignFile5Click();"></a>
+                                </td>
+                                <td>
+                                    附件数量：<input id="DesignCount5" name="DesignCount5" class="mini-textbox" value="@ViewData["DesignCount5"]" />
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 80px; text-align: right;">设计日期</td>
+                    <td>
+                        <input id="DesignDateText5" name="DesignDateText5" class="mini-textbox" readonly="true" style="width: 200px;" value="@ViewData["DesignDateText5"]" />
+                    </td>
+                    <td style="width: 80px; text-align: right;">设计完成</td>
+                    <td>
+                        <input id="DesignStateName5" name="DesignStateName5" class="mini-textbox" readonly="true" style="width:200px;" value="@ViewData["DesignStateName5"]" />
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 80px; text-align: right;">工程进度</td>
+                    <td>
+                        <input id="EngineeringProgressName5" name="EngineeringProgressName5" class="mini-textbox" readonly="true" style="width:200px;" value="@ViewData["EngineeringProgressName5"]" />
+                    </td>
+                    <td style="width: 80px; text-align: right;">现场摄像</td>
+                    <td>
+                        <table>
+                            <tr>
+                                <td style="width:16px">
+                                    <a class="fileedit" onclick="onImageFile5Click();"></a>
+                                </td>
+                                <td>
+                                    附件数量：<input id="ImageCount5" name="ImageCount5" class="mini-textbox" value="@ViewData["ImageCount5"]" />
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 80px; text-align: right;">设计简述</td>
+                    <td>
+                        <input id="DesignMemos5" name="DesignMemos5" class="mini-textarea" readonly="true" style="width: 200px; height: 50px;" value="@ViewData["DesignMemos5"]" />
+                    </td>
+                    <td style="width: 80px; text-align: right;">进度简述</td>
+                    <td>
+                        <input id="ProgressMemos5" name="ProgressMemos5" class="mini-textarea" readonly="true" style="width: 200px; height: 50px;" value="@ViewData["ProgressMemos5"]" />
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div title="线路" style="height:100%">
+            <table style="width: 100%;">
+                <tr>
+                    <td style="width: 80px; text-align: right;">工程经理</td>
+                    <td>
+                        <input id="ProjectManagerName6" name="ProjectManagerName6" class="mini-textbox" readonly="true" style="width: 200px;" value="@ViewData["ProjectManagerName6"]" />
+                    </td>
+                    <td style="width: 80px; text-align: right;">设计单位</td>
+                    <td>
+                        <input id="DesignCustomerName6" name="DesignCustomerName6" class="mini-textbox" readonly="true" style="width:200px;" value="@ViewData["DesignCustomerName6"]" />
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 80px; text-align: right;">施工单位</td>
+                    <td>
+                        <input id="ConstructionCustomerName6" name="ConstructionCustomerName6" class="mini-textbox" readonly="true" style="width: 200px;" value="@ViewData["ConstructionCustomerName6"]" />
+                    </td>
+                    <td style="width: 80px; text-align: right;">监理单位</td>
+                    <td>
+                        <input id="SupervisionCustomerName6" name="SupervisionCustomerName6" class="mini-textbox" readonly="true" style="width: 200px;" value="@ViewData["SupervisionCustomerName6"]" />
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 80px; text-align: right;">设计人</td>
+                    <td>
+                        <input id="DesignRealName6" name="DesignRealName6" class="mini-textbox" readonly="true" style="width: 200px;" value="@ViewData["DesignRealName6"]" />
+                    </td>
+                    <td style="width: 80px; text-align: right;">施工图</td>
+                    <td>
+                        <table>
+                            <tr>
+                                <td style="width:16px">
+                                    <a class="fileedit" onclick="onDesignFile6Click();"></a>
+                                </td>
+                                <td>
+                                    附件数量：<input id="DesignCount6" name="DesignCount6" class="mini-textbox" value="@ViewData["DesignCount6"]" />
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 80px; text-align: right;">设计日期</td>
+                    <td>
+                        <input id="DesignDateText6" name="DesignDateText6" class="mini-textbox" readonly="true" style="width: 200px;" value="@ViewData["DesignDateText6"]" />
+                    </td>
+                    <td style="width: 80px; text-align: right;">设计完成</td>
+                    <td>
+                        <input id="DesignStateName6" name="DesignStateName6" class="mini-textbox" readonly="true" style="width:200px;" value="@ViewData["DesignStateName6"]" />
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 80px; text-align: right;">工程进度</td>
+                    <td>
+                        <input id="EngineeringProgressName6" name="EngineeringProgressName6" class="mini-textbox" readonly="true" style="width:200px;" value="@ViewData["EngineeringProgressName6"]" />
+                    </td>
+                    <td style="width: 80px; text-align: right;">现场摄像</td>
+                    <td>
+                        <table>
+                            <tr>
+                                <td style="width:16px">
+                                    <a class="fileedit" onclick="onImageFile6Click();"></a>
+                                </td>
+                                <td>
+                                    附件数量：<input id="ImageCount6" name="ImageCount6" class="mini-textbox" value="@ViewData["ImageCount6"]" />
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 80px; text-align: right;">设计简述</td>
+                    <td>
+                        <input id="DesignMemos6" name="DesignMemos6" class="mini-textarea" readonly="true" style="width: 200px; height: 50px;" value="@ViewData["DesignMemos6"]" />
+                    </td>
+                    <td style="width: 80px; text-align: right;">进度简述</td>
+                    <td>
+                        <input id="ProgressMemos6" name="ProgressMemos6" class="mini-textarea" readonly="true" style="width: 200px; height: 50px;" value="@ViewData["ProgressMemos6"]" />
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    mini.parse();
+    var frmTask = new mini.Form("#frmTask");
+    var tabContent = mini.get("tabContent");
+
+    /*
+    var count = mini.get("Count");
+    count.setWidth("10px");
+    if (count.setReadOnly) count.setReadOnly(true);     //只读
+    if (count.setIsValid) count.setIsValid(true);      //去除错误提示
+    if (count.addCls) count.addCls("asLabel");          //增加asLabel外观
+    */
+
+    var designCount = mini.get("DesignCount");
+    designCount.setWidth("10px");
+    if (designCount.setReadOnly) designCount.setReadOnly(true);     //只读
+    if (designCount.setIsValid) designCount.setIsValid(true);      //去除错误提示
+    if (designCount.addCls) designCount.addCls("asLabel");          //增加asLabel外观
+
+    var imageCount = mini.get("ImageCount");
+    imageCount.setWidth("10px");
+    if (imageCount.setReadOnly) imageCount.setReadOnly(true);     //只读
+    if (imageCount.setIsValid) imageCount.setIsValid(true);      //去除错误提示
+    if (imageCount.addCls) imageCount.addCls("asLabel");          //增加asLabel外观
+
+    var designCount1 = mini.get("DesignCount1");
+    designCount1.setWidth("10px");
+    if (designCount1.setReadOnly) designCount1.setReadOnly(true);     //只读
+    if (designCount1.setIsValid) designCount1.setIsValid(true);      //去除错误提示
+    if (designCount1.addCls) designCount1.addCls("asLabel");          //增加asLabel外观
+
+    var designCount2 = mini.get("DesignCount2");
+    designCount2.setWidth("10px");
+    if (designCount2.setReadOnly) designCount2.setReadOnly(true);     //只读
+    if (designCount2.setIsValid) designCount2.setIsValid(true);      //去除错误提示
+    if (designCount2.addCls) designCount2.addCls("asLabel");          //增加asLabel外观
+
+    var designCount3 = mini.get("DesignCount3");
+    designCount3.setWidth("10px");
+    if (designCount3.setReadOnly) designCount3.setReadOnly(true);     //只读
+    if (designCount3.setIsValid) designCount3.setIsValid(true);      //去除错误提示
+    if (designCount3.addCls) designCount3.addCls("asLabel");          //增加asLabel外观
+
+    var designCount4 = mini.get("DesignCount4");
+    designCount4.setWidth("10px");
+    if (designCount4.setReadOnly) designCount4.setReadOnly(true);     //只读
+    if (designCount4.setIsValid) designCount4.setIsValid(true);      //去除错误提示
+    if (designCount4.addCls) designCount4.addCls("asLabel");          //增加asLabel外观
+
+    var designCount5 = mini.get("DesignCount5");
+    designCount5.setWidth("10px");
+    if (designCount5.setReadOnly) designCount5.setReadOnly(true);     //只读
+    if (designCount5.setIsValid) designCount5.setIsValid(true);      //去除错误提示
+    if (designCount5.addCls) designCount5.addCls("asLabel");          //增加asLabel外观
+
+    var designCount6 = mini.get("DesignCount6");
+    designCount6.setWidth("10px");
+    if (designCount6.setReadOnly) designCount6.setReadOnly(true);     //只读
+    if (designCount6.setIsValid) designCount6.setIsValid(true);      //去除错误提示
+    if (designCount6.addCls) designCount6.addCls("asLabel");          //增加asLabel外观
+
+    var imageCount1 = mini.get("ImageCount1");
+    imageCount1.setWidth("10px");
+    if (imageCount1.setReadOnly) imageCount1.setReadOnly(true);     //只读
+    if (imageCount1.setIsValid) imageCount1.setIsValid(true);      //去除错误提示
+    if (imageCount1.addCls) imageCount1.addCls("asLabel");          //增加asLabel外观
+
+    var imageCount2 = mini.get("ImageCount2");
+    imageCount2.setWidth("20px");
+    if (imageCount2.setReadOnly) imageCount2.setReadOnly(true);     //只读
+    if (imageCount2.setIsValid) imageCount2.setIsValid(true);      //去除错误提示
+    if (imageCount2.addCls) imageCount2.addCls("asLabel");          //增加asLabel外观
+
+    var imageCount3 = mini.get("ImageCount3");
+    imageCount3.setWidth("10px");
+    if (imageCount3.setReadOnly) imageCount3.setReadOnly(true);     //只读
+    if (imageCount3.setIsValid) imageCount3.setIsValid(true);      //去除错误提示
+    if (imageCount3.addCls) imageCount3.addCls("asLabel");          //增加asLabel外观
+
+    var imageCount4 = mini.get("ImageCount4");
+    imageCount4.setWidth("10px");
+    if (imageCount4.setReadOnly) imageCount4.setReadOnly(true);     //只读
+    if (imageCount4.setIsValid) imageCount4.setIsValid(true);      //去除错误提示
+    if (imageCount4.addCls) imageCount4.addCls("asLabel");          //增加asLabel外观
+
+    var imageCount5 = mini.get("ImageCount5");
+    imageCount5.setWidth("10px");
+    if (imageCount5.setReadOnly) imageCount5.setReadOnly(true);     //只读
+    if (imageCount5.setIsValid) imageCount5.setIsValid(true);      //去除错误提示
+    if (imageCount5.addCls) imageCount5.addCls("asLabel");          //增加asLabel外观
+
+    var imageCount6 = mini.get("ImageCount6");
+    imageCount6.setWidth("10px");
+    if (imageCount6.setReadOnly) imageCount6.setReadOnly(true);     //只读
+    if (imageCount6.setIsValid) imageCount6.setIsValid(true);      //去除错误提示
+    if (imageCount6.addCls) imageCount6.addCls("asLabel");          //增加asLabel外观
+
+    init();
+
+    function init() {
+        if ("@ViewData["Mark1"]" == "1") {
+            tabContent.updateTab(tabContent.getTab(1), { visible: true });
+        }
+        else {
+            tabContent.updateTab(tabContent.getTab(1), { visible: false });
+        }
+        if ("@ViewData["Mark2"]" == "1") {
+            tabContent.updateTab(tabContent.getTab(2), { visible: true });
+        }
+        else {
+            tabContent.updateTab(tabContent.getTab(2), { visible: false });
+        }
+        if ("@ViewData["Mark3"]" == "1") {
+            tabContent.updateTab(tabContent.getTab(3), { visible: true });
+        }
+        else {
+            tabContent.updateTab(tabContent.getTab(3), { visible: false });
+        }
+        if ("@ViewData["Mark4"]" == "1") {
+            tabContent.updateTab(tabContent.getTab(4), { visible: true });
+        }
+        else {
+            tabContent.updateTab(tabContent.getTab(4), { visible: false });
+        }
+        if ("@ViewData["Mark5"]" == "1") {
+            tabContent.updateTab(tabContent.getTab(5), { visible: true });
+        }
+        else {
+            tabContent.updateTab(tabContent.getTab(5), { visible: false });
+        }
+        if ("@ViewData["Mark6"]" == "1") {
+            tabContent.updateTab(tabContent.getTab(6), { visible: true });
+        }
+        else {
+            tabContent.updateTab(tabContent.getTab(6), { visible: false });
+        }
+    }
+
+    function onMapClick() {
+        var placeId = "@ViewData["PlaceId"]";
+        var el = document.body;
+        mini.mask({
+            el: el,
+            cls: 'mini-mask-loading',
+            html: '加载中...'
+        });
+        setTimeout(function () {
+            var url, data, getId;
+            url = "@Url.RouteUrl(new { controller = "Map", action = "GetPlacePoint" })";
+            data = { PlaceId: placeId, AreaId: "00000000-0000-0000-0000-000000000000", PlaceName: "", Lng: 0, Lat: 0, Profession: 1 };
+            getId = placeId;
+            $.ajax({
+                url: url,
+                data: data,
+                type: "get",
+                async: false,
+                success: function (result, textStatus) {
+                    mini.unmask(el);
+                    if (result.Id != null && result.Id == getId) {
+                        var title;
+                        if (placeId == "00000000-0000-0000-0000-000000000000") {
+                            title = result.PlanningName;
+                        }
+                        else {
+                            title = result.PlaceName;
+                        }
+                        mini.open({
+                            url: "@Url.RouteUrl(new { controller = "Map", action = "NavigationMap" })",
+                            title: title,
+                            iconCls: "icon-map",
+                            width: 800,
+                            height: 550,
+                            showMaxButton: true,
+                            onload: function () {
+                                var iframe = this.getIFrameEl();
+                                var data = result;
+                                iframe.contentWindow.SetData(data);
+                            },
+                            ondestroy: function (action) {
+                                if (action == "ok") {
+                                    var iframe = this.getIFrameEl();
+                                    var data = iframe.contentWindow.GetData();
+                                    data = mini.clone(data);
+                                    txtLng.setValue(data.Lng);
+                                    txtLat.setValue(data.Lat);
+                                }
+                            }
+                        });
+                    }
+                },
+                error: function (xmlHttpRequest, textStatus, errorThrown) {
+                    mini.unmask(el);
+                }
+            });
+        }, 50);
+    }
+
+    function onFileClick() {
+        var id = "@ViewData["PlaceId"]";
+        var el = document.body;
+        mini.mask({
+            el: el,
+            cls: 'mini-mask-loading',
+            html: '加载中...'
+        });
+        setTimeout(function () {
+            $.ajax({
+                url: "@Url.RouteUrl(new { controller = "File", action = "GetPlaceFiles" })",
+                data: { PlaceId: id, FileIdList: "" },
+                type: "get",
+                async: false,
+                success: function (result, textStatus) {
+                    mini.unmask(el);
+                    if (result.Code == null || !result.Code) {
+                        mini.open({
+                            url: "@Url.RouteUrl(new { controller = "File", action = "FileManager" })",
+                            title: "附件",
+                            iconCls: "icon-file",
+                            width: 620,
+                            height: 250,
+                            allowResize: false,
+                            onload: function () {
+                                var iframe = this.getIFrameEl();
+                                var data = result;
+                                iframe.contentWindow.SetData(data);
+                            }
+                        });
+                    }
+                },
+                error: function (xmlHttpRequest, textStatus, errorThrown) {
+                    mini.unmask(el);
+                }
+            });
+        }, 50);
+    }
+
+    function onDesignFileClick() {
+        var id = "@ViewData["Id"]";
+        var el = document.body;
+        mini.mask({
+            el: el,
+            cls: 'mini-mask-loading',
+            html: '加载中...'
+        });
+        setTimeout(function () {
+            $.ajax({
+                url: "@Url.RouteUrl(new { controller = "File", action = "GetGeneralDesignFiles" })",
+                data: { ProjectTaskId: id, FileIdList: "" },
+                type: "get",
+                async: false,
+                success: function (result, textStatus) {
+                    mini.unmask(el);
+                    if (result.Code == null || !result.Code) {
+                        mini.open({
+                            url: "@Url.RouteUrl(new { controller = "File", action = "FileManager" })",
+                            title: "总设图",
+                            iconCls: "icon-file",
+                            width: 620,
+                            height: 250,
+                            allowResize: false,
+                            onload: function () {
+                                var iframe = this.getIFrameEl();
+                                var data = result;
+                                iframe.contentWindow.SetData(data);
+                            }
+                        });
+                    }
+                },
+                error: function (xmlHttpRequest, textStatus, errorThrown) {
+                    mini.unmask(el);
+                }
+            });
+        }, 50);
+    }
+
+    function onImageFileClick() {
+        var id = "@ViewData["Id"]";
+        var el = document.body;
+        mini.mask({
+            el: el,
+            cls: 'mini-mask-loading',
+            html: '加载中...'
+        });
+        setTimeout(function () {
+            $.ajax({
+                url: "@Url.RouteUrl(new { controller = "File", action = "GetProjectProgressFiles" })",
+                data: { ProjectTaskId: id, FileIdList: "" },
+                type: "get",
+                async: false,
+                success: function (result, textStatus) {
+                    mini.unmask(el);
+                    if (result.Code == null || !result.Code) {
+                        mini.open({
+                            url: "@Url.RouteUrl(new { controller = "File", action = "FileManager" })",
+                            title: "现场摄像",
+                            iconCls: "icon-file",
+                            width: 620,
+                            height: 250,
+                            allowResize: false,
+                            onload: function () {
+                                var iframe = this.getIFrameEl();
+                                var data = result;
+                                iframe.contentWindow.SetData(data);
+                            }
+                        });
+                    }
+                },
+                error: function (xmlHttpRequest, textStatus, errorThrown) {
+                    mini.unmask(el);
+                }
+            });
+        }, 50);
+    }
+
+    function onDesignFile1Click() {
+        var id = "@ViewData["Id1"]";
+        var el = document.body;
+        mini.mask({
+            el: el,
+            cls: 'mini-mask-loading',
+            html: '加载中...'
+        });
+        setTimeout(function () {
+            $.ajax({
+                url: "@Url.RouteUrl(new { controller = "File", action = "GetEngineeringDesignFiles" })",
+                data: { EngineeringTaskId: id, FileIdList: "" },
+                type: "get",
+                async: false,
+                success: function (result, textStatus) {
+                    mini.unmask(el);
+                    if (result.Code == null || !result.Code) {
+                        mini.open({
+                            url: "@Url.RouteUrl(new { controller = "File", action = "FileManager" })",
+                            title: "施工图",
+                            iconCls: "icon-file",
+                            width: 620,
+                            height: 250,
+                            allowResize: false,
+                            onload: function () {
+                                var iframe = this.getIFrameEl();
+                                var data = result;
+                                iframe.contentWindow.SetData(data);
+                            }
+                        });
+                    }
+                },
+                error: function (xmlHttpRequest, textStatus, errorThrown) {
+                    mini.unmask(el);
+                }
+            });
+        }, 50);
+    }
+
+    function onDesignFile2Click() {
+        var id = "@ViewData["Id2"]";
+        var el = document.body;
+        mini.mask({
+            el: el,
+            cls: 'mini-mask-loading',
+            html: '加载中...'
+        });
+        setTimeout(function () {
+            $.ajax({
+                url: "@Url.RouteUrl(new { controller = "File", action = "GetEngineeringDesignFiles" })",
+                data: { EngineeringTaskId: id, FileIdList: "" },
+                type: "get",
+                async: false,
+                success: function (result, textStatus) {
+                    mini.unmask(el);
+                    if (result.Code == null || !result.Code) {
+                        mini.open({
+                            url: "@Url.RouteUrl(new { controller = "File", action = "FileManager" })",
+                            title: "施工图",
+                            iconCls: "icon-file",
+                            width: 620,
+                            height: 250,
+                            allowResize: false,
+                            onload: function () {
+                                var iframe = this.getIFrameEl();
+                                var data = result;
+                                iframe.contentWindow.SetData(data);
+                            }
+                        });
+                    }
+                },
+                error: function (xmlHttpRequest, textStatus, errorThrown) {
+                    mini.unmask(el);
+                }
+            });
+        }, 50);
+    }
+
+    function onDesignFile3Click() {
+        var id = "@ViewData["Id3"]";
+        var el = document.body;
+        mini.mask({
+            el: el,
+            cls: 'mini-mask-loading',
+            html: '加载中...'
+        });
+        setTimeout(function () {
+            $.ajax({
+                url: "@Url.RouteUrl(new { controller = "File", action = "GetEngineeringDesignFiles" })",
+                data: { EngineeringTaskId: id, FileIdList: "" },
+                type: "get",
+                async: false,
+                success: function (result, textStatus) {
+                    mini.unmask(el);
+                    if (result.Code == null || !result.Code) {
+                        mini.open({
+                            url: "@Url.RouteUrl(new { controller = "File", action = "FileManager" })",
+                            title: "施工图",
+                            iconCls: "icon-file",
+                            width: 620,
+                            height: 250,
+                            allowResize: false,
+                            onload: function () {
+                                var iframe = this.getIFrameEl();
+                                var data = result;
+                                iframe.contentWindow.SetData(data);
+                            }
+                        });
+                    }
+                },
+                error: function (xmlHttpRequest, textStatus, errorThrown) {
+                    mini.unmask(el);
+                }
+            });
+        }, 50);
+    }
+
+    function onDesignFile4Click() {
+        var id = "@ViewData["Id4"]";
+        var el = document.body;
+        mini.mask({
+            el: el,
+            cls: 'mini-mask-loading',
+            html: '加载中...'
+        });
+        setTimeout(function () {
+            $.ajax({
+                url: "@Url.RouteUrl(new { controller = "File", action = "GetEngineeringDesignFiles" })",
+                data: { EngineeringTaskId: id, FileIdList: "" },
+                type: "get",
+                async: false,
+                success: function (result, textStatus) {
+                    mini.unmask(el);
+                    if (result.Code == null || !result.Code) {
+                        mini.open({
+                            url: "@Url.RouteUrl(new { controller = "File", action = "FileManager" })",
+                            title: "施工图",
+                            iconCls: "icon-file",
+                            width: 620,
+                            height: 250,
+                            allowResize: false,
+                            onload: function () {
+                                var iframe = this.getIFrameEl();
+                                var data = result;
+                                iframe.contentWindow.SetData(data);
+                            }
+                        });
+                    }
+                },
+                error: function (xmlHttpRequest, textStatus, errorThrown) {
+                    mini.unmask(el);
+                }
+            });
+        }, 50);
+    }
+
+    function onDesignFile5Click() {
+        var id = "@ViewData["Id5"]";
+        var el = document.body;
+        mini.mask({
+            el: el,
+            cls: 'mini-mask-loading',
+            html: '加载中...'
+        });
+        setTimeout(function () {
+            $.ajax({
+                url: "@Url.RouteUrl(new { controller = "File", action = "GetEngineeringDesignFiles" })",
+                data: { EngineeringTaskId: id, FileIdList: "" },
+                type: "get",
+                async: false,
+                success: function (result, textStatus) {
+                    mini.unmask(el);
+                    if (result.Code == null || !result.Code) {
+                        mini.open({
+                            url: "@Url.RouteUrl(new { controller = "File", action = "FileManager" })",
+                            title: "施工图",
+                            iconCls: "icon-file",
+                            width: 620,
+                            height: 250,
+                            allowResize: false,
+                            onload: function () {
+                                var iframe = this.getIFrameEl();
+                                var data = result;
+                                iframe.contentWindow.SetData(data);
+                            }
+                        });
+                    }
+                },
+                error: function (xmlHttpRequest, textStatus, errorThrown) {
+                    mini.unmask(el);
+                }
+            });
+        }, 50);
+    }
+
+    function onDesignFile6Click() {
+        var id = "@ViewData["Id6"]";
+        var el = document.body;
+        mini.mask({
+            el: el,
+            cls: 'mini-mask-loading',
+            html: '加载中...'
+        });
+        setTimeout(function () {
+            $.ajax({
+                url: "@Url.RouteUrl(new { controller = "File", action = "GetEngineeringDesignFiles" })",
+                data: { EngineeringTaskId: id, FileIdList: "" },
+                type: "get",
+                async: false,
+                success: function (result, textStatus) {
+                    mini.unmask(el);
+                    if (result.Code == null || !result.Code) {
+                        mini.open({
+                            url: "@Url.RouteUrl(new { controller = "File", action = "FileManager" })",
+                            title: "施工图",
+                            iconCls: "icon-file",
+                            width: 620,
+                            height: 250,
+                            allowResize: false,
+                            onload: function () {
+                                var iframe = this.getIFrameEl();
+                                var data = result;
+                                iframe.contentWindow.SetData(data);
+                            }
+                        });
+                    }
+                },
+                error: function (xmlHttpRequest, textStatus, errorThrown) {
+                    mini.unmask(el);
+                }
+            });
+        }, 50);
+    }
+
+    function onImageFile1Click() {
+        var id = "@ViewData["Id1"]";
+        var el = document.body;
+        mini.mask({
+            el: el,
+            cls: 'mini-mask-loading',
+            html: '加载中...'
+        });
+        setTimeout(function () {
+            $.ajax({
+                url: "@Url.RouteUrl(new { controller = "File", action = "GetEngineeringProgressFiles" })",
+                data: { EngineeringTaskId: id, FileIdList: "" },
+                type: "get",
+                async: false,
+                success: function (result, textStatus) {
+                    mini.unmask(el);
+                    if (result.Code == null || !result.Code) {
+                        mini.open({
+                            url: "@Url.RouteUrl(new { controller = "File", action = "FileManager" })",
+                            title: "现场摄像",
+                            iconCls: "icon-file",
+                            width: 620,
+                            height: 250,
+                            allowResize: false,
+                            onload: function () {
+                                var iframe = this.getIFrameEl();
+                                var data = result;
+                                iframe.contentWindow.SetData(data);
+                            }
+                        });
+                    }
+                },
+                error: function (xmlHttpRequest, textStatus, errorThrown) {
+                    mini.unmask(el);
+                }
+            });
+        }, 50);
+    }
+
+    function onImageFile2Click() {
+        var id = "@ViewData["Id2"]";
+        var el = document.body;
+        mini.mask({
+            el: el,
+            cls: 'mini-mask-loading',
+            html: '加载中...'
+        });
+        setTimeout(function () {
+            $.ajax({
+                url: "@Url.RouteUrl(new { controller = "File", action = "GetEngineeringProgressFiles" })",
+                data: { EngineeringTaskId: id, FileIdList: "" },
+                type: "get",
+                async: false,
+                success: function (result, textStatus) {
+                    mini.unmask(el);
+                    if (result.Code == null || !result.Code) {
+                        mini.open({
+                            url: "@Url.RouteUrl(new { controller = "File", action = "FileManager" })",
+                            title: "现场摄像",
+                            iconCls: "icon-file",
+                            width: 620,
+                            height: 250,
+                            allowResize: false,
+                            onload: function () {
+                                var iframe = this.getIFrameEl();
+                                var data = result;
+                                iframe.contentWindow.SetData(data);
+                            }
+                        });
+                    }
+                },
+                error: function (xmlHttpRequest, textStatus, errorThrown) {
+                    mini.unmask(el);
+                }
+            });
+        }, 50);
+    }
+
+    function onImageFile3Click() {
+        var id = "@ViewData["Id3"]";
+        var el = document.body;
+        mini.mask({
+            el: el,
+            cls: 'mini-mask-loading',
+            html: '加载中...'
+        });
+        setTimeout(function () {
+            $.ajax({
+                url: "@Url.RouteUrl(new { controller = "File", action = "GetEngineeringProgressFiles" })",
+                data: { EngineeringTaskId: id, FileIdList: "" },
+                type: "get",
+                async: false,
+                success: function (result, textStatus) {
+                    mini.unmask(el);
+                    if (result.Code == null || !result.Code) {
+                        mini.open({
+                            url: "@Url.RouteUrl(new { controller = "File", action = "FileManager" })",
+                            title: "现场摄像",
+                            iconCls: "icon-file",
+                            width: 620,
+                            height: 250,
+                            allowResize: false,
+                            onload: function () {
+                                var iframe = this.getIFrameEl();
+                                var data = result;
+                                iframe.contentWindow.SetData(data);
+                            }
+                        });
+                    }
+                },
+                error: function (xmlHttpRequest, textStatus, errorThrown) {
+                    mini.unmask(el);
+                }
+            });
+        }, 50);
+    }
+
+    function onImageFile4Click() {
+        var id = "@ViewData["Id4"]";
+        var el = document.body;
+        mini.mask({
+            el: el,
+            cls: 'mini-mask-loading',
+            html: '加载中...'
+        });
+        setTimeout(function () {
+            $.ajax({
+                url: "@Url.RouteUrl(new { controller = "File", action = "GetEngineeringProgressFiles" })",
+                data: { EngineeringTaskId: id, FileIdList: "" },
+                type: "get",
+                async: false,
+                success: function (result, textStatus) {
+                    mini.unmask(el);
+                    if (result.Code == null || !result.Code) {
+                        mini.open({
+                            url: "@Url.RouteUrl(new { controller = "File", action = "FileManager" })",
+                            title: "现场摄像",
+                            iconCls: "icon-file",
+                            width: 620,
+                            height: 250,
+                            allowResize: false,
+                            onload: function () {
+                                var iframe = this.getIFrameEl();
+                                var data = result;
+                                iframe.contentWindow.SetData(data);
+                            }
+                        });
+                    }
+                },
+                error: function (xmlHttpRequest, textStatus, errorThrown) {
+                    mini.unmask(el);
+                }
+            });
+        }, 50);
+    }
+
+    function onImageFile5Click() {
+        var id = "@ViewData["Id5"]";
+        var el = document.body;
+        mini.mask({
+            el: el,
+            cls: 'mini-mask-loading',
+            html: '加载中...'
+        });
+        setTimeout(function () {
+            $.ajax({
+                url: "@Url.RouteUrl(new { controller = "File", action = "GetEngineeringProgressFiles" })",
+                data: { EngineeringTaskId: id, FileIdList: "" },
+                type: "get",
+                async: false,
+                success: function (result, textStatus) {
+                    mini.unmask(el);
+                    if (result.Code == null || !result.Code) {
+                        mini.open({
+                            url: "@Url.RouteUrl(new { controller = "File", action = "FileManager" })",
+                            title: "现场摄像",
+                            iconCls: "icon-file",
+                            width: 620,
+                            height: 250,
+                            allowResize: false,
+                            onload: function () {
+                                var iframe = this.getIFrameEl();
+                                var data = result;
+                                iframe.contentWindow.SetData(data);
+                            }
+                        });
+                    }
+                },
+                error: function (xmlHttpRequest, textStatus, errorThrown) {
+                    mini.unmask(el);
+                }
+            });
+        }, 50);
+    }
+
+    function onImageFile6Click() {
+        var id = "@ViewData["Id6"]";
+        var el = document.body;
+        mini.mask({
+            el: el,
+            cls: 'mini-mask-loading',
+            html: '加载中...'
+        });
+        setTimeout(function () {
+            $.ajax({
+                url: "@Url.RouteUrl(new { controller = "File", action = "GetEngineeringProgressFiles" })",
+                data: { EngineeringTaskId: id, FileIdList: "" },
+                type: "get",
+                async: false,
+                success: function (result, textStatus) {
+                    mini.unmask(el);
+                    if (result.Code == null || !result.Code) {
+                        mini.open({
+                            url: "@Url.RouteUrl(new { controller = "File", action = "FileManager" })",
+                            title: "现场摄像",
+                            iconCls: "icon-file",
+                            width: 620,
+                            height: 250,
+                            allowResize: false,
+                            onload: function () {
+                                var iframe = this.getIFrameEl();
+                                var data = result;
+                                iframe.contentWindow.SetData(data);
+                            }
+                        });
+                    }
+                },
+                error: function (xmlHttpRequest, textStatus, errorThrown) {
+                    mini.unmask(el);
+                }
+            });
+        }, 50);
+    }
+</script>

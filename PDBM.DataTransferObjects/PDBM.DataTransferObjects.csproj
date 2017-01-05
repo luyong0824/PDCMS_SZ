@@ -1,0 +1,185 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{5AD91431-E1EA-4CC7-BF12-8DD845717B5F}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>PDBM.DataTransferObjects</RootNamespace>
+    <AssemblyName>PDBM.DataTransferObjects</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="protobuf-net">
+      <HintPath>..\packages\protobuf-net.2.0.0.668\lib\net40\protobuf-net.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BaseData\AccountingEntityMaintObject.cs" />
+    <Compile Include="BaseData\AccountingEntitySelectObject.cs" />
+    <Compile Include="BaseData\AreaMaintObject.cs" />
+    <Compile Include="BaseData\AreaSelectObject.cs" />
+    <Compile Include="BaseData\CompanyMaintObject.cs" />
+    <Compile Include="BaseData\CompanySelectObject.cs" />
+    <Compile Include="BaseData\CustomerMaintObject.cs" />
+    <Compile Include="BaseData\CustomerUserMaintObject.cs" />
+    <Compile Include="BaseData\DepartmentMaintObject.cs" />
+    <Compile Include="BaseData\DepartmentSelectObject.cs" />
+    <Compile Include="BaseData\DutyUserMaintObject.cs" />
+    <Compile Include="BaseData\MaterialCategoryMaintObject.cs" />
+    <Compile Include="BaseData\MaterialCategorySelectObject.cs" />
+    <Compile Include="BaseData\MaterialCategoryTreeObject.cs" />
+    <Compile Include="BaseData\MaterialMaintObject.cs" />
+    <Compile Include="BaseData\MaterialSelectObject.cs" />
+    <Compile Include="BaseData\MaterialSpecMaintObject.cs" />
+    <Compile Include="BaseData\MenuItemMaintObject.cs" />
+    <Compile Include="BaseData\MenuSelectObject.cs" />
+    <Compile Include="BaseData\PlaceCategoryMaintObject.cs" />
+    <Compile Include="BaseData\PlaceCategorySelectObject.cs" />
+    <Compile Include="BaseData\PlaceInfoObject.cs" />
+    <Compile Include="BaseData\PlaceMaintObject.cs" />
+    <Compile Include="BaseData\PlaceOwnerMaintObject.cs" />
+    <Compile Include="BaseData\PlaceOwnerSelectObject.cs" />
+    <Compile Include="BaseData\PlacePropertyEditorObject.cs" />
+    <Compile Include="BaseData\PlacePropertyLogMaintObject.cs" />
+    <Compile Include="BaseData\PlacePropertyMaintObject.cs" />
+    <Compile Include="BaseData\PostMaintObject.cs" />
+    <Compile Include="BaseData\PostSelectObject.cs" />
+    <Compile Include="BaseData\PostUserMaintObject.cs" />
+    <Compile Include="BaseData\ProjectMaintObject.cs" />
+    <Compile Include="BaseData\ReseauMaintObject.cs" />
+    <Compile Include="BaseData\ReseauSelectObject.cs" />
+    <Compile Include="BaseData\RoleMaintObject.cs" />
+    <Compile Include="BaseData\RoleMenuItemMaintObject.cs" />
+    <Compile Include="BaseData\RoleSelectObject.cs" />
+    <Compile Include="BaseData\RoleUserMaintObject.cs" />
+    <Compile Include="BaseData\SceneMaintObject.cs" />
+    <Compile Include="BaseData\SceneSelectObject.cs" />
+    <Compile Include="BaseData\UnitMaintObject.cs" />
+    <Compile Include="BaseData\UserInfoMaintObject.cs" />
+    <Compile Include="BaseData\UserLoginObject.cs" />
+    <Compile Include="BaseData\UserMaintObject.cs" />
+    <Compile Include="BaseData\UserSelectObject.cs" />
+    <Compile Include="BaseData\WorkBigClassMaintObject.cs" />
+    <Compile Include="BaseData\WorkBigClassSelectObject.cs" />
+    <Compile Include="BaseData\WorkSmallClassMaintObject.cs" />
+    <Compile Include="BaseData\WorkSmallClassSelectObject.cs" />
+    <Compile Include="BMMgmt\AddressExplorMaintObject.cs" />
+    <Compile Include="BMMgmt\AddressingEditorObject.cs" />
+    <Compile Include="BMMgmt\AddressingMaintObject.cs" />
+    <Compile Include="BMMgmt\AddressingPrintObject.cs" />
+    <Compile Include="BMMgmt\BlindSpotFeedBackMaintObject.cs" />
+    <Compile Include="BMMgmt\BusinessVolumeMaintObject.cs" />
+    <Compile Include="BMMgmt\ConstructionTaskEditorObject.cs" />
+    <Compile Include="BMMgmt\ConstructionTaskMaintObject.cs" />
+    <Compile Include="BMMgmt\ConstructionTaskPrintObject.cs" />
+    <Compile Include="BMMgmt\DelayApplyMaintObject.cs" />
+    <Compile Include="BMMgmt\EngineeringTaskEditObject.cs" />
+    <Compile Include="BMMgmt\EngineeringTaskMaintObject.cs" />
+    <Compile Include="BMMgmt\EquipmentInstallMaintObject.cs" />
+    <Compile Include="BMMgmt\ExternalElectricPowerMaintObject.cs" />
+    <Compile Include="BMMgmt\FoundationTestMaintObject.cs" />
+    <Compile Include="BMMgmt\MachineRoomMaintObject.cs" />
+    <Compile Include="BMMgmt\MaterialListMaintObject.cs" />
+    <Compile Include="BMMgmt\MaterialSpecListMaintObject.cs" />
+    <Compile Include="BMMgmt\NewPlanningImportObject.cs" />
+    <Compile Include="BMMgmt\NewPlanningMaintObject.cs" />
+    <Compile Include="BMMgmt\NewRemodelingImportObject.cs" />
+    <Compile Include="BMMgmt\NewRemodelingMaintObject.cs" />
+    <Compile Include="BMMgmt\NoticeMaintObject.cs" />
+    <Compile Include="BMMgmt\OperatorsConfirmDetailMaintObject.cs" />
+    <Compile Include="BMMgmt\OperatorsPlanningDemandMaintObject.cs" />
+    <Compile Include="BMMgmt\OperatorsPlanningMaintObject.cs" />
+    <Compile Include="BMMgmt\OperatorsSharingMaintObject.cs" />
+    <Compile Include="BMMgmt\PlaceBusinessVolumeMaintObject.cs" />
+    <Compile Include="BMMgmt\PlaceDesignMaintObject.cs" />
+    <Compile Include="BMMgmt\PlanningApplyHeaderMaintObject.cs" />
+    <Compile Include="BMMgmt\PlanningApplyHeaderPrintObject.cs" />
+    <Compile Include="BMMgmt\PlanningApplyMaintObject.cs" />
+    <Compile Include="BMMgmt\PlanningApplyPrintObject.cs" />
+    <Compile Include="BMMgmt\PlanningMaintObject.cs" />
+    <Compile Include="BMMgmt\ProjectCodeListMaintObject.cs" />
+    <Compile Include="BMMgmt\ProjectTaskEditObject.cs" />
+    <Compile Include="BMMgmt\ProjectTaskMaintObject.cs" />
+    <Compile Include="BMMgmt\PurchaseMaintObject.cs" />
+    <Compile Include="BMMgmt\RemodelingEditorObject.cs" />
+    <Compile Include="BMMgmt\RemodelingImportObject.cs" />
+    <Compile Include="BMMgmt\RemodelingMaintObject.cs" />
+    <Compile Include="BMMgmt\RemodelingPrintObject.cs" />
+    <Compile Include="BMMgmt\ResourceMaintObject.cs" />
+    <Compile Include="BMMgmt\ResourceUpdateObject.cs" />
+    <Compile Include="BMMgmt\TaskPropertyMaintObject.cs" />
+    <Compile Include="BMMgmt\TowerBaseMaintObject.cs" />
+    <Compile Include="BMMgmt\TowerMaintObject.cs" />
+    <Compile Include="BMMgmt\WorkApplyMaintObject.cs" />
+    <Compile Include="BMMgmt\WorkApplyPrintObject.cs" />
+    <Compile Include="BMMgmt\WorkOrderDetailMaintObject.cs" />
+    <Compile Include="BMMgmt\WorkOrderEditorObject.cs" />
+    <Compile Include="BMMgmt\WorkOrderMaintObject.cs" />
+    <Compile Include="BMMgmt\WorkOrderPrintObject.cs" />
+    <Compile Include="DataImport\ImportErrorObject.cs" />
+    <Compile Include="FaultObject.cs" />
+    <Compile Include="FileMgmt\FileDownloadObject.cs" />
+    <Compile Include="FileMgmt\FileObject.cs" />
+    <Compile Include="FileMgmt\FileUploadObject.cs" />
+    <Compile Include="Map\PointObject.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="WorkFlow\WFActivityEditorSelectObject.cs" />
+    <Compile Include="WorkFlow\WFActivityInstanceDoObject.cs" />
+    <Compile Include="WorkFlow\WFActivityInstanceEditorMaintObject.cs" />
+    <Compile Include="WorkFlow\WFActivityInstanceSelectObject.cs" />
+    <Compile Include="WorkFlow\WFActivityInstanceSendObject.cs" />
+    <Compile Include="WorkFlow\WFActivityMaintObject.cs" />
+    <Compile Include="WorkFlow\WFCategorySelectObject.cs" />
+    <Compile Include="WorkFlow\WFProcessInstanceSendObject.cs" />
+    <Compile Include="WorkFlow\WFProcessMaintObject.cs" />
+    <Compile Include="WorkFlow\WFProcessSelectObject.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\PDBM.Infrastructure\PDBM.Infrastructure.csproj">
+      <Project>{722f4e02-8228-46e4-8f30-1f6c905b9f6f}</Project>
+      <Name>PDBM.Infrastructure</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

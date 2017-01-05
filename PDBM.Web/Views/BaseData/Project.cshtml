@@ -1,0 +1,401 @@
+﻿<div id="myToolbar" class="mini-toolbar" style="border-bottom: 0px; padding: 0px;">
+    <table style="width: 100%;" cellpadding="0" cellspacing="0">
+        <tr>
+            <td style="width: 100%;">
+                <a class="mini-button" iconcls="icon-help" plain="true" href="@Url.RouteUrl(new { controller = "File", action = "DownloadHelpFiles" })?FileName=Project" target="_blank"></a>当前位置：基础数据>项目管理>项目信息
+            </td>
+            <td style="white-space: nowrap;">
+                <a id="btnSearch" class="mini-button" iconcls="icon-search" plain="true" onclick="onSearchClick">查询</a>
+                <a class="mini-button" iconcls="icon-add" plain="true" style="display:none" onclick="onAddClick">新增</a>
+                <a class="mini-button" iconcls="icon-edit" plain="true" style="display:none" onclick="onEditClick">修改</a>
+                <a class="mini-button" iconcls="icon-remove" plain="true" style="display:none" onclick="onRemoveClick">删除</a>
+            </td>
+        </tr>
+    </table>
+</div>
+<div class="mini-fit">
+    <div id="dgProject" class="mini-datagrid" style="width: 100%; height: 100%;" idfield="Id" allowmovecolumn="false"
+         multiselect="true" fitcolumns="false" onlycheckselection="true" showreloadbutton="false" pagesize="15" sizelist="[15,30,50,100]"
+         ondrawcell="onDrawCell" onload="onDgProjectLoad">
+        <div property="columns">
+            <div type="indexcolumn"></div>
+            <div type="checkcolumn"></div>
+            <div field="ProjectCode" header="项目编码" width="120"></div>
+            <div field="ProjectName" header="项目简称" width="250"></div>
+            <div field="ProjectFullName" header="项目全称" width="250"></div>
+            @*<div type="comboboxcolumn" field="ProjectCategory" header="项目类型" width="100">
+                    <input property="editor" class="mini-combobox" style="width: 100%;" data=@Html.Raw(ViewData["ProjectCategory"]) />
+                </div>
+                <div field="AccountingEntityName" header="会计主体" width="100"></div>*@
+            <div type="comboboxcolumn" field="ProjectProgress" header="项目进度" width="70">
+                <input property="editor" class="mini-combobox" style="width: 100%;" data=@Html.Raw(ViewData["ProjectProgress"]) />
+            </div>
+            <div type="comboboxcolumn" field="State" header="状态" width="70">
+                <input property="editor" class="mini-combobox" style="width: 100%;" data=@Html.Raw(ViewData["State"]) />
+            </div>
+            <div field="Remarks" header="备注" width="220"></div>
+        </div>
+    </div>
+</div>
+<div id="winQuery" class="mini-window" style="width: 350px; height: 225px;"
+     showmodal="true" allowresize="false" title="查询条件">
+    <table style="width: 100%;">
+        <tr>
+            <td style="width: 80px; text-align: right;">项目编码</td>
+            <td>
+                <input id="txtProjectCode" class="mini-textbox" style="width:200px;" />
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 80px; text-align: right;">项目简称</td>
+            <td>
+                <input id="txtProjectName" class="mini-textbox" style="width:200px;" />
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 80px; text-align: right;">项目全称</td>
+            <td>
+                <input id="txtProjectFullName" class="mini-textbox" style="width:200px;" />
+            </td>
+        </tr>
+        @*<tr>
+                <td style="width: 80px; text-align: right;">项目类型</td>
+                <td>
+                    <input id="cbProjectCategory" class="mini-combobox" value="0" style="width:200px;" data=@Html.Raw(ViewData["ProjectCategoryByAll"]) />
+                </td>
+            </tr>
+            <tr>
+                <td style="width: 80px; text-align: right;">会计主体</td>
+                <td>
+                    <input id="cbAccountingEntity" class="mini-combobox" value="00000000-0000-0000-0000-000000000000" style="width:200px;" textfield="AccountingEntityName" valuefield="Id" data=@Html.Raw(ViewData["AccountingEntitysByAll"]) />
+                </td>
+            </tr>*@
+        <tr>
+            <td style="width: 80px; text-align: right;">项目进度</td>
+            <td>
+                <input id="cbProjectProgress" class="mini-combobox" value="0" style="width:200px;" data=@Html.Raw(ViewData["ProjectProgressByAll"]) />
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 80px; text-align: right;">状态</td>
+            <td>
+                <input id="cbState" class="mini-combobox" value="0" style="width:200px;" data=@Html.Raw(ViewData["StateByAll"]) />
+            </td>
+        </tr>
+    </table>
+    <div style="text-align: center; padding: 10px;">
+        <a class="mini-button" iconcls="icon-ok" onclick="onOKClick">确定</a>
+    </div>
+</div>
+<div id="winProject" class="mini-window" style="width: 600px; height: 240px;"
+     showmodal="true" allowresize="false">
+    <div id="frmProject" class="form">
+        <input class="mini-hidden" id="Id" name="Id" />
+        <table style="width: 100%;">
+            <tr>
+                <td style="width: 80px; text-align: right;">项目编码</td>
+                <td>
+                    <input id="ProjectCode" name="ProjectCode" class="mini-textbox" requirederrortext="请输入项目编码" required="true" style="width: 200px;" />
+                </td>
+                <td style="width: 80px; text-align: right;">项目简称</td>
+                <td>
+                    <input id="ProjectName" name="ProjectName" class="mini-textbox" requirederrortext="请输入项目简称" required="true" style="width: 200px;" />
+                </td>
+            </tr>
+            <tr>
+                <td style="width: 80px; text-align: right;">项目全称</td>
+                <td>
+                    <input id="ProjectFullName" name="ProjectFullName" class="mini-textbox" requirederrortext="请输入项目全称" required="true" style="width: 200px;" />
+                </td>
+                <td style="width: 80px; text-align: right;">项目类型</td>
+                <td>
+                    <input id="ProjectCategory" name="ProjectCategory" class="mini-combobox" value="1" style="width:200px;" data=@Html.Raw(ViewData["ProjectCategory"]) />
+                </td>
+            </tr>
+            <tr>
+                <td style="width: 80px; text-align: right;">会计主体</td>
+                <td>
+                    <input id="AccountingEntityId" name="AccountingEntityId" class="mini-combobox" style="width:200px;" textfield="AccountingEntityName" valuefield="Id" required="true" onvalidation="onCbAccountingEntityIdValidation"
+                           data=@Html.Raw(ViewData["AccountingEntitys"]) />
+                </td>
+                <td style="width: 80px; text-align: right;">所涉专业</td>
+                <td>
+                    <input id="ProfessionList" name="ProfessionList" class="mini-checkboxlist" repeatitems="4" repeatlayout="table" textfield="text" valuefield="id" required="true" requirederrortext="请至少选择一个所涉专业" data=@Html.Raw(ViewData["Profession"]) />
+                </td>
+            </tr>
+            <tr>
+                <td style="width: 80px; text-align: right;">分管总经理</td>
+                <td>
+                    <input id="ManagerUserId" name="ManagerUserId" style="width:200px;" allowinput="false" class="mini-buttonedit searchbox" showclose="true" text="请选择" value="00000000-0000-0000-0000-000000000000" required="true"
+                           onbuttonclick="onUserSelectButtonClick" oncloseclick="onUserSelectButtonCloseClick" onvalidation="onBeManagerUserIdValidation" />
+                </td>
+                <td style="width: 80px; text-align: right;">项目负责人</td>
+                <td>
+                    <input id="ResponsibleUserId" name="ResponsibleUserId" style="width:200px;" allowinput="false" class="mini-buttonedit searchbox" showclose="true" text="请选择" value="00000000-0000-0000-0000-000000000000" required="true"
+                           onbuttonclick="onUserSelectButtonClick" oncloseclick="onUserSelectButtonCloseClick" onvalidation="onBeResponsibleUserIdValidation" />
+                </td>
+            </tr>
+            <tr>
+                <td style="width: 80px; text-align: right;">项目进度</td>
+                <td>
+                    <input id="ProjectProgress" name="ProjectProgress" class="mini-combobox" value="1" style="width:200px;" data=@Html.Raw(ViewData["ProjectProgress"]) />
+                </td>
+                <td style="width: 80px; text-align: right;" rowspan="2">备注</td>
+                <td rowspan="2">
+                    <input id="Remarks" name="Remarks" class="mini-textarea" style="width: 200px; height: 45px;" />
+                </td>
+            </tr>
+            <tr>
+                <td style="width: 80px; text-align: right;">状态</td>
+                <td>
+                    <input id="State" name="State" class="mini-combobox" value="1" style="width: 200px;" data=@Html.Raw(ViewData["State"]) />
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div style="text-align: center; padding: 10px;">
+        <a class="mini-button" iconcls="icon-save" onclick="onSaveClick" style="margin-right: 10px;">保存</a>
+        <a class="mini-button" iconcls="icon-cancel" onclick="onClearClick">清空</a>
+    </div>
+</div>
+<script type="text/javascript">
+    mini.parse();
+
+    var btnSearch = mini.get("btnSearch");
+    var dgProject = mini.get("dgProject");
+    var winQuery = mini.get("winQuery");
+    var txtProjectCode = mini.get("txtProjectCode");
+    var txtProjectName = mini.get("txtProjectName");
+    var txtProjectFullName = mini.get("txtProjectFullName");
+    //var cbProjectCategory = mini.get("cbProjectCategory");
+    //var cbAccountingEntity = mini.get("cbAccountingEntity");
+    var cbProjectProgress = mini.get("cbProjectProgress");
+    var cbState = mini.get("cbState");
+    var winProject = mini.get("winProject");
+    var frmProject = new mini.Form("#frmProject");
+    var txtProjectId = mini.get("Id");
+    var txt_ProjectCode = mini.get("ProjectCode");
+    var cb_ProjectCategory = mini.get("ProjectCategory");
+    var cbAccountingEntityId = mini.get("AccountingEntityId");
+    var beManagerUserId = mini.get("ManagerUserId");
+    var beResponsibleUserId = mini.get("ResponsibleUserId");
+    var cb_ProjectProgress = mini.get("ProjectProgress");
+    var cb_State = mini.get("State");
+
+    function BindDgProject() {
+        btnSearch.setEnabled(false);
+        var query_ProjectCode = txtProjectCode.getValue();
+        var query_ProjectName = txtProjectName.getValue();
+        var query_ProjectFullName = txtProjectFullName.getValue();
+        //var query_ProjectCategoryId = cbProjectCategory.getValue();
+        //var query_AccountingEntityId = cbAccountingEntity.getValue();
+        var query_ProjectProgress = cbProjectProgress.getValue();
+        var query_State = cbState.getValue();
+        if (dgProject.getUrl() == "") {
+            dgProject.setUrl("@Url.RouteUrl(new { controller = "BaseData", action = "GetProjectsPage" })");
+        }
+        dgProject.clearSelect(false);
+        dgProject.load({ ProjectCode: query_ProjectCode, ProjectName: query_ProjectName, ProjectFullName: query_ProjectFullName, ProjectProgress: query_ProjectProgress, State: query_State });
+    }
+
+    function onDgProjectLoad() {
+        btnSearch.setEnabled(true);
+    }
+
+    function onDrawCell(e) {
+        if (e.field == "State" && e.value == 2) {
+            e.cellStyle = "color:red;";
+        }
+    }
+
+    function onCbAccountingEntityIdValidation(e) {
+        if (e.isValid) {
+            if (e.value == "00000000-0000-0000-0000-000000000000") {
+                e.errorText = "请选择会计主体";
+                e.isValid = false;
+            }
+        }
+    }
+
+    function onUserSelectButtonClick() {
+        var beSelect = this;
+        mini.open({
+            url: "@Url.RouteUrl(new { controller = "CustomControl", action = "UserSelection" })",
+            title: "选择用户",
+            width: 620,
+            height: 350,
+            allowResize: false,
+            ondestroy: function (action) {
+                if (action == "ok") {
+                    var iframe = this.getIFrameEl();
+                    var data = iframe.contentWindow.GetData();
+                    data = mini.clone(data);
+                    beSelect.setValue(data.id);
+                    beSelect.setText(data.text);
+                    beSelect.validate();
+                }
+                else if (action == "cancel") {
+                    beSelect.setValue("00000000-0000-0000-0000-000000000000");
+                    beSelect.setText("请选择");
+                    beSelect.validate();
+                }
+            }
+        });
+    }
+
+    function onUserSelectButtonCloseClick() {
+        this.setValue("00000000-0000-0000-0000-000000000000");
+        this.setText("请选择");
+        this.validate();
+    }
+
+    function onBeManagerUserIdValidation(e) {
+        if (e.isValid) {
+            if (e.value == "00000000-0000-0000-0000-000000000000") {
+                e.errorText = "请选择分管总经理";
+                e.isValid = false;
+            }
+        }
+    }
+
+    function onBeResponsibleUserIdValidation(e) {
+        if (e.isValid) {
+            if (e.value == "00000000-0000-0000-0000-000000000000") {
+                e.errorText = "请选择项目负责人";
+                e.isValid = false;
+            }
+        }
+    }
+
+    function ClearFrmProject() {
+        var idValue = txtProjectId.getValue();
+        frmProject.clear();
+        txtProjectId.setValue(idValue);
+        cb_ProjectCategory.setValue(1);
+        cbAccountingEntityId.setValue("00000000-0000-0000-0000-000000000000");
+        beManagerUserId.setValue("00000000-0000-0000-0000-000000000000");
+        beManagerUserId.setText("请选择");
+        beResponsibleUserId.setValue("00000000-0000-0000-0000-000000000000");
+        beResponsibleUserId.setText("请选择");
+        cb_ProjectProgress.setValue(1);
+        cb_State.setValue(1);
+    }
+
+    function onSearchClick() {
+        winQuery.show();
+    }
+
+    function onOKClick() {
+        BindDgProject();
+        winQuery.hide();
+    }
+
+    function onAddClick() {
+        txtProjectId.setValue("");
+        ClearFrmProject();
+        winProject.setTitle("新增项目");
+        winProject.show();
+        txt_ProjectCode.focus();
+    }
+
+    function onEditClick() {
+        var rows = dgProject.getSelecteds();
+        if (rows.length == 0) {
+            mini.alert("请选择一条要修改的数据");
+        }
+        else {
+            ClearFrmProject();
+            winProject.setTitle("修改项目");
+            winProject.show();
+            var el = winProject.getEl();
+            mini.mask({
+                el: el,
+                cls: 'mini-mask-loading',
+                html: '加载中...'
+            });
+            setTimeout(function () {
+                $.ajax({
+                    url: "@Url.RouteUrl(new { controller = "BaseData", action = "GetProjectById" })" + "/" + rows[0].Id,
+                    type: "get",
+                    async: false,
+                    success: function (result, textStatus) {
+                        if (result.Id != null && result.Id == rows[0].Id) {
+                            frmProject.setData(result);
+                            beManagerUserId.setText(result.ManagerUserFullName);
+                            beResponsibleUserId.setText(result.ResponsibleUserFullName);
+                            txt_ProjectCode.focus();
+                        }
+                        else {
+                            winProject.hide();
+                        }
+                    },
+                    error: function (xmlHttpRequest, textStatus, errorThrown) {
+                        winProject.hide();
+                    }
+                });
+            }, 50);
+            setTimeout(function () {
+                mini.unmask(el);
+            }, 300);
+        }
+    }
+
+    function onClearClick() {
+        ClearFrmProject();
+        txt_ProjectCode.focus();
+    }
+
+    function onRemoveClick() {
+        var rows = dgProject.getSelecteds();
+        if (rows.length == 0) {
+            mini.alert("请选择要删除的数据");
+        }
+        else {
+            mini.confirm("确定要删除选中的数据？", "删除项目",
+            function (action) {
+                if (action == "ok") {
+                    var loading = mini.loading("处理中,请稍后...", "删除数据");
+                    var jsonData = mini.encode(rows);
+                    $.ajax({
+                        url: "@Url.RouteUrl(new { controller = "BaseData", action = "RemoveProjects" })",
+                        data: AddAntiForgeryToken({ data: jsonData }),
+                        type: "post",
+                        success: function (result, textStatus) {
+                            mini.hideMessageBox(loading);
+                            if (result.Code != null && result.Code == 0) {
+                                ShowSucessMessage(result.Message);
+                                BindDgProject();
+                            }
+                        },
+                        error: function (xmlHttpRequest, textStatus, errorThrown) {
+                            mini.hideMessageBox(loading);
+                        }
+                    });
+                }
+            });
+        }
+    }
+
+    function onSaveClick() {
+        frmProject.validate();
+        if (frmProject.isValid() == false) return;
+        var loading = mini.loading("处理中,请稍后...", "保存数据");
+        var jsonData = mini.encode(frmProject.getData());
+        $.ajax({
+            url: "@Url.RouteUrl(new { controller = "BaseData", action = "SaveProject" })",
+            data: AddAntiForgeryToken({ data: jsonData }),
+            type: "post",
+            success: function (result, textStatus) {
+                mini.hideMessageBox(loading);
+                if (result.Code != null && result.Code == 0) {
+                    winProject.hide();
+                    ShowSucessMessage(result.Message);
+                    BindDgProject();
+                }
+            },
+            error: function (xmlHttpRequest, textStatus, errorThrown) {
+                mini.hideMessageBox(loading);
+            }
+        });
+    }
+</script>

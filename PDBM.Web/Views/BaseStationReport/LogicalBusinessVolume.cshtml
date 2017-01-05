@@ -1,0 +1,134 @@
+﻿<div id="myToolbar" class="mini-toolbar" style="border-bottom: 0px; padding: 0px;">
+    <table style="width: 100%;" cellpadding="0" cellspacing="0">
+        <tr>
+            <td style="width: 100%;">
+                <a class="mini-button" iconcls="icon-help" plain="true" href="@Url.RouteUrl(new { controller = "File", action = "DownloadHelpFiles" })?FileName=BusinessVolume" target="_blank"></a>当前位置：基站建维>基站报表>逻辑号业务清单
+            </td>
+            <td style="white-space: nowrap;">
+                <a id="btnSearch" class="mini-button" iconcls="icon-search" plain="true" onclick="onSearchClick">查询</a>
+                <a class="mini-button" iconcls="icon-excel" plain="true" onclick="ExportExcel">导出Excel</a>
+            </td>
+        </tr>
+    </table>
+</div>
+<div class="mini-fit">
+    <div id="dgBusinessVolume" class="mini-datagrid" style="width: 100%; height: 100%;" idfield="Id" allowmovecolumn="false"
+         multiselect="true" fitcolumns="false" onlycheckselection="true" showreloadbutton="false" pagesize="15" sizelist="[15,30,50,100]"
+         virtualscroll="false" frozenstartcolumn="0" onload="onDgBusinessVolumeLoad">
+        <div property="columns">
+            <div type="indexcolumn"></div>
+            <div field="LogicalType" header="逻辑号类型" width="80"></div>
+            <div field="LogicalNumber" header="逻辑号" width="150"></div>
+            <div field="TrafficVolumes" header="话务量" width="80"></div>
+            <div field="BusinessVolumes" header="业务量" width="80"></div>
+            <div field="CreateFullName" header="登记人" width="80"></div>
+            <div field="CreateDate" header="登记日期" width="100" dateformat="yyyy-MM-dd"></div>
+        </div>
+    </div>
+</div>
+<div id="winQuery" class="mini-window" style="width: 320px; height: 165px;"
+     showmodal="true" allowresize="false" title="查询条件">
+    <table style="width: 100%;">
+        <tr>
+            <td style="width: 80px; text-align: right;">登记日期</td>
+            <td>
+                <table border="0" cellpadding="0" cellspacing="0">
+                    <tr>
+                        <td><input id="dpBeginDate" class="mini-datepicker" style="width:98px;" value="new Date()" showclearbutton="false" allowinput="false" /></td>
+                        <td>至</td>
+                        <td><input id="dpEndDate" class="mini-datepicker" style="width:98px;" value="new Date()" showclearbutton="false" allowinput="false" /></td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 80px; text-align: right;">逻辑号类型</td>
+            <td>
+                <input id="cbLogicalType" class="mini-combobox" value="0" style="width:208px;" data=@Html.Raw(ViewData["LogicalTypeByAll"]) />
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 80px; text-align: right;">逻辑号</td>
+            <td>
+                <input id="txtLogicalNumber" class="mini-textbox" style="width:208px;" />
+            </td>
+        </tr>
+    </table>
+    <div style="text-align: center; padding: 10px;">
+        <a class="mini-button" iconcls="icon-ok" onclick="onOKClick">确定</a>
+    </div>
+</div>
+<iframe id="exportIFrame" style="display:none;"></iframe>
+<!--导出Excel相关HTML-->
+<form id="excelForm" action="export.aspx?type=excel" method="post" target="excelIFrame">
+    <input type="hidden" name="columns" id="excelData" />
+</form>
+<iframe id="excelIFrame" name="excelIFrame" style="display:none;"></iframe>
+<script type="text/javascript">
+    mini.parse();
+
+    var btnSearch = mini.get("btnSearch");
+    var dgBusinessVolume = mini.get("dgBusinessVolume");
+    var winQuery = mini.get("winQuery");
+    var dpBeginDate = mini.get("dpBeginDate");
+    var dpEndDate = mini.get("dpEndDate");
+    var cbLogicalType = mini.get("cbLogicalType");
+    var txtLogicalNumber = mini.get("txtLogicalNumber");
+
+    Init();
+
+    function Init() {
+        dpBeginDate.setValue(new Date().DateAdd("y", -1));
+        //BindDgBusinessVolume();
+    }
+
+    function BindDgBusinessVolume() {
+        btnSearch.setEnabled(false);
+        var query_BeginDate = dpBeginDate.getFormValue();
+        var query_EndDate = dpEndDate.getFormValue();
+        var query_LogicalType = cbLogicalType.getValue();
+        var query_LogicalNumber = txtLogicalNumber.getValue();
+        if (dgBusinessVolume.getUrl() == "") {
+            dgBusinessVolume.setUrl("@Url.RouteUrl(new { controller = "BaseStationBM", action = "GetBusinessVolumesPage" })");
+        }
+        dgBusinessVolume.clearSelect(false);
+        dgBusinessVolume.load({ BeginDate: query_BeginDate, EndDate: query_EndDate, LogicalType: query_LogicalType, LogicalNumber: query_LogicalNumber });
+    }
+
+    function onDgBusinessVolumeLoad() {
+        btnSearch.setEnabled(true);
+    }
+
+    function onSearchClick() {
+        winQuery.show();
+    }
+
+    function onOKClick() {
+        BindDgBusinessVolume();
+        winQuery.hide();
+    }
+
+    function ExportExcel() {
+        var columns = dgBusinessVolume.getBottomColumns();
+        function getColumns(columns) {
+            columns = columns.clone();
+            for (var i = columns.length - 1; i >= 0; i--) {
+                var column = columns[i];
+                if (!column.field) {
+                    columns.removeAt(i);
+                } else {
+                    var c = { header: column.header, field: column.field };
+                    columns[i] = c;
+                }
+            }
+            return columns;
+        }
+
+        var columns = getColumns(columns);
+        var json = mini.encode(columns);
+        document.getElementById("excelData").value = json;
+        var excelForm = document.getElementById("excelForm");
+        excelForm.action = "@Url.RouteUrl(new { controller = "DataOutput", action = "ExportLogicalBusinessVolumeExcel" })" + "?BeginDate=" + dpBeginDate.getFormValue() + "&EndDate=" + dpEndDate.getFormValue() + "&LogicalType=" + cbLogicalType.getValue() + "&LogicalNumber=" + txtLogicalNumber.getValue() + "&Profession=1";
+        excelForm.submit();
+    }
+</script>

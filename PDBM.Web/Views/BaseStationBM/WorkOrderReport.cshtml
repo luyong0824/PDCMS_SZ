@@ -1,0 +1,381 @@
+﻿<div id="myToolbar" class="mini-toolbar" style="border-bottom: 0px; padding: 0px;">
+    <table style="width: 100%;" cellpadding="0" cellspacing="0">
+        <tr>
+            <td style="width: 100%;">
+                <a class="mini-button" iconcls="icon-help" plain="true" href="@Url.RouteUrl(new { controller = "File", action = "DownloadHelpFiles" })?FileName=WorkOrderReport" target="_blank"></a>当前位置：零星用工>派工报表>零星派工清单
+            </td>
+            <td style="white-space: nowrap;">
+                <a id="btnSearch" class="mini-button" iconcls="icon-search" plain="true" onclick="onSearchClick">查询</a>
+                <a class="mini-button" iconcls="icon-excel" plain="true" onclick="ExportExcel">导出Excel</a>
+            </td>
+        </tr>
+    </table>
+</div>
+<div class="mini-fit">
+    <div id="dgWorkOrder" class="mini-datagrid" style="width: 100%; height: 100%;" idfield="Id" allowmovecolumn="false"
+         multiselect="true" fitcolumns="false" onlycheckselection="true" showreloadbutton="false" pagesize="15" sizelist="[15,30,50,100]"
+         ondrawcell="onDrawCell" onload="onDgWorkOrderLoad" oncellclick="onCellClick">
+        <div property="columns">
+            <div type="indexcolumn"></div>
+            <div type="checkcolumn"></div>
+            <div field="IsFile" header=""></div>
+            <div field="OrderCode" header="单据编号" width="120"></div>
+            <div field="CreateDate" header="派工日期" width="100" dateformat="yyyy-MM-dd"></div>
+            <div field="RequireSendDate" header="要求派工日期" width="100" dateformat="yyyy-MM-dd"></div>
+            <div field="Title" header="标题" width="300"></div>
+            <div field="ClassName" header="工单类型" width="200"></div>
+            <div field="ReseauName" header="网格" width="70"></div>
+            <div field="FullName" header="网格经理" width="70"></div>
+            <div field="CustomerName" header="派工单位" width="150"></div>
+            <div field="MaintainContactMan" header="派工联系人" width="70"></div>
+            <div field="WorkContent" header="工作内容" width="200"></div>
+            <div type="comboboxcolumn" field="IsFinish" header="是否完成" width="70">
+                <input property="editor" class="mini-combobox" style="width: 100%;" data=@Html.Raw(ViewData["Bool"]) />
+            </div>
+            <div type="comboboxcolumn" field="OrderState" header="申请状态" width="70">
+                <input property="editor" class="mini-combobox" style="width: 100%;" data=@Html.Raw(ViewData["OrderState"]) />
+            </div>
+            <div field="CreateFullName" header="申请人" width="60"></div>
+            <div field="File" header="附件" width="40"></div>
+        </div>
+    </div>
+</div>
+<div id="winQuery" class="mini-window" style="width: 350px; height: 370px;"
+     showmodal="true" allowresize="false" title="查询条件">
+    <table style="width: 100%;">
+        <tr>
+            <td style="width: 80px; text-align: right;">派工日期</td>
+            <td>
+                <table border="0" cellpadding="0" cellspacing="0">
+                    <tr>
+                        <td><input id="dpBeginDate" class="mini-datepicker" style="width:98px;" value="new Date()" showclearbutton="false" allowinput="false" /></td>
+                        <td>至</td>
+                        <td><input id="dpEndDate" class="mini-datepicker" style="width:98px;" value="new Date()" showclearbutton="false" allowinput="false" /></td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 80px; text-align: right;">标题</td>
+            <td>
+                <input id="txtTitle" class="mini-textbox" style="width:208px;" />
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 80px; text-align: right;">网格</td>
+            <td>
+                <input id="cbReseauId" class="mini-combobox" value="00000000-0000-0000-0000-000000000000" style="width:208px;" textfield="ReseauName" valuefield="Id" data=@Html.Raw(ViewData["ReseauByAll"]) />
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 80px; text-align: right;">工单大类</td>
+            <td>
+                <input id="cbWorkBigClassId" class="mini-combobox" value="00000000-0000-0000-0000-000000000000" style="width:208px;" textfield="BigClassName" valuefield="Id" data=@Html.Raw(ViewData["WorkBigClassByAll"])
+                       onvaluechanged="onCbWorkBigClassIdValueChanged" />
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 80px; text-align: right;">工单小类</td>
+            <td>
+                <input id="cbWorkSmallClassId" class="mini-combobox" value="00000000-0000-0000-0000-000000000000" style="width:208px;" textfield="SmallClassName" valuefield="Id" data="[{Id:'00000000-0000-0000-0000-000000000000',SmallClassName:'全部'}]"
+                       onload="onCbWorkSmallClassIdLoad" />
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 80px; text-align: right;">派工单位</td>
+            <td>
+                <input id="beCustomerId" style="width:208px;" allowinput="false" class="mini-buttonedit searchbox" showclose="true" text="全部" value="00000000-0000-0000-0000-000000000000"
+                       onbuttonclick="onCustomerSelectButtonClick" oncloseclick="onCustomerSelectButtonCloseClick" />
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 80px; text-align: right;">派工联系人</td>
+            <td>
+                <input id="txtMaintainContactMan" class="mini-textbox" style="width:208px;" />
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 80px; text-align: right;">网格经理</td>
+            <td>
+                <input id="beSendUserId" style="width:208px;" allowinput="false" class="mini-buttonedit searchbox" showclose="true" text="全部" value="00000000-0000-0000-0000-000000000000"
+                       onbuttonclick="onSendUserSelectButtonClick" oncloseclick="onSendUserSelectButtonCloseClick" />
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 80px; text-align: right;">是否完成</td>
+            <td>
+                <input id="cbIsFinish" class="mini-combobox" value="0" style="width:208px;" data=@Html.Raw(ViewData["BoolByAll"]) />
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 80px; text-align: right;">申请状态</td>
+            <td>
+                <input id="cbOrderState" class="mini-combobox" value="3" style="width:208px;" data=@Html.Raw(ViewData["OrderStateByAll"]) />
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 80px; text-align: right;">申请人</td>
+            <td>
+                <input id="beCreateUserId" style="width:208px;" allowinput="false" class="mini-buttonedit searchbox" showclose="true" text="全部" value="00000000-0000-0000-0000-000000000000"
+                       onbuttonclick="onCreateUserSelectButtonClick" oncloseclick="onCreateUserSelectButtonCloseClick" />
+            </td>
+        </tr>
+    </table>
+    <div style="text-align: center; padding: 10px;">
+        <a class="mini-button" iconcls="icon-ok" onclick="onOKClick">确定</a>
+    </div>
+</div>
+<iframe id="exportIFrame" style="display:none;"></iframe>
+<!--导出Excel相关HTML-->
+<form id="excelForm" action="export.aspx?type=excel" method="post" target="excelIFrame">
+    <input type="hidden" name="columns" id="excelData" />
+</form>
+<iframe id="excelIFrame" name="excelIFrame" style="display:none;"></iframe>
+<script type="text/javascript">
+    mini.parse();
+
+    var btnSearch = mini.get("btnSearch");
+    var dgWorkOrder = mini.get("dgWorkOrder");
+    var winQuery = mini.get("winQuery");
+    var dpBeginDate = mini.get("dpBeginDate");
+    var dpEndDate = mini.get("dpEndDate");
+    var txtTitle = mini.get("txtTitle");
+    var cbReseauId = mini.get("cbReseauId");
+    var cbWorkBigClassId = mini.get("cbWorkBigClassId");
+    var cbWorkSmallClassId = mini.get("cbWorkSmallClassId");
+    var beCustomerId = mini.get("beCustomerId");
+    var txtMaintainContactMan = mini.get("txtMaintainContactMan");
+    var beSendUserId = mini.get("beSendUserId");
+    var cbIsFinish = mini.get("cbIsFinish");
+    var cbOrderState = mini.get("cbOrderState");
+    var beCreateUserId = mini.get("beCreateUserId");
+
+    Init();
+
+    function Init() {
+        dgWorkOrder.hideColumn(2);
+        dpBeginDate.setValue(new Date().DateAdd("m", -1));
+    }
+
+    function BindDgWorkOrder() {
+        btnSearch.setEnabled(false);
+        var query_BeginDate = dpBeginDate.getFormValue();
+        var query_EndDate = dpEndDate.getFormValue();
+        var query_Title = txtTitle.getValue();
+        var query_ReseauId = cbReseauId.getValue();
+        var query_WorkBigClassId = cbWorkBigClassId.getValue();
+        var query_WorkSmallClassId = cbWorkSmallClassId.getValue();
+        var query_CustomerId = beCustomerId.getValue();
+        var query_MaintainContactMan = txtMaintainContactMan.getValue();
+        var query_SendUserId = beSendUserId.getValue();
+        var query_IsFinish = cbIsFinish.getValue();
+        var query_OrderState = cbOrderState.getValue();
+        var query_CreateUserId = beCreateUserId.getValue();
+        if (dgWorkOrder.getUrl() == "") {
+            dgWorkOrder.setUrl("@Url.RouteUrl(new { controller = "BaseStationBM", action = "GetWorkOrdersReport" })");
+        }
+        dgWorkOrder.clearSelect(false);
+        dgWorkOrder.load({ BeginDate: query_BeginDate, EndDate: query_EndDate, Title: query_Title, ReseauId: query_ReseauId, WorkBigClassId: query_WorkBigClassId, WorkSmallClassId: query_WorkSmallClassId, CustomerId: query_CustomerId, MaintainContactMan: query_MaintainContactMan, SendUserId: query_SendUserId, IsFinish: query_IsFinish, OrderState: query_OrderState, CreateUserId: query_CreateUserId });
+    }
+
+    function onDgWorkOrderLoad() {
+        btnSearch.setEnabled(true);
+    }
+
+    function onDrawCell(e) {
+        if (e.field == "OrderCode" && e.value != "") {
+            e.cellStyle = "color:Blue;";
+        }
+        else if (e.field == "File" && e.record.IsFile != "") {
+            e.cellHtml = "<a class='file' onclick='onFileClick(\"" + e.record.Id + "\");'></a>";
+        }
+    }
+
+    function onSearchClick() {
+        winQuery.show();
+    }
+
+    function onOKClick() {
+        BindDgWorkOrder();
+        winQuery.hide();
+    }
+
+    function onCellClick(e) {
+        if (e.column.field == "OrderCode") {
+            var field = e.field;
+            var row = e.row;
+            if (row[field] != "") {
+                OpenPrintWindow("@Url.RouteUrl(new { controller = "PrintPage", action = "WorkOrder" })" + "/" + e.record.Id);
+            }
+        }
+    }
+
+    function onCustomerSelectButtonClick() {
+        var beSelect = this;
+        mini.open({
+            url: "@Url.RouteUrl(new { controller = "CustomControl", action = "CustomerSelection" })",
+            title: "选择派工单位",
+            width: 685,
+            height: 410,
+            allowResize: false,
+            ondestroy: function (action) {
+                if (action == "ok") {
+                    var iframe = this.getIFrameEl();
+                    var data = iframe.contentWindow.GetData();
+                    data = mini.clone(data);
+                    beSelect.setValue(data.id);
+                    beSelect.setText(data.text);
+                }
+                else if (action == "cancel") {
+                    beSelect.setValue("00000000-0000-0000-0000-000000000000");
+                    beSelect.setText("全部");
+                }
+                beSelect.validate();
+            }
+        });
+    }
+
+    function onCustomerSelectButtonCloseClick() {
+        this.setValue("00000000-0000-0000-0000-000000000000");
+        this.setText("全部");
+        this.validate();
+    }
+
+    function BindCbWorkSmallClassId(workBigClassId) {
+        cbWorkSmallClassId.setUrl("@Url.RouteUrl(new { controller = "BaseData", action = "GetUsedWorkSmallClass" })" + "/" + workBigClassId + "?getType=2");
+    }
+
+    function onCbWorkBigClassIdValueChanged(e) {
+        BindCbWorkSmallClassId(e.sender.getValue());
+    }
+
+    function onCbWorkSmallClassIdLoad() {
+        cbWorkSmallClassId.setValue("00000000-0000-0000-0000-000000000000");
+    }
+
+    function onSendUserSelectButtonClick() {
+        var beSelect = this;
+        mini.open({
+            url: "@Url.RouteUrl(new { controller = "CustomControl", action = "UserSelection" })",
+            title: "选择用户",
+            width: 620,
+            height: 350,
+            allowResize: false,
+            ondestroy: function (action) {
+                if (action == "ok") {
+                    var iframe = this.getIFrameEl();
+                    var data = iframe.contentWindow.GetData();
+                    data = mini.clone(data);
+                    beSelect.setValue(data.id);
+                    beSelect.setText(data.text);
+                    beSelect.validate();
+                }
+                else if (action == "cancel") {
+                    beSelect.setValue("00000000-0000-0000-0000-000000000000");
+                    beSelect.setText("全部");
+                    beSelect.validate();
+                }
+            }
+        });
+    }
+
+    function onSendUserSelectButtonCloseClick() {
+        this.setValue("00000000-0000-0000-0000-000000000000");
+        this.setText("全部");
+        this.validate();
+    }
+
+    function onFileClick(id) {
+        var el = document.body;
+        mini.mask({
+            el: el,
+            cls: 'mini-mask-loading',
+            html: '加载中...'
+        });
+        setTimeout(function () {
+            $.ajax({
+                url: "@Url.RouteUrl(new { controller = "File", action = "GetWorkOrderFiles" })",
+                data: { Id: id, FileIdList: "" },
+                type: "get",
+                async: false,
+                success: function (result, textStatus) {
+                    mini.unmask(el);
+                    if (result.Code == null || !result.Code) {
+                        mini.open({
+                            url: "@Url.RouteUrl(new { controller = "File", action = "FileManager" })",
+                            title: "附件",
+                            iconCls: "icon-file",
+                            width: 620,
+                            height: 250,
+                            allowResize: false,
+                            onload: function () {
+                                var iframe = this.getIFrameEl();
+                                var data = result;
+                                iframe.contentWindow.SetData(data);
+                            }
+                        });
+                    }
+                },
+                error: function (xmlHttpRequest, textStatus, errorThrown) {
+                    mini.unmask(el);
+                }
+            });
+        }, 50);
+    }
+
+    function onCreateUserSelectButtonClick() {
+        var beSelect = this;
+        mini.open({
+            url: "@Url.RouteUrl(new { controller = "CustomControl", action = "UserSelection" })",
+            title: "选择用户",
+            width: 620,
+            height: 350,
+            allowResize: false,
+            ondestroy: function (action) {
+                if (action == "ok") {
+                    var iframe = this.getIFrameEl();
+                    var data = iframe.contentWindow.GetData();
+                    data = mini.clone(data);
+                    beSelect.setValue(data.id);
+                    beSelect.setText(data.text);
+                    beSelect.validate();
+                }
+                else if (action == "cancel") {
+                    beSelect.setValue("00000000-0000-0000-0000-000000000000");
+                    beSelect.setText("全部");
+                    beSelect.validate();
+                }
+            }
+        });
+    }
+
+    function onCreateUserSelectButtonCloseClick() {
+        this.setValue("00000000-0000-0000-0000-000000000000");
+        this.setText("全部");
+        this.validate();
+    }
+
+    function ExportExcel() {
+        var columns = dgWorkOrder.getBottomColumns();
+        function getColumns(columns) {
+            columns = columns.clone();
+            for (var i = columns.length - 1; i >= 0; i--) {
+                var column = columns[i];
+                if (!column.field) {
+                    columns.removeAt(i);
+                } else {
+                    var c = { header: column.header, field: column.field };
+                    columns[i] = c;
+                }
+            }
+            return columns;
+        }
+
+        var columns = getColumns(columns);
+        var json = mini.encode(columns);
+        document.getElementById("excelData").value = json;
+        var excelForm = document.getElementById("excelForm");
+        excelForm.action = "@Url.RouteUrl(new { controller = "DataOutput", action = "ExportWorkOrdersExcel" })" + "?BeginDate=" + dpBeginDate.getFormValue() + "&EndDate=" + dpEndDate.getFormValue() + "&Title=" + txtTitle.getValue() + "&ReseauId=" + cbReseauId.getValue() + "&WorkBigClassId=" + cbWorkBigClassId.getValue() + "&WorkSmallClassId=" + cbWorkSmallClassId.getValue() + "&CustomerId=" + beCustomerId.getValue() + "&MaintainContactMan=" + txtMaintainContactMan.getValue() + "&SendUserId=" + beSendUserId.getValue() + "&IsFinish=" + cbIsFinish.getValue() + "&OrderState=" + cbOrderState.getValue() + "&CreateUserId=" + beCreateUserId.getValue();
+        excelForm.submit();
+    }
+</script>

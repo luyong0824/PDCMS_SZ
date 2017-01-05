@@ -1,0 +1,333 @@
+﻿<div id="myToolbar" class="mini-toolbar" style="border-bottom: 0px; padding: 0px;">
+    <table style="width: 100%;" cellpadding="0" cellspacing="0">
+        <tr>
+            <td style="width: 100%;">
+                <a class="mini-button" iconcls="icon-help" plain="true" href="@Url.RouteUrl(new { controller = "File", action = "DownloadHelpFiles" })?FileName=Reseau" target="_blank"></a>当前位置：基础数据>站点管理>网格
+            </td>
+            <td style="white-space: nowrap;">
+                <a id="btnSearch" class="mini-button" iconcls="icon-search" plain="true" onclick="onSearchClick">查询</a>
+                <a class="mini-button" iconcls="icon-add" plain="true" onclick="onAddClick">新增</a>
+                <a class="mini-button" iconcls="icon-edit" plain="true" onclick="onEditClick">修改</a>
+                <a class="mini-button" iconcls="icon-remove" plain="true" onclick="onRemoveClick">删除</a>
+            </td>
+        </tr>
+    </table>
+</div>
+<div class="mini-fit">
+    <div class="mini-splitter" style="width:100%;height:100%;">
+        <div showcollapsebutton="false" size="180" maxsize="250" minsize="100">
+            <div id="treeArea" class="mini-tree" style="width:100%; height:100%;" showtreeicon="true" textfield="AreaName" valuefield="Id" idfield="Id" parentfield="PId"
+                 resultastree="false" expandonload="true" onnodeselect="onTreeAreaNodeSelect" expandonnodeclick="true"></div>
+        </div>
+        <div showcollapsebutton="false">
+            <div id="dgReseau" class="mini-datagrid" style="width: 100%; height: 100%;" idfield="Id" allowmovecolumn="false" borderstyle="border:0px;"
+                 multiselect="true" showpager="false" fitcolumns="false" onlycheckselection="true" url="@Url.RouteUrl(new { controller = "BaseData", action = "GetAllReseaus" })"
+                 ondrawcell="onDrawCell" onload="onDgReseauLoad">
+                <div property="columns">
+                    <div type="indexcolumn"></div>
+                    <div type="checkcolumn"></div>
+                    <div field="ReseauCode" header="网格编码" width="120"></div>
+                    <div field="ReseauName" header="网格名称" width="180"></div>
+                    <div field="FullName" header="网格经理" width="180"></div>
+                    <div type="comboboxcolumn" field="State" header="状态" width="70">
+                        <input property="editor" class="mini-combobox" style="width: 100%;" data=@Html.Raw(ViewData["State"]) />
+                    </div>
+                    <div field="Remarks" header="备注" width="280"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="winReseau" class="mini-window" style="width: 350px; height: 285px;"
+     showmodal="true" allowresize="false">
+    <div id="frmReseau" class="form">
+        <input class="mini-hidden" id="Id" name="Id" />
+        <table style="width: 100%;">
+            <tr>
+                <td style="width: 80px; text-align: right;">区域</td>
+                <td>
+                    <input id="AreaId" name="AreaId" class="mini-combobox" style="width: 200px;" textfield="AreaName" valuefield="Id" data=@Html.Raw(ViewData["Areas"])
+                           value="00000000-0000-0000-0000-000000000000" required="true" onvalidation="onAreaIdValidation" />
+                </td>
+            </tr>
+            <tr>
+                <td style="width: 80px; text-align: right;">网格编码</td>
+                <td>
+                    <input id="ReseauCode" name="ReseauCode" class="mini-textbox" requirederrortext="请输入网格编码" required="true" style="width: 200px;" />
+                </td>
+            </tr>
+            <tr>
+                <td style="width: 80px; text-align: right;">网格名称</td>
+                <td>
+                    <input id="ReseauName" name="ReseauName" class="mini-textbox" requirederrortext="请输入网格名称" required="true" style="width: 200px;" />
+                </td>
+            </tr>
+            <tr>
+                <td style="width: 80px; text-align: right;">网格经理</td>
+                <td>
+                    <input id="ReseauManagerId" name="ReseauManagerId" style="width:200px;" allowinput="false" class="mini-buttonedit searchbox" showclose="true" text="请选择" value="00000000-0000-0000-0000-000000000000"
+                           onbuttonclick="onUserSelectButtonClick" oncloseclick="onUserSelectButtonCloseClick" />
+                </td>
+            </tr>
+            <tr>
+                <td style="width: 80px; text-align: right;">状态</td>
+                <td>
+                    <input id="State" name="State" class="mini-combobox" value="1" style="width: 200px;" data=@Html.Raw(ViewData["State"]) />
+                </td>
+            </tr>
+            <tr>
+                <td style="width: 80px; text-align: right;">备注</td>
+                <td>
+                    <input id="Remarks" name="Remarks" class="mini-textarea" style="width: 200px; height: 60px;" />
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div style="text-align: center; padding: 10px;">
+        <a class="mini-button" iconcls="icon-save" onclick="onSaveClick" style="margin-right: 10px;">保存</a>
+        <a class="mini-button" iconcls="icon-cancel" onclick="onClearClick">清空</a>
+    </div>
+</div>
+<script type="text/javascript">
+    mini.parse();
+
+    var btnSearch = mini.get("btnSearch");
+    var treeArea = mini.get("treeArea");
+    var dgReseau = mini.get("dgReseau");
+    var winReseau = mini.get("winReseau");
+    var frmReseau = new mini.Form("#frmReseau");
+    var txtReseauId = mini.get("Id");
+    var cbAreaId = mini.get("AreaId");
+    var txtReseauCode = mini.get("ReseauCode");
+    var beReseauManagerId = mini.get("ReseauManagerId");
+    var cbState = mini.get("State");
+
+    Init();
+
+    function Init() {
+        treeArea.loadList(@Html.Raw(ViewData["AreasTree"]), "Id", "PId");
+        if (treeArea.getList().length > 1) {
+            treeArea.select(1, false);
+        }
+        else {
+            treeArea.select(0, false);
+        }
+        BindDgReseau(treeArea.getValue());
+    }
+
+    function BindDgReseau(areaId) {
+        btnSearch.setEnabled(false);
+        dgReseau.clearSelect(false);
+        var el = treeArea.getEl();
+        mini.mask({
+            el: el,
+            cls: 'mini-mask-loading',
+            html: '加载中...'
+        });
+        dgReseau.load({ AreaId: areaId });
+    }
+
+    function onDgReseauLoad() {
+        btnSearch.setEnabled(true);
+        var el = treeArea.getEl();
+        mini.unmask(el);
+    }
+
+    function onDrawCell(e) {
+        if (e.field == "State" && e.value == 2) {
+            e.cellStyle = "color:red;";
+        }
+    }
+
+    function onTreeAreaNodeSelect(e) {
+        BindDgReseau(e.node.Id);
+    }
+
+    function onAreaIdValidation(e){
+        if (e.isValid) {
+            if (e.value == "00000000-0000-0000-0000-000000000000") {
+                e.errorText = "请选择区域";
+                e.isValid = false;
+            }
+        }
+    }
+
+    function ClearFrmReseau() {
+        var idValue = txtReseauId.getValue();
+        var areaIdValue = cbAreaId.getValue();
+        frmReseau.clear();
+        txtReseauId.setValue(idValue);
+        cbAreaId.setValue(areaIdValue);
+        beReseauManagerId.setValue("00000000-0000-0000-0000-000000000000");
+        beReseauManagerId.setText("请选择");
+        cbState.setValue(1);
+    }
+
+    function onSearchClick() {
+        var areaId = treeArea.getValue();
+        if (areaId == null || areaId == ""){
+            areaId = "00000000-0000-0000-0000-000000000000";
+        }
+        BindDgReseau(areaId);
+    }
+
+    function onAddClick() {
+        var areaId = treeArea.getValue();
+        if (areaId == null || areaId == "" || areaId == "00000000-0000-0000-0000-000000000000"){
+            mini.alert("请选择一个区域");
+        }
+        else {
+            txtReseauId.setValue("");
+            cbAreaId.setValue(areaId);
+            cbAreaId.setEnabled(true);
+            ClearFrmReseau();
+            winReseau.setTitle("新增网格");
+            winReseau.show();
+            txtReseauCode.focus();
+        }
+    }
+
+    function onEditClick() {
+        var rows = dgReseau.getSelecteds();
+        if (rows.length == 0) {
+            mini.alert("请选择一条要修改的数据");
+        }
+        else {
+            ClearFrmReseau();
+            winReseau.setTitle("修改网格");
+            winReseau.show();
+            var el = winReseau.getEl();
+            mini.mask({
+                el: el,
+                cls: 'mini-mask-loading',
+                html: '加载中...'
+            });
+            setTimeout(function () {
+                $.ajax({
+                    url: "@Url.RouteUrl(new { controller = "BaseData", action = "GetReseauById" })" + "/" + rows[0].Id,
+                    type: "get",
+                    async: false,
+                    success: function (result, textStatus) {
+                        if (result.Id != null && result.Id == rows[0].Id) {
+                            cbAreaId.setEnabled(false);
+                            frmReseau.setData(result);
+                            beReseauManagerId.setValue(result.ReseauManagerId);
+                            beReseauManagerId.setText(result.FullName);
+                            txtReseauCode.focus();
+                        }
+                        else {
+                            winReseau.hide();
+                        }
+                    },
+                    error: function (xmlHttpRequest, textStatus, errorThrown) {
+                        winReseau.hide();
+                    }
+                });
+            }, 50);
+            setTimeout(function () {
+                mini.unmask(el);
+            }, 300);
+        }
+    }
+
+    function onRemoveClick() {
+        var rows = dgReseau.getSelecteds();
+        if (rows.length == 0) {
+            mini.alert("请选择要删除的数据");
+        }
+        else {
+            mini.confirm("确定要删除选中的数据？", "删除网格",
+            function (action) {
+                if (action == "ok") {
+                    var loading = mini.loading("处理中,请稍后...", "删除数据");
+                    var jsonData = mini.encode(rows);
+                    $.ajax({
+                        url: "@Url.RouteUrl(new { controller = "BaseData", action = "RemoveReseaus" })",
+                        data: AddAntiForgeryToken({ data: jsonData }),
+                        type: "post",
+                        success: function (result, textStatus) {
+                            mini.hideMessageBox(loading);
+                            if (result.Code != null && result.Code == 0) {
+                                ShowSucessMessage(result.Message);
+                                BindDgReseau(treeArea.getValue());
+                            }
+                        },
+                        error: function (xmlHttpRequest, textStatus, errorThrown) {
+                            mini.hideMessageBox(loading);
+                        }
+                    });
+                }
+            });
+        }
+    }
+
+    function onSaveClick() {
+        frmReseau.validate();
+        if (frmReseau.isValid() == false) return;
+        var loading = mini.loading("处理中,请稍后...", "保存数据");
+        var jsonData = mini.encode(frmReseau.getData());
+        $.ajax({
+            url: "@Url.RouteUrl(new { controller = "BaseData", action = "SaveReseau" })",
+            data: AddAntiForgeryToken({ data: jsonData }),
+            type: "post",
+            success: function (result, textStatus) {
+                mini.hideMessageBox(loading);
+                if (result.Code != null && result.Code == 0) {
+                    winReseau.hide();
+                    ShowSucessMessage(result.Message);
+                    BindDgReseau(treeArea.getValue());
+                }
+            },
+            error: function (xmlHttpRequest, textStatus, errorThrown) {
+                mini.hideMessageBox(loading);
+            }
+        });
+    }
+
+    function onClearClick() {
+        ClearFrmReseau();
+        txtReseauCode.focus();
+    }
+
+    function onUserSelectButtonClick() {
+        var beSelect = this;
+        mini.open({
+            url: "@Url.RouteUrl(new { controller = "CustomControl", action = "UserSelection" })",
+            title: "选择用户",
+            width: 620,
+            height: 350,
+            allowResize: false,
+            ondestroy: function (action) {
+                if (action == "ok") {
+                    var iframe = this.getIFrameEl();
+                    var data = iframe.contentWindow.GetData();
+                    data = mini.clone(data);
+                    beSelect.setValue(data.id);
+                    beSelect.setText(data.text);
+                    beSelect.validate();
+                }
+                else if (action == "cancel") {
+                    beSelect.setValue("00000000-0000-0000-0000-000000000000");
+                    beSelect.setText("请选择");
+                    beSelect.validate();
+                }
+            }
+        });
+    }
+
+    function onUserSelectButtonCloseClick() {
+        this.setValue("00000000-0000-0000-0000-000000000000");
+        this.setText("请选择");
+        this.validate();
+    }
+
+
+    function onBeUserIdValidation(e) {
+        if (e.isValid) {
+            if (e.value == "00000000-0000-0000-0000-000000000000") {
+                e.errorText = "请选择网格经理";
+                e.isValid = false;
+            }
+        }
+    }
+</script>

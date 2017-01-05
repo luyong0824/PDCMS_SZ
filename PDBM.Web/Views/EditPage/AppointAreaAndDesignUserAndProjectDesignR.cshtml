@@ -1,0 +1,1132 @@
+﻿<div id="frmRemodeling" class="form">
+    <input class="mini-hidden" id="Id" name="Id" value="@ViewData["Id"]" />
+    <input class="mini-hidden" id="WFActivityInstanceId" name="WFActivityInstanceId" value="@ViewData["WFActivityInstanceId"]" />
+    <input class="mini-hidden" id="PlaceId" name="PlaceId" value="@ViewData["PlaceId"]" />
+    <input class="mini-hidden" id="FileIdList" name="FileIdList" value="@ViewData["FileIdList"]" />
+    <input class="mini-hidden" id="Id1" name="Id1" value="@ViewData["Id1"]" />
+    <input class="mini-hidden" id="Id2" name="Id2" value="@ViewData["Id2"]" />
+    <input class="mini-hidden" id="Id3" name="Id3" value="@ViewData["Id3"]" />
+    <input class="mini-hidden" id="Id4" name="Id4" value="@ViewData["Id4"]" />
+    <input class="mini-hidden" id="Id5" name="Id5" value="@ViewData["Id5"]" />
+    <input class="mini-hidden" id="Id6" name="Id6" value="@ViewData["Id6"]" />
+    <input class="mini-hidden" id="Mark1" name="Mark1" value="@ViewData["Mark1"]" />
+    <input class="mini-hidden" id="Mark2" name="Mark2" value="@ViewData["Mark2"]" />
+    <input class="mini-hidden" id="Mark3" name="Mark3" value="@ViewData["Mark3"]" />
+    <input class="mini-hidden" id="Mark4" name="Mark4" value="@ViewData["Mark4"]" />
+    <input class="mini-hidden" id="Mark5" name="Mark5" value="@ViewData["Mark5"]" />
+    <input class="mini-hidden" id="Mark6" name="Mark6" value="@ViewData["Mark6"]" />
+    <div id="tabContent" class="mini-tabs" activeindex="0" style="width: 600px; height: 500px;" plain="true">
+        <div title="指定责任人" style="height:100%">
+            <table style="width: 100%;">
+                <tr>
+                    <td style="width: 80px; text-align: right;">单据编号</td>
+                    <td>
+                        <input id="OrderCode" name="OrderCode" class="mini-textbox" readonly="true" style="width: 200px;" value="@ViewData["OrderCode"]" />
+                    </td>
+                    <td style="width: 80px; text-align: right;">申请日期</td>
+                    <td>
+                        <input id="CreateDateText" name="CreateDateText" class="mini-textbox" readonly="true" style="width: 200px;" value="@ViewData["CreateDateText"]" />
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 80px; text-align: right;">基站名称</td>
+                    <td>
+                        <input id="PlaceName" name="PlaceName" class="mini-textbox" readonly="true" style="width: 200px;" value="@ViewData["PlaceName"]" />
+                    </td>
+                    <td style="width: 80px; text-align: right;">基站类型</td>
+                    <td>
+                        <input id="PlaceCategoryName" name="PlaceCategoryName" class="mini-textbox" readonly="true" style="width: 200px;" value="@ViewData["PlaceCategoryName"]" />
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 80px; text-align: right;">导航图</td>
+                    <td>
+                        <a class="navigationmapedit" onclick="onMapClick();"></a>
+                    </td>
+                    <td style="width: 80px; text-align: right;">附件</td>
+                    <td>
+                        <table>
+                            <tr>
+                                <td style="width:16px">
+                                    <a class="fileedit" onclick="onFileClick();"></a>
+                                </td>
+                                <td>
+                                    附件数量：<input id="Count" name="Count" class="mini-textbox" value="@ViewData["Count"]" />
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 80px; text-align: right;">拟建网络</td>
+                    <td>
+                        <input id="ProposedNetwork" name="ProposedNetwork" class="mini-textbox" readonly="true" style="width:200px;" value="@ViewData["ProposedNetwork"]" />
+                    </td>
+                    <td style="width: 80px; text-align: right;">项目启动日期</td>
+                    <td>
+                        <input id="ProjectBeginDate" name="ProjectBeginDate" class="mini-textbox" readonly="true" style="width:200px;" value="@ViewData["ProjectBeginDate"]" />
+                    </td>
+                </tr>
+            </table>
+            <fieldset>
+                <legend><b>本次编辑内容</b></legend>
+                <table style="width: 100%;">
+                    <tr>
+                        <td style="width: 80px; text-align: right;">项目经理</td>
+                        <td>
+                            <input id="AreaManagerId" name="AreaManagerId" style="width:200px;" allowinput="false" class="mini-buttonedit searchbox" showclose="true" text="请选择" value="00000000-0000-0000-0000-000000000000"
+                                   onbuttonclick="onAreaManagerIdSelectButtonClick" oncloseclick="onAreaManagerIdSelectButtonCloseClick" onvalidation="onAreaManagerIdValidation" />
+                        </td>
+                        <td style="width: 80px; text-align: right;">总设单位</td>
+                        <td>
+                            <input id="GeneralDesignId" name="GeneralDesignId" style="width:200px;" allowinput="false" class="mini-buttonedit searchbox" showclose="true" text="请选择" value="00000000-0000-0000-0000-000000000000"
+                                   onbuttonclick="onGeneralDesignIdSelectButtonClick" oncloseclick="onGeneralDesignIdSelectButtonCloseClick" onvalidation="onGeneralDesignIdValidation" />
+                        </td>
+                    </tr>
+                </table>
+            </fieldset>
+            <fieldset>
+                <legend><b><div id="ck_1" name="product" class="mini-checkbox" readonly="false" text="天桅" onvaluechanged="onValueChanged1"></div></b></legend>
+                <table style="width: 100%;">
+                    <tr>
+                        <td style="width: 80px; text-align: right;">工程经理</td>
+                        <td>
+                            <input id="ProjectManagerId1" name="ProjectManagerId1" style="width:200px;" allowinput="false" class="mini-buttonedit searchbox" showclose="true" text="请选择" value="00000000-0000-0000-0000-000000000000"
+                                   onbuttonclick="onUserSelectButtonClick" oncloseclick="onUserSelectButtonCloseClick" onvalidation="onProjectManagerId1Validation" />
+                        </td>
+                        <td style="width: 80px; text-align: right;">设计单位</td>
+                        <td>
+                            <input id="DesignCustomerId1" name="DesignCustomerId1" style="width:200px;" allowinput="false" class="mini-buttonedit searchbox" showclose="true" text="请选择" value="00000000-0000-0000-0000-000000000000"
+                                   onbuttonclick="onCustomerSJSelectButtonClick" oncloseclick="onCustomerSelectButtonCloseClick" onvalidation="onDesignCustomerId1Validation" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="width: 80px; text-align: right;">施工单位</td>
+                        <td>
+                            <input id="ConstructionCustomerId1" name="ConstructionCustomerId1" style="width:200px;" allowinput="false" class="mini-buttonedit searchbox" showclose="true" text="请选择" value="00000000-0000-0000-0000-000000000000"
+                                   onbuttonclick="onCustomerSGSelectButtonClick" oncloseclick="onCustomerSelectButtonCloseClick" onvalidation="onConstructionCustomerId1Validation" />
+                        </td>
+                        <td style="width: 80px; text-align: right;">监理单位</td>
+                        <td>
+                            <input id="SupervisionCustomerId1" name="SupervisionCustomerId1" style="width:200px;" allowinput="false" class="mini-buttonedit searchbox" showclose="true" text="请选择" value="00000000-0000-0000-0000-000000000000"
+                                   onbuttonclick="onCustomerJLSelectButtonClick" oncloseclick="onCustomerSelectButtonCloseClick" onvalidation="onSupervisionCustomerId1Validation" />
+                        </td>
+                    </tr>
+                </table>
+            </fieldset>
+            <fieldset>
+                <legend><b><div id="ck_2" name="product" class="mini-checkbox" readonly="false" text="天桅基础" onvaluechanged="onValueChanged2"></div></b></legend>
+                <table style="width: 100%;">
+                    <tr>
+                        <td style="width: 80px; text-align: right;">工程经理</td>
+                        <td>
+                            <input id="ProjectManagerId2" name="ProjectManagerId2" style="width:200px;" allowinput="false" class="mini-buttonedit searchbox" showclose="true" text="请选择" value="00000000-0000-0000-0000-000000000000"
+                                   onbuttonclick="onUserSelectButtonClick" oncloseclick="onUserSelectButtonCloseClick" onvalidation="onProjectManagerId2Validation" />
+                        </td>
+                        <td style="width: 80px; text-align: right;">设计单位</td>
+                        <td>
+                            <input id="DesignCustomerId2" name="DesignCustomerId2" style="width:200px;" allowinput="false" class="mini-buttonedit searchbox" showclose="true" text="请选择" value="00000000-0000-0000-0000-000000000000"
+                                   onbuttonclick="onCustomerSJSelectButtonClick" oncloseclick="onCustomerSelectButtonCloseClick" onvalidation="onDesignCustomerId2Validation" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="width: 80px; text-align: right;">施工单位</td>
+                        <td>
+                            <input id="ConstructionCustomerId2" name="ConstructionCustomerId2" style="width:200px;" allowinput="false" class="mini-buttonedit searchbox" showclose="true" text="请选择" value="00000000-0000-0000-0000-000000000000"
+                                   onbuttonclick="onCustomerSGSelectButtonClick" oncloseclick="onCustomerSelectButtonCloseClick" onvalidation="onConstructionCustomerId2Validation" />
+                        </td>
+                        <td style="width: 80px; text-align: right;">监理单位</td>
+                        <td>
+                            <input id="SupervisionCustomerId2" name="SupervisionCustomerId2" style="width:200px;" allowinput="false" class="mini-buttonedit searchbox" showclose="true" text="请选择" value="00000000-0000-0000-0000-000000000000"
+                                   onbuttonclick="onCustomerJLSelectButtonClick" oncloseclick="onCustomerSelectButtonCloseClick" onvalidation="onSupervisionCustomerId2Validation" />
+                        </td>
+                    </tr>
+                </table>
+            </fieldset>
+            <fieldset>
+                <legend><b><div id="ck_3" name="product" class="mini-checkbox" readonly="false" text="机房" onvaluechanged="onValueChanged3"></div></b></legend>
+                <table style="width: 100%;">
+                    <tr>
+                        <td style="width: 80px; text-align: right;">工程经理</td>
+                        <td>
+                            <input id="ProjectManagerId3" name="ProjectManagerId3" style="width:200px;" allowinput="false" class="mini-buttonedit searchbox" showclose="true" text="请选择" value="00000000-0000-0000-0000-000000000000"
+                                   onbuttonclick="onUserSelectButtonClick" oncloseclick="onUserSelectButtonCloseClick" onvalidation="onProjectManagerId3Validation" />
+                        </td>
+                        <td style="width: 80px; text-align: right;">设计单位</td>
+                        <td>
+                            <input id="DesignCustomerId3" name="DesignCustomerId3" style="width:200px;" allowinput="false" class="mini-buttonedit searchbox" showclose="true" text="请选择" value="00000000-0000-0000-0000-000000000000"
+                                   onbuttonclick="onCustomerSJSelectButtonClick" oncloseclick="onCustomerSelectButtonCloseClick" onvalidation="onDesignCustomerId3Validation" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="width: 80px; text-align: right;">施工单位</td>
+                        <td>
+                            <input id="ConstructionCustomerId3" name="ConstructionCustomerId3" style="width:200px;" allowinput="false" class="mini-buttonedit searchbox" showclose="true" text="请选择" value="00000000-0000-0000-0000-000000000000"
+                                   onbuttonclick="onCustomerSGSelectButtonClick" oncloseclick="onCustomerSelectButtonCloseClick" onvalidation="onConstructionCustomerId3Validation" />
+                        </td>
+                        <td style="width: 80px; text-align: right;">监理单位</td>
+                        <td>
+                            <input id="SupervisionCustomerId3" name="SupervisionCustomerId3" style="width:200px;" allowinput="false" class="mini-buttonedit searchbox" showclose="true" text="请选择" value="00000000-0000-0000-0000-000000000000"
+                                   onbuttonclick="onCustomerJLSelectButtonClick" oncloseclick="onCustomerSelectButtonCloseClick" onvalidation="onSupervisionCustomerId3Validation" />
+                        </td>
+                    </tr>
+                </table>
+            </fieldset>
+            <fieldset>
+                <legend><b><div id="ck_4" name="product" class="mini-checkbox" readonly="false" text="外电引入" onvaluechanged="onValueChanged4"></div></b></legend>
+                <table style="width: 100%;">
+                    <tr>
+                        <td style="width: 80px; text-align: right;">工程经理</td>
+                        <td>
+                            <input id="ProjectManagerId4" name="ProjectManagerId4" style="width:200px;" allowinput="false" class="mini-buttonedit searchbox" showclose="true" text="请选择" value="00000000-0000-0000-0000-000000000000"
+                                   onbuttonclick="onUserSelectButtonClick" oncloseclick="onUserSelectButtonCloseClick" onvalidation="onProjectManagerId4Validation" />
+                        </td>
+                        <td style="width: 80px; text-align: right;">设计单位</td>
+                        <td>
+                            <input id="DesignCustomerId4" name="DesignCustomerId4" style="width:200px;" allowinput="false" class="mini-buttonedit searchbox" showclose="true" text="请选择" value="00000000-0000-0000-0000-000000000000"
+                                   onbuttonclick="onCustomerSJSelectButtonClick" oncloseclick="onCustomerSelectButtonCloseClick" onvalidation="onDesignCustomerId4Validation" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="width: 80px; text-align: right;">施工单位</td>
+                        <td>
+                            <input id="ConstructionCustomerId4" name="ConstructionCustomerId4" style="width:200px;" allowinput="false" class="mini-buttonedit searchbox" showclose="true" text="请选择" value="00000000-0000-0000-0000-000000000000"
+                                   onbuttonclick="onCustomerSGSelectButtonClick" oncloseclick="onCustomerSelectButtonCloseClick" onvalidation="onConstructionCustomerId4Validation" />
+                        </td>
+                        <td style="width: 80px; text-align: right;">监理单位</td>
+                        <td>
+                            <input id="SupervisionCustomerId4" name="SupervisionCustomerId4" style="width:200px;" allowinput="false" class="mini-buttonedit searchbox" showclose="true" text="请选择" value="00000000-0000-0000-0000-000000000000"
+                                   onbuttonclick="onCustomerJLSelectButtonClick" oncloseclick="onCustomerSelectButtonCloseClick" onvalidation="onSupervisionCustomerId4Validation" />
+                        </td>
+                    </tr>
+                </table>
+            </fieldset>
+            <fieldset>
+                <legend><b><div id="ck_5" name="product" class="mini-checkbox" readonly="false" text="设备安装" onvaluechanged="onValueChanged5"></div></b></legend>
+                <table style="width: 100%;">
+                    <tr>
+                        <td style="width: 80px; text-align: right;">工程经理</td>
+                        <td>
+                            <input id="ProjectManagerId5" name="ProjectManagerId5" style="width:200px;" allowinput="false" class="mini-buttonedit searchbox" showclose="true" text="请选择" value="00000000-0000-0000-0000-000000000000"
+                                   onbuttonclick="onUserSelectButtonClick" oncloseclick="onUserSelectButtonCloseClick" onvalidation="onProjectManagerId5Validation" />
+                        </td>
+                        <td style="width: 80px; text-align: right;">设计单位</td>
+                        <td>
+                            <input id="DesignCustomerId5" name="DesignCustomerId5" style="width:200px;" allowinput="false" class="mini-buttonedit searchbox" showclose="true" text="请选择" value="00000000-0000-0000-0000-000000000000"
+                                   onbuttonclick="onCustomerSJSelectButtonClick" oncloseclick="onCustomerSelectButtonCloseClick" onvalidation="onDesignCustomerId5Validation" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="width: 80px; text-align: right;">施工单位</td>
+                        <td>
+                            <input id="ConstructionCustomerId5" name="ConstructionCustomerId5" style="width:200px;" allowinput="false" class="mini-buttonedit searchbox" showclose="true" text="请选择" value="00000000-0000-0000-0000-000000000000"
+                                   onbuttonclick="onCustomerSGSelectButtonClick" oncloseclick="onCustomerSelectButtonCloseClick" onvalidation="onConstructionCustomerId5Validation" />
+                        </td>
+                        <td style="width: 80px; text-align: right;">监理单位</td>
+                        <td>
+                            <input id="SupervisionCustomerId5" name="SupervisionCustomerId5" style="width:200px;" allowinput="false" class="mini-buttonedit searchbox" showclose="true" text="请选择" value="00000000-0000-0000-0000-000000000000"
+                                   onbuttonclick="onCustomerJLSelectButtonClick" oncloseclick="onCustomerSelectButtonCloseClick" onvalidation="onSupervisionCustomerId5Validation" />
+                        </td>
+                    </tr>
+                </table>
+            </fieldset>
+            <fieldset>
+                <legend><b><div id="ck_6" name="product" class="mini-checkbox" readonly="false" text="线路" onvaluechanged="onValueChanged6"></div></b></legend>
+                <table style="width: 100%;">
+                    <tr>
+                        <td style="width: 80px; text-align: right;">工程经理</td>
+                        <td>
+                            <input id="ProjectManagerId6" name="ProjectManagerId6" style="width:200px;" allowinput="false" class="mini-buttonedit searchbox" showclose="true" text="请选择" value="00000000-0000-0000-0000-000000000000"
+                                   onbuttonclick="onUserSelectButtonClick" oncloseclick="onUserSelectButtonCloseClick" onvalidation="onProjectManagerId6Validation" />
+                        </td>
+                        <td style="width: 80px; text-align: right;">设计单位</td>
+                        <td>
+                            <input id="DesignCustomerId6" name="DesignCustomerId6" style="width:200px;" allowinput="false" class="mini-buttonedit searchbox" showclose="true" text="请选择" value="00000000-0000-0000-0000-000000000000"
+                                   onbuttonclick="onCustomerSJSelectButtonClick" oncloseclick="onCustomerSelectButtonCloseClick" onvalidation="onDesignCustomerId6Validation" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="width: 80px; text-align: right;">施工单位</td>
+                        <td>
+                            <input id="ConstructionCustomerId6" name="ConstructionCustomerId6" style="width:200px;" allowinput="false" class="mini-buttonedit searchbox" showclose="true" text="请选择" value="00000000-0000-0000-0000-000000000000"
+                                   onbuttonclick="onCustomerSGSelectButtonClick" oncloseclick="onCustomerSelectButtonCloseClick" onvalidation="onConstructionCustomerId6Validation" />
+                        </td>
+                        <td style="width: 80px; text-align: right;">监理单位</td>
+                        <td>
+                            <input id="SupervisionCustomerId6" name="SupervisionCustomerId6" style="width:200px;" allowinput="false" class="mini-buttonedit searchbox" showclose="true" text="请选择" value="00000000-0000-0000-0000-000000000000"
+                                   onbuttonclick="onCustomerJLSelectButtonClick" oncloseclick="onCustomerSelectButtonCloseClick" onvalidation="onSupervisionCustomerId6Validation" />
+                        </td>
+                    </tr>
+                </table>
+            </fieldset>
+        </div>
+    </div>
+    <table style="width: 100%;">
+        <tr>
+            <td align="center">
+                <a class="mini-button" iconcls="icon-save" onclick="onSaveClick">保存</a>
+            </td>
+        </tr>
+    </table>
+</div>
+<script type="text/javascript">
+    mini.parse();
+
+    var frmRemodeling = new mini.Form("#frmRemodeling");
+    var txtRemodelingId = mini.get("Id");
+    var txtWFActivityInstanceId = mini.get("WFActivityInstanceId");
+    var txtPlaceId = mini.get("PlaceId");
+    var txtFileIdList = mini.get("FileIdList");
+    var txtId1 = mini.get("Id1");
+    var txtId2 = mini.get("Id2");
+    var txtId3 = mini.get("Id3");
+    var txtId4 = mini.get("Id4");
+    var txtId5 = mini.get("Id5");
+    var txtId6 = mini.get("Id6");
+    var txtMark1 = mini.get("Mark1");
+    var txtMark2 = mini.get("Mark2");
+    var txtMark3 = mini.get("Mark3");
+    var txtMark4 = mini.get("Mark4");
+    var txtMark5 = mini.get("Mark5");
+    var txtMark6 = mini.get("Mark6");
+
+    var beAreaManagerId = mini.get("AreaManagerId");
+    var beGeneralDesignId = mini.get("GeneralDesignId");
+
+    var ck_1 = mini.get("ck_1");
+    var ck_2 = mini.get("ck_2");
+    var ck_3 = mini.get("ck_3");
+    var ck_4 = mini.get("ck_4");
+    var ck_5 = mini.get("ck_5");
+    var ck_6 = mini.get("ck_6");
+
+    var beProjectManagerId1 = mini.get("ProjectManagerId1");
+    var beProjectManagerId2 = mini.get("ProjectManagerId2");
+    var beProjectManagerId3 = mini.get("ProjectManagerId3");
+    var beProjectManagerId4 = mini.get("ProjectManagerId4");
+    var beProjectManagerId5 = mini.get("ProjectManagerId5");
+    var beProjectManagerId6 = mini.get("ProjectManagerId6");
+
+    var beDesignCustomerId1 = mini.get("DesignCustomerId1");
+    var beDesignCustomerId2 = mini.get("DesignCustomerId2");
+    var beDesignCustomerId3 = mini.get("DesignCustomerId3");
+    var beDesignCustomerId4 = mini.get("DesignCustomerId4");
+    var beDesignCustomerId5 = mini.get("DesignCustomerId5");
+    var beDesignCustomerId6 = mini.get("DesignCustomerId6");
+
+    var beConstructionCustomerId1 = mini.get("ConstructionCustomerId1");
+    var beConstructionCustomerId2 = mini.get("ConstructionCustomerId2");
+    var beConstructionCustomerId3 = mini.get("ConstructionCustomerId3");
+    var beConstructionCustomerId4 = mini.get("ConstructionCustomerId4");
+    var beConstructionCustomerId5 = mini.get("ConstructionCustomerId5");
+    var beConstructionCustomerId6 = mini.get("ConstructionCustomerId6");
+
+    var beSupervisionCustomerId1 = mini.get("SupervisionCustomerId1");
+    var beSupervisionCustomerId2 = mini.get("SupervisionCustomerId2");
+    var beSupervisionCustomerId3 = mini.get("SupervisionCustomerId3");
+    var beSupervisionCustomerId4 = mini.get("SupervisionCustomerId4");
+    var beSupervisionCustomerId5 = mini.get("SupervisionCustomerId5");
+    var beSupervisionCustomerId6 = mini.get("SupervisionCustomerId6");
+
+    init();
+
+    function init() {
+        beAreaManagerId.setValue("@ViewData["AreaManagerId"]");
+        beGeneralDesignId.setValue("@ViewData["GeneralDesignId"]");
+        beAreaManagerId.setText("@ViewData["AreaManagerName"]");
+        beGeneralDesignId.setText("@ViewData["GeneralDesignName"]");
+
+        beProjectManagerId1.setValue("@ViewData["ProjectManagerId1"]");
+        beProjectManagerId1.setText("@ViewData["ProjectManagerName1"]");
+        beProjectManagerId2.setValue("@ViewData["ProjectManagerId2"]");
+        beProjectManagerId2.setText("@ViewData["ProjectManagerName2"]");
+        beProjectManagerId3.setValue("@ViewData["ProjectManagerId3"]");
+        beProjectManagerId3.setText("@ViewData["ProjectManagerName3"]");
+        beProjectManagerId4.setValue("@ViewData["ProjectManagerId4"]");
+        beProjectManagerId4.setText("@ViewData["ProjectManagerName4"]");
+        beProjectManagerId5.setValue("@ViewData["ProjectManagerId5"]");
+        beProjectManagerId5.setText("@ViewData["ProjectManagerName5"]");
+        beProjectManagerId6.setValue("@ViewData["ProjectManagerId6"]");
+        beProjectManagerId6.setText("@ViewData["ProjectManagerName6"]");
+
+        beDesignCustomerId1.setValue("@ViewData["DesignCustomerId1"]");
+        beDesignCustomerId1.setText("@ViewData["DesignCustomerName1"]");
+        beDesignCustomerId2.setValue("@ViewData["DesignCustomerId2"]");
+        beDesignCustomerId2.setText("@ViewData["DesignCustomerName2"]");
+        beDesignCustomerId3.setValue("@ViewData["DesignCustomerId3"]");
+        beDesignCustomerId3.setText("@ViewData["DesignCustomerName3"]");
+        beDesignCustomerId4.setValue("@ViewData["DesignCustomerId4"]");
+        beDesignCustomerId4.setText("@ViewData["DesignCustomerName4"]");
+        beDesignCustomerId5.setValue("@ViewData["DesignCustomerId5"]");
+        beDesignCustomerId5.setText("@ViewData["DesignCustomerName5"]");
+        beDesignCustomerId6.setValue("@ViewData["DesignCustomerId6"]");
+        beDesignCustomerId6.setText("@ViewData["DesignCustomerName6"]");
+
+        beConstructionCustomerId1.setValue("@ViewData["ConstructionCustomerId1"]");
+        beConstructionCustomerId1.setText("@ViewData["ConstructionCustomerName1"]");
+        beConstructionCustomerId2.setValue("@ViewData["ConstructionCustomerId2"]");
+        beConstructionCustomerId2.setText("@ViewData["ConstructionCustomerName2"]");
+        beConstructionCustomerId3.setValue("@ViewData["ConstructionCustomerId3"]");
+        beConstructionCustomerId3.setText("@ViewData["ConstructionCustomerName3"]");
+        beConstructionCustomerId4.setValue("@ViewData["ConstructionCustomerId4"]");
+        beConstructionCustomerId4.setText("@ViewData["ConstructionCustomerName4"]");
+        beConstructionCustomerId5.setValue("@ViewData["ConstructionCustomerId5"]");
+        beConstructionCustomerId5.setText("@ViewData["ConstructionCustomerName5"]");
+        beConstructionCustomerId6.setValue("@ViewData["ConstructionCustomerId6"]");
+        beConstructionCustomerId6.setText("@ViewData["ConstructionCustomerName6"]");
+
+        beSupervisionCustomerId1.setValue("@ViewData["SupervisionCustomerId1"]");
+        beSupervisionCustomerId1.setText("@ViewData["SupervisionCustomerName1"]");
+        beSupervisionCustomerId2.setValue("@ViewData["SupervisionCustomerId2"]");
+        beSupervisionCustomerId2.setText("@ViewData["SupervisionCustomerName2"]");
+        beSupervisionCustomerId3.setValue("@ViewData["SupervisionCustomerId3"]");
+        beSupervisionCustomerId3.setText("@ViewData["SupervisionCustomerName3"]");
+        beSupervisionCustomerId4.setValue("@ViewData["SupervisionCustomerId4"]");
+        beSupervisionCustomerId4.setText("@ViewData["SupervisionCustomerName4"]");
+        beSupervisionCustomerId5.setValue("@ViewData["SupervisionCustomerId5"]");
+        beSupervisionCustomerId5.setText("@ViewData["SupervisionCustomerName5"]");
+        beSupervisionCustomerId6.setValue("@ViewData["SupervisionCustomerId6"]");
+        beSupervisionCustomerId6.setText("@ViewData["SupervisionCustomerName6"]");
+
+        if ("@ViewData["Mark1"]" == "1") {
+            ck_1.setValue(true);
+            SetEnabled1(true);
+        }
+        else {
+            ck_1.setValue(false);
+            SetEnabled1(false);
+        }
+        if ("@ViewData["Mark2"]" == "1") {
+            ck_2.setValue(true);
+            SetEnabled2(true);
+        }
+        else {
+            ck_2.setValue(false);
+            SetEnabled2(false);
+        }
+        if ("@ViewData["Mark3"]" == "1") {
+            ck_3.setValue(true);
+            SetEnabled3(true);
+        }
+        else {
+            ck_3.setValue(false);
+            SetEnabled3(false);
+        }
+        if ("@ViewData["Mark4"]" == "1") {
+            ck_4.setValue(true);
+            SetEnabled4(true);
+        }
+        else {
+            ck_4.setValue(false);
+            SetEnabled4(false);
+        }
+        if ("@ViewData["Mark5"]" == "1") {
+            ck_5.setValue(true);
+            SetEnabled5(true);
+        }
+        else {
+            ck_5.setValue(false);
+            SetEnabled5(false);
+        }
+        if ("@ViewData["Mark6"]" == "1") {
+            ck_6.setValue(true);
+            SetEnabled6(true);
+        }
+        else {
+            ck_6.setValue(false);
+            SetEnabled6(false);
+        }
+    }
+
+    function onValueChanged1(e) {
+        var checked = this.getChecked();
+        SetEnabled1(checked);
+        if (checked == true) {
+            txtMark1.setValue(1);
+        }
+        else {
+            txtMark1.setValue(0);
+        }
+    }
+
+    function onValueChanged2(e) {
+        var checked = this.getChecked();
+        SetEnabled2(checked);
+        if (checked == true) {
+            txtMark2.setValue(1);
+        }
+        else {
+            txtMark2.setValue(0);
+        }
+    }
+
+    function onValueChanged3(e) {
+        var checked = this.getChecked();
+        SetEnabled3(checked);
+        if (checked == true) {
+            txtMark3.setValue(1);
+        }
+        else {
+            txtMark3.setValue(0);
+        }
+    }
+
+    function onValueChanged4(e) {
+        var checked = this.getChecked();
+        SetEnabled4(checked);
+        if (checked == true) {
+            txtMark4.setValue(1);
+        }
+        else {
+            txtMark4.setValue(0);
+        }
+    }
+
+    function onValueChanged5(e) {
+        var checked = this.getChecked();
+        SetEnabled5(checked);
+        if (checked == true) {
+            txtMark5.setValue(1);
+        }
+        else {
+            txtMark5.setValue(0);
+        }
+    }
+
+    function onValueChanged6(e) {
+        var checked = this.getChecked();
+        SetEnabled6(checked);
+        if (checked == true) {
+            txtMark6.setValue(1);
+        }
+        else {
+            txtMark6.setValue(0);
+        }
+    }
+
+    function SetEnabled1(checked) {
+        beProjectManagerId1.enabled = checked;
+        beDesignCustomerId1.enabled = checked;
+        beConstructionCustomerId1.enabled = checked;
+        beSupervisionCustomerId1.enabled = checked
+
+        if (checked == false) {
+            beProjectManagerId1.setValue("00000000-0000-0000-0000-000000000000");
+            beProjectManagerId1.setText("请选择");
+            beDesignCustomerId1.setValue("00000000-0000-0000-0000-000000000000");
+            beDesignCustomerId1.setText("请选择");
+            beConstructionCustomerId1.setValue("00000000-0000-0000-0000-000000000000");
+            beConstructionCustomerId1.setText("请选择");
+            beSupervisionCustomerId1.setValue("00000000-0000-0000-0000-000000000000");
+            beSupervisionCustomerId1.setText("请选择");
+        }
+    }
+
+    function SetEnabled2(checked) {
+        beProjectManagerId2.enabled = checked;
+        beDesignCustomerId2.enabled = checked;
+        beConstructionCustomerId2.enabled = checked;
+        beSupervisionCustomerId2.enabled = checked
+
+        if (checked == false) {
+            beProjectManagerId2.setValue("00000000-0000-0000-0000-000000000000");
+            beProjectManagerId2.setText("请选择");
+            beDesignCustomerId2.setValue("00000000-0000-0000-0000-000000000000");
+            beDesignCustomerId2.setText("请选择");
+            beConstructionCustomerId2.setValue("00000000-0000-0000-0000-000000000000");
+            beConstructionCustomerId2.setText("请选择");
+            beSupervisionCustomerId2.setValue("00000000-0000-0000-0000-000000000000");
+            beSupervisionCustomerId2.setText("请选择");
+        }
+    }
+
+    function SetEnabled3(checked) {
+        beProjectManagerId3.enabled = checked;
+        beDesignCustomerId3.enabled = checked;
+        beConstructionCustomerId3.enabled = checked;
+        beSupervisionCustomerId3.enabled = checked
+
+        if (checked == false) {
+            beProjectManagerId3.setValue("00000000-0000-0000-0000-000000000000");
+            beProjectManagerId3.setText("请选择");
+            beDesignCustomerId3.setValue("00000000-0000-0000-0000-000000000000");
+            beDesignCustomerId3.setText("请选择");
+            beConstructionCustomerId3.setValue("00000000-0000-0000-0000-000000000000");
+            beConstructionCustomerId3.setText("请选择");
+            beSupervisionCustomerId3.setValue("00000000-0000-0000-0000-000000000000");
+            beSupervisionCustomerId3.setText("请选择");
+        }
+    }
+
+    function SetEnabled4(checked) {
+        beProjectManagerId4.enabled = checked;
+        beDesignCustomerId4.enabled = checked;
+        beConstructionCustomerId4.enabled = checked;
+        beSupervisionCustomerId4.enabled = checked
+
+        if (checked == false) {
+            beProjectManagerId4.setValue("00000000-0000-0000-0000-000000000000");
+            beProjectManagerId4.setText("请选择");
+            beDesignCustomerId4.setValue("00000000-0000-0000-0000-000000000000");
+            beDesignCustomerId4.setText("请选择");
+            beConstructionCustomerId4.setValue("00000000-0000-0000-0000-000000000000");
+            beConstructionCustomerId4.setText("请选择");
+            beSupervisionCustomerId4.setValue("00000000-0000-0000-0000-000000000000");
+            beSupervisionCustomerId4.setText("请选择");
+        }
+    }
+
+    function SetEnabled5(checked) {
+        beProjectManagerId5.enabled = checked;
+        beDesignCustomerId5.enabled = checked;
+        beConstructionCustomerId5.enabled = checked;
+        beSupervisionCustomerId5.enabled = checked
+
+        if (checked == false) {
+            beProjectManagerId5.setValue("00000000-0000-0000-0000-000000000000");
+            beProjectManagerId5.setText("请选择");
+            beDesignCustomerId5.setValue("00000000-0000-0000-0000-000000000000");
+            beDesignCustomerId5.setText("请选择");
+            beConstructionCustomerId5.setValue("00000000-0000-0000-0000-000000000000");
+            beConstructionCustomerId5.setText("请选择");
+            beSupervisionCustomerId5.setValue("00000000-0000-0000-0000-000000000000");
+            beSupervisionCustomerId5.setText("请选择");
+        }
+    }
+
+    function SetEnabled6(checked) {
+        beProjectManagerId6.enabled = checked;
+        beDesignCustomerId6.enabled = checked;
+        beConstructionCustomerId6.enabled = checked;
+        beSupervisionCustomerId6.enabled = checked
+
+        if (checked == false) {
+            beProjectManagerId6.setValue("00000000-0000-0000-0000-000000000000");
+            beProjectManagerId6.setText("请选择");
+            beDesignCustomerId6.setValue("00000000-0000-0000-0000-000000000000");
+            beDesignCustomerId6.setText("请选择");
+            beConstructionCustomerId6.setValue("00000000-0000-0000-0000-000000000000");
+            beConstructionCustomerId6.setText("请选择");
+            beSupervisionCustomerId6.setValue("00000000-0000-0000-0000-000000000000");
+            beSupervisionCustomerId6.setText("请选择");
+        }
+    }
+
+    var count = mini.get("Count");
+    count.setWidth("10px");
+    if (count.setReadOnly) count.setReadOnly(true);     //只读
+    if (count.setIsValid) count.setIsValid(true);      //去除错误提示
+    if (count.addCls) count.addCls("asLabel");          //增加asLabel外观
+
+    function onUserSelectButtonClick() {
+        var beSelect = this;
+        mini.open({
+            url: "@Url.RouteUrl(new { controller = "CustomControl", action = "UserSelection" })",
+            title: "选择用户",
+            width: 620,
+            height: 350,
+            allowResize: false,
+            ondestroy: function (action) {
+                if (action == "ok") {
+                    var iframe = this.getIFrameEl();
+                    var data = iframe.contentWindow.GetData();
+                    data = mini.clone(data);
+                    beSelect.setValue(data.id);
+                    beSelect.setText(data.text);
+                }
+                else if (action == "cancel") {
+                    beSelect.setValue("00000000-0000-0000-0000-000000000000");
+                    beSelect.setText("请选择");
+                }
+            }
+        });
+    }
+
+    function onUserSelectButtonCloseClick() {
+        this.setValue("00000000-0000-0000-0000-000000000000");
+        this.setText("请选择");
+    }
+
+    function onCustomerSJSelectButtonClick() {
+        var beSelect = this;
+        mini.open({
+            url: "@Url.RouteUrl(new { controller = "CustomControl", action = "CustomerSelection" })" + "?TypeId=1",
+            title: "选择往来单位",
+            width: 685,
+            height: 410,
+            allowResize: false,
+            ondestroy: function (action) {
+                if (action == "ok") {
+                    var iframe = this.getIFrameEl();
+                    var data = iframe.contentWindow.GetData();
+                    data = mini.clone(data);
+                    beSelect.setValue(data.id);
+                    beSelect.setText(data.text);
+                }
+                else if (action == "cancel") {
+                    beSelect.setValue("00000000-0000-0000-0000-000000000000");
+                    beSelect.setText("请选择");
+                }
+                beSelect.validate();
+            }
+        });
+    }
+
+    function onCustomerSGSelectButtonClick() {
+        var beSelect = this;
+        mini.open({
+            url: "@Url.RouteUrl(new { controller = "CustomControl", action = "CustomerSelection" })" + "?TypeId=2",
+            title: "选择往来单位",
+            width: 685,
+            height: 410,
+            allowResize: false,
+            ondestroy: function (action) {
+                if (action == "ok") {
+                    var iframe = this.getIFrameEl();
+                    var data = iframe.contentWindow.GetData();
+                    data = mini.clone(data);
+                    beSelect.setValue(data.id);
+                    beSelect.setText(data.text);
+                }
+                else if (action == "cancel") {
+                    beSelect.setValue("00000000-0000-0000-0000-000000000000");
+                    beSelect.setText("请选择");
+                }
+                beSelect.validate();
+            }
+        });
+    }
+
+    function onCustomerJLSelectButtonClick() {
+        var beSelect = this;
+        mini.open({
+            url: "@Url.RouteUrl(new { controller = "CustomControl", action = "CustomerSelection" })" + "?TypeId=3",
+            title: "选择往来单位",
+            width: 685,
+            height: 410,
+            allowResize: false,
+            ondestroy: function (action) {
+                if (action == "ok") {
+                    var iframe = this.getIFrameEl();
+                    var data = iframe.contentWindow.GetData();
+                    data = mini.clone(data);
+                    beSelect.setValue(data.id);
+                    beSelect.setText(data.text);
+                }
+                else if (action == "cancel") {
+                    beSelect.setValue("00000000-0000-0000-0000-000000000000");
+                    beSelect.setText("请选择");
+                }
+                beSelect.validate();
+            }
+        });
+    }
+
+    function onCustomerSelectButtonCloseClick() {
+        this.setValue("00000000-0000-0000-0000-000000000000");
+        this.setText("请选择");
+        this.validate();
+    }
+
+    function onProjectManagerId1Validation(e) {
+        if (e.isValid) {
+            if (e.value == "00000000-0000-0000-0000-000000000000") {
+                e.errorText = "请选择工程经理";
+                e.isValid = false;
+            }
+        }
+    }
+
+    function onProjectManagerId2Validation(e) {
+        if (e.isValid) {
+            if (e.value == "00000000-0000-0000-0000-000000000000") {
+                e.errorText = "请选择工程经理";
+                e.isValid = false;
+            }
+        }
+    }
+
+    function onProjectManagerId3Validation(e) {
+        if (e.isValid) {
+            if (e.value == "00000000-0000-0000-0000-000000000000") {
+                e.errorText = "请选择工程经理";
+                e.isValid = false;
+            }
+        }
+    }
+
+    function onProjectManagerId4Validation(e) {
+        if (e.isValid) {
+            if (e.value == "00000000-0000-0000-0000-000000000000") {
+                e.errorText = "请选择工程经理";
+                e.isValid = false;
+            }
+        }
+    }
+
+    function onProjectManagerId5Validation(e) {
+        if (e.isValid) {
+            if (e.value == "00000000-0000-0000-0000-000000000000") {
+                e.errorText = "请选择工程经理";
+                e.isValid = false;
+            }
+        }
+    }
+
+    function onProjectManagerId6Validation(e) {
+        if (e.isValid) {
+            if (e.value == "00000000-0000-0000-0000-000000000000") {
+                e.errorText = "请选择工程经理";
+                e.isValid = false;
+            }
+        }
+    }
+
+    function onDesignCustomerId1Validation(e) {
+        if (e.isValid) {
+            if (e.value == "00000000-0000-0000-0000-000000000000") {
+                e.errorText = "请选择设计单位";
+                e.isValid = false;
+            }
+        }
+    }
+
+    function onDesignCustomerId2Validation(e) {
+        if (e.isValid) {
+            if (e.value == "00000000-0000-0000-0000-000000000000") {
+                e.errorText = "请选择设计单位";
+                e.isValid = false;
+            }
+        }
+    }
+
+    function onDesignCustomerId3Validation(e) {
+        if (e.isValid) {
+            if (e.value == "00000000-0000-0000-0000-000000000000") {
+                e.errorText = "请选择设计单位";
+                e.isValid = false;
+            }
+        }
+    }
+
+    function onDesignCustomerId4Validation(e) {
+        if (e.isValid) {
+            if (e.value == "00000000-0000-0000-0000-000000000000") {
+                e.errorText = "请选择设计单位";
+                e.isValid = false;
+            }
+        }
+    }
+
+    function onDesignCustomerId5Validation(e) {
+        if (e.isValid) {
+            if (e.value == "00000000-0000-0000-0000-000000000000") {
+                e.errorText = "请选择设计单位";
+                e.isValid = false;
+            }
+        }
+    }
+
+    function onDesignCustomerId6Validation(e) {
+        if (e.isValid) {
+            if (e.value == "00000000-0000-0000-0000-000000000000") {
+                e.errorText = "请选择设计单位";
+                e.isValid = false;
+            }
+        }
+    }
+
+    function onConstructionCustomerId1Validation(e) {
+        if (e.isValid) {
+            if (e.value == "00000000-0000-0000-0000-000000000000") {
+                e.errorText = "请选择施工单位";
+                e.isValid = false;
+            }
+        }
+    }
+
+    function onConstructionCustomerId2Validation(e) {
+        if (e.isValid) {
+            if (e.value == "00000000-0000-0000-0000-000000000000") {
+                e.errorText = "请选择施工单位";
+                e.isValid = false;
+            }
+        }
+    }
+
+    function onConstructionCustomerId3Validation(e) {
+        if (e.isValid) {
+            if (e.value == "00000000-0000-0000-0000-000000000000") {
+                e.errorText = "请选择施工单位";
+                e.isValid = false;
+            }
+        }
+    }
+
+    function onConstructionCustomerId4Validation(e) {
+        if (e.isValid) {
+            if (e.value == "00000000-0000-0000-0000-000000000000") {
+                e.errorText = "请选择施工单位";
+                e.isValid = false;
+            }
+        }
+    }
+
+    function onConstructionCustomerId5Validation(e) {
+        if (e.isValid) {
+            if (e.value == "00000000-0000-0000-0000-000000000000") {
+                e.errorText = "请选择施工单位";
+                e.isValid = false;
+            }
+        }
+    }
+
+    function onConstructionCustomerId6Validation(e) {
+        if (e.isValid) {
+            if (e.value == "00000000-0000-0000-0000-000000000000") {
+                e.errorText = "请选择施工单位";
+                e.isValid = false;
+            }
+        }
+    }
+
+    function onSupervisionCustomerId1Validation(e) {
+        if (e.isValid) {
+            if (e.value == "00000000-0000-0000-0000-000000000000") {
+                e.errorText = "请选择监理单位";
+                e.isValid = false;
+            }
+        }
+    }
+
+    function onSupervisionCustomerId2Validation(e) {
+        if (e.isValid) {
+            if (e.value == "00000000-0000-0000-0000-000000000000") {
+                e.errorText = "请选择监理单位";
+                e.isValid = false;
+            }
+        }
+    }
+
+    function onSupervisionCustomerId3Validation(e) {
+        if (e.isValid) {
+            if (e.value == "00000000-0000-0000-0000-000000000000") {
+                e.errorText = "请选择监理单位";
+                e.isValid = false;
+            }
+        }
+    }
+
+    function onSupervisionCustomerId4Validation(e) {
+        if (e.isValid) {
+            if (e.value == "00000000-0000-0000-0000-000000000000") {
+                e.errorText = "请选择监理单位";
+                e.isValid = false;
+            }
+        }
+    }
+
+    function onSupervisionCustomerId5Validation(e) {
+        if (e.isValid) {
+            if (e.value == "00000000-0000-0000-0000-000000000000") {
+                e.errorText = "请选择监理单位";
+                e.isValid = false;
+            }
+        }
+    }
+
+    function onSupervisionCustomerId6Validation(e) {
+        if (e.isValid) {
+            if (e.value == "00000000-0000-0000-0000-000000000000") {
+                e.errorText = "请选择监理单位";
+                e.isValid = false;
+            }
+        }
+    }
+
+    function onMapClick() {
+        var el = document.body;
+        mini.mask({
+            el: el,
+            cls: 'mini-mask-loading',
+            html: '加载中...'
+        });
+        setTimeout(function () {
+            var url, data, getId;
+            url = "@Url.RouteUrl(new { controller = "Map", action = "GetPlacePoint" })";
+            data = { PlaceId: txtPlaceId.getValue(), AreaId: "00000000-0000-0000-0000-000000000000", PlaceName: "", Lng: 0, Lat: 0, Profession: 1 };
+            getId = txtPlaceId.getValue();
+            $.ajax({
+                url: url,
+                data: data,
+                type: "get",
+                async: false,
+                success: function (result, textStatus) {
+                    mini.unmask(el);
+                    if (result.Id != null && result.Id == getId) {
+                        var title;
+                        if (txtPlaceId.getValue() == "00000000-0000-0000-0000-000000000000") {
+                            title = result.PlanningName;
+                        }
+                        else {
+                            title = result.PlaceName;
+                        }
+                        mini.open({
+                            url: "@Url.RouteUrl(new { controller = "Map", action = "NavigationMap" })",
+                            title: title,
+                            iconCls: "icon-map",
+                            width: 800,
+                            height: 550,
+                            showMaxButton: true,
+                            onload: function () {
+                                var iframe = this.getIFrameEl();
+                                var data = result;
+                                iframe.contentWindow.SetData(data);
+                            }
+                        });
+                    }
+                },
+                error: function (xmlHttpRequest, textStatus, errorThrown) {
+                    mini.unmask(el);
+                }
+            });
+        }, 50);
+    }
+
+    function onFileClick() {
+        var el = document.body;
+        mini.mask({
+            el: el,
+            cls: 'mini-mask-loading',
+            html: '加载中...'
+        });
+        setTimeout(function () {
+            $.ajax({
+                url: "@Url.RouteUrl(new { controller = "File", action = "GetRemodelingFiles" })",
+                data: { RemodelingId: txtRemodelingId.getValue(), FileIdList: txtFileIdList.getValue() },
+                type: "get",
+                async: false,
+                success: function (result, textStatus) {
+                    mini.unmask(el);
+                    if (result.Code == null || !result.Code) {
+                        mini.open({
+                            url: "@Url.RouteUrl(new { controller = "File", action = "FileManager" })",
+                            title: "附件",
+                            iconCls: "icon-file",
+                            width: 620,
+                            height: 250,
+                            allowResize: false,
+                            onload: function () {
+                                var iframe = this.getIFrameEl();
+                                var data = result;
+                                iframe.contentWindow.SetData(data);
+                            }
+                        });
+                    }
+                },
+                error: function (xmlHttpRequest, textStatus, errorThrown) {
+                    mini.unmask(el);
+                }
+            });
+        }, 50);
+    }
+
+    function onSaveClick() {
+        frmRemodeling.validate();
+        if (frmRemodeling.isValid() == false) return;
+        var loading = mini.loading("处理中,请稍后...", "保存数据");
+        var jsonData = mini.encode(frmRemodeling.getData());
+        $.ajax({
+            url: "@Url.RouteUrl(new { controller = "EditPage", action = "SaveAreaAndDesignUserAndProjectDesignR" })",
+            data: AddAntiForgeryToken({ data: jsonData }),
+            type: "post",
+            success: function (result, textStatus) {
+                mini.hideMessageBox(loading);
+                if (result.Code != null && result.Code == 0) {
+                    ShowSucessMessage(result.Message);
+                }
+            },
+            error: function (xmlHttpRequest, textStatus, errorThrown) {
+                mini.hideMessageBox(loading);
+            }
+        });
+    }
+
+    function onAreaManagerIdSelectButtonClick() {
+        var beSelect = this;
+        mini.open({
+            url: "@Url.RouteUrl(new { controller = "CustomControl", action = "UserSelection" })",
+            title: "选择项目经理",
+            width: 620,
+            height: 350,
+            allowResize: false,
+            ondestroy: function (action) {
+                if (action == "ok") {
+                    var iframe = this.getIFrameEl();
+                    var data = iframe.contentWindow.GetData();
+                    data = mini.clone(data);
+                    beSelect.setValue(data.id);
+                    beSelect.setText(data.text);
+                }
+                else if (action == "cancel") {
+                    beSelect.setValue("00000000-0000-0000-0000-000000000000");
+                    beSelect.setText("请选择");
+                }
+            }
+        });
+    }
+
+    function onAreaManagerIdSelectButtonCloseClick() {
+        this.setValue("00000000-0000-0000-0000-000000000000");
+        this.setText("请选择");
+    }
+
+    function onGeneralDesignIdSelectButtonClick() {
+        var beSelect = this;
+        mini.open({
+            url: "@Url.RouteUrl(new { controller = "CustomControl", action = "CustomerSelection" })" + "?TypeId=1",
+            title: "选择总设单位",
+            width: 685,
+            height: 410,
+            allowResize: false,
+            ondestroy: function (action) {
+                if (action == "ok") {
+                    var iframe = this.getIFrameEl();
+                    var data = iframe.contentWindow.GetData();
+                    data = mini.clone(data);
+                    beSelect.setValue(data.id);
+                    beSelect.setText(data.text);
+                }
+                else if (action == "cancel") {
+                    beSelect.setValue("00000000-0000-0000-0000-000000000000");
+                    beSelect.setText("请选择");
+                }
+                beSelect.validate();
+            }
+        });
+    }
+
+    function onGeneralDesignIdSelectButtonCloseClick() {
+        this.setValue("00000000-0000-0000-0000-000000000000");
+        this.setText("请选择");
+        this.validate();
+    }
+
+    function onAreaManagerIdValidation(e) {
+        if (e.isValid) {
+            if (e.value == "00000000-0000-0000-0000-000000000000") {
+                e.errorText = "请选择项目经理";
+                e.isValid = false;
+            }
+        }
+    }
+
+    function onGeneralDesignIdValidation(e) {
+        if (e.isValid) {
+            if (e.value == "00000000-0000-0000-0000-000000000000") {
+                e.errorText = "请选择总设单位";
+                e.isValid = false;
+            }
+        }
+    }
+</script>

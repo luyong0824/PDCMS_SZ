@@ -1,0 +1,296 @@
+﻿<div id="frmAddressing" class="form">
+    <input class="mini-hidden" id="Id" name="Id" value="@ViewData["Id"]" />
+    <input class="mini-hidden" id="ProjectTaskId" name="ProjectTaskId" value="@ViewData["ProjectTaskId"]" />
+    <input class="mini-hidden" id="WFActivityInstanceId" name="WFActivityInstanceId" value="@ViewData["WFActivityInstanceId"]" />
+    <input class="mini-hidden" id="PlanningId" name="PlanningId" value="@ViewData["PlanningId"]" />
+    <input class="mini-hidden" id="PlaceId" name="PlaceId" value="@ViewData["PlaceId"]" />
+    <input class="mini-hidden" id="FileIdList" name="FileIdList" value="@ViewData["FileIdList"]" />
+    <input class="mini-hidden" id="DesignFileIdList" name="DesignFileIdList" value="@ViewData["DesignFileIdList"]" />
+    <div id="tabContent" class="mini-tabs" activeindex="0" style="width: 600px; height: 530px;" plain="true">
+        <div title="项目设计" style="height:100%">
+            <table style="width: 100%;">
+                <tr>
+                    <td style="width: 80px; text-align: right;">单据编号</td>
+                    <td>
+                        <input id="OrderCode" name="OrderCode" class="mini-textbox" readonly="true" style="width: 200px;" value="@ViewData["OrderCode"]" />
+                    </td>
+                    <td style="width: 80px; text-align: right;">申请日期</td>
+                    <td>
+                        <input id="CreateDateText" name="CreateDateText" class="mini-textbox" readonly="true" style="width: 200px;" value="@ViewData["CreateDateText"]" />
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 80px; text-align: right;">基站名称</td>
+                    <td>
+                        <input id="PlaceName" name="PlaceName" class="mini-textbox" readonly="true" style="width: 200px;" value="@ViewData["PlaceName"]" />
+                    </td>
+                    <td style="width: 80px; text-align: right;">基站类型</td>
+                    <td>
+                        <input id="PlaceCategoryName" name="PlaceCategoryName" class="mini-textbox" readonly="true" style="width: 200px;" value="@ViewData["PlaceCategoryName"]" />
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 80px; text-align: right;">导航图</td>
+                    <td>
+                        <a class="navigationmapedit" onclick="onMapClick();"></a>
+                    </td>
+                    <td style="width: 80px; text-align: right;">附件</td>
+                    <td>
+                        <table>
+                            <tr>
+                                <td style="width:16px">
+                                    <a class="fileedit" onclick="onFileClick();"></a>
+                                </td>
+                                <td>
+                                    附件数量：<input id="Count" name="Count" class="mini-textbox" value="@ViewData["Count"]" />
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 80px; text-align: right;">总设单位</td>
+                    <td>
+                        <input id="GeneralDesignName" name="GeneralDesignName" class="mini-textbox" readonly="true" style="width: 200px;" value="@ViewData["GeneralDesignName"]" />
+                    </td>
+                    <td style="width: 80px; text-align: right;">拟建网络</td>
+                    <td>
+                        <input id="ProposedNetwork" name="ProposedNetwork" class="mini-textbox" readonly="true" style="width:200px;" value="@ViewData["ProposedNetwork"]" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>&nbsp;</td>
+                </tr>
+            </table>
+            <fieldset>
+                <legend><b>本次编辑内容</b></legend>
+                <table style="width: 100%;">
+                    <tr>
+                        <td style="width: 80px; text-align: right;">设计人</td>
+                        <td>
+                            <input id="DesignRealName" name="DesignRealName" class="mini-textbox" requirederrortext="请输入设计人" required="true" style="width: 200px;" value="@ViewData["DesignRealName"]" />
+                        </td>
+                        <td style="width: 80px; text-align: right;">总设日期</td>
+                        <td>
+                            <input id="DesignDate" name="DesignDate" class="mini-datepicker" style="width:98px;" enabled="false" value="new Date()" showclearbutton="false" allowinput="false" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="width: 80px; text-align: right;">总设图</td>
+                        <td colspan="3">
+                            <table>
+                                <tr>
+                                    <td style="width:16px">
+                                        <a class="fileedit" onclick="onDesignFileClick();"></a>
+                                    </td>
+                                    <td>
+                                        附件数量：<input id="DesignCount" name="DesignCount" class="mini-textbox" value="@ViewData["DesignCount"]" />
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </fieldset>
+            <table style="width: 100%;">
+                <tr>
+                    <td align="center">
+                        <a class="mini-button" iconcls="icon-save" onclick="onSaveClick">保存</a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    mini.parse();
+
+    var frmAddressing = new mini.Form("#frmAddressing");
+    var txtAddressingId = mini.get("Id");
+    var txtProjectTaskId = mini.get("ProjectTaskId");
+    var txtWFActivityInstanceId = mini.get("WFActivityInstanceId");
+    var txtPlanningId = mini.get("PlanningId");
+    var txtPlaceId = mini.get("PlaceId");
+    var txtFileIdList = mini.get("FileIdList");
+    var txtDesignFileIdList = mini.get("DesignFileIdList");
+    var dp_DesignDate = mini.get("DesignDate");
+
+    var count = mini.get("Count");
+    count.setWidth("10px");
+    if (count.setReadOnly) count.setReadOnly(true);     //只读
+    if (count.setIsValid) count.setIsValid(true);      //去除错误提示
+    if (count.addCls) count.addCls("asLabel");          //增加asLabel外观
+
+    var designCount = mini.get("DesignCount");
+    designCount.setWidth("10px");
+    if (designCount.setReadOnly) designCount.setReadOnly(true);     //只读
+    if (designCount.setIsValid) designCount.setIsValid(true);      //去除错误提示
+    if (designCount.addCls) designCount.addCls("asLabel");          //增加asLabel外观
+    
+    init()
+
+    function init() {
+        dp_DesignDate.setValue("@ViewData["DesignDateText"]");
+    }
+
+    function onMapClick() {
+        var el = document.body;
+        mini.mask({
+            el: el,
+            cls: 'mini-mask-loading',
+            html: '加载中...'
+        });
+        setTimeout(function () {
+            var url, data, getId;
+            if (txtPlaceId.getValue() == "00000000-0000-0000-0000-000000000000") {
+                url = "@Url.RouteUrl(new { controller = "Map", action = "GetPlanningPoint" })";
+                data = { PlanningId: txtPlanningId.getValue(), AreaId: "00000000-0000-0000-0000-000000000000", PlanningName: "", Lng: 0, Lat: 0, Profession: 1 };
+                getId = txtPlanningId.getValue();
+            }
+            else {
+                url = "@Url.RouteUrl(new { controller = "Map", action = "GetPlacePoint" })";
+                data = { PlaceId: txtPlaceId.getValue(), AreaId: "00000000-0000-0000-0000-000000000000", PlaceName: "", Lng: 0, Lat: 0, Profession: 1 };
+                getId = txtPlaceId.getValue();
+            }
+            $.ajax({
+                url: url,
+                data: data,
+                type: "get",
+                async: false,
+                success: function (result, textStatus) {
+                    mini.unmask(el);
+                    if (result.Id != null && result.Id == getId) {
+                        var title;
+                        if (txtPlaceId.getValue() == "00000000-0000-0000-0000-000000000000") {
+                            title = result.PlanningName;
+                        }
+                        else {
+                            title = result.PlaceName;
+                        }
+                        mini.open({
+                            url: "@Url.RouteUrl(new { controller = "Map", action = "NavigationMap" })",
+                            title: title,
+                            iconCls: "icon-map",
+                            width: 800,
+                            height: 550,
+                            showMaxButton: true,
+                            onload: function () {
+                                var iframe = this.getIFrameEl();
+                                var data = result;
+                                iframe.contentWindow.SetData(data);
+                            }
+                        });
+                    }
+                },
+                error: function (xmlHttpRequest, textStatus, errorThrown) {
+                    mini.unmask(el);
+                }
+            });
+        }, 50);
+    }
+
+    function onFileClick() {
+        var el = document.body;
+        mini.mask({
+            el: el,
+            cls: 'mini-mask-loading',
+            html: '加载中...'
+        });
+        setTimeout(function () {
+            $.ajax({
+                url: "@Url.RouteUrl(new { controller = "File", action = "GetAddressingFiles" })",
+                data: { AddressingId: txtAddressingId.getValue(), FileIdList: txtFileIdList.getValue() },
+                type: "get",
+                async: false,
+                success: function (result, textStatus) {
+                    mini.unmask(el);
+                    if (result.Code == null || !result.Code) {
+                        mini.open({
+                            url: "@Url.RouteUrl(new { controller = "File", action = "FileManager" })",
+                            title: "附件",
+                            iconCls: "icon-file",
+                            width: 620,
+                            height: 250,
+                            allowResize: false,
+                            onload: function () {
+                                var iframe = this.getIFrameEl();
+                                var data = result;
+                                iframe.contentWindow.SetData(data);
+                            }
+                        });
+                    }
+                },
+                error: function (xmlHttpRequest, textStatus, errorThrown) {
+                    mini.unmask(el);
+                }
+            });
+        }, 50);
+    }
+
+    function onDesignFileClick() {
+        var el = document.body;
+        mini.mask({
+            el: el,
+            cls: 'mini-mask-loading',
+            html: '加载中...'
+        });
+        setTimeout(function () {
+            $.ajax({
+                url: "@Url.RouteUrl(new { controller = "File", action = "GetGeneralDesignFiles" })",
+                data: { ProjectTaskId: txtProjectTaskId.getValue(), FileIdList: txtDesignFileIdList.getValue() },
+                type: "get",
+                async: false,
+                success: function (result, textStatus) {
+                    mini.unmask(el);
+                    if (result.Code == null || !result.Code) {
+                        mini.open({
+                            url: "@Url.RouteUrl(new { controller = "File", action = "FileManager" })",
+                            title: "附件",
+                            iconCls: "icon-file",
+                            width: 620,
+                            height: 250,
+                            allowResize: false,
+                            onload: function () {
+                                var iframe = this.getIFrameEl();
+                                var data = result;
+                                iframe.contentWindow.SetDataEdit(data);
+                            },
+                            ondestroy: function (action) {
+                                if (action == "ok") {
+                                    var iframe = this.getIFrameEl();
+                                    var data = iframe.contentWindow.GetData();
+                                    data = mini.clone(data);
+                                    txtDesignFileIdList.setValue(data.FileIdList);
+                                }
+                            }
+                        });
+                    }
+                },
+                error: function (xmlHttpRequest, textStatus, errorThrown) {
+                    mini.unmask(el);
+                }
+            });
+        }, 50);
+    }
+
+    function onSaveClick() {
+        frmAddressing.validate();
+        if (frmAddressing.isValid() == false) return;
+        var loading = mini.loading("处理中,请稍后...", "保存数据");
+        var jsonData = mini.encode(frmAddressing.getData());
+        $.ajax({
+            url: "@Url.RouteUrl(new { controller = "EditPage", action = "SaveDesignDrawing" })",
+            data: AddAntiForgeryToken({ data: jsonData }),
+            type: "post",
+            success: function (result, textStatus) {
+                mini.hideMessageBox(loading);
+                if (result.Code != null && result.Code == 0) {
+                    ShowSucessMessage(result.Message);
+                }
+            },
+            error: function (xmlHttpRequest, textStatus, errorThrown) {
+                mini.hideMessageBox(loading);
+            }
+        });
+    }
+</script>

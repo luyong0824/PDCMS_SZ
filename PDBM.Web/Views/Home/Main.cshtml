@@ -1,0 +1,166 @@
+﻿<div id="myLayout" class="mini-layout" style="width: 100%; height: 100%;">
+    <div class="header" region="north" height="54" showsplit="false" showheader="false" showspliticon="true">
+        <!--<h1 style="margin: 0; padding: 15px; cursor: default; font-family: 微软雅黑,黑体,宋体;"></h1>-->
+        <div style="position: absolute; top: 7px; right: 7px;">
+            <a class="mini-button mini-button-iconTop" iconcls="icon-reload" onclick="onBtnClick" plain="true">刷新</a><a class="mini-button mini-button-iconTop" iconcls="icon-date" onclick="onBtnClick" plain="true">消息</a><a class="mini-button mini-button-iconTop" iconcls="icon-edit" onclick="onBtnClick" plain="true" style="display:none">设置</a><a class="mini-button mini-button-iconTop" iconcls="icon-help" plain="true" href="@Url.RouteUrl(new { controller = "File", action = "DownloadHelpFiles" })?FileName=HelpSummary" target="_blank">帮助</a><a class="mini-button mini-button-iconTop" iconcls="icon-close" onclick="onBtnClick" plain="true">退出</a>
+        </div>
+    </div>
+    <div title="center" region="center" style="border: 0;" bodystyle="overflow:hidden;">
+        <!--Splitter-->
+        <div class="mini-splitter" style="width: 100%; height: 100%;" borderstyle="border:0;">
+            <div id="divLeftTree" size="180" maxsize="250" minsize="100" showcollapsebutton="true" style="border: 0;">
+                <!--OutlookTree-->
+                <div id="leftTree" class="mini-outlooktree" contextmenu="#treeMenu" url="@Url.RouteUrl(new { action = "GetMenuInfo" })" textfield="Name" idfield="Id" parentfield="PId" onnodeclick="onNodeClick" onload="onTreeLoad" expandonnodeclick="true"></div>
+            </div>
+            <div showcollapsebutton="false" style="border: 0;">
+                <!--Tabs-->
+                <div id="mainTabs" class="mini-tabs" activeindex="0" style="width: 100%; height: 100%;" plain="false" contextmenu="#tabsMenu">
+                    <div title="我的桌面" name="myDesktop" url="@Url.RouteUrl(new { action = "MyDesktop" })" iconcls="tabIcon"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div title="south" region="south" showsplit="false" showheader="false" height="25">
+        @ViewData["CompanyName"]/@ViewData["DepartmentName"]/@ViewData["FullName"]
+        <div style="line-height: 23px; text-align: center; cursor: default;">
+        </div>
+    </div>
+</div>
+<ul id="tabsMenu" class="mini-contextmenu" onbeforeopen="onBeforeOpen">
+    <li name="menuClose" iconcls="icon-close" onclick="onCloseTab">关闭</li>
+    <li name="menuCloseAll" iconcls="icon-close" onclick="onCloseAll">关闭所有标签页</li>
+    <li name="menuCloseAllBut" iconcls="icon-close" onclick="onCloseAllBut">除此之外全部关闭</li>
+    <li name="menuReload" iconcls="icon-reload" onclick="onTabReload">刷新</li>
+</ul>
+<ul id="treeMenu" class="mini-contextmenu">
+    <li name="menuTreeReload" iconcls="icon-reload" onclick="onTreeReload">刷新</li>
+</ul>
+<div id="winSet" class="mini-window" title="设置" style="width: 350px; height: 250px;">
+</div>
+<script type="text/javascript">
+    mini.parse();
+    var tabs = mini.get("mainTabs");
+    top["main"] = window;
+
+    function ShowSignOut(message, returnUrl) {
+        mini.alert(message, "登录信息过期", function () {
+            mini.loading("正在退出系统,请稍后...", "退出");
+            setTimeout(function () {
+                window.location.replace(returnUrl);
+            }, 500);
+        });
+    }
+
+    function onBtnClick(e) {
+        var text = this.getText();
+        switch (text) {
+            case "刷新":
+                var curTab = tabs.getActiveTab();
+                if (curTab != null)
+                    tabs.reloadTab(curTab);
+                break;
+            case "设置":
+                var winSet = mini.get("winSet");
+                winSet.show("center", "middle");
+                break;
+            case "退出":
+                mini.confirm("确定要退出系统？", "退出",
+                function (action) {
+                    if (action == "ok") {
+                        mini.loading("正在退出系统,请稍后...", "退出");
+                        window.location = "@Url.RouteUrl(new { action = "Exit" })";
+                    }
+                });
+                break;
+            default: mini.alert(text);
+        }
+    }
+
+    function onNodeClick(e) {
+        if (e.isLeaf)
+            ShowTab(e.node);
+    }
+
+    function ShowTab(node) {
+        var id = "tab$" + node.Id;
+        var tab = tabs.getTab(id);
+        if (!tab) {
+            tab = {};
+            tab._nodeid = node.Id;
+            tab.name = id;
+            tab.title = node.Name;
+            tab.iconCls = "tabIcon";
+            tab.showCloseButton = true;
+            tab.url = "@Url.RouteUrl(new { controller = "", action = "" })" + node.Url;
+            tabs.addTab(tab);
+        }
+        tabs.activeTab(tab);
+    }
+
+    var currentTab = null;
+    function onBeforeOpen(e) {
+        currentTab = tabs.getTabByEvent(e.htmlEvent);
+        if (!currentTab) {
+            e.cancel = true;
+        }
+        else {
+            var closeItem = mini.getbyName("menuClose", e.sender);
+            var closeAllItem = mini.getbyName("menuCloseAll", e.sender);
+            var closeAllButItem = mini.getbyName("menuCloseAllBut", e.sender);
+            closeItem.enable();
+            closeAllItem.enable();
+            closeAllButItem.enable();
+            if (currentTab.name == "myDesktop") {
+                closeItem.disable();
+                closeAllItem.disable();
+                if (tabs.getTabs().length == 1) {
+                    closeAllButItem.disable();
+                }
+            }
+            else {
+                if (tabs.getTabs().length <= 2) {
+                    closeAllButItem.disable();
+                }
+            }
+        }
+    }
+
+    function onCloseTab() {
+        if (currentTab.name != "myDesktop") {
+            tabs.removeTab(currentTab);
+        }
+    }
+
+    function onCloseAll() {
+        tabs.removeAll(tabs.getTab("myDesktop"));
+    }
+
+    function onCloseAllBut() {
+        var but = [currentTab];
+        but.push(tabs.getTab("myDesktop"));
+        tabs.removeAll(but);
+    }
+
+    function onTabReload() {
+        tabs.reloadTab(currentTab);
+    }
+
+    function onTreeReload() {
+        var tree = mini.get("leftTree");
+        var el = tree.getEl();
+        mini.mask({
+            el: el,
+            cls: 'mini-mask-loading',
+            html: '加载中...'
+        });
+        setTimeout(function () {
+            tree.load(tree.url);
+        }, 100);
+    }
+
+    function onTreeLoad() {
+        var tree = mini.get("leftTree");
+        var el = tree.getEl();
+        mini.unmask(el);
+    }
+</script>

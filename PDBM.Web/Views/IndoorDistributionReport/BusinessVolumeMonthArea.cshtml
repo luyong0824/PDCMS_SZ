@@ -1,0 +1,335 @@
+﻿<div id="myToolbar" class="mini-toolbar" style="border-bottom: 0px; padding: 0px;">
+    <table style="width: 100%;" cellpadding="0" cellspacing="0">
+        <tr>
+            <td style="width: 100%;">
+                <a class="mini-button" iconcls="icon-help" plain="true" href="@Url.RouteUrl(new { controller = "File", action = "DownloadHelpFiles" })?FileName=BusinessVolume" target="_blank"></a>当前位置：室分建维>室分报表>区域业务月清单
+            </td>
+            <td style="white-space: nowrap;">
+                <a id="btnSearch" class="mini-button" iconcls="icon-search" plain="true" onclick="onSearchClick">查询</a>
+                <a id="btnMonthRise" class="mini-button" iconcls="icon-node" plain="true" onclick="onMonthRiseClick">区域月度增量</a>
+                <a id="btnYearRise" class="mini-button" iconcls="icon-node" plain="true" onclick="onYearRiseClick">区域年度增量</a>
+                <a class="mini-button" iconcls="icon-excel" plain="true" onclick="ExportExcel">导出Excel</a>
+            </td>
+        </tr>
+    </table>
+</div>
+<div class="mini-fit">
+    <div id="dgBusinessVolume" class="mini-datagrid" style="width: 100%; height: 100%;" idfield="Id" allowmovecolumn="false"
+         multiselect="true" fitcolumns="false" onlycheckselection="true" showreloadbutton="false" showpager="false"
+         onload="onDgBusinessVolumeLoad">
+        <div property="columns">
+            <div type="indexcolumn"></div>
+            <div field="CreateDate" header="登记月份" width="100" dateformat="yyyy-MM-dd"></div>
+            <div field="AreaName" header="区域" width="80"></div>
+            <div field="G2TV" header="2G话务量(万Erl)" width="100"></div>
+            <div field="G2BV" header="2G业务量(TB)" width="100"></div>
+            <div field="D2TV" header="2D话务量(万Erl)" width="100"></div>
+            <div field="D2BV" header="2D业务量(TB)" width="100"></div>
+            <div field="G3TV" header="3G话务量(万Erl)" width="100"></div>
+            <div field="G3BV" header="3G业务量(TB)" width="100"></div>
+            <div field="G4BV" header="4G业务量(TB)" width="100"></div>
+            <div field="TotalTV" header="合计话务量(万Erl)" width="120"></div>
+            <div field="TotalBV" header="合计业务量(TB)" width="120"></div>
+        </div>
+    </div>
+</div>
+<div id="winQuery" class="mini-window" style="width: 320px; height: 140px;"
+     showmodal="true" allowresize="false" title="查询条件">
+    <table style="width: 100%;">
+        <tr>
+            <td style="width: 80px; text-align: right;">查询月份</td>
+            <td>
+                <table border="0" cellpadding="0" cellspacing="0">
+                    <tr>
+                        <td><input id="dpBeginDate" class="mini-monthpicker" style="width:98px;" value="new Date()" showclearbutton="false" allowinput="false" /></td>
+                        <td>至</td>
+                        <td><input id="dpEndDate" class="mini-monthpicker" style="width:98px;" value="new Date()" showclearbutton="false" allowinput="false" /></td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 80px; text-align: right;">区域</td>
+            <td>
+                <input id="cbAreaId" class="mini-combobox" value="00000000-0000-0000-0000-000000000000" style="width:200px;" textfield="AreaName" valuefield="Id" data=@Html.Raw(ViewData["AreasByAll"]) />
+            </td>
+        </tr>
+    </table>
+    <div style="text-align: center; padding: 10px;">
+        <a class="mini-button" iconcls="icon-ok" onclick="onOKClick">确定</a>
+    </div>
+</div>
+<div id="winMonthRise" class="mini-window" style="width: 800px; height: 500px;"
+     showmodal="true" allowresize="false" title="区域月度增量">
+    <div class="mini-fit">
+        <table style="width: 100%;">
+            <tr>
+                <td style="width: 80px; text-align: right;">查询月份</td>
+                <td>
+                    <table border="0" cellpadding="0" cellspacing="0">
+                        <tr>
+                            <td><input id="dpMonth" class="mini-monthpicker" style="width:98px;" value="new Date()" showclearbutton="false" allowinput="false" /><a class="mini-button" iconcls="icon-ok" onclick="onMonthOKClick">确定</a></td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+        <div id="dgMonthRise" class="mini-datagrid" style="width: 100%; height: 90%;" idfield="Id" allowmovecolumn="false"
+             multiselect="true" fitcolumns="false" onlycheckselection="true" showreloadbutton="false" showpager="false" ondrawcell="onDrawCellMonth">
+            <div property="columns">
+                <div type="indexcolumn"></div>
+                <div field="CreateDate" header="登记月份" width="60" dateformat="yyyy-MM-dd"></div>
+                <div field="AreaName" header="区域" width="80"></div>
+                <div field="TotalTV" header="话务量(万Erl)" width="80"></div>
+                <div field="TVRiseMonth" header="话务量环比(%)" width="90"></div>
+                <div field="TVRiseYear" header="话务量同比(%)" width="90"></div>
+                <div field="TotalBV" header="业务量(TB)" width="80"></div>
+                <div field="BVRiseMonth" header="业务量环比(%)" width="90"></div>
+                <div field="BVRiseYear" header="业务量同比(%)" width="90"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="winYearRise" class="mini-window" style="width: 800px; height: 500px;"
+     showmodal="true" allowresize="false" title="区域年度增量">
+    <div class="mini-fit">
+        <table style="width: 100%;">
+            <tr>
+                <td style="width: 80px; text-align: right;">查询年份</td>
+                <td>
+                    <table border="0" cellpadding="0" cellspacing="0">
+                        <tr>
+                            <td><input id="cb_Year" class="mini-combobox" textfield="text" valuefield="id" /><a class="mini-button" iconcls="icon-ok" onclick="onYearOKClick">确定</a></td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+        <div id="dgYearRise" class="mini-datagrid" style="width: 100%; height: 90%;" idfield="Id" allowmovecolumn="false"
+             multiselect="true" fitcolumns="false" onlycheckselection="true" showreloadbutton="false" showpager="false" ondrawcell="onDrawCellYear">
+            <div property="columns">
+                <div type="indexcolumn"></div>
+                <div field="CreateDate" header="登记月份" width="60" dateformat="yyyy-MM-dd"></div>
+                <div field="AreaName" header="区域" width="80"></div>
+                <div field="TotalTV" header="话务量(万Erl)" width="80"></div>
+                <div field="TVRiseYear" header="话务量环比(%)" width="90"></div>
+                <div field="TotalBV" header="业务量(TB)" width="80"></div>
+                <div field="BVRiseYear" header="业务量环比(%)" width="90"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<iframe id="exportIFrame" style="display:none;"></iframe>
+<!--导出Excel相关HTML-->
+<form id="excelForm" action="export.aspx?type=excel" method="post" target="excelIFrame">
+    <input type="hidden" name="columns" id="excelData" />
+</form>
+<iframe id="excelIFrame" name="excelIFrame" style="display:none;"></iframe>
+<script type="text/javascript">
+    mini.parse();
+
+    var btnSearch = mini.get("btnSearch");
+    var btnMonthRise = mini.get("btnMonthRise");
+    var btnYearRise = mini.get("btnYearRise");
+    var dgBusinessVolume = mini.get("dgBusinessVolume");
+    var winQuery = mini.get("winQuery");
+    var dpBeginDate = mini.get("dpBeginDate");
+    var dpEndDate = mini.get("dpEndDate");
+    var cbAreaId = mini.get("cbAreaId");
+
+    var dpMonth = mini.get("dpMonth");
+    var winMonthRise = mini.get("winMonthRise");
+    var dgMonthRise = mini.get("dgMonthRise");
+
+    var cb_Year = mini.get("cb_Year");
+    var winYearRise = mini.get("winYearRise");
+    var dgYearRise = mini.get("dgYearRise");
+
+    //dpBeginDate.setValue(new Date().DateAdd("m", -1));
+
+    var jsonYear = [{ "text": "2016", "id": "2016" }, { "text": "2017", "id": "2017" }, { "text": "2018", "id": "2018" }, { "text": "2019", "id": "2019" }, { "text": "2020", "id": "2020" }, { "text": "2021", "id": "2021" },
+    { "text": "2022", "id": "2022" }, { "text": "2023", "id": "2023" }, { "text": "2024", "id": "2024" }, { "text": "2025", "id": "2025" }];
+    cb_Year.setData(jsonYear);
+    cb_Year.setValue(new Date().getFullYear().toString());
+
+    init();
+
+    function init() {
+        BindDgBusinessVolume();
+    }
+
+    function BindDgBusinessVolume() {
+        btnSearch.setEnabled(false);
+        var query_BeginDate = dpBeginDate.getFormValue() + "-01";
+        var query_EndDate = dpEndDate.getFormValue() + "-01";
+        var query_AreaId = cbAreaId.getValue();
+        if (dgBusinessVolume.getUrl() == "") {
+            dgBusinessVolume.setUrl("@Url.RouteUrl(new { controller = "IndoorDistributionReport", action = "GetBusinessVolumeMonthArea" })");
+        }
+        dgBusinessVolume.clearSelect(false);
+        dgBusinessVolume.load({ BeginDate: query_BeginDate, EndDate: query_EndDate, AreaId: query_AreaId });
+    }
+
+    function onDgBusinessVolumeLoad() {
+        btnSearch.setEnabled(true);
+    }
+
+    function onSearchClick() {
+        winQuery.show();
+    }
+
+    function onOKClick() {
+        BindDgBusinessVolume();
+        winQuery.hide();
+    }
+
+    function onMonthRiseClick() {
+        BindDgMonthRise();
+        winMonthRise.show();
+    }
+
+    function onMonthOKClick() {
+        BindDgMonthRise();
+    }
+
+    function BindDgMonthRise() {
+        var query_BeginDate = dpMonth.getFormValue() + "-01";
+        var query_EndDate = "";
+        if (dpMonth.getFormValue() == new Date().getFullYear().toString() + "-" + new Date().DateAdd("m", 1).getMonth()) {
+            var y = new Date().getFullYear();
+            var m = new Date().getMonth();
+            m = m < 10 ? '0' + m : m;
+            var d = new Date().DateAdd("d", 1).getDate();
+            d = d < 10 ? ('0' + d) : d;
+            query_EndDate = y + '-' + m + '-' + d;
+        }
+        else {
+            var endDate = dpMonth.getFormValue() + "-01";
+            if (endDate.split('-')[1] == "12") {
+                var d = new Date().DateAdd("d", 1).getDate();
+                d = d < 10 ? ('0' + d) : d;
+                query_EndDate = endDate.split('-')[0] + "-11-" + d;
+            }
+            else {
+                query_EndDate = dpMonth.getFormValue() + "-01";
+            }
+        }
+        if (dgMonthRise.getUrl() == "") {
+            dgMonthRise.setUrl("@Url.RouteUrl(new { controller = "IndoorDistributionReport", action = "GetBusinessVolumeMonthRiseArea" })");
+        }
+        dgMonthRise.clearSelect(false);
+        dgMonthRise.load({ BeginDate: query_BeginDate, EndDate: query_EndDate });
+    }
+
+    function onYearRiseClick() {
+        BindDgYearRise();
+        winYearRise.show();
+    }
+
+    function onYearOKClick() {
+        BindDgYearRise();
+    }
+
+    function BindDgYearRise() {
+        var query_BeginDate = cb_Year.getValue() + "-01-01";
+        var query_EndDate = "";
+        if (cb_Year.getValue() == new Date().getFullYear().toString()) {
+            var y = new Date().DateAdd("y", -1).getFullYear();
+            var m = new Date().getMonth() + 1;
+            m = m < 10 ? '0' + m : m;
+            var d = new Date().DateAdd("d", 1).getDate();
+            d = d < 10 ? ('0' + d) : d;
+            query_EndDate = y + '-' + m + '-' + d;
+        }
+        else {
+            query_EndDate = cb_Year.getValue() + "-01-01";
+        }
+        if (dgYearRise.getUrl() == "") {
+            dgYearRise.setUrl("@Url.RouteUrl(new { controller = "IndoorDistributionReport", action = "GetBusinessVolumeYearRiseArea" })");
+        }
+        dgYearRise.clearSelect(false);
+        dgYearRise.load({ BeginDate: query_BeginDate, EndDate: query_EndDate });
+    }
+
+    function onDrawCellMonth(e) {
+        if (e.field == "TVRiseMonth") {
+            if (e.record.TVRiseMonth < 0) {
+                e.cellStyle = "color:red";
+            }
+            else if (e.record.TVRiseMonth == 0) {
+                e.cellHtml = "—";
+            }
+        }
+        if (e.field == "TVRiseYear") {
+            if (e.record.TVRiseYear < 0) {
+                e.cellStyle = "color:red";
+            }
+            else if (e.record.TVRiseYear == 0) {
+                e.cellHtml = "—";
+            }
+        }
+        if (e.field == "BVRiseMonth") {
+            if (e.record.BVRiseMonth < 0) {
+                e.cellStyle = "color:red";
+            }
+            else if (e.record.BVRiseMonth == 0) {
+                e.cellHtml = "—";
+            }
+        }
+        if (e.field == "BVRiseYear") {
+            if (e.record.BVRiseYear < 0) {
+                e.cellStyle = "color:red";
+            }
+            else if (e.record.BVRiseYear == 0) {
+                e.cellHtml = "—";
+            }
+        }
+    }
+
+    function onDrawCellYear(e) {
+        if (e.field == "TVRiseYear") {
+            if (e.record.TVRiseYear < 0) {
+                e.cellStyle = "color:red";
+            }
+            else if (e.record.TVRiseYear == 0) {
+                e.cellHtml = "—";
+            }
+        }
+        if (e.field == "BVRiseYear") {
+            if (e.record.BVRiseYear < 0) {
+                e.cellStyle = "color:red";
+            }
+            else if (e.record.BVRiseYear == 0) {
+                e.cellHtml = "—";
+            }
+        }
+    }
+
+    function ExportExcel() {
+        var columns = dgBusinessVolume.getBottomColumns();
+        function getColumns(columns) {
+            columns = columns.clone();
+            for (var i = columns.length - 1; i >= 0; i--) {
+                var column = columns[i];
+                if (!column.field) {
+                    columns.removeAt(i);
+                } else {
+                    var c = { header: column.header, field: column.field };
+                    columns[i] = c;
+                }
+            }
+            return columns;
+        }
+
+        var columns = getColumns(columns);
+        var json = mini.encode(columns);
+        document.getElementById("excelData").value = json;
+        var excelForm = document.getElementById("excelForm");
+
+        var query_BeginDate = dpBeginDate.getFormValue() + "-01";
+        var query_EndDate = dpEndDate.getFormValue() + "-01";
+
+        excelForm.action = "@Url.RouteUrl(new { controller = "DataOutput", action = "ExportBusinessVolumeMonthAreaExcel" })" + "?BeginDate=" + query_BeginDate + "&EndDate=" + query_EndDate + "&AreaId=" + cbAreaId.getValue() + "&Profession=2";
+        excelForm.submit();
+    }
+</script>

@@ -1,0 +1,100 @@
+﻿<div id="winLogin" class="mini-window" title="苏州联通建维营价值管理协同系统" style="width: 360px; height: 170px;"
+     showmodal="true" showclosebutton="false">
+    <div id="frmLogin" class="form" style="padding: 15px; padding-top: 10px;">
+        <table>
+            <tr>
+                <td style="width: 60px; text-align: right;">
+                    <label>用户名</label>
+                </td>
+                <td>
+                    <input id="UserName" name="UserName" class="mini-textbox" value="admin" requirederrortext="请输入用户名" required="true" style="width: 150px;" />
+                </td>
+                <td rowspan="3">
+                    <img src="~/Content/images/QRCode.png" /></br>&nbsp;&nbsp;&nbsp;手机扫码
+                </td>
+            </tr>
+            <tr>
+                <td style="width: 60px; text-align: right;">
+                    <label>密码</label>
+                </td>
+                <td>
+                    <input id="UserPassword" name="UserPassword" class="mini-password" value="123456" requirederrortext="请输入密码" required="true" style="width: 150px;" onenter="onLoginClick" />
+                </td>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td style="padding-top: 5px;">
+                    <a onclick="onLoginClick" class="mini-button" style="width: 60px;">登录</a>&nbsp;&nbsp;&nbsp;<a onclick="onResetClick" class="mini-button" style="width: 60px;">重置</a>
+                </td>
+                <td></td>
+            </tr>
+            @*<tr>
+                <td></td>
+                <td align="center">
+                    <img src="~/Content/images/QRCode.png" />
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td style="padding-top: 5px;padding-left:15px">
+                    手机登陆请扫描二维码
+                </td>
+            </tr>*@
+        </table>
+    </div>
+</div>
+<script type="text/javascript">
+    mini.parse();
+
+    var winLogin = mini.get("winLogin");
+    var frmLogin = new mini.Form("#frmLogin");
+    var txtUserName = mini.get("UserName");
+
+    Init();
+
+    function Init()
+    {
+        winLogin.show();
+        txtUserName.focus();
+    }
+
+    function onLoginClick() {
+        frmLogin.validate();
+        if (frmLogin.isValid() == false) {
+            return;
+        }
+        winLogin.hide();
+        var loading = mini.loading("正在验证用户名密码...", "登录");
+        var jsonData = mini.encode(frmLogin.getData());
+        $.ajax({
+            url: "@Url.RouteUrl(new { action = "UserLogin" })",
+            async: true,
+            type: "post",
+            data: { data: jsonData },
+            success: function (jsonResult) {
+                mini.hideMessageBox(loading);
+                var result = mini.decode(jsonResult);
+                if (result.Code != null && result.Code == 0) {
+                    mini.loading("登录成功，正在连接到系统...", "登录");
+                    @{var returnUrl = ViewData["ReturnUrl"] ?? Url.RouteUrl(new { action = "Main" });}
+                    setTimeout(function () {
+                        window.location = "@returnUrl";
+                    }, 500);
+                }
+                else {
+                    winLogin.show();
+                }
+            },
+            error: function (xmlHttpRequest, textStatus, errorThrown) {
+                mini.hideMessageBox(loading);
+                winLogin.show();
+            }
+        });
+    }
+
+    function onResetClick(e) {
+        frmLogin.clear();
+        txtUserName.focus();
+    }
+</script>

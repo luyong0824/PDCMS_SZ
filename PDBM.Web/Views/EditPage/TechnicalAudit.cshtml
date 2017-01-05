@@ -1,0 +1,263 @@
+﻿<div id="frmPlanningApply" class="form">
+    <input class="mini-hidden" id="Id" name="Id" value="@ViewData["Id"]" />
+    <input class="mini-hidden" id="WFActivityInstanceId" name="WFActivityInstanceId" value="@ViewData["WFActivityInstanceId"]" />
+    <table style="width: 100%;">
+        <tr>
+            <td style="width: 80px; text-align: right;">申请部门</td>
+            <td>
+                <input id="DepartmentName" name="DepartmentName" class="mini-textbox" style="width: 200px;" readonly="true" value="@ViewData["DepartmentName"]" />
+            </td>
+            <td style="width: 80px; text-align: right;">申请人</td>
+            <td>
+                <input id="CreateFullName" name="CreateFullName" class="mini-textbox" style="width: 200px;" readonly="true" value="@ViewData["CreateFullName"]" />
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 80px; text-align: right;">标题</td>
+            <td>
+                <input id="Title" name="Title" class="mini-textbox" style="width: 200px;" readonly="true" value="@ViewData["Title"]" />
+            </td>
+            <td style="width: 80px; text-align: right;">规划日期</td>
+            <td>
+                <input id="CreateDateText" name="CreateDateText" class="mini-textbox" style="width: 200px;" readonly="true" value="@ViewData["CreateDateText"]" />
+            </td>
+        </tr>
+    </table>
+    <fieldset>
+        <legend><b>本次编辑内容</b></legend>
+        <div class="mini-fit" style="height:300px">
+            <div id="dgPlanningApply" class="mini-datagrid" style="width: 570px; height: 240px;" idfield="Id" allowmovecolumn="false"
+                 multiselect="true" fitcolumns="false" onlycheckselection="true" showreloadbutton="false" showpager="false" ondrawcell="onDrawCell">
+                <div property="columns">
+                    <div type="indexcolumn"></div>
+                    <div type="checkcolumn"></div>
+                    <div field="PlanningName" header="规划名称" width="150"></div>
+                    <div type="comboboxcolumn" field="PlanningAdvice" header="规划意见" width="80">
+                        <input property="editor" class="mini-combobox" style="width: 100%;" data=@Html.Raw(ViewData["PlanningAdvice"]) />
+                    </div>
+                    <div field="Map" header="导航图" width="50"></div>
+                    <div field="AreaName" header="区域" width="60"></div>
+                    <div field="ReseauName" header="网格" width="60"></div>
+                    <div field="Lng" header="经度" width="80"></div>
+                    <div field="Lat" header="纬度" width="80"></div>
+                    <div type="comboboxcolumn" field="Importance" header="重要性程度" width="80">
+                        <input property="editor" class="mini-combobox" style="width: 100%;" data=@Html.Raw(ViewData["Importance"]) />
+                    </div>
+                    <div field="DetailedAddress" header="详细地址" width="150"></div>
+                </div>
+            </div>
+            <div style="text-align: center; padding: 10px;">
+                <a class="mini-button" iconcls="icon-save" onclick="onSaveClick1" style="margin-right: 10px;">列入规划</a>
+                <a class="mini-button" iconcls="icon-save" onclick="onSaveClick2" style="margin-right: 10px;">正在解决</a>
+                <a class="mini-button" iconcls="icon-save" onclick="onSaveClick3" style="margin-right: 10px;">暂不考虑</a>
+                <a class="mini-button" iconcls="icon-map" onclick="onShowMapClick" style="margin-right: 10px;">地图导航</a>
+            </div>
+        </div>
+    </fieldset>
+</div>
+<script type="text/javascript">
+    mini.parse();
+
+    var frmPlanningApply = new mini.Form("#frmPlanningApply");
+    var txtPlanningApplyHeaderId = mini.get("Id");
+    var txtWFActivityInstanceId = mini.get("WFActivityInstanceId");
+
+    var dgPlanningApply = mini.get("dgPlanningApply");
+
+    init();
+
+    function init() {
+        BindDgPlanningApply(txtPlanningApplyHeaderId.getValue());
+    }
+
+    function BindDgPlanningApply(parentId) {
+        if (dgPlanningApply.getUrl() == "") {
+            dgPlanningApply.setUrl("@Url.RouteUrl(new { controller = "BaseStationBM", action = "GetPlanningApplysByHeaderId" })");
+        }
+        dgPlanningApply.clearSelect(false);
+        dgPlanningApply.load({ ParentId: parentId });
+    }
+
+    function onDrawCell(e) {
+        if (e.field == "Map") {
+            e.cellHtml = "<a class='navigationmap' onclick='onMapClick(\"" + e.record.Id + "\");'></a>";
+        }
+    }
+
+    function onMapClick(id) {
+        var el = dgPlanningApply.getEl();
+        mini.mask({
+            el: el,
+            cls: 'mini-mask-loading',
+            html: '加载中...'
+        });
+        setTimeout(function () {
+            var url, data, getId;
+
+            url = "@Url.RouteUrl(new { controller = "Map", action = "GetPlanningApplyPoint" })";
+            data = { PlanningApplyId: id, AreaId: "00000000-0000-0000-0000-000000000000", PlanningName: "", Lng: 0, Lat: 0, Profession: 1 };
+            getId = id;
+            $.ajax({
+                url: url,
+                data: data,
+                type: "get",
+                async: false,
+                success: function (result, textStatus) {
+                    mini.unmask(el);
+                    if (result.Id != null && result.Id == getId) {
+                        var title;
+                        title = result.PlanningName;
+                        mini.open({
+                            url: "@Url.RouteUrl(new { controller = "Map", action = "NavigationMap" })",
+                            title: title,
+                            iconCls: "icon-map",
+                            width: 800,
+                            height: 550,
+                            showMaxButton: true,
+                            onload: function () {
+                                var iframe = this.getIFrameEl();
+                                var data = result;
+                                iframe.contentWindow.SetData(data);
+                            }
+                        });
+                    }
+                },
+                error: function (xmlHttpRequest, textStatus, errorThrown) {
+                    mini.unmask(el);
+                }
+            });
+        }, 50);
+    }
+
+    function onShowMapClick() {
+        var planningApplyIdList = "";
+        var rows = dgPlanningApply.getData();
+        if (rows.length != 0) {
+            for (var i = 0; i < rows.length; i++) {
+                planningApplyIdList = planningApplyIdList + rows[i].Id;
+                if (i != rows.length - 1) {
+                    planningApplyIdList = planningApplyIdList + ",";
+                }
+            }
+        }
+        else {
+            mini.alert("无数据");
+            return;
+        }
+        setTimeout(function () {
+            var url, data;
+            url = "@Url.RouteUrl(new { controller = "Map", action = "GetPlanningApplyPoints" })";
+            data = { PlanningApplyIdList: planningApplyIdList };
+            $.ajax({
+                url: url,
+                data: data,
+                type: "post",
+                async: false,
+                success: function (result, textStatus) {
+                    var title;
+                    title = "地图导航";
+                    mini.open({
+                        url: "@Url.RouteUrl(new { controller = "Map", action = "NavigationMap" })",
+                        title: title,
+                        iconCls: "icon-map",
+                        width: 800,
+                        height: 550,
+                        showMaxButton: true,
+                        onload: function () {
+                            var iframe = this.getIFrameEl();
+                            var data = result;
+                            iframe.contentWindow.SetData(data);
+                        },
+                        ondestroy: function (action) {
+                            if (action == "ok") {
+                                var iframe = this.getIFrameEl();
+                                var data = iframe.contentWindow.GetData();
+                                data = mini.clone(data);
+                            }
+                        }
+                    });
+                },
+                error: function (xmlHttpRequest, textStatus, errorThrown) {
+                }
+            });
+        }, 50);
+    }
+
+    function onSaveClick1() {
+        var rows = dgPlanningApply.getSelecteds();
+        if (rows.length == 0) {
+            mini.alert("请选择要修改的数据");
+        }
+        else {
+            var loading = mini.loading("处理中,请稍后...", "修改数据");
+            var jsonData = mini.encode(rows);
+            $.ajax({
+                url: "@Url.RouteUrl(new { controller = "EditPage", action = "SavePlanningAdvice" })",
+                data: AddAntiForgeryToken({ WFActivityInstanceId: txtWFActivityInstanceId.getValue(), PlanningAdvice: 1, data: jsonData }),
+                type: "post",
+                success: function (result, textStatus) {
+                    mini.hideMessageBox(loading);
+                    if (result.Code != null && result.Code == 0) {
+                        ShowSucessMessage(result.Message);
+                        BindDgPlanningApply(txtPlanningApplyHeaderId.getValue());
+                    }
+                },
+                error: function (xmlHttpRequest, textStatus, errorThrown) {
+                    mini.hideMessageBox(loading);
+                }
+            });
+        }
+    }
+
+    function onSaveClick2() {
+        var rows = dgPlanningApply.getSelecteds();
+        if (rows.length == 0) {
+            mini.alert("请选择要修改的数据");
+        }
+        else {
+            var loading = mini.loading("处理中,请稍后...", "修改数据");
+            var jsonData = mini.encode(rows);
+            $.ajax({
+                url: "@Url.RouteUrl(new { controller = "EditPage", action = "SavePlanningAdvice" })",
+                data: AddAntiForgeryToken({ WFActivityInstanceId: txtWFActivityInstanceId.getValue(), PlanningAdvice: 2, data: jsonData }),
+                type: "post",
+                success: function (result, textStatus) {
+                    mini.hideMessageBox(loading);
+                    if (result.Code != null && result.Code == 0) {
+                        ShowSucessMessage(result.Message);
+                        BindDgPlanningApply(txtPlanningApplyHeaderId.getValue());
+                    }
+                },
+                error: function (xmlHttpRequest, textStatus, errorThrown) {
+                    mini.hideMessageBox(loading);
+                }
+            });
+        }
+    }
+
+    function onSaveClick3() {
+        var rows = dgPlanningApply.getSelecteds();
+        if (rows.length == 0) {
+            mini.alert("请选择要修改的数据");
+        }
+        else {
+            var loading = mini.loading("处理中,请稍后...", "修改数据");
+            var jsonData = mini.encode(rows);
+            $.ajax({
+                url: "@Url.RouteUrl(new { controller = "EditPage", action = "SavePlanningAdvice" })",
+                data: AddAntiForgeryToken({ WFActivityInstanceId: txtWFActivityInstanceId.getValue(), PlanningAdvice: 3, data: jsonData }),
+                type: "post",
+                success: function (result, textStatus) {
+                    mini.hideMessageBox(loading);
+                    if (result.Code != null && result.Code == 0) {
+                        ShowSucessMessage(result.Message);
+                        BindDgPlanningApply(txtPlanningApplyHeaderId.getValue());
+                    }
+                },
+                error: function (xmlHttpRequest, textStatus, errorThrown) {
+                    mini.hideMessageBox(loading);
+                }
+            });
+        }
+    }
+</script>

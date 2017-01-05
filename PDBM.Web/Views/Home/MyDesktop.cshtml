@@ -1,0 +1,145 @@
+﻿<div id="tabMyDesktop" class="mini-tabs" activeindex="0" style="width:100%;height:100%;" plain="true">
+    <div title="待办公文">
+        <div class="mini-fit">
+            <div id="dgToDo" class="mini-datagrid" style="width: 100%; height: 100%;" idfield="Id" allowmovecolumn="false"
+                 showpager="false" fitcolumns="false" url="@Url.RouteUrl(new { controller = "WorkFlow", action = "GetWFInstancesToDo" })"
+                 onload="onDgToDoLoad" onrowclick="onDgToDoRowClick">
+                <div property="columns">
+                    <div type="indexcolumn"></div>
+                    <div field="WFProcessInstanceCode" header="公文编码" width="130"></div>
+                    <div field="WFProcessInstanceName" header="标题" width="180"></div>
+                    <div field="WFProcessName" header="流程" width="150"></div>
+                    <div field="ReceivedDate" header="收文日期" width="80" dateformat="yyyy-MM-dd"></div>
+                    <div field="FullName" header="发起人" width="80"></div>
+                    <div field="CreateDate" header="发起日期" width="80" dateformat="yyyy-MM-dd"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div title="待办任务">
+        <div class="mini-fit">
+            <div id="dgTask" class="mini-datagrid" style="width: 100%; height: 100%;" idfield="Id" allowmovecolumn="false"
+                 showpager="false" fitcolumns="false" url="@Url.RouteUrl(new { controller = "WorkFlow", action = "GetTaskToDo" })"
+                 onload="onDgTaskLoad" onrowclick="onDgTaskRowClick">
+                <div property="columns">
+                    <div type="indexcolumn"></div>
+                    <div field="ProjectName" header="所属项目" width="250"></div>
+                    <div field="ProfessionName" header="专业属性" width="80"></div>
+                    <div field="TaskTypeName" header="任务类型" width="150"></div>
+                    <div field="TaskCount" header="任务数量" width="80"></div>
+                    <div field="PageUrl" name="PageUrl" header="" hidden="true"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div title="业务月报">
+        <div class="mini-fit">
+            <div id="dgReport" class="mini-datagrid" style="width: 100%; height: 100%;" idfield="Id" allowmovecolumn="false"
+                 showpager="false" fitcolumns="false" url="@Url.RouteUrl(new { controller = "WorkFlow", action = "GetReports" })"
+                 onload="onDgReportLoad" onrowclick="onDgReportRowClick">
+                <div property="columns">
+                    <div type="indexcolumn"></div>
+                    <div field="TaskTypeName" header="报表类型" width="250"></div>
+                    <div field="PageUrl" name="PageUrl" header="" hidden="true"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    mini.parse();
+
+    var tabMyDesktop = mini.get("tabMyDesktop");
+    var dgToDo = mini.get("dgToDo");
+    var dgTask = mini.get("dgTask");
+    var dgReport = mini.get("dgReport");
+    var getToDo = self.setInterval("BindDgToDo()", 60000);
+    var getTask = self.setInterval("BindDgTask()", 60000);
+    var getReport = self.setInterval("BindDgReport()", 60000);
+
+    Init();
+
+    function Init() {
+        BindDgToDo();
+        BindDgTask();
+        BindDgReport();
+        HiddenColnums();
+    }
+
+    function BindDgToDo() {
+        dgToDo.load();
+    }
+
+    function BindDgTask() {
+        dgTask.load();
+    }
+
+    function BindDgReport() {
+        dgReport.load();
+    }
+
+    function onDgToDoLoad() {
+        var count = dgToDo.getData().length;
+        tabMyDesktop.updateTab(tabMyDesktop.getTab(0), { title: "待办公文(" + count + ")" });
+    }
+
+    function onDgToDoRowClick(e) {
+        window.clearInterval(getToDo);
+        mini.open({
+            url: "@Url.RouteUrl(new { controller = "WorkFlow", action = "WFInstanceDo" })" + "/" + e.record.Id,
+            title: "公文处理",
+            width: 850,
+            height: 500,
+            allowResize: false,
+            ondestroy: function (action) {
+                if (action == "ok") {
+                    ShowSucessMessage("公文处理成功");
+                    BindDgToDo();
+                }
+                else if (action == "close") {
+                }
+                getToDo = self.setInterval("BindDgToDo()", 60000);
+            }
+        });
+    }
+
+    function onDgTaskLoad() {
+        var count = dgTask.getData().length;
+        tabMyDesktop.updateTab(tabMyDesktop.getTab(1), { title: "待办任务(" + count + ")" });
+    }
+
+    function onDgTaskRowClick(e) {
+        var row = e.record;
+        ShowTab(row);
+    }
+
+    function onDgReportLoad() {
+        tabMyDesktop.updateTab(tabMyDesktop.getTab(2), { title: "业务月报" });
+    }
+
+    function onDgReportRowClick(e) {
+        var row = e.record;
+        ShowTab(row);
+    }
+
+    function ShowTab(row) {
+        var id = "tab$" + row.Id;
+        var tab = tabMyDesktop.getTab(id);
+        //if (!tab) {
+            tab = {};
+            tab._rowid = row.Id;
+            tab.name = id;
+            tab.title = row.TaskTypeName;
+            //tab.iconCls = "tabIcon";
+            tab.showCloseButton = true;
+            tab.url = "@Url.RouteUrl(new { controller = "", action = "" })" + row.PageUrl;
+            tabMyDesktop.addTab(tab);
+        //}
+        tabMyDesktop.activeTab(tab);
+    }
+
+    function HiddenColnums() {
+        dgTask.hideColumn("PageUrl");
+        dgReport.hideColumn("PageUrl");
+    }
+</script>

@@ -1,0 +1,429 @@
+﻿<div id="myToolbar" class="mini-toolbar" style="border-bottom: 0px; padding: 0px;">
+    <table style="width: 100%;" cellpadding="0" cellspacing="0">
+        <tr>
+            <td style="width: 100%;">
+                <a class="mini-button" iconcls="icon-help" plain="true" href="@Url.RouteUrl(new { controller = "File", action = "DownloadHelpFiles" })?FileName=EngineeringSetting" target="_blank"></a>当前位置：基站建维>施工管理>工程设置
+            </td>
+            <td style="white-space: nowrap;">
+                <a id="btnSearch" class="mini-button" iconcls="icon-search" plain="true" onclick="onSearchClick">查询</a>
+                <a id="btnSettingConstructionCustomer" class="mini-button" iconcls="icon-edit" plain="true" onclick="onSettingConstructionCustomerClick">设置施工单位</a>
+            </td>
+        </tr>
+    </table>
+</div>
+<div class="mini-fit">
+    <div id="dgEngineeringManagement" class="mini-datagrid" style="width: 100%; height: 100%;" idfield="Id" allowmovecolumn="false"
+         multiselect="true" fitcolumns="false" onlycheckselection="true" showreloadbutton="false" pagesize="15" sizelist="[15,30,50,100]"
+         virtualscroll="false" frozenstartcolumn="0" frozenendcolumn="3" ondrawcell="onDrawCell" onload="onDgEngineeringManagementLoad" oncellclick="onCellClick">
+        <div property="columns">
+            <div type="indexcolumn"></div>
+            <div type="checkcolumn"></div>
+            <div field="PlaceId"></div>
+            <div field="TaskModelId"></div>
+            <div field="ConstructionTaskId"></div>
+            <div field="GroupPlaceCode" header="站点编码" width="80"></div>
+            <div field="PlaceName" header="基站名称" width="150"></div>
+            <div field="AreaName" header="区域" width="80"></div>
+            <div field="ReseauName" header="网格" width="80"></div>
+            <div field="PlaceCategoryName" header="基站类型" width="80"></div>
+            <div field="Map" header="导航图" width="50"></div>
+            <div type="comboboxcolumn" field="ConstructionMethod" header="建设方式" width="60">
+                <input property="editor" class="mini-combobox" style="width: 100%;" data=@Html.Raw(ViewData["ConstructionMethod"]) />
+            </div>
+            <div field="ProjectName" header="建设项目" width="200"></div>
+            <div type="comboboxcolumn" field="TaskModel" header="工程名称" width="60">
+                <input property="editor" class="mini-combobox" style="width: 100%;" data=@Html.Raw(ViewData["TaskModel"]) />
+            </div>
+            <div field="FullName" header="工程经理" width="60"></div>
+            <div field="CustomerName" header="施工单位" width="60"></div>
+            <div field="SupervisorCustomerName" header="监理单位" width="60"></div>
+            <div type="comboboxcolumn" field="ConstructionProgress" header="现场进度" width="60">
+                <input property="editor" class="mini-combobox" style="width: 100%;" data=@Html.Raw(ViewData["ConstructionProgress"]) />
+            </div>
+            <div type="comboboxcolumn" field="SubmitState" header="资料状态" width="60">
+                <input property="editor" class="mini-combobox" style="width: 100%;" data=@Html.Raw(ViewData["SubmitState"]) />
+            </div>
+        </div>
+    </div>
+</div>
+<div id="winQuery" class="mini-window" style="width: 600px; height: 190px;"
+     showmodal="true" allowresize="false" title="查询条件">
+    <table style="width: 100%;">
+        <tr>
+            <td style="width: 80px; text-align: right;">基站名称</td>
+            <td>
+                <input id="txtPlaceName" class="mini-textbox" style="width:200px;" />
+            </td>
+            <td style="width: 80px; text-align: right;">基站类型</td>
+            <td>
+                <input id="cbPlaceCategoryId" class="mini-combobox" value="00000000-0000-0000-0000-000000000000" style="width:200px;" textfield="PlaceCategoryName" valuefield="Id" data="[{Id:'00000000-0000-0000-0000-000000000000',PlaceCategoryName:'全部'}]"
+                       onload="onCbPlaceCategoryIdLoad" />
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 80px; text-align: right;">区域</td>
+            <td>
+                <input id="cbAreaId" class="mini-combobox" value="00000000-0000-0000-0000-000000000000" style="width:200px;" textfield="AreaName" valuefield="Id" data=@Html.Raw(ViewData["AreasByAll"])
+                       onvaluechanged="onCbAreaIdValueChanged" />
+            </td>
+            <td style="width: 80px; text-align: right;">网格</td>
+            <td>
+                <input id="cbReseauId" class="mini-combobox" value="00000000-0000-0000-0000-000000000000" style="width:200px;" textfield="ReseauName" valuefield="Id" data="[{Id:'00000000-0000-0000-0000-000000000000',ReseauName:'全部'}]"
+                       onload="onCbReseauIdLoad" />
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 80px; text-align: right;">施工单位</td>
+            <td>
+                <input id="CustomerId" name="CustomerId" style="width:200px;" allowinput="false" class="mini-buttonedit searchbox" showclose="true" text="全部" value="00000000-0000-0000-0000-000000000000"
+                       onbuttonclick="onCustomerSelectButtonClick" oncloseclick="onCustomerSelectButtonCloseClick" />
+            </td>
+            <td style="width: 80px; text-align: right;">监理单位</td>
+            <td>
+                <input id="SupervisorCustomerId" name="SupervisorCustomerId" style="width:200px;" allowinput="false" class="mini-buttonedit searchbox" showclose="true" text="全部" value="00000000-0000-0000-0000-000000000000"
+                       onbuttonclick="onSupervisorCustomerIdSelectButtonClick" oncloseclick="onSupervisorCustomerIdSelectButtonCloseClick" />
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 80px; text-align: right;">工程名称</td>
+            <td>
+                <input id="cbTaskModel" class="mini-combobox" value="0" style="width:200px;" data=@Html.Raw(ViewData["TaskModelByAll"]) />
+            </td>
+            <td style="width: 80px; text-align: right;">建设进度</td>
+            <td>
+                <input id="cbConstructionProgress" class="mini-combobox" value="6" style="width:200px;" data=@Html.Raw(ViewData["ConstructionProgressByAll"]) />
+            </td>
+        </tr>
+    </table>
+    <div style="text-align: center; padding: 10px;">
+        <a class="mini-button" iconcls="icon-ok" onclick="onOKClick">确定</a>
+    </div>
+</div>
+<div id="winSettingConstructionCustomer" class="mini-window" style="width: 290px; height: 110px;"
+     showmodal="true" allowresize="false" title="设置施工单位">
+    <table style="width: 100%;">
+        <tr>
+            <td style="width: 60px; text-align: right;">施工单位</td>
+            <td>
+                <input id="beConstructionCustomerId" style="width:200px;" allowinput="false" class="mini-buttonedit searchbox" showclose="true" text="请选择" value="00000000-0000-0000-0000-000000000000" required="true"
+                       onbuttonclick="onCustomerSelectEditButtonClick" oncloseclick="onCustomerSelectEditButtonCloseClick" onvalidation="onBeConstructionCustomerIdValidation" />
+            </td>
+        </tr>
+    </table>
+    <div style="text-align: center; padding: 10px;">
+        <a class="mini-button" iconcls="icon-ok" onclick="onSettingConstructionCustomerOKClick">确定</a>
+    </div>
+</div>
+<script type="text/javascript">
+    mini.parse();
+
+    var btnSearch = mini.get("btnSearch");
+    var dgEngineeringManagement = mini.get("dgEngineeringManagement");
+    var winQuery = mini.get("winQuery");
+    var txtPlaceName = mini.get("txtPlaceName");
+    var cbPlaceCategoryId = mini.get("cbPlaceCategoryId");
+    var cbAreaId = mini.get("cbAreaId");
+    var cbReseauId = mini.get("cbReseauId");
+    var beCustomerId = mini.get("CustomerId");
+    var beSupervisorCustomerId = mini.get("SupervisorCustomerId");
+    var cbTaskModel = mini.get("cbTaskModel");
+    var cbConstructionProgress = mini.get("cbConstructionProgress");
+    var winSettingConstructionCustomer = mini.get("winSettingConstructionCustomer");
+    var beConstructionCustomerId = mini.get("beConstructionCustomerId");
+
+    Init();
+
+    function Init() {
+        dgEngineeringManagement.hideColumn(2);
+        dgEngineeringManagement.hideColumn(3);
+        dgEngineeringManagement.hideColumn(4);
+        BindCbPlaceCategoryId();
+        BindDgEngineeringManagement();
+    }
+
+    function BindDgEngineeringManagement() {
+        btnSearch.setEnabled(false);
+        var query_PlaceName = txtPlaceName.getValue();
+        var query_PlaceCategoryId = cbPlaceCategoryId.getValue();
+        var query_AreaId = cbAreaId.getValue();
+        var query_ReseauId = cbReseauId.getValue();
+        var query_CustomerId = beCustomerId.getValue();
+        var query_ConstructionProgress = cbConstructionProgress.getValue();
+        var query_TaskModel = cbTaskModel.getValue();
+        var query_SupervisorCustomerId = beSupervisorCustomerId.getValue();
+        if (dgEngineeringManagement.getUrl() == "") {
+            dgEngineeringManagement.setUrl("@Url.RouteUrl(new { controller = "BaseStationBM", action = "GetTaskPropertysSettingPage" })");
+        }
+        dgEngineeringManagement.clearSelect(false);
+        dgEngineeringManagement.load({
+            PlaceName: query_PlaceName, PlaceCategoryId: query_PlaceCategoryId, AreaId: query_AreaId, ReseauId: query_ReseauId, CustomerId: query_CustomerId,
+            ConstructionProgress: query_ConstructionProgress, TaskModel: query_TaskModel, SupervisorCustomerId: query_SupervisorCustomerId
+        });
+    }
+
+    function onDgEngineeringManagementLoad() {
+        btnSearch.setEnabled(true);
+    }
+
+    function onDrawCell(e) {
+        if (e.field == "Map") {
+            e.cellHtml = "<a class='navigationmap' onclick='onMapClick(\"" + e.record.PlaceId + "\");'></a>";
+        }
+        else if (e.field == "PlaceName") {
+            e.cellStyle = "color:blue";
+        }
+        else if (e.field == "ProjectName") {
+            e.cellStyle = "color:blue";
+        }
+    }
+
+    function onMapClick(id) {
+        var el = dgEngineeringManagement.getEl();
+        mini.mask({
+            el: el,
+            cls: 'mini-mask-loading',
+            html: '加载中...'
+        });
+        setTimeout(function () {
+            $.ajax({
+                url: "@Url.RouteUrl(new { controller = "Map", action = "GetPlacePoint" })",
+                data: { PlaceId: id, AreaId: "00000000-0000-0000-0000-000000000000", PlaceName: "", Lng: 0, Lat: 0, Profession: 1 },
+                type: "get",
+                async: false,
+                success: function (result, textStatus) {
+                    mini.unmask(el);
+                    if (result.Id != null && result.Id == id) {
+                        mini.open({
+                            url: "@Url.RouteUrl(new { controller = "Map", action = "NavigationMap" })",
+                            title: result.PlaceName,
+                            iconCls: "icon-map",
+                            width: 800,
+                            height: 550,
+                            showMaxButton: true,
+                            onload: function () {
+                                var iframe = this.getIFrameEl();
+                                var data = result;
+                                iframe.contentWindow.SetData(data);
+                            }
+                        });
+                    }
+                },
+                error: function (xmlHttpRequest, textStatus, errorThrown) {
+                    mini.unmask(el);
+                }
+            });
+        }, 50);
+    }
+
+    function onCellClick(e) {
+        if (e.column.field == "PlaceName") {
+            var el = dgEngineeringManagement.getEl();
+            mini.mask({
+                el: el,
+                cls: 'mini-mask-loading',
+                html: '加载中...'
+            });
+            setTimeout(function () {
+                mini.unmask(el);
+                mini.open({
+                    url: "@Url.RouteUrl(new { controller = "BaseData", action = "PlaceInfo" })" + "/" + e.record.PlaceId,
+                    title: "站点信息",
+                    //iconCls: "icon-editor",
+                    width: 640,
+                    height: 500,
+                });
+            }, 50);
+        }
+        if (e.column.field == "ProjectName") {
+            var el = dgEngineeringManagement.getEl();
+            mini.mask({
+                el: el,
+                cls: 'mini-mask-loading',
+                html: '加载中...'
+            });
+            setTimeout(function () {
+                mini.unmask(el);
+                mini.open({
+                    url: "@Url.RouteUrl(new { controller = "BaseStationBM", action = "TaskCard" })" + "/" + e.record.ConstructionTaskId,
+                    title: "任务信息",
+                    //iconCls: "icon-editor",
+                    width: 640,
+                    height: 500,
+                });
+            }, 50);
+        }
+    }
+
+    function BindCbPlaceCategoryId() {
+        cbPlaceCategoryId.setUrl("@Url.RouteUrl(new { controller = "BaseData", action = "GetUsedPlaceCategorys" })" + "/" + 1 + "?getType=2");
+    }
+
+    function BindCbReseauId(areaId) {
+        cbReseauId.setUrl("@Url.RouteUrl(new { controller = "BaseData", action = "GetUsedReseaus" })" + "/" + areaId + "?getType=2");
+    }
+
+    function onCbAreaIdValueChanged(e) {
+        BindCbReseauId(e.sender.getValue());
+    }
+
+    function onCbPlaceCategoryIdLoad() {
+        cbPlaceCategoryId.setValue("00000000-0000-0000-0000-000000000000");
+    }
+
+    function onCbReseauIdLoad() {
+        cbReseauId.setValue("00000000-0000-0000-0000-000000000000");
+    }
+
+    function onSearchClick() {
+        winQuery.show();
+    }
+
+    function onOKClick() {
+        BindDgEngineeringManagement();
+        winQuery.hide();
+    }
+
+    function onCustomerSelectButtonClick() {
+        var beSelect = this;
+        mini.open({
+            url: "@Url.RouteUrl(new { controller = "CustomControl", action = "CustomerSelection" })",
+            title: "选择施工单位",
+            width: 685,
+            height: 410,
+            allowResize: false,
+            ondestroy: function (action) {
+                if (action == "ok") {
+                    var iframe = this.getIFrameEl();
+                    var data = iframe.contentWindow.GetData();
+                    data = mini.clone(data);
+                    beSelect.setValue(data.id);
+                    beSelect.setText(data.text);
+                }
+                else if (action == "cancel") {
+                    beSelect.setValue("00000000-0000-0000-0000-000000000000");
+                    beSelect.setText("全部");
+                }
+                beSelect.validate();
+            }
+        });
+    }
+
+    function onCustomerSelectButtonCloseClick() {
+        this.setValue("00000000-0000-0000-0000-000000000000");
+        this.setText("全部");
+        this.validate();
+    }
+
+    function onSupervisorCustomerIdSelectButtonClick() {
+        var beSelect = this;
+        mini.open({
+            url: "@Url.RouteUrl(new { controller = "CustomControl", action = "CustomerSelection" })",
+            title: "选择监理单位",
+            width: 685,
+            height: 410,
+            allowResize: false,
+            ondestroy: function (action) {
+                if (action == "ok") {
+                    var iframe = this.getIFrameEl();
+                    var data = iframe.contentWindow.GetData();
+                    data = mini.clone(data);
+                    beSelect.setValue(data.id);
+                    beSelect.setText(data.text);
+                }
+                else if (action == "cancel") {
+                    beSelect.setValue("00000000-0000-0000-0000-000000000000");
+                    beSelect.setText("全部");
+                }
+                beSelect.validate();
+            }
+        });
+    }
+
+    function onSupervisorCustomerIdSelectButtonCloseClick() {
+        this.setValue("00000000-0000-0000-0000-000000000000");
+        this.setText("全部");
+        this.validate();
+    }
+
+    function onCustomerSelectEditButtonClick() {
+        var beSelect = this;
+        mini.open({
+            url: "@Url.RouteUrl(new { controller = "CustomControl", action = "CustomerSelection" })",
+            title: "选择施工单位",
+            width: 685,
+            height: 410,
+            allowResize: false,
+            ondestroy: function (action) {
+                if (action == "ok") {
+                    var iframe = this.getIFrameEl();
+                    var data = iframe.contentWindow.GetData();
+                    data = mini.clone(data);
+                    beSelect.setValue(data.id);
+                    beSelect.setText(data.text);
+                }
+                else if (action == "cancel") {
+                    beSelect.setValue("00000000-0000-0000-0000-000000000000");
+                    beSelect.setText("请选择");
+                }
+                beSelect.validate();
+            }
+        });
+    }
+
+    function onCustomerSelectEditButtonCloseClick() {
+        this.setValue("00000000-0000-0000-0000-000000000000");
+        this.setText("请选择");
+        this.validate();
+    }
+
+    function onBeConstructionCustomerIdValidation(e) {
+        if (e.isValid) {
+            if (e.value == "00000000-0000-0000-0000-000000000000") {
+                e.errorText = "请选择施工单位";
+                e.isValid = false;
+            }
+        }
+    }
+
+    function onSettingConstructionCustomerClick() {
+        var rows = dgEngineeringManagement.getSelecteds();
+        if (rows.length == 0) {
+            mini.alert("请选择要操作的数据");
+        }
+        else {
+            beConstructionCustomerId.setValue("00000000-0000-0000-0000-000000000000");
+            beConstructionCustomerId.setText("请选择");
+            beConstructionCustomerId.setIsValid(true);
+            winSettingConstructionCustomer.show();
+        }
+    }
+
+    function onSettingConstructionCustomerOKClick() {
+        beConstructionCustomerId.validate();
+        if (beConstructionCustomerId.isValid() == false) return;
+        var rows = dgEngineeringManagement.getSelecteds();
+        if (rows.length == 0) {
+            mini.alert("请选择要操作的数据");
+        }
+        else {
+            var loading = mini.loading("处理中,请稍后...", "设置施工单位");
+            var jsonData = mini.encode(rows);
+            $.ajax({
+                url: "@Url.RouteUrl(new { controller = "BaseStationBM", action = "SettingConstructionCustomer" })",
+                data: AddAntiForgeryToken({ data: jsonData, ConstructionCustomerId: beConstructionCustomerId.getValue() }),
+                type: "post",
+                success: function (result, textStatus) {
+                    mini.hideMessageBox(loading);
+                    if (result.Code != null && result.Code == 0) {
+                        winSettingConstructionCustomer.hide();
+                        ShowSucessMessage(result.Message);
+                        BindDgEngineeringManagement();
+                    }
+                },
+                error: function (xmlHttpRequest, textStatus, errorThrown) {
+                    mini.hideMessageBox(loading);
+                }
+            });
+        }
+    }
+</script>

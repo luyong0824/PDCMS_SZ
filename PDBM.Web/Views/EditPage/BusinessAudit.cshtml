@@ -1,0 +1,165 @@
+﻿<div id="frmPlanningApply" class="form">
+    <input class="mini-hidden" id="Id" name="Id" value="@ViewData["Id"]" />
+    <input class="mini-hidden" id="WFActivityInstanceId" name="WFActivityInstanceId" value="@ViewData["WFActivityInstanceId"]" />
+    <table style="width: 100%;">
+        <tr>
+            <td style="width: 80px; text-align: right;">规划日期</td>
+            <td>
+                <input id="CreateDateText" name="CreateDateText" class="mini-textbox" style="width: 200px;" readonly="true" value="@ViewData["CreateDateText"]" />
+            </td>
+            <td style="width: 80px; text-align: right;">规划编码</td>
+            <td>
+                <input id="PlanningCode" name="PlanningCode" class="mini-textbox" style="width: 200px;" readonly="true" value="@ViewData["PlanningCode"]" />
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 80px; text-align: right;">规划名称</td>
+            <td>
+                <input id="PlanningName" name="PlanningName" class="mini-textbox" style="width: 200px;" readonly="true" value="@ViewData["PlanningName"]" />
+            </td>
+
+            <td style="width: 80px; text-align: right;">导航图</td>
+            <td>
+                <a class="navigationmapedit" onclick="onMapClick();"></a>
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 80px; text-align: right;">区域</td>
+            <td>
+                <input id="AreaName" name="AreaName" class="mini-textbox" style="width: 200px;" readonly="true" value="@ViewData["AreaName"]" />
+            </td>
+            <td style="width: 80px; text-align: right;">网格</td>
+            <td>
+                <input id="ReseauName" name="ReseauName" class="mini-textbox" style="width: 200px;" readonly="true" value="@ViewData["ReseauName"]" />
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 80px; text-align: right;">经度</td>
+            <td>
+                <input id="Lng" name="Lng" class="mini-textbox" vtype='float' style="width: 200px;" readonly="true" value="@ViewData["Lng"]" />
+            </td>
+            <td style="width: 80px; text-align: right;">纬度</td>
+            <td>
+                <input id="Lat" name="Lat" class="mini-textbox" vtype='float' style="width: 200px;" readonly="true" value="@ViewData["Lat"]" />
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 80px; text-align: right;">详细地址</td>
+            <td>
+                <input id="DetailedAddress" name="DetailedAddress" class="mini-textarea" style="width: 200px; height: 40px;" readonly="true" value="@ViewData["DetailedAddress"]" />
+            </td>
+            <td style="width: 80px; text-align: right;">建设理由</td>
+            <td>
+                <input id="Remarks" name="Remarks" class="mini-textarea" style="width: 200px; height: 40px;" readonly="true" value="@ViewData["Remarks"]" />
+            </td>
+        </tr>
+    </table>
+    <fieldset>
+        <legend><b>本次编辑内容</b></legend>
+        <table style="width: 100%;">
+            <tr>
+                <td style="width: 80px; text-align: right;">重要性程度</td>
+                <td colspan="3">
+                    <input id="Importance" name="Importance" class="mini-combobox" value="1" style="width:200px;" data=@Html.Raw(ViewData["ImportanceBySelect"]) />
+                </td>
+            </tr>
+        </table>
+    </fieldset>
+    <table style="width: 100%;">
+        <tr>
+            <td align="center">
+                <a class="mini-button" iconcls="icon-save" onclick="onSaveClick">保存</a>
+            </td>
+        </tr>
+    </table>
+</div>
+<script type="text/javascript">
+    mini.parse();
+
+    var frmPlanningApply = new mini.Form("#frmPlanningApply");
+    var txtPlanningApplyId = mini.get("Id");
+    var txtWFActivityInstanceId = mini.get("WFActivityInstanceId");
+    var cbImportance = mini.get("Importance");
+
+    init();
+
+    function init() {
+        cbImportance.setValue("@ViewData["Importance"]");
+    }
+
+    function onMapClick() {
+        var el = document.body;
+        mini.mask({
+            el: el,
+            cls: 'mini-mask-loading',
+            html: '加载中...'
+        });
+        setTimeout(function () {
+            var url, data, getId;
+
+            url = "@Url.RouteUrl(new { controller = "Map", action = "GetPlanningApplyPoint" })";
+            data = { PlanningApplyId: txtPlanningApplyId.getValue(), AreaId: "00000000-0000-0000-0000-000000000000", PlanningName: "", Lng: 0, Lat: 0, Profession: 1 };
+            getId = txtPlanningApplyId.getValue();
+            $.ajax({
+                url: url,
+                data: data,
+                type: "get",
+                async: false,
+                success: function (result, textStatus) {
+                    mini.unmask(el);
+                    if (result.Id != null && result.Id == getId) {
+                        var title;
+                        title = result.PlanningName;
+                        mini.open({
+                            url: "@Url.RouteUrl(new { controller = "Map", action = "NavigationMap" })",
+                            title: title,
+                            iconCls: "icon-map",
+                            width: 800,
+                            height: 550,
+                            showMaxButton: true,
+                            onload: function () {
+                                var iframe = this.getIFrameEl();
+                                var data = result;
+                                iframe.contentWindow.SetData(data);
+                            }
+                        });
+                    }
+                },
+                error: function (xmlHttpRequest, textStatus, errorThrown) {
+                    mini.unmask(el);
+                }
+            });
+        }, 50);
+    }
+
+    function onSaveClick() {
+        frmPlanningApply.validate();
+        if (frmPlanningApply.isValid() == false) return;
+        var loading = mini.loading("处理中,请稍后...", "保存数据");
+        var jsonData = mini.encode(frmPlanningApply.getData());
+        $.ajax({
+            url: "@Url.RouteUrl(new { controller = "EditPage", action = "SaveBusinessAudit" })",
+            data: AddAntiForgeryToken({ data: jsonData }),
+            type: "post",
+            success: function (result, textStatus) {
+                mini.hideMessageBox(loading);
+                if (result.Code != null && result.Code == 0) {
+                    ShowSucessMessage(result.Message);
+                    //CloseWindow("ok");
+                }
+            },
+            error: function (xmlHttpRequest, textStatus, errorThrown) {
+                mini.hideMessageBox(loading);
+            }
+        });
+    }
+
+    function CloseWindow(action) {
+        if (window.CloseOwnerWindow) {
+            return window.CloseOwnerWindow(action);
+        }
+        else {
+            window.close();
+        }
+    }
+</script>

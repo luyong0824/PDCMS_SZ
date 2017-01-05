@@ -1,0 +1,152 @@
+﻿<div id="myToolbar" class="mini-toolbar" style="border-bottom: 0px; padding: 0px;">
+    <table style="width: 100%;" cellpadding="0" cellspacing="0">
+        <tr>
+            <td style="width: 100%;">
+                <a class="mini-button" iconcls="icon-help" plain="true" href="@Url.RouteUrl(new { controller = "File", action = "DownloadHelpFiles" })?FileName=BusinessVolume" target="_blank"></a>当前位置：基础数据>移动业务>公司年度成长报表
+            </td>
+            <td style="white-space: nowrap;">
+                <a id="btnSearch" class="mini-button" iconcls="icon-search" plain="true" onclick="onSearchClick">查询</a>
+                <a class="mini-button" iconcls="icon-excel" plain="true" onclick="ExportTVExcel">导出话务量</a>
+                <a class="mini-button" iconcls="icon-excel" plain="true" onclick="ExportBVExcel">导出业务量</a>
+            </td>
+        </tr>
+    </table>
+</div>
+<div class="mini-fit">
+    <b><font color="blue">话务量(万Erl)</font></b>
+    <div id="dgBusinessVolumeTV" class="mini-datagrid" style="width: 100%; height: 45%;" idfield="Id" allowmovecolumn="false"
+         multiselect="true" fitcolumns="false" onlycheckselection="true" showreloadbutton="false" showpager="false"
+         onload="onDgBusinessVolumeLoad">
+        <div property="columns">
+            <div type="indexcolumn"></div>
+            <div field="CompanyName" header="公司" width="80"></div>
+            <div field="JanTV" header="Jan" width="80"></div>
+            <div field="FebTV" header="Feb" width="80"></div>
+            <div field="MarTV" header="Mar" width="80"></div>
+            <div field="AprTV" header="Apr" width="80"></div>
+            <div field="MayTV" header="May" width="80"></div>
+            <div field="JunTV" header="Jun" width="80"></div>
+            <div field="JulTV" header="Jul" width="80"></div>
+            <div field="AugTV" header="Aug" width="80"></div>
+            <div field="SeptTV" header="Sept" width="80"></div>
+            <div field="OctTV" header="Oct" width="80"></div>
+            <div field="NovTV" header="Nov" width="80"></div>
+            <div field="DecTV" header="Dec" width="80"></div>
+        </div>
+    </div>
+    <b><font color="blue">业务量(TB)</font></b>
+    <div id="dgBusinessVolumeBV" class="mini-datagrid" style="width: 100%; height: 45%;" idfield="Id" allowmovecolumn="false"
+         multiselect="true" fitcolumns="false" onlycheckselection="true" showreloadbutton="false" showpager="false">
+        <div property="columns">
+            <div type="indexcolumn"></div>
+            <div field="CompanyName" header="公司" width="80"></div>
+            <div field="JanBV" header="Jan" width="80"></div>
+            <div field="FebBV" header="Feb" width="80"></div>
+            <div field="MarBV" header="Mar" width="80"></div>
+            <div field="AprBV" header="Apr" width="80"></div>
+            <div field="MayBV" header="May" width="80"></div>
+            <div field="JunBV" header="Jun" width="80"></div>
+            <div field="JulBV" header="Jul" width="80"></div>
+            <div field="AugBV" header="Aug" width="80"></div>
+            <div field="SeptBV" header="Sept" width="80"></div>
+            <div field="OctBV" header="Oct" width="80"></div>
+            <div field="NovBV" header="Nov" width="80"></div>
+            <div field="DecBV" header="Dec" width="80"></div>
+        </div>
+    </div>
+</div>
+<div id="winQuery" class="mini-window" style="width: 250px; height: 115px;"
+     showmodal="true" allowresize="false" title="查询条件">
+    <table style="width: 100%;">
+        <tr>
+            <td style="width: 80px; text-align: right;">查询日期</td>
+            <td>
+                <table border="0" cellpadding="0" cellspacing="0">
+                    <tr>
+                        <td>
+                            <input id="cb_Year" class="mini-combobox" textfield="text" valuefield="id" />
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+    <div style="text-align: center; padding: 10px;">
+        <a class="mini-button" iconcls="icon-ok" onclick="onOKClick">确定</a>
+    </div>
+</div>
+<iframe id="exportIFrame" style="display:none;"></iframe>
+<!--导出Excel相关HTML-->
+<form id="excelForm" action="export.aspx?type=excel" method="post" target="excelIFrame">
+    <input type="hidden" name="columns" id="excelData" />
+</form>
+<iframe id="excelIFrame" name="excelIFrame" style="display:none;"></iframe>
+<script type="text/javascript">
+    mini.parse();
+
+    var btnSearch = mini.get("btnSearch");
+    var dgBusinessVolumeTV = mini.get("dgBusinessVolumeTV");
+    var dgBusinessVolumeBV = mini.get("dgBusinessVolumeBV");
+    var winQuery = mini.get("winQuery");
+    var cb_Year = mini.get("cb_Year");
+
+    var jsonYear = [{ "text": "2016", "id": "2016" }, { "text": "2017", "id": "2017" }, { "text": "2018", "id": "2018" }, { "text": "2019", "id": "2019" }, { "text": "2020", "id": "2020" }, { "text": "2021", "id": "2021" },
+    { "text": "2022", "id": "2022" }, { "text": "2023", "id": "2023" }, { "text": "2024", "id": "2024" }, { "text": "2025", "id": "2025" }];
+    cb_Year.setData(jsonYear);
+    cb_Year.setValue(new Date().getFullYear().toString());
+
+    init();
+
+    function init() {
+        BindDgBusinessVolumeTV();
+        BindDgBusinessVolumeBV();
+    }
+
+    function BindDgBusinessVolumeTV() {
+        btnSearch.setEnabled(false);
+        var query_BeginDate = cb_Year.getValue() + "-01-01";
+        if (dgBusinessVolumeTV.getUrl() == "") {
+            dgBusinessVolumeTV.setUrl("@Url.RouteUrl(new { controller = "BaseDataReport", action = "GetBusinessVolumeYearGrowthCompany" })");
+        }
+        dgBusinessVolumeTV.clearSelect(false);
+        dgBusinessVolumeTV.load({ BeginDate: query_BeginDate });
+    }
+
+    function BindDgBusinessVolumeBV() {
+        //btnSearch.setEnabled(false);
+        var query_BeginDate = cb_Year.getValue() + "-01-01";
+        if (dgBusinessVolumeBV.getUrl() == "") {
+            dgBusinessVolumeBV.setUrl("@Url.RouteUrl(new { controller = "BaseDataReport", action = "GetBusinessVolumeYearGrowthCompany" })");
+        }
+        dgBusinessVolumeBV.clearSelect(false);
+        dgBusinessVolumeBV.load({ BeginDate: query_BeginDate });
+    }
+
+    function onDgBusinessVolumeLoad() {
+        btnSearch.setEnabled(true);
+    }
+
+    function onSearchClick() {
+        winQuery.show();
+    }
+
+    function onOKClick() {
+        BindDgBusinessVolumeTV();
+        BindDgBusinessVolumeBV();
+        winQuery.hide();
+    }
+
+    function ExportTVExcel() {
+        var query_BeginDate = cb_Year.getValue() + "-01-01";
+        var excelForm = document.getElementById("excelForm");
+        excelForm.action = "@Url.RouteUrl(new { controller = "DataOutput", action = "ExportBusinessVolumeYearGrowthCompanyTVExcel" })" + "?BeginDate=" + query_BeginDate + "&Profession=0";
+        excelForm.submit();
+    }
+
+    function ExportBVExcel() {
+        var query_BeginDate = cb_Year.getValue() + "-01-01";
+        var excelForm = document.getElementById("excelForm");
+        excelForm.action = "@Url.RouteUrl(new { controller = "DataOutput", action = "ExportBusinessVolumeYearGrowthCompanyBVExcel" })" + "?BeginDate=" + query_BeginDate + "&Profession=0";
+        excelForm.submit();
+    }
+</script>

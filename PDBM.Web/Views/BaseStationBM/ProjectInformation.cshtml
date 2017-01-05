@@ -1,0 +1,651 @@
+﻿<div id="myToolbar" class="mini-toolbar" style="border-bottom: 0px; padding: 0px;">
+    <table style="width: 100%;" cellpadding="0" cellspacing="0">
+        <tr>
+            <td style="width: 100%;">
+                <a class="mini-button" iconcls="icon-help" plain="true" href="@Url.RouteUrl(new { controller = "File", action = "DownloadHelpFiles" })?FileName=ProjectInformation" target="_blank"></a>当前位置：基站建维>基站报表>项目信息表
+            </td>
+            <td style="white-space: nowrap;">
+                <a id="btnSearch" class="mini-button" iconcls="icon-search" plain="true" onclick="onSearchClick">查询</a>
+                <a class="mini-button" iconcls="icon-excel" plain="true" onclick="ExportExcel">导出Excel</a>
+            </td>
+        </tr>
+    </table>
+</div>
+<div class="mini-fit">
+    <div id="dgProject" class="mini-datagrid" style="width: 100%; height: 100%;" idfield="Id" allowmovecolumn="false"
+         multiselect="true" fitcolumns="false" onlycheckselection="true" showreloadbutton="false" pagesize="15" sizelist="[15,30,50,100]"
+         virtualscroll="false" frozenstartcolumn="0" frozenendcolumn="3" ondrawcell="onDrawCell" onload="onDgProjectLoad" oncellclick="onCellClick">
+        <div property="columns">
+            <div type="indexcolumn"></div>
+            <div type="checkcolumn"></div>
+            <div field="PlaceId"></div>
+            <div field="IsFileTower" header=""></div>
+            <div field="IsFileTowerBase" header=""></div>
+            <div field="IsFileMachineRoom" header=""></div>
+            <div field="IsFileExternal" header=""></div>
+            <div field="IsFileEquipment" header=""></div>
+            <div field="IsFileAddress" header=""></div>
+            <div field="IsFileFoundation" header=""></div>
+            <div field="TowerId" header=""></div>
+            <div field="TowerBaseId" header=""></div>
+            <div field="MachineRoomId" header=""></div>
+            <div field="ExternalId" header=""></div>
+            <div field="EquipmentId" header=""></div>
+            <div field="AddressId" header=""></div>
+            <div field="FoundationId" header=""></div>
+            <div field="GroupPlaceCode" header="站点编码" width="80"></div>
+            <div field="PlaceName" header="基站名称" width="150"></div>
+            <div field="ProjectCode" header="项目编码" width="80"></div>
+            <div field="ProjectName" header="建设项目" width="200"></div>
+            <div field="AreaName" header="区域" width="80"></div>
+            <div field="ReseauName" header="网格" width="80"></div>
+            <div field="PlaceCategoryName" header="基站类型" width="80"></div>
+            <div field="Map" header="导航图" width="50"></div>
+            <div type="comboboxcolumn" field="PropertyRight" header="产权" width="60">
+                <input property="editor" class="mini-combobox" style="width: 100%;" data=@Html.Raw(ViewData["PropertyRight"]) />
+            </div>
+            <div type="comboboxcolumn" field="ConstructionMethod" header="建设方式" width="60">
+                <input property="editor" class="mini-combobox" style="width: 100%;" data=@Html.Raw(ViewData["ConstructionMethod"]) />
+            </div>
+            <div type="comboboxcolumn" field="ConstructionProgress" header="建设进度" width="60">
+                <input property="editor" class="mini-combobox" style="width: 100%;" data=@Html.Raw(ViewData["ConstructionProgress"]) />
+            </div>
+            <div type="comboboxcolumn" field="TowerType" header="铁塔类型" width="00">
+                <input property="editor" class="mini-combobox" style="width: 100%;" data=@Html.Raw(ViewData["TowerType"]) />
+            </div>
+            <div field="TowerHeight" header="铁塔高度(米)" width="80"></div>
+            <div field="PlatFormNumber" header="平台数量(层)" width="80"></div>
+            <div field="PoleNumber" header="抱杆数量(根)" width="80"></div>
+            <div field="TowerFile" header="铁塔图纸" width="60"></div>
+            <div type="comboboxcolumn" field="TowerBaseType" header="基础类型" width="80">
+                <input property="editor" class="mini-combobox" style="width: 100%;" data=@Html.Raw(ViewData["TowerBaseType"]) />
+            </div>
+            <div field="TowerBaseFile" header="塔基图纸" width="60"></div>
+            <div type="comboboxcolumn" field="MachineRoomType" header="机房类型" width="80">
+                <input property="editor" class="mini-combobox" style="width: 100%;" data=@Html.Raw(ViewData["MachineRoomType"]) />
+            </div>
+            <div field="MachineRoomArea" header="机房面积(m²)" width="80"></div>
+            <div field="MachineRoomFile" header="机房图纸" width="60"></div>
+            <div type="comboboxcolumn" field="ExternalElectric" header="引入方式" width="80">
+                <input property="editor" class="mini-combobox" style="width: 100%;" data=@Html.Raw(ViewData["ExternalElectric"]) />
+            </div>
+            <div field="ExternalFile" header="路由图" width="60"></div>
+            <div field="SwitchPower" header="开关电源(A)" width="80"></div>
+            <div field="Battery" header="蓄电池(AH)" width="80"></div>
+            <div field="CabinetNumber" header="机柜数量(个)" width="80"></div>
+            <div field="EquipmentFile" header="安装图纸" width="60"></div>
+            <div field="AddressFile" header="地勘报告" width="60"></div>
+            <div field="FoundationFile" header="动测报告" width="60"></div>
+            <div type="comboboxcolumn" field="MobileShare" header="移动共享" width="60">
+                <input property="editor" class="mini-combobox" style="width: 100%;" data=@Html.Raw(ViewData["Bool"]) />
+            </div>
+            <div field="MobilePoleNumber" header="移动抱杆数量(根)" width="100"></div>
+            <div field="MobileCabinetNumber" header="移动机柜数量(个)" width="100"></div>
+            <div field="MobilePowerUsed" header="移动用电量(KW)" width="100"></div>
+            <div type="comboboxcolumn" field="TelecomShare" header="电信共享" width="60">
+                <input property="editor" class="mini-combobox" style="width: 100%;" data=@Html.Raw(ViewData["Bool"]) />
+            </div>
+            <div field="TelecomPoleNumber" header="电信抱杆数量(根)" width="100"></div>
+            <div field="TelecomCabinetNumber" header="电信机柜数量(个)" width="100"></div>
+            <div field="TelecomPowerUsed" header="电信用电量(KW)" width="100"></div>
+            <div type="comboboxcolumn" field="UnicomShare" header="联通共享" width="60">
+                <input property="editor" class="mini-combobox" style="width: 100%;" data=@Html.Raw(ViewData["Bool"]) />
+            </div>
+            <div field="UnicomPoleNumber" header="联通抱杆数量(根)" width="100"></div>
+            <div field="UnicomCabinetNumber" header="联通机柜数量(个)" width="100"></div>
+            <div field="UnicomPowerUsed" header="联通用电量(KW)" width="100"></div>
+        </div>
+    </div>
+</div>
+<div id="winQuery" class="mini-window" style="width: 350px; height: 300px;"
+     showmodal="true" allowresize="false" title="查询条件">
+    <table style="width: 100%;">
+        <tr>
+            <td style="width: 80px; text-align: right;">下达日期</td>
+            <td>
+                <table border="0" cellpadding="0" cellspacing="0">
+                    <tr>
+                        <td><input id="dpBeginDate" class="mini-datepicker" style="width:98px;" value="new Date()" showclearbutton="false" allowinput="false" /></td>
+                        <td>至</td>
+                        <td><input id="dpEndDate" class="mini-datepicker" style="width:98px;" value="new Date()" showclearbutton="false" allowinput="false" /></td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 80px; text-align: right;">产权</td>
+            <td>
+                <input id="ckblPropertyRightList" class="mini-checkboxlist" repeatitems="4" repeatlayout="table" textfield="text" valuefield="id" data=@Html.Raw(ViewData["PropertyRightByAll"]) />
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 80px; text-align: right;">站点编码</td>
+            <td>
+                <input id="txtGroupPlaceCode" class="mini-textbox" style="width:200px;" />
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 80px; text-align: right;">基站名称</td>
+            <td>
+                <input id="txtPlaceName" class="mini-textbox" style="width:200px;" />
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 80px; text-align: right;">区域</td>
+            <td>
+                <input id="cbAreaId" class="mini-combobox" value="00000000-0000-0000-0000-000000000000" style="width:200px;" textfield="AreaName" valuefield="Id" data=@Html.Raw(ViewData["AreasByAll"])
+                       onvaluechanged="onCbAreaIdValueChanged" />
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 80px; text-align: right;">网格</td>
+            <td>
+                <input id="cbReseauId" class="mini-combobox" value="00000000-0000-0000-0000-000000000000" style="width:200px;" textfield="ReseauName" valuefield="Id" data="[{Id:'00000000-0000-0000-0000-000000000000',ReseauName:'全部'}]"
+                       onload="onCbReseauIdLoad" />
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 80px; text-align: right;">建设方式</td>
+            <td>
+                <input id="cbConstructionMethod" class="mini-combobox" value="0" style="width:200px;" data=@Html.Raw(ViewData["ConstructionMethodByAll"]) />
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 80px; text-align: right;">建设进度</td>
+            <td>
+                <input id="cbConstructionProgress" class="mini-combobox" value="0" style="width:200px;" data=@Html.Raw(ViewData["ConstructionProgressByAll"]) />
+            </td>
+        </tr>
+    </table>
+    <div style="text-align: center; padding: 10px;">
+        <a class="mini-button" iconcls="icon-ok" onclick="onOKClick">确定</a>
+    </div>
+</div>
+<iframe id="exportIFrame" style="display:none;"></iframe>
+<!--导出Excel相关HTML-->
+<form id="excelForm" action="export.aspx?type=excel" method="post" target="excelIFrame">
+    <input type="hidden" name="columns" id="excelData" />
+</form>
+<iframe id="excelIFrame" name="excelIFrame" style="display:none;"></iframe>
+<script type="text/javascript">
+    mini.parse();
+
+    var btnSearch = mini.get("btnSearch");
+    var dgProject = mini.get("dgProject");
+    var winQuery = mini.get("winQuery");
+    var dpBeginDate = mini.get("dpBeginDate");
+    var dpEndDate = mini.get("dpEndDate");
+    var ckblPropertyRightList = mini.get("ckblPropertyRightList");
+    var txtGroupPlaceCode = mini.get("txtGroupPlaceCode");
+    var txtPlaceName = mini.get("txtPlaceName");
+    var cbAreaId = mini.get("cbAreaId");
+    var cbReseauId = mini.get("cbReseauId");
+    var cbConstructionMethod = mini.get("cbConstructionMethod");
+    var cbConstructionProgress = mini.get("cbConstructionProgress");
+
+    Init();
+
+    function Init() {
+        dgProject.hideColumn(2);
+        dgProject.hideColumn(3);
+        dgProject.hideColumn(4);
+        dgProject.hideColumn(5);
+        dgProject.hideColumn(6);
+        dgProject.hideColumn(7);
+        dgProject.hideColumn(8);
+        dgProject.hideColumn(9);
+        dgProject.hideColumn(10);
+        dgProject.hideColumn(11);
+        dgProject.hideColumn(12);
+        dgProject.hideColumn(13);
+        dgProject.hideColumn(14);
+        dgProject.hideColumn(15);
+        dgProject.hideColumn(16);
+        dpBeginDate.setValue(new Date().DateAdd("y", -1));
+        ckblPropertyRightList.selectAll();
+        //BindDgProject();
+    }
+
+    function BindDgProject() {
+        btnSearch.setEnabled(false);
+        var query_BeginDate = dpBeginDate.getFormValue();
+        var query_EndDate = dpEndDate.getFormValue();
+        var query_PropertyRightList = ckblPropertyRightList.getValue();
+        var query_GroupPlaceCode = txtGroupPlaceCode.getValue();
+        var query_PlaceName = txtPlaceName.getValue();
+        var query_AreaId = cbAreaId.getValue();
+        var query_ReseauId = cbReseauId.getValue();
+        var query_ConstructionMethod = cbConstructionMethod.getValue();
+        var query_ConstructionProgress = cbConstructionProgress.getValue();
+        if (dgProject.getUrl() == "") {
+            dgProject.setUrl("@Url.RouteUrl(new { controller = "BaseStationBM", action = "GetProjectInformationPage" })");
+        }
+        dgProject.clearSelect(false);
+        dgProject.load({ BeginDate: query_BeginDate, EndDate: query_EndDate, PropertyRightList: query_PropertyRightList, GroupPlaceCode: query_GroupPlaceCode, PlaceName: query_PlaceName, AreaId: query_AreaId, ReseauId: query_ReseauId, ConstructionMethod: query_ConstructionMethod, ConstructionProgress: query_ConstructionProgress });
+    }
+
+    function onDgProjectLoad() {
+        btnSearch.setEnabled(true);
+    }
+
+    function onDrawCell(e) {
+        if (e.field == "Map") {
+            e.cellHtml = "<a class='navigationmap' onclick='onMapClick(\"" + e.record.PlaceId + "\");'></a>";
+        }
+        else if (e.field == "PlaceName") {
+            e.cellStyle = "color:blue";
+        }
+        else if (e.field == "ProjectName") {
+            e.cellStyle = "color:blue";
+        }
+        else if (e.field == "TowerFile" && e.record.IsFileTower != "") {
+            e.cellHtml = "<a class='file' onclick='onFileTowerClick(\"" + e.record.TowerId + "\");'></a>";
+        }
+        else if (e.field == "TowerBaseFile" && e.record.IsFileTowerBase != "") {
+            e.cellHtml = "<a class='file' onclick='onFileTowerBaseClick(\"" + e.record.TowerBaseId + "\");'></a>";
+        }
+        else if (e.field == "MachineRoomFile" && e.record.IsFileMachineRoom != "") {
+            e.cellHtml = "<a class='file' onclick='onFileMachineRoomClick(\"" + e.record.MachineRoomId + "\");'></a>";
+        }
+        else if (e.field == "ExternalFile" && e.record.IsFileExternal != "") {
+            e.cellHtml = "<a class='file' onclick='onFileExternalClick(\"" + e.record.ExternalId + "\");'></a>";
+        }
+        else if (e.field == "EquipmentFile" && e.record.IsFileEquipment != "") {
+            e.cellHtml = "<a class='file' onclick='onFileEquipmentClick(\"" + e.record.EquipmentId + "\");'></a>";
+        }
+        else if (e.field == "AddressFile" && e.record.IsFileAddress != "") {
+            e.cellHtml = "<a class='file' onclick='onFileAddressClick(\"" + e.record.AddressId + "\");'></a>";
+        }
+        else if (e.field == "FoundationFile" && e.record.IsFileFoundation != "") {
+            e.cellHtml = "<a class='file' onclick='onFileFoundationClick(\"" + e.record.FoundationId + "\");'></a>";
+        }
+    }
+
+    function onMapClick(id) {
+        var el = dgProject.getEl();
+        mini.mask({
+            el: el,
+            cls: 'mini-mask-loading',
+            html: '加载中...'
+        });
+        setTimeout(function () {
+            $.ajax({
+                url: "@Url.RouteUrl(new { controller = "Map", action = "GetPlacePoint" })",
+                data: { PlaceId: id, AreaId: "00000000-0000-0000-0000-000000000000", PlaceName: "", Lng: 0, Lat: 0, Profession: 1 },
+                type: "get",
+                async: false,
+                success: function (result, textStatus) {
+                    mini.unmask(el);
+                    if (result.Id != null && result.Id == id) {
+                        mini.open({
+                            url: "@Url.RouteUrl(new { controller = "Map", action = "NavigationMap" })",
+                            title: result.PlaceName,
+                            iconCls: "icon-map",
+                            width: 800,
+                            height: 550,
+                            showMaxButton: true,
+                            onload: function () {
+                                var iframe = this.getIFrameEl();
+                                var data = result;
+                                iframe.contentWindow.SetData(data);
+                            }
+                        });
+                    }
+                },
+                error: function (xmlHttpRequest, textStatus, errorThrown) {
+                    mini.unmask(el);
+                }
+            });
+        }, 50);
+    }
+
+    function onCellClick(e) {
+        if (e.column.field == "PlaceName") {
+            var el = dgProject.getEl();
+            mini.mask({
+                el: el,
+                cls: 'mini-mask-loading',
+                html: '加载中...'
+            });
+            setTimeout(function () {
+                mini.unmask(el);
+                mini.open({
+                    url: "@Url.RouteUrl(new { controller = "BaseStationBM", action = "PlaceInformationLog" })" + "/" + e.record.PlaceId,
+                    title: "基站信息历史记录",
+                    //iconCls: "icon-editor",
+                    width: 800,
+                    height: 500,
+                });
+            }, 50);
+        }
+        if (e.column.field == "ProjectName") {
+            var el = dgProject.getEl();
+            mini.mask({
+                el: el,
+                cls: 'mini-mask-loading',
+                html: '加载中...'
+            });
+            setTimeout(function () {
+                mini.unmask(el);
+                mini.open({
+                    url: "@Url.RouteUrl(new { controller = "BaseStationBM", action = "TaskInformationLog" })" + "/" + e.record.Id,
+                    title: "任务信息历史记录",
+                    //iconCls: "icon-editor",
+                    width: 800,
+                    height: 500,
+                });
+            }, 50);
+        }
+    }
+
+    function BindCbReseauId(areaId) {
+        cbReseauId.setUrl("@Url.RouteUrl(new { controller = "BaseData", action = "GetUsedReseaus" })" + "/" + areaId + "?getType=2");
+    }
+
+    function onCbAreaIdValueChanged(e) {
+        BindCbReseauId(e.sender.getValue());
+    }
+
+    function onCbReseauIdLoad() {
+        cbReseauId.setValue("00000000-0000-0000-0000-000000000000");
+    }
+
+    function onSearchClick() {
+        winQuery.show();
+    }
+
+    function onOKClick() {
+        BindDgProject();
+        winQuery.hide();
+    }
+
+    function onFileTowerClick(id) {
+        var el = document.body;
+        mini.mask({
+            el: el,
+            cls: 'mini-mask-loading',
+            html: '加载中...'
+        });
+        setTimeout(function () {
+            $.ajax({
+                url: "@Url.RouteUrl(new { controller = "File", action = "GetTowerFiles" })",
+                data: { TowerId: id, FileIdList: "" },
+                type: "get",
+                async: false,
+                success: function (result, textStatus) {
+                    mini.unmask(el);
+                    if (result.Code == null || !result.Code) {
+                        mini.open({
+                            url: "@Url.RouteUrl(new { controller = "File", action = "FileManager" })",
+                            title: "铁塔图纸",
+                            iconCls: "icon-file",
+                            width: 620,
+                            height: 250,
+                            allowResize: false,
+                            onload: function () {
+                                var iframe = this.getIFrameEl();
+                                var data = result;
+                                iframe.contentWindow.SetData(data);
+                            }
+                        });
+                    }
+                },
+                error: function (xmlHttpRequest, textStatus, errorThrown) {
+                    mini.unmask(el);
+                }
+            });
+        }, 50);
+    }
+
+    function onFileTowerBaseClick(id) {
+        var el = document.body;
+        mini.mask({
+            el: el,
+            cls: 'mini-mask-loading',
+            html: '加载中...'
+        });
+        setTimeout(function () {
+            $.ajax({
+                url: "@Url.RouteUrl(new { controller = "File", action = "GetTowerBaseFiles" })",
+                data: { TowerBaseId: id, FileIdList: "" },
+                type: "get",
+                async: false,
+                success: function (result, textStatus) {
+                    mini.unmask(el);
+                    if (result.Code == null || !result.Code) {
+                        mini.open({
+                            url: "@Url.RouteUrl(new { controller = "File", action = "FileManager" })",
+                            title: "塔基图纸",
+                            iconCls: "icon-file",
+                            width: 620,
+                            height: 250,
+                            allowResize: false,
+                            onload: function () {
+                                var iframe = this.getIFrameEl();
+                                var data = result;
+                                iframe.contentWindow.SetData(data);
+                            }
+                        });
+                    }
+                },
+                error: function (xmlHttpRequest, textStatus, errorThrown) {
+                    mini.unmask(el);
+                }
+            });
+        }, 50);
+    }
+
+    function onFileMachineRoomClick(id) {
+        var el = document.body;
+        mini.mask({
+            el: el,
+            cls: 'mini-mask-loading',
+            html: '加载中...'
+        });
+        setTimeout(function () {
+            $.ajax({
+                url: "@Url.RouteUrl(new { controller = "File", action = "GetMachineRoomFiles" })",
+                data: { MachineRoomId: id, FileIdList: "" },
+                type: "get",
+                async: false,
+                success: function (result, textStatus) {
+                    mini.unmask(el);
+                    if (result.Code == null || !result.Code) {
+                        mini.open({
+                            url: "@Url.RouteUrl(new { controller = "File", action = "FileManager" })",
+                            title: "机房图纸",
+                            iconCls: "icon-file",
+                            width: 620,
+                            height: 250,
+                            allowResize: false,
+                            onload: function () {
+                                var iframe = this.getIFrameEl();
+                                var data = result;
+                                iframe.contentWindow.SetData(data);
+                            }
+                        });
+                    }
+                },
+                error: function (xmlHttpRequest, textStatus, errorThrown) {
+                    mini.unmask(el);
+                }
+            });
+        }, 50);
+    }
+
+    function onFileExternalClick(id) {
+        var el = document.body;
+        mini.mask({
+            el: el,
+            cls: 'mini-mask-loading',
+            html: '加载中...'
+        });
+        setTimeout(function () {
+            $.ajax({
+                url: "@Url.RouteUrl(new { controller = "File", action = "GetExternalElectricPowerFiles" })",
+                data: { ExternalElectricPowerId: id, FileIdList: "" },
+                type: "get",
+                async: false,
+                success: function (result, textStatus) {
+                    mini.unmask(el);
+                    if (result.Code == null || !result.Code) {
+                        mini.open({
+                            url: "@Url.RouteUrl(new { controller = "File", action = "FileManager" })",
+                            title: "路由图",
+                            iconCls: "icon-file",
+                            width: 620,
+                            height: 250,
+                            allowResize: false,
+                            onload: function () {
+                                var iframe = this.getIFrameEl();
+                                var data = result;
+                                iframe.contentWindow.SetData(data);
+                            }
+                        });
+                    }
+                },
+                error: function (xmlHttpRequest, textStatus, errorThrown) {
+                    mini.unmask(el);
+                }
+            });
+        }, 50);
+    }
+
+    function onFileEquipmentClick(id) {
+        var el = document.body;
+        mini.mask({
+            el: el,
+            cls: 'mini-mask-loading',
+            html: '加载中...'
+        });
+        setTimeout(function () {
+            $.ajax({
+                url: "@Url.RouteUrl(new { controller = "File", action = "GetEquipmentInstallFiles" })",
+                data: { EquipmentInstallId: id, FileIdList: "" },
+                type: "get",
+                async: false,
+                success: function (result, textStatus) {
+                    mini.unmask(el);
+                    if (result.Code == null || !result.Code) {
+                        mini.open({
+                            url: "@Url.RouteUrl(new { controller = "File", action = "FileManager" })",
+                            title: "安装图纸",
+                            iconCls: "icon-file",
+                            width: 620,
+                            height: 250,
+                            allowResize: false,
+                            onload: function () {
+                                var iframe = this.getIFrameEl();
+                                var data = result;
+                                iframe.contentWindow.SetData(data);
+                            }
+                        });
+                    }
+                },
+                error: function (xmlHttpRequest, textStatus, errorThrown) {
+                    mini.unmask(el);
+                }
+            });
+        }, 50);
+    }
+
+    function onFileAddressClick(id) {
+        var el = document.body;
+        mini.mask({
+            el: el,
+            cls: 'mini-mask-loading',
+            html: '加载中...'
+        });
+        setTimeout(function () {
+            $.ajax({
+                url: "@Url.RouteUrl(new { controller = "File", action = "GetAddressExplorFiles" })",
+                data: { AddressExplorId: id, FileIdList: "" },
+                type: "get",
+                async: false,
+                success: function (result, textStatus) {
+                    mini.unmask(el);
+                    if (result.Code == null || !result.Code) {
+                        mini.open({
+                            url: "@Url.RouteUrl(new { controller = "File", action = "FileManager" })",
+                            title: "地勘报告",
+                            iconCls: "icon-file",
+                            width: 620,
+                            height: 250,
+                            allowResize: false,
+                            onload: function () {
+                                var iframe = this.getIFrameEl();
+                                var data = result;
+                                iframe.contentWindow.SetData(data);
+                            }
+                        });
+                    }
+                },
+                error: function (xmlHttpRequest, textStatus, errorThrown) {
+                    mini.unmask(el);
+                }
+            });
+        }, 50);
+    }
+
+    function onFileFoundationClick(id) {
+        var el = document.body;
+        mini.mask({
+            el: el,
+            cls: 'mini-mask-loading',
+            html: '加载中...'
+        });
+        setTimeout(function () {
+            $.ajax({
+                url: "@Url.RouteUrl(new { controller = "File", action = "GetFoundationTestFiles" })",
+                data: { FoundationTestId: id, FileIdList: "" },
+                type: "get",
+                async: false,
+                success: function (result, textStatus) {
+                    mini.unmask(el);
+                    if (result.Code == null || !result.Code) {
+                        mini.open({
+                            url: "@Url.RouteUrl(new { controller = "File", action = "FileManager" })",
+                            title: "动测报告",
+                            iconCls: "icon-file",
+                            width: 620,
+                            height: 250,
+                            allowResize: false,
+                            onload: function () {
+                                var iframe = this.getIFrameEl();
+                                var data = result;
+                                iframe.contentWindow.SetData(data);
+                            }
+                        });
+                    }
+                },
+                error: function (xmlHttpRequest, textStatus, errorThrown) {
+                    mini.unmask(el);
+                }
+            });
+        }, 50);
+    }
+
+    function ExportExcel() {
+        var columns = dgProject.getBottomColumns();
+        function getColumns(columns) {
+            columns = columns.clone();
+            for (var i = columns.length - 1; i >= 0; i--) {
+                var column = columns[i];
+                if (!column.field) {
+                    columns.removeAt(i);
+                } else {
+                    var c = { header: column.header, field: column.field };
+                    columns[i] = c;
+                }
+            }
+            return columns;
+        }
+
+        var columns = getColumns(columns);
+        var json = mini.encode(columns);
+        document.getElementById("excelData").value = json;
+        var excelForm = document.getElementById("excelForm");
+        excelForm.action = "@Url.RouteUrl(new { controller = "DataOutput", action = "ExportProjectInformationExcel" })" + "?BeginDate=" + dpBeginDate.getFormValue() + "&EndDate=" + dpEndDate.getFormValue() + "&PropertyRightList=" + ckblPropertyRightList.getValue() + "&GroupPlaceCode=" + txtGroupPlaceCode.getValue() + "&PlaceName=" + txtPlaceName.getValue() + "&AreaId=" + cbAreaId.getValue() + "&ReseauId=" + cbReseauId.getValue() + "&ConstructionMethod=" + cbConstructionMethod.getValue() + "&ConstructionProgress=" + cbConstructionProgress.getValue();
+        excelForm.submit();
+    }
+</script>

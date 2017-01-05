@@ -1,0 +1,145 @@
+﻿<div id="myToolbar" class="mini-toolbar" style="border-bottom: 0px; padding: 0px;">
+    <table style="width: 100%;" cellpadding="0" cellspacing="0">
+        <tr>
+            <td style="width: 100%;">
+                <a class="mini-button" iconcls="icon-help" plain="true" href="@Url.RouteUrl(new { controller = "File", action = "DownloadHelpFiles" })?FileName=BusinessVolume" target="_blank"></a>当前位置：基础数据>移动业务>网格业务清单
+            </td>
+            <td style="white-space: nowrap;">
+                <a id="btnSearch" class="mini-button" iconcls="icon-search" plain="true" onclick="onSearchClick">查询</a>
+                <a class="mini-button" iconcls="icon-excel" plain="true" onclick="ExportExcel">导出Excel</a>
+            </td>
+        </tr>
+    </table>
+</div>
+<div class="mini-fit">
+    <div id="dgBusinessVolume" class="mini-datagrid" style="width: 100%; height: 100%;" idfield="Id" allowmovecolumn="false"
+         multiselect="true" fitcolumns="false" onlycheckselection="true" showreloadbutton="false" showpager="false"
+         onload="onDgBusinessVolumeLoad">
+        <div property="columns">
+            <div type="indexcolumn"></div>
+            <div field="CreateDate" header="登记日期" width="100" dateformat="yyyy-MM-dd"></div>
+            <div field="AreaName" header="区域" width="80"></div>
+            <div field="ReseauName" header="网格" width="80"></div>
+            <div field="G2TV" header="2G话务量(万Erl)" width="100"></div>
+            <div field="G2BV" header="2G业务量(TB)" width="100"></div>
+            <div field="D2TV" header="2D话务量(万Erl)" width="100"></div>
+            <div field="D2BV" header="2D业务量(TB)" width="100"></div>
+            <div field="G3TV" header="3G话务量(万Erl)" width="100"></div>
+            <div field="G3BV" header="3G业务量(TB)" width="100"></div>
+            <div field="G4BV" header="4G业务量(TB)" width="100"></div>
+            <div field="TotalTV" header="合计话务量(万Erl)" width="120"></div>
+            <div field="TotalBV" header="合计业务量(TB)" width="120"></div>
+        </div>
+    </div>
+</div>
+<div id="winQuery" class="mini-window" style="width: 320px; height: 170px;"
+     showmodal="true" allowresize="false" title="查询条件">
+    <table style="width: 100%;">
+        <tr>
+            <td style="width: 80px; text-align: right;">查询日期</td>
+            <td>
+                <table border="0" cellpadding="0" cellspacing="0">
+                    <tr>
+                        <td><input id="dpBeginDate" class="mini-datepicker" style="width:98px;" value="new Date()" showclearbutton="false" allowinput="false" /></td>
+                        <td>至</td>
+                        <td><input id="dpEndDate" class="mini-datepicker" style="width:98px;" value="new Date()" showclearbutton="false" allowinput="false" /></td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 80px; text-align: right;">区域</td>
+            <td>
+                <input id="cbAreaId" class="mini-combobox" value="00000000-0000-0000-0000-000000000000" style="width:200px;" textfield="AreaName" valuefield="Id" data=@Html.Raw(ViewData["AreasByAll"])
+                       onvaluechanged="onCbAreaIdValueChanged" />
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 80px; text-align: right;">网格</td>
+            <td>
+                <input id="cbReseauId" class="mini-combobox" value="00000000-0000-0000-0000-000000000000" style="width:200px;" textfield="ReseauName" valuefield="Id" data="[{Id:'00000000-0000-0000-0000-000000000000',ReseauName:'全部'}]"
+                       onload="onCbReseauIdLoad" />
+            </td>
+        </tr>
+    </table>
+    <div style="text-align: center; padding: 10px;">
+        <a class="mini-button" iconcls="icon-ok" onclick="onOKClick">确定</a>
+    </div>
+</div>
+<iframe id="exportIFrame" style="display:none;"></iframe>
+<!--导出Excel相关HTML-->
+<form id="excelForm" action="export.aspx?type=excel" method="post" target="excelIFrame">
+    <input type="hidden" name="columns" id="excelData" />
+</form>
+<iframe id="excelIFrame" name="excelIFrame" style="display:none;"></iframe>
+<script type="text/javascript">
+    mini.parse();
+
+    var btnSearch = mini.get("btnSearch");
+    var dgBusinessVolume = mini.get("dgBusinessVolume");
+    var winQuery = mini.get("winQuery");
+    var dpBeginDate = mini.get("dpBeginDate");
+    var dpEndDate = mini.get("dpEndDate");
+    var cbAreaId = mini.get("cbAreaId");
+    var cbReseauId = mini.get("cbReseauId");
+
+    dpBeginDate.setValue(new Date().DateAdd("m", -1));
+
+    function BindDgBusinessVolume() {
+        btnSearch.setEnabled(false);
+        var query_BeginDate = dpBeginDate.getFormValue();
+        var query_EndDate = dpEndDate.getFormValue();
+        var query_AreaId = cbAreaId.getValue();
+        var query_ReseauId = cbReseauId.getValue();
+        if (dgBusinessVolume.getUrl() == "") {
+            dgBusinessVolume.setUrl("@Url.RouteUrl(new { controller = "BaseDataReport", action = "GetBusinessVolumeReseau" })");
+        }
+        dgBusinessVolume.clearSelect(false);
+        dgBusinessVolume.load({ BeginDate: query_BeginDate, EndDate: query_EndDate, AreaId: query_AreaId, ReseauId: query_ReseauId });
+    }
+
+    function onDgBusinessVolumeLoad() {
+        btnSearch.setEnabled(true);
+    }
+
+    function onSearchClick() {
+        winQuery.show();
+    }
+
+    function onOKClick() {
+        BindDgBusinessVolume();
+        winQuery.hide();
+    }
+
+    function onCbAreaIdValueChanged(e) {
+        BindCbReseauId(e.sender.getValue());
+    }
+
+    function BindCbReseauId(areaId) {
+        cbReseauId.setUrl("@Url.RouteUrl(new { controller = "BaseData", action = "GetUsedReseaus" })" + "/" + areaId + "?getType=2");
+    }
+
+    function ExportExcel() {
+        var columns = dgBusinessVolume.getBottomColumns();
+        function getColumns(columns) {
+            columns = columns.clone();
+            for (var i = columns.length - 1; i >= 0; i--) {
+                var column = columns[i];
+                if (!column.field) {
+                    columns.removeAt(i);
+                } else {
+                    var c = { header: column.header, field: column.field };
+                    columns[i] = c;
+                }
+            }
+            return columns;
+        }
+
+        var columns = getColumns(columns);
+        var json = mini.encode(columns);
+        document.getElementById("excelData").value = json;
+        var excelForm = document.getElementById("excelForm");
+        excelForm.action = "@Url.RouteUrl(new { controller = "DataOutput", action = "ExportBusinessVolumeReseauExcel" })" + "?BeginDate=" + dpBeginDate.getFormValue() + "&EndDate=" + dpEndDate.getFormValue() + "&AreaId=" + cbAreaId.getValue() + "&ReseauId=" + cbReseauId.getValue() + "&Profession=0";
+        excelForm.submit();
+    }
+</script>

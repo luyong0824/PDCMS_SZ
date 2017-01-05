@@ -1,0 +1,170 @@
+﻿<div id="myToolbar" class="mini-toolbar" style="border-bottom: 0px; padding: 0px;">
+    <table style="width: 100%;" cellpadding="0" cellspacing="0">
+        <tr>
+            <td style="width: 100%;">
+                <a class="mini-button" iconcls="icon-help" plain="true" href="@Url.RouteUrl(new { controller = "File", action = "DownloadHelpFiles" })?FileName=RoleMenuItem" target="_blank"></a>当前位置：基础数据>角色权限>角色菜单
+            </td>
+            <td style="white-space: nowrap;">
+                <input id="cbMenu" class="mini-combobox" value="00000000-0000-0000-0000-000000000000" textfield="MenuName" valuefield="Id" data=@Html.Raw(ViewData["Menus"]) />
+                <a id="btnSearch" class="mini-button" iconcls="icon-search" plain="true" onclick="onSearchClick">查询</a>
+                <a class="mini-button" iconcls="icon-save" plain="true" onclick="onSaveClick">保存</a>
+            </td>
+        </tr>
+    </table>
+</div>
+<div class="mini-fit">
+    <div class="mini-splitter" style="width:100%;height:100%;">
+        <div showcollapsebutton="false" size="180" maxsize="250" minsize="100">
+            <div id="treeRole" class="mini-tree" style="width:100%; height:100%;" showtreeicon="true" textfield="RoleName" valuefield="Id" idfield="Id" parentfield="PId"
+                 resultastree="false" expandonload="true" onnodeselect="onTreeRoleNodeSelect" expandonnodeclick="true"></div>
+        </div>
+        <div showcollapsebutton="false">
+            <div id="treeDgMenu" class="mini-treegrid" style="width: 100%; height: 100%;" idfield="Id" treecolumn="Name" showtreeicon="true" parentfield="PId" borderstyle="border:0px;"
+                 allowmovecolumn="false" fitcolumns="false" resultastree="false" showcheckbox="true" onlycheckselection="true" checkrecursive="true" autoload="false" expandonload="true"
+                 ajaxasync="true" multiselect="true" url="@Url.RouteUrl(new { controller = "BaseData", action = "GetRoleMenuItems" })" onload="onTreeDgMenuLoad" onnodecheck="onTreeDgMenuNodeCheck"
+                 expandonnodeclick="true">
+                <div property="columns">
+                    <div type="indexcolumn"></div>
+                    <div name="Name" field="Name" width="320">菜单/子菜单/菜单项</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    mini.parse();
+
+    var btnSearch = mini.get("btnSearch");
+    var cbMenu = mini.get("cbMenu");
+    var treeDgMenu = mini.get("treeDgMenu");
+    var treeRole = mini.get("treeRole");
+
+    Init();
+
+    function Init(){
+        treeRole.loadList(@Html.Raw(ViewData["Roles"]), "Id", "PId");
+        if (treeRole.getList().length > 1) {
+            treeRole.select(1, false);
+        }
+        else {
+            treeRole.select(0, false);
+        }
+        BindTreeDgMenu();
+    }
+
+    function BindTreeDgMenu() {
+        btnSearch.setEnabled(false);
+        var el = treeRole.getEl();
+        mini.mask({
+            el: el,
+            cls: 'mini-mask-loading',
+            html: '加载中...'
+        });
+        var menuId = cbMenu.getValue();
+        var roleId = treeRole.getValue();
+        if (roleId == null || roleId == "") {
+            roleId = "00000000-0000-0000-0000-000000000000";
+        }
+        treeDgMenu.clearSelect(false);
+        treeDgMenu.load({ MenuId: menuId, RoleId: roleId });
+    }
+
+    function onTreeDgMenuLoad() {
+        var rows = treeDgMenu.findRows(function (row) {
+            if (row.RoleMenuItemId != "00000000-0000-0000-0000-000000000000" &&
+                row.isLeaf == true) {
+                return true;
+            }
+        });
+        treeDgMenu.checkNodes(rows);
+        treeDgMenu.selects(rows);
+        btnSearch.setEnabled(true);
+        var el = treeRole.getEl();
+        mini.unmask(el);
+    }
+
+    function onTreeDgMenuNodeCheck(e) {
+        //选中
+        if (treeDgMenu.isCheckedNode(e.node) == true) {
+            //父节点
+            if (e.node.isLeaf == false) {
+                var childNodes = treeDgMenu.getAllChildNodes(e.node);
+                if (childNodes.length > 0) {
+                    for (var i = 0; i < childNodes.length; i++) {
+                        if (childNodes[i].isLeaf == true) {
+                            treeDgMenu.select(childNodes[i]);
+                        }
+                    }
+                }
+            }
+            else {
+                treeDgMenu.select(e.node);
+            }
+        }
+        else {
+            //父节点
+            if (e.node.isLeaf == false) {
+                var childNodes = treeDgMenu.getAllChildNodes(e.node);
+                if (childNodes.length > 0) {
+                    for (var i = 0; i < childNodes.length; i++) {
+                        if (childNodes[i].isLeaf == true) {
+                            treeDgMenu.deselect(childNodes[i]);
+                        }
+                    }
+                }
+            }
+            else {
+                treeDgMenu.deselect(e.node);
+            }
+        }
+    }
+
+    function onTreeRoleNodeSelect() {
+        BindTreeDgMenu();
+    }
+
+    function onSearchClick() {
+        BindTreeDgMenu();
+    }
+
+    function onSaveClick() {
+        var roleId = treeRole.getValue();
+        if (roleId == null || roleId == "" || roleId == "00000000-0000-0000-0000-000000000000") {
+            mini.alert("请选择一个角色");
+        }
+        else {
+            var rows = treeDgMenu.findRows(function (row) {
+                if (row.isLeaf == true) {
+                    if (treeDgMenu.isSelected(row) == true && row.RoleMenuItemId == "00000000-0000-0000-0000-000000000000") {
+                        return true;
+                    }
+                    else if (treeDgMenu.isSelected(row) == false && row.RoleMenuItemId != "00000000-0000-0000-0000-000000000000") {
+                        return true;
+                    }
+                }
+            });
+            if (rows.length == 0) {
+                mini.alert("未修改数据,无需提交保存");
+            }
+            else {
+                var loading = mini.loading("处理中,请稍后...", "保存数据");
+                var jsonData = mini.encode(rows);
+                $.ajax({
+                    url: "@Url.RouteUrl(new { controller = "BaseData", action = "SaveRoleMenuItems" })",
+                    data: AddAntiForgeryToken({ data: jsonData, RoleId: roleId }),
+                    type: "post",
+                    success: function (result, textStatus) {
+                        mini.hideMessageBox(loading);
+                        if (result.Code != null && result.Code == 0) {
+                            ShowSucessMessage(result.Message);
+                            BindTreeDgMenu();
+                        }
+                    },
+                    error: function (xmlHttpRequest, textStatus, errorThrown) {
+                        mini.hideMessageBox(loading);
+                    }
+                });
+            }
+        }
+    }
+</script>

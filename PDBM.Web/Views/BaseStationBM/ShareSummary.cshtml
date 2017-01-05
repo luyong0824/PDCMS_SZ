@@ -1,0 +1,1610 @@
+﻿<div id="myToolbar" class="mini-toolbar" style="border-bottom: 0px; padding: 0px;">
+    <table style="width: 100%;" cellpadding="0" cellspacing="0">
+        <tr>
+            <td style="width: 100%;">
+                <a class="mini-button" iconcls="icon-help" plain="true" href="@Url.RouteUrl(new { controller = "File", action = "DownloadHelpFiles" })?FileName=ShareSummary" target="_blank"></a>当前位置：基站建维>规划寻址>共享基站汇总
+            </td>
+            <td style="white-space: nowrap;">
+                <a id="btnSearch" class="mini-button" iconcls="icon-search" plain="true" onclick="onSearchClick">查询</a>
+                <a class="mini-button" iconcls="icon-add" plain="true" onclick="onAddClick">新增</a>
+                <a class="mini-button" iconcls="icon-edit" plain="true" onclick="onEditClick">修改</a>
+                <a class="mini-button" iconcls="icon-remove" plain="true" onclick="onRemoveClick">删除</a>
+                <a class="mini-button" iconcls="icon-downgrade" plain="true" onclick="onSendClick">发送</a>
+                <a class="mini-menubutton" iconcls="icon-addnew" plain="true" menu="#popupMenu">其他功能</a>
+            </td>
+        </tr>
+    </table>
+</div>
+<div class="mini-fit">
+    <div id="dgRemodeling" class="mini-datagrid" style="width: 100%; height: 100%;" idfield="Id" allowmovecolumn="false"
+         multiselect="true" fitcolumns="false" onlycheckselection="true" showreloadbutton="false" pagesize="15" sizelist="[15,30,50,100]"
+         virtualscroll="false" frozenstartcolumn="0" frozenendcolumn="3" onload="onDgRemodelingLoad" ondrawcell="onDrawCell" oncellclick="onCellClick">
+        <div property="columns">
+            <div type="indexcolumn"></div>
+            <div type="checkcolumn"></div>
+            <div field="ProjectId"></div>
+            <div field="ProjectManagerId"></div>
+            <div field="PlaceId"></div>
+            <div field="PlaceCode" header="基站编码" width="80"></div>
+            <div field="PlaceName" header="基站名称" width="150"></div>
+            <div field="AreaName" header="区域" width="80"></div>
+            <div field="ReseauName" header="网格" width="80"></div>
+            <div field="PlaceCategoryName" header="基站类型" width="80"></div>
+            <div field="Lng" header="经度" width="80"></div>
+            <div field="Lat" header="纬度" width="80"></div>
+            <div field="Map" header="导航图" width="50"></div>
+            <div type="comboboxcolumn" field="PropertyRight" header="产权" width="60">
+                <input property="editor" class="mini-combobox" style="width: 100%;" data=@Html.Raw(ViewData["PropertyRight"]) />
+            </div>
+            <div type="comboboxcolumn" field="MobileShare" header="移动共享" width="80">
+                <input property="editor" class="mini-combobox" style="width: 100%;" data=@Html.Raw(ViewData["Bool"]) />
+            </div>
+            <div type="comboboxcolumn" field="TelecomShare" header="电信共享" width="80">
+                <input property="editor" class="mini-combobox" style="width: 100%;" data=@Html.Raw(ViewData["Bool"]) />
+            </div>
+            <div type="comboboxcolumn" field="UnicomShare" header="联通共享" width="80">
+                <input property="editor" class="mini-combobox" style="width: 100%;" data=@Html.Raw(ViewData["Bool"]) />
+            </div>
+            <div type="comboboxcolumn" field="Urgency" header="紧要程度" width="80">
+                <input property="editor" class="mini-combobox" style="width: 100%;" data=@Html.Raw(ViewData["Urgency"]) />
+            </div>
+            <div field="ProjectName" header="建设项目" width="100"></div>
+            <div field="ProjectManagerName" header="工程经理" width="100"></div>
+            <div type="comboboxcolumn" field="OrderState" header="改造状态" width="80">
+                <input property="editor" class="mini-combobox" style="width: 100%;" data=@Html.Raw(ViewData["OrderState"]) />
+            </div>
+            <div field="Remarks" header="备注" width="150"></div>
+            <div field="FullName" header="创建人" width="100"></div>
+            <div field="CreateDate" header="创建日期" width="100" dateformat="yyyy-MM-dd"></div>
+        </div>
+    </div>
+</div>
+<div id="winQuery" class="mini-window" style="width: 350px; height: 320px;"
+     showmodal="true" allowresize="false" title="查询条件">
+    <table style="width: 100%;">
+        <tr>
+            <td style="width: 80px; text-align: right;">创建日期</td>
+            <td>
+                <table border="0" cellpadding="0" cellspacing="0">
+                    <tr>
+                        <td><input id="dpBeginDate" class="mini-datepicker" style="width:98px;" value="new Date()" showclearbutton="false" allowinput="false" /></td>
+                        <td>至</td>
+                        <td><input id="dpEndDate" class="mini-datepicker" style="width:98px;" value="new Date()" showclearbutton="false" allowinput="false" /></td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 80px; text-align: right;">基站编码</td>
+            <td>
+                <input id="txtPlaceCode" class="mini-textbox" style="width:208px;" />
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 80px; text-align: right;">基站名称</td>
+            <td>
+                <input id="txtPlaceName" class="mini-textbox" style="width:208px;" />
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 80px; text-align: right;">区域</td>
+            <td>
+                <input id="cbAreaId" class="mini-combobox" value="00000000-0000-0000-0000-000000000000" style="width:208px;" textfield="AreaName" valuefield="Id" data=@Html.Raw(ViewData["AreasByAll"])
+                       onvaluechanged="onCbAreaIdValueChanged" />
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 80px; text-align: right;">网格</td>
+            <td>
+                <input id="cbReseauId" class="mini-combobox" value="00000000-0000-0000-0000-000000000000" style="width:208px;" textfield="ReseauName" valuefield="Id" data="[{Id:'00000000-0000-0000-0000-000000000000',ReseauName:'全部'}]"
+                       onload="onCbReseauIdLoad" />
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 80px; text-align: right;">基站类型</td>
+            <td>
+                <input id="cbPlaceCategoryId" class="mini-combobox" value="00000000-0000-0000-0000-000000000000" style="width:208px;" textfield="PlaceCategoryName" valuefield="Id" data=@Html.Raw(ViewData["PlaceCategorysByAll"]) />
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 80px; text-align: right;">紧要程度</td>
+            <td>
+                <input id="cbUrgency" class="mini-combobox" value="0" style="width:208px;" data=@Html.Raw(ViewData["UrgencyByAll"]) />
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 80px; text-align: right;">改造状态</td>
+            <td>
+                <input id="cbOrderState" class="mini-combobox" value="1" style="width:208px;" data=@Html.Raw(ViewData["OrderStateAll"]) />
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 80px; text-align: right;">创建人</td>
+            <td>
+                <input id="beCreateUserId" style="width:208px;" allowinput="false" class="mini-buttonedit searchbox" showclose="true" text="全部" value="00000000-0000-0000-0000-000000000000"
+                       onbuttonclick="onCreateUserSelectButtonClick" oncloseclick="onCreateUserSelectButtonCloseClick" />
+            </td>
+        </tr>
+    </table>
+    <div style="text-align: center; padding: 10px;">
+        <a class="mini-button" iconcls="icon-ok" onclick="onOKClick">确定</a>
+    </div>
+</div>
+<div id="winRemodeling" class="mini-window" style="width: 600px; height: 365px;"
+     showmodal="true" allowresize="false">
+    <div id="frmRemodeling" class="form">
+        <input class="mini-hidden" id="Id" name="Id" />
+        <table style="width: 100%;">
+            <tr>
+                <td style="width: 80px; text-align: right;">创建日期</td>
+                <td>
+                    <input id="CreateDate" name="CreateDate" class="mini-datepicker" style="width:98px;" value="new Date()" showclearbutton="false" allowinput="false" enabled="false" />
+                </td>
+                <td style="width: 80px; text-align: right;">基站编码</td>
+                <td>
+                    <input id="PlaceCode" name="PlaceCode" class="mini-textbox" style="width: 200px;" enabled="false" />
+                </td>
+            </tr>
+            <tr>
+                <td style="width: 80px; text-align: right;">基站名称</td>
+                <td>
+                    <input id="PlaceId" name="PlaceId" style="width:200px;" allowinput="false" class="mini-buttonedit searchbox" showclose="true" text="请选择" value="00000000-0000-0000-0000-000000000000" required="true"
+                           onbuttonclick="onPlaceSelectButtonClick" oncloseclick="onPlaceSelectButtonCloseClick" onvalidation="onPlaceIdValidation" />
+                </td>
+                <td style="width: 80px; text-align: right;">区域</td>
+                <td>
+                    <input id="AreaId" name="AreaId" class="mini-combobox" style="width:200px;" enabled="false" textfield="AreaName" valuefield="Id"
+                           data=@Html.Raw(ViewData["AreasBySelect"]) />
+                </td>
+            </tr>
+            <tr>
+                <td style="width: 80px; text-align: right;">基站类型</td>
+                <td>
+                    <input id="PlaceCategoryId" name="PlaceCategoryId" class="mini-combobox" style="width:200px;" enabled="false" textfield="PlaceCategoryName" valuefield="Id"
+                           data=@Html.Raw(ViewData["PlaceCategorysBySelect"]) />
+                </td>
+                <td style="width: 80px; text-align: right;">网格</td>
+                <td>
+                    <input id="ReseauId" name="ReseauId" class="mini-combobox" value="00000000-0000-0000-0000-000000000000" style="width:200px;" enabled="false" textfield="ReseauName" valuefield="Id" data="[{Id:'00000000-0000-0000-0000-000000000000',ReseauName:'请选择'}]" />
+                </td>
+            </tr>
+            <tr>
+                <td style="width: 80px; text-align: right;">经度</td>
+                <td>
+                    <input id="Lng" name="Lng" class="mini-textbox" vtype='float' style="width: 200px;" enabled="false" />
+                </td>
+                <td style="width: 80px; text-align: right;">纬度</td>
+                <td>
+                    <input id="Lat" name="Lat" class="mini-textbox" vtype='float' style="width: 200px;" enabled="false" />
+                </td>
+            </tr>
+            <tr>
+                <td style="width: 80px; text-align: right;">导航图</td>
+                <td>
+                    <a class="navigationmapedit" onclick="onMapEditClick();"></a>
+                </td>
+                <td style="width: 80px; text-align: right;">产权</td>
+                <td>
+                    <input id="PropertyRight" name="PropertyRight" class="mini-combobox" style="width:200px;" enabled="false" data=@Html.Raw(ViewData["PropertyRightBySelect"]) />
+                </td>
+            </tr>
+            <tr>
+                <td style="width: 80px; text-align: right;">移动共享</td>
+                <td>
+                    <input id="MobileShare" name="MobileShare" class="mini-combobox" style="width:200px;" enabled="false" data=@Html.Raw(ViewData["BoolBySelect"]) />
+                </td>
+                <td style="width: 80px; text-align: right;">电信共享</td>
+                <td>
+                    <input id="TelecomShare" name="TelecomShare" class="mini-combobox" style="width:200px;" enabled="false" data=@Html.Raw(ViewData["BoolBySelect"]) />
+                </td>
+            </tr>
+            <tr>
+                <td style="width: 80px; text-align: right;">紧要程度</td>
+                <td>
+                    <input id="Urgency" name="Urgency" class="mini-combobox" style="width:200px;" value="1" data=@Html.Raw(ViewData["Urgency"]) />
+                </td>
+                <td style="width: 80px; text-align: right;">联通共享</td>
+                <td>
+                    <input id="UnicomShare" name="UnicomShare" class="mini-combobox" style="width:200px;" enabled="false" data=@Html.Raw(ViewData["BoolBySelect"]) />
+                </td>
+            </tr>
+            <tr>
+                <td style="width: 80px; text-align: right;">建设项目</td>
+                <td>
+                    <input id="ProjectName" name="ProjectName" class="mini-textbox" style="width: 200px;" enabled="false" />
+                </td>
+                <td style="width: 80px; text-align: right;">改造状态</td>
+                <td>
+                    <input id="OrderState" name="OrderState" class="mini-combobox" value="2" style="width:200px;" enabled="false" data=@Html.Raw(ViewData["OrderState"]) />
+                </td>
+            </tr>
+            <tr>
+                <td style="width: 80px; text-align: right;">工程经理</td>
+                <td colspan="3">
+                    <input id="ProjectManagerName" name="ProjectManagerName" class="mini-textbox" style="width: 200px;" enabled="false" />
+                </td>
+            </tr>
+            <tr>
+                <td style="width: 80px; text-align: right;">备注</td>
+                <td colspan="3">
+                    <input id="Remarks" name="Remarks" class="mini-textarea" style="width: 99%; height: 45px;" />
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div style="text-align: center; padding: 10px;">
+        <a class="mini-button" iconcls="icon-save" onclick="onSaveClick" style="margin-right: 10px;">保存</a>
+        <a class="mini-button" iconcls="icon-cancel" onclick="onClearClick">清空</a>
+    </div>
+</div>
+<ul id="popupMenu" class="mini-menu" style="display:none;">
+    <li name="menuCollection" iconcls="icon-addnew" onclick="onMenuCollectionClick">共享申请汇总</li>
+    <li name="menuAssociate" iconcls="icon-addnew" onclick="onMenuAssociateClick">关联共享申请</li>
+    @*<li name="menuIssue" iconcls="icon-addnew" onclick="onMenuIssueClick">改造下达</li>
+        <li name="menuCancelIssue" iconcls="icon-addnew" onclick="onMenuCancelIssueClick">取消改造下达</li>*@
+</ul>
+<div id="winOperatorsSharing" class="mini-window" style="width: 700px; height: 400px;"
+     showmodal="true" allowresize="false" showmaxbutton="true" title="选择运营商共享申请">
+    <div class="mini-toolbar" style="border-bottom: 0px; padding: 0px;">
+        <table style="width: 100%;" cellpadding="0" cellspacing="0">
+            <tr>
+                <td style="width: 100%;"></td>
+                <td style="white-space: nowrap;">
+                    <a id="btnOSSearch" class="mini-button" iconcls="icon-search" plain="true" onclick="onOSSearchClick">查询</a>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="mini-fit">
+        <div id="dgOperatorsSharing" class="mini-datagrid" style="width: 100%; height: 100%;" idfield="Id" allowmovecolumn="false"
+             multiselect="true" fitcolumns="false" onlycheckselection="true" showreloadbutton="false" pagesize="15" sizelist="[15,30,50,100]"
+             virtualscroll="false" frozenstartcolumn="0" frozenendcolumn="2" ondrawcell="onDgOperatorsSharingDrawCell" onload="onDgOperatorsSharingLoad" onrowdblclick="onDgOperatorsSharingRowDblClick">
+            <div property="columns">
+                <div type="indexcolumn"></div>
+                <div field="PlaceCode" header="基站编码" width="80"></div>
+                <div field="PlaceName" header="基站名称" width="150"></div>
+                <div field="AreaName" header="区域" width="80"></div>
+                <div field="ReseauName" header="网格" width="80"></div>
+                <div field="PlaceCategoryName" header="基站类型" width="80"></div>
+                <div field="Lng" header="经度" width="80"></div>
+                <div field="Lat" header="纬度" width="80"></div>
+                <div field="Map" header="导航图" width="50"></div>
+                <div field="AntennaHeight" header="天线挂高" width="80"></div>
+                <div field="PoleNumber" header="抱杆数量" width="80"></div>
+                <div field="CabinetNumber" header="机柜数量" width="80"></div>
+                <div type="comboboxcolumn" field="Urgency" header="紧要程度" width="80">
+                    <input property="editor" class="mini-combobox" style="width: 100%;" data=@Html.Raw(ViewData["Urgency"]) />
+                </div>
+                <div field="Remarks" header="备注" width="150"></div>
+                <div field="CompanyName" header="申请公司" width="100"></div>
+                <div field="FullName" header="申请人" width="100"></div>
+                <div field="CreateDate" header="申请日期" width="100" dateformat="yyyy-MM-dd"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="winOSQuery" class="mini-window" style="width: 350px; height: 266px;"
+     showmodal="true" allowresize="false" title="查询条件">
+    <table style="width: 100%;">
+        <tr>
+            <td style="width: 80px; text-align: right;">基站编码</td>
+            <td>
+                <input id="txtOSPlaceCode" class="mini-textbox" style="width:208px;" />
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 80px; text-align: right;">基站名称</td>
+            <td>
+                <input id="txtOSPlaceName" class="mini-textbox" style="width:208px;" />
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 80px; text-align: right;">区域</td>
+            <td>
+                <input id="cbOSAreaId" class="mini-combobox" value="00000000-0000-0000-0000-000000000000" style="width:208px;" textfield="AreaName" valuefield="Id" data=@Html.Raw(ViewData["AreasByAll"])
+                       onvaluechanged="onCbOSAreaIdValueChanged" />
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 80px; text-align: right;">网格</td>
+            <td>
+                <input id="cbOSReseauId" class="mini-combobox" value="00000000-0000-0000-0000-000000000000" style="width:208px;" textfield="ReseauName" valuefield="Id" data="[{Id:'00000000-0000-0000-0000-000000000000',ReseauName:'全部'}]"
+                       onload="onCbOSReseauIdLoad" />
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 80px; text-align: right;">基站类型</td>
+            <td>
+                <input id="cbOSPlaceCategoryId" class="mini-combobox" value="00000000-0000-0000-0000-000000000000" style="width:208px;" textfield="PlaceCategoryName" valuefield="Id" data=@Html.Raw(ViewData["PlaceCategorysByAll"]) />
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 80px; text-align: right;">紧要程度</td>
+            <td>
+                <input id="cbOSUrgency" class="mini-combobox" value="0" style="width:208px;" data=@Html.Raw(ViewData["UrgencyByAll"]) />
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 80px; text-align: right;">申请公司</td>
+            <td>
+                <input id="cbOSCompanyId" class="mini-combobox" value="00000000-0000-0000-0000-000000000000" style="width:208px;" textfield="CompanyName" valuefield="Id" data=@Html.Raw(ViewData["CompanysByAll"]) />
+            </td>
+        </tr>
+    </table>
+    <div style="text-align: center; padding: 10px;">
+        <a class="mini-button" iconcls="icon-ok" onclick="onOSOKClick">确定</a>
+    </div>
+</div>
+<div id="winOperatorsSharingCollection" class="mini-window" style="width: 700px; height: 410px;"
+     showmodal="true" allowresize="false" showmaxbutton="true" title="共享申请汇总" onbuttonclick="onWinOperatorsSharingCollectionClose">
+    <input class="mini-hidden" id="hdOperatorsSharingId" />
+    <div class="mini-toolbar" style="border-bottom: 0px; padding: 0px;">
+        <table style="width: 100%;" cellpadding="0" cellspacing="0">
+            <tr>
+                <td style="width: 100%;">
+                    <input id="txtReferencePlaceName" class="mini-textbox asLabel" style="width:70%;" readonly="true" />
+                </td>
+                <td style="white-space: nowrap;">
+                    <a id="btnOSCSearch" class="mini-button" iconcls="icon-search" plain="true" onclick="onOSCSearchClick">查询</a>
+                    <a id="btnOSCSave" class="mini-button" iconcls="icon-save" plain="true" onclick="onOSCSaveClick">保存</a>
+                    <a id="btnOSCAssociate" class="mini-button" iconcls="icon-expand" plain="true" onclick="onOSCAssociateClick">关联</a>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="mini-fit">
+        <div id="tabOperatorsSharingCollection" class="mini-tabs" activeindex="1" style="width:100%;height:100%;" plain="false" onactivechanged="onTabOperatorsSharingCollectionActiveChanged">
+            <div title="铁塔公司基站改造">
+                <div id="frmOSCRemodeling" class="form">
+                    <input class="mini-hidden" id="OSCId" name="OSCId" />
+                    <input class="mini-hidden" id="OSCCreateUserId" name="OSCCreateUserId" />
+                    <table align="center">
+                        <tr>
+                            <td style="width: 80px; text-align: right;">创建日期</td>
+                            <td>
+                                <input id="OSCCreateDate" name="OSCCreateDate" class="mini-datepicker" style="width:98px;" value="new Date()" showclearbutton="false" allowinput="false" enabled="false" />
+                            </td>
+                            <td style="width: 80px; text-align: right;">基站编码</td>
+                            <td>
+                                <input id="OSCPlaceCode" name="OSCPlaceCode" class="mini-textbox" style="width: 200px;" enabled="false" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="width: 80px; text-align: right;">基站名称</td>
+                            <td>
+                                <input id="OSCPlaceId" name="OSCPlaceId" style="width:200px;" allowinput="false" class="mini-buttonedit searchbox" showclose="true" text="请选择" value="00000000-0000-0000-0000-000000000000" required="true"
+                                       onbuttonclick="onOSCPlaceSelectButtonClick" oncloseclick="onOSCPlaceSelectButtonCloseClick" onvalidation="onOSCPlaceIdValidation" />
+                            </td>
+                            <td style="width: 80px; text-align: right;">区域</td>
+                            <td>
+                                <input id="OSCAreaId" name="OSCAreaId" class="mini-combobox" style="width:200px;" enabled="false" textfield="AreaName" valuefield="Id"
+                                       data=@Html.Raw(ViewData["AreasBySelect"]) />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="width: 80px; text-align: right;">基站类型</td>
+                            <td>
+                                <input id="OSCPlaceCategoryId" name="OSCPlaceCategoryId" class="mini-combobox" style="width:200px;" enabled="false" textfield="PlaceCategoryName" valuefield="Id"
+                                       data=@Html.Raw(ViewData["PlaceCategorysBySelect"]) />
+                            </td>
+                            <td style="width: 80px; text-align: right;">网格</td>
+                            <td>
+                                <input id="OSCReseauId" name="OSCReseauId" class="mini-combobox" value="00000000-0000-0000-0000-000000000000" style="width:200px;" enabled="false" textfield="ReseauName" valuefield="Id" data="[{Id:'00000000-0000-0000-0000-000000000000',ReseauName:'请选择'}]" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="width: 80px; text-align: right;">经度</td>
+                            <td>
+                                <input id="OSCLng" name="OSCLng" class="mini-textbox" vtype='float' style="width: 200px;" enabled="false" />
+                            </td>
+                            <td style="width: 80px; text-align: right;">纬度</td>
+                            <td>
+                                <input id="OSCLat" name="OSCLat" class="mini-textbox" vtype='float' style="width: 200px;" enabled="false" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="width: 80px; text-align: right;">导航图</td>
+                            <td>
+                                <a class="navigationmapedit" onclick="onOSCMapEditClick();"></a>
+                            </td>
+                            <td style="width: 80px; text-align: right;">产权</td>
+                            <td>
+                                <input id="OSCPropertyRight" name="OSCPropertyRight" class="mini-combobox" style="width:200px;" enabled="false" data=@Html.Raw(ViewData["PropertyRightBySelect"]) />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="width: 80px; text-align: right;">移动共享</td>
+                            <td>
+                                <input id="OSCMobileShare" name="OSCMobileShare" class="mini-combobox" style="width:200px;" enabled="false" data=@Html.Raw(ViewData["BoolBySelect"]) />
+                            </td>
+                            <td style="width: 80px; text-align: right;">电信共享</td>
+                            <td>
+                                <input id="OSCTelecomShare" name="OSCTelecomShare" class="mini-combobox" style="width:200px;" enabled="false" data=@Html.Raw(ViewData["BoolBySelect"]) />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="width: 80px; text-align: right;">紧要程度</td>
+                            <td>
+                                <input id="OSCUrgency" name="OSCUrgency" class="mini-combobox" style="width:200px;" value="1" data=@Html.Raw(ViewData["Urgency"]) />
+                            </td>
+                            <td style="width: 80px; text-align: right;">联通共享</td>
+                            <td>
+                                <input id="OSCUnicomShare" name="OSCUnicomShare" class="mini-combobox" style="width:200px;" enabled="false" data=@Html.Raw(ViewData["BoolBySelect"]) />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="width: 80px; text-align: right;">建设项目</td>
+                            <td>
+                                <input id="OSCProjectName" name="OSCProjectName" class="mini-textbox" style="width: 200px;" enabled="false" />
+                            </td>
+                            <td style="width: 80px; text-align: right;">改造状态</td>
+                            <td>
+                                <input id="OSCOrderState" name="OSCOrderState" class="mini-combobox" value="2" style="width:200px;" enabled="false" data=@Html.Raw(ViewData["OrderState"]) />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="width: 80px; text-align: right;">工程经理</td>
+                            <td colspan="3">
+                                <input id="OSCProjectManagerName" name="OSCProjectManagerName" class="mini-textbox" style="width: 200px;" enabled="false" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="width: 80px; text-align: right;">备注</td>
+                            <td colspan="3">
+                                <input id="OSCRemarks" name="OSCRemarks" class="mini-textarea" style="width: 100%; height: 45px;" />
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div title="运营商共享申请">
+                <div class="mini-fit">
+                    <div id="dgOperatorsSharingCollection" class="mini-datagrid" style="width: 100%; height: 100%;" idfield="Id" allowmovecolumn="false"
+                         multiselect="true" fitcolumns="false" onlycheckselection="true" showpager="false"
+                         virtualscroll="false" frozenstartcolumn="0" frozenendcolumn="3" ondrawcell="onDgOperatorsSharingCollectionDrawCell" onload="onDgOperatorsSharingCollectionLoad">
+                        <div property="columns">
+                            <div type="indexcolumn"></div>
+                            <div type="checkcolumn"></div>
+                            <div field="PlaceCode" header="基站编码" width="80"></div>
+                            <div field="PlaceName" header="基站名称" width="150"></div>
+                            <div field="AreaName" header="区域" width="80"></div>
+                            <div field="ReseauName" header="网格" width="80"></div>
+                            <div field="PlaceCategoryName" header="基站类型" width="80"></div>
+                            <div field="Lng" header="经度" width="80"></div>
+                            <div field="Lat" header="纬度" width="80"></div>
+                            <div field="Map" header="导航图" width="50"></div>
+                            <div field="AntennaHeight" header="天线挂高" width="80"></div>
+                            <div field="PoleNumber" header="抱杆数量" width="80"></div>
+                            <div field="CabinetNumber" header="机柜数量" width="80"></div>
+                            <div type="comboboxcolumn" field="Urgency" header="紧要程度" width="80">
+                                <input property="editor" class="mini-combobox" style="width: 100%;" data=@Html.Raw(ViewData["Urgency"]) />
+                            </div>
+                            <div field="CompanyName" header="申请公司" width="100"></div>
+                            <div field="FullName" header="申请人" width="100"></div>
+                            <div field="CreateDate" header="申请日期" width="100" dateformat="yyyy-MM-dd"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    mini.parse();
+
+    var btnSearch = mini.get("btnSearch");
+    var dgRemodeling = mini.get("dgRemodeling");
+    var winQuery = mini.get("winQuery");
+    var dpBeginDate = mini.get("dpBeginDate");
+    var dpEndDate = mini.get("dpEndDate");
+    var txtPlaceCode = mini.get("txtPlaceCode");
+    var txtPlaceName = mini.get("txtPlaceName");
+    var cbAreaId = mini.get("cbAreaId");
+    var cbReseauId = mini.get("cbReseauId");
+    var cbPlaceCategoryId = mini.get("cbPlaceCategoryId");
+    var cbUrgency = mini.get("cbUrgency");
+    var cbOrderState = mini.get("cbOrderState");
+    var beCreateUserId = mini.get("beCreateUserId");
+    var winRemodeling = mini.get("winRemodeling");
+    var frmRemodeling = new mini.Form("#frmRemodeling");
+    var txtRemodelingId = mini.get("Id");
+    var dpCreateDate = mini.get("CreateDate");
+    var txt_PlaceCode = mini.get("PlaceCode");
+    var bePlaceId = mini.get("PlaceId");
+    var cb_AreaId = mini.get("AreaId");
+    var cb_PlaceCategoryId = mini.get("PlaceCategoryId");
+    var cb_ReseauId = mini.get("ReseauId");
+    var txtLng = mini.get("Lng");
+    var txtLat = mini.get("Lat");
+    var cbPropertyRight = mini.get("PropertyRight");
+    var cbMobileShare = mini.get("MobileShare");
+    var cbTelecomShare = mini.get("TelecomShare");
+    var cbUnicomShare = mini.get("UnicomShare");
+    var cb_Urgency = mini.get("Urgency");
+    //var beProjectId = mini.get("ProjectId");
+    var txtProjectName = mini.get("ProjectName");
+    var txtProjectManagerName = mini.get("ProjectManagerName");
+    var cb_OrderState = mini.get("OrderState");
+    //var winAppointProject = mini.get("winAppointProject");
+    //var beAppointProject = mini.get("beAppointProject");
+    var winOperatorsSharing = mini.get("winOperatorsSharing");
+    var btnOSSearch = mini.get("btnOSSearch");
+    var dgOperatorsSharing = mini.get("dgOperatorsSharing");
+    var winOSQuery = mini.get("winOSQuery");
+    var txtOSPlaceCode = mini.get("txtOSPlaceCode");
+    var txtOSPlaceName = mini.get("txtOSPlaceName");
+    var cbOSAreaId = mini.get("cbOSAreaId");
+    var cbOSReseauId = mini.get("cbOSReseauId");
+    var cbOSPlaceCategoryId = mini.get("cbOSPlaceCategoryId");
+    var cbOSUrgency = mini.get("cbOSUrgency");
+    var cbOSCompanyId = mini.get("cbOSCompanyId");
+    var winOperatorsSharingCollection = mini.get("winOperatorsSharingCollection");
+    var hdOperatorsSharingId = mini.get("hdOperatorsSharingId");
+    var txtReferencePlaceName = mini.get("txtReferencePlaceName");
+    var btnOSCSearch = mini.get("btnOSCSearch");
+    var btnOSCSave = mini.get("btnOSCSave");
+    var tabOperatorsSharingCollection = mini.get("tabOperatorsSharingCollection");
+    var frmOSCRemodeling = new mini.Form("#frmOSCRemodeling");
+    var hdOSCId = mini.get("OSCId");
+    var hdOSCCreateUserId = mini.get("OSCCreateUserId");
+    var dpOSCCreateDate = mini.get("OSCCreateDate");
+    var txtOSCPlaceCode = mini.get("OSCPlaceCode");
+    var beOSCPlaceId = mini.get("OSCPlaceId");
+    var cbOSCAreaId = mini.get("OSCAreaId");
+    var cbOSCReseauId = mini.get("OSCReseauId");
+    var cbOSCPlaceCategoryId = mini.get("OSCPlaceCategoryId");
+    var txtOSCLng = mini.get("OSCLng");
+    var txtOSCLat = mini.get("OSCLat");
+    var cbOSCPropertyRight = mini.get("OSCPropertyRight");
+    var cbOSCMobileShare = mini.get("OSCMobileShare");
+    var cbOSCTelecomShare = mini.get("OSCTelecomShare");
+    var cbOSCUnicomShare = mini.get("OSCUnicomShare");
+    var cbOSCUrgency = mini.get("OSCUrgency");
+    //var beOSCProjectId = mini.get("OSCProjectId");
+    var txtOSCProjectName = mini.get("OSCProjectName");
+    var txtOSCProjectManagerName = mini.get("OSCProjectManagerName");
+    var cbOSCOrderState = mini.get("OSCOrderState");
+    var txtOSCRemarks = mini.get("OSCRemarks");
+    var dgOperatorsSharingCollection = mini.get("dgOperatorsSharingCollection");
+    var openType = 0;
+
+    Init();
+
+    function Init() {
+        dgRemodeling.hideColumn(2);
+        dgRemodeling.hideColumn(3);
+        dgRemodeling.hideColumn(4);
+        dpBeginDate.setValue(new Date().DateAdd("y", -1));
+        beCreateUserId.setValue("@ViewData["UserId"]");
+        beCreateUserId.setText("@ViewData["FullName"]");
+        BindDgRemodeling();
+    }
+
+    function BindDgRemodeling() {
+        btnSearch.setEnabled(false);
+        var query_BeginDate = dpBeginDate.getFormValue();
+        var query_EndDate = dpEndDate.getFormValue();
+        var query_PlaceCode = txtPlaceCode.getValue();
+        var query_PlaceName = txtPlaceName.getValue();
+        var query_AreaId = cbAreaId.getValue();
+        var query_ReseauId = cbReseauId.getValue();
+        var query_PlaceCategoryId = cbPlaceCategoryId.getValue();
+        var query_Urgency = cbUrgency.getValue();
+        var query_OrderState = cbOrderState.getValue();
+        var query_CreateUserId = beCreateUserId.getValue();
+        if (dgRemodeling.getUrl() == "") {
+            dgRemodeling.setUrl("@Url.RouteUrl(new { controller = "BaseStationBM", action = "GetShareSummarysPage" })");
+        }
+        dgRemodeling.clearSelect(false);
+        dgRemodeling.load({ BeginDate: query_BeginDate, EndDate: query_EndDate, PlaceCode: query_PlaceCode, PlaceName: query_PlaceName, AreaId: query_AreaId, ReseauId: query_ReseauId, PlaceCategoryId: query_PlaceCategoryId, Urgency: query_Urgency, OrderState: query_OrderState, CreateUserId: query_CreateUserId });
+    }
+
+    function onDgRemodelingLoad() {
+        btnSearch.setEnabled(true);
+    }
+
+    function onDrawCell(e) {
+        //if (e.record.Issued == 1) {
+        //    e.rowCls = "rowIssued";
+        //}
+        if (e.field == "Map") {
+            e.cellHtml = "<a class='navigationmap' onclick='onMapClick(\"" + e.record.PlaceId + "\");'></a>";
+        }
+        else if (e.field == "PlaceName") {
+            e.cellStyle = "color:blue";
+        }
+    }
+
+    function onMapClick(id) {
+        var el = dgRemodeling.getEl();
+        mini.mask({
+            el: el,
+            cls: 'mini-mask-loading',
+            html: '加载中...'
+        });
+        setTimeout(function () {
+            $.ajax({
+                url: "@Url.RouteUrl(new { controller = "Map", action = "GetPlacePoint" })",
+                data: { PlaceId: id, AreaId: "00000000-0000-0000-0000-000000000000", PlaceName: "", Lng: 0, Lat: 0, Profession: 1 },
+                type: "get",
+                async: false,
+                success: function (result, textStatus) {
+                    mini.unmask(el);
+                    if (result.Id != null && result.Id == id) {
+                        mini.open({
+                            url: "@Url.RouteUrl(new { controller = "Map", action = "NavigationMap" })",
+                            title: result.PlaceName,
+                            iconCls: "icon-map",
+                            width: 800,
+                            height: 550,
+                            showMaxButton: true,
+                            onload: function () {
+                                var iframe = this.getIFrameEl();
+                                var data = result;
+                                iframe.contentWindow.SetData(data);
+                            }
+                        });
+                    }
+                },
+                error: function (xmlHttpRequest, textStatus, errorThrown) {
+                    mini.unmask(el);
+                }
+            });
+        }, 50);
+    }
+
+    function BindCbReseauId(areaId) {
+        cbReseauId.setUrl("@Url.RouteUrl(new { controller = "BaseData", action = "GetUsedReseaus" })" + "/" + areaId + "?getType=2");
+    }
+
+    function onCbAreaIdValueChanged(e) {
+        BindCbReseauId(e.sender.getValue());
+    }
+
+    function onCbReseauIdLoad() {
+        cbReseauId.setValue("00000000-0000-0000-0000-000000000000");
+    }
+
+    function BindReseauId(areaId) {
+        cb_ReseauId.setUrl("@Url.RouteUrl(new { controller = "BaseData", action = "GetUsedReseaus" })" + "/" + areaId + "?getType=1");
+    }
+
+    function onCreateUserSelectButtonClick() {
+        var beSelect = this;
+        mini.open({
+            url: "@Url.RouteUrl(new { controller = "CustomControl", action = "UserSelection" })",
+            title: "选择用户",
+            width: 620,
+            height: 350,
+            allowResize: false,
+            ondestroy: function (action) {
+                if (action == "ok") {
+                    var iframe = this.getIFrameEl();
+                    var data = iframe.contentWindow.GetData();
+                    data = mini.clone(data);
+                    beSelect.setValue(data.id);
+                    beSelect.setText(data.text);
+                    beSelect.validate();
+                }
+                else if (action == "cancel") {
+                    beSelect.setValue("00000000-0000-0000-0000-000000000000");
+                    beSelect.setText("全部");
+                    beSelect.validate();
+                }
+            }
+        });
+    }
+
+    function onCreateUserSelectButtonCloseClick() {
+        this.setValue("00000000-0000-0000-0000-000000000000");
+        this.setText("全部");
+        this.validate();
+    }
+
+    function onPlaceSelectButtonClick() {
+        var beSelect = this;
+        mini.open({
+            url: "@Url.RouteUrl(new { controller = "CustomControl", action = "PlaceSelection" })" + "?Profession=1",
+            title: "选择基站",
+            width: 700,
+            height: 410,
+            allowResize: false,
+            ondestroy: function (action) {
+                if (action == "ok") {
+                    var iframe = this.getIFrameEl();
+                    var data = iframe.contentWindow.GetData();
+                    data = mini.clone(data);
+                    txt_PlaceCode.setValue(data.PlaceCode);
+                    beSelect.setValue(data.Id);
+                    beSelect.setText(data.PlaceName);
+                    cb_AreaId.setValue(data.AreaId);
+                    BindReseauId(data.AreaId);
+                    cb_ReseauId.setValue(data.ReseauId);
+                    cb_PlaceCategoryId.setValue(data.PlaceCategoryId);
+                    txtLng.setValue(data.Lng);
+                    txtLat.setValue(data.Lat);
+                    cbPropertyRight.setValue(data.PropertyRight);
+                    cbMobileShare.setValue(data.MobileShare);
+                    cbTelecomShare.setValue(data.TelecomShare);
+                    cbUnicomShare.setValue(data.UnicomShare);
+                }
+                else if (action == "cancel") {
+                    beSelect.setValue("00000000-0000-0000-0000-000000000000");
+                    beSelect.setText("请选择");
+                    txt_PlaceCode.setValue("");
+                    cb_AreaId.setValue("00000000-0000-0000-0000-000000000000");
+                    cb_ReseauId.setData("[{Id:'00000000-0000-0000-0000-000000000000',ReseauName:'请选择'}]");
+                    cb_ReseauId.setValue("00000000-0000-0000-0000-000000000000");
+                    cb_PlaceCategoryId.setValue("00000000-0000-0000-0000-000000000000");
+                    txtLng.setValue("");
+                    txtLat.setValue("");
+                    cbPropertyRight.setValue(0);
+                    cbMobileShare.setValue(0);
+                    cbTelecomShare.setValue(0);
+                    cbUnicomShare.setValue(0);
+                }
+                beSelect.validate();
+            }
+        });
+    }
+
+    function onPlaceSelectButtonCloseClick() {
+        this.setValue("00000000-0000-0000-0000-000000000000");
+        this.setText("请选择");
+        txt_PlaceCode.setValue("");
+        cb_AreaId.setValue("00000000-0000-0000-0000-000000000000");
+        cb_ReseauId.setData("[{Id:'00000000-0000-0000-0000-000000000000',ReseauName:'请选择'}]");
+        cb_ReseauId.setValue("00000000-0000-0000-0000-000000000000");
+        cb_PlaceCategoryId.setValue("00000000-0000-0000-0000-000000000000");
+        txtLng.setValue("");
+        txtLat.setValue("");
+        cbPropertyRight.setValue(0);
+        cbMobileShare.setValue(0);
+        cbTelecomShare.setValue(0);
+        cbUnicomShare.setValue(0);
+        this.validate();
+    }
+
+    function onPlaceIdValidation(e) {
+        if (e.isValid) {
+            if (e.value == "00000000-0000-0000-0000-000000000000") {
+                e.errorText = "请选择一个要改造的基站";
+                e.isValid = false;
+            }
+        }
+    }
+
+    function ClearFrmRemodeling() {
+        var idValue = txtRemodelingId.getValue();
+        var createDateValue = dpCreateDate.getFormValue();
+        var orderStateValue = cb_OrderState.getValue();
+        frmRemodeling.clear();
+        txtRemodelingId.setValue(idValue);
+        dpCreateDate.setValue(createDateValue);
+        cb_OrderState.setValue(orderStateValue);
+        bePlaceId.setValue("00000000-0000-0000-0000-000000000000");
+        bePlaceId.setText("请选择");
+        cb_AreaId.setValue("00000000-0000-0000-0000-000000000000");
+        cb_ReseauId.setData("[{Id:'00000000-0000-0000-0000-000000000000',ReseauName:'请选择'}]");
+        cb_ReseauId.setValue("00000000-0000-0000-0000-000000000000");
+        cb_PlaceCategoryId.setValue("00000000-0000-0000-0000-000000000000");
+        cbPropertyRight.setValue(0);
+        cbMobileShare.setValue(0);
+        cbTelecomShare.setValue(0);
+        cbUnicomShare.setValue(0);
+        cb_Urgency.setValue(1);
+        txtProjectName.setValue("");
+        txtProjectManagerName.setValue("");
+        //beProjectId.setValue("00000000-0000-0000-0000-000000000000");
+        //beProjectId.setText("请选择");
+    }
+
+    function onSearchClick() {
+        winQuery.show();
+    }
+
+    function onOKClick() {
+        BindDgRemodeling();
+        winQuery.hide();
+    }
+
+    function onAddClick() {
+        txtRemodelingId.setValue("");
+        dpCreateDate.setValue(new Date());
+        cb_OrderState.setValue(1);
+        ClearFrmRemodeling();
+        winRemodeling.setTitle("新增基站改造");
+        winRemodeling.show();
+    }
+
+    function onEditClick() {
+        var rows = dgRemodeling.getSelecteds();
+        if (rows.length == 0) {
+            mini.alert("请选择一条要修改的数据");
+        }
+        else {
+            ClearFrmRemodeling();
+            winRemodeling.setTitle("修改基站改造");
+            winRemodeling.show();
+            var el = winRemodeling.getEl();
+            mini.mask({
+                el: el,
+                cls: 'mini-mask-loading',
+                html: '加载中...'
+            });
+            setTimeout(function () {
+                $.ajax({
+                    url: "@Url.RouteUrl(new { controller = "BaseStationBM", action = "GetShareSummaryById" })" + "/" + rows[0].Id,
+                    type: "get",
+                    async: false,
+                    success: function (result, textStatus) {
+                        if (result.Id != null && result.Id == rows[0].Id) {
+                            BindReseauId(result.AreaId);
+                            frmRemodeling.setData(result);
+                            dpCreateDate.setValue(result.CreateDateText);
+                            bePlaceId.setText(result.PlaceName);
+                            //beProjectId.setText(result.ProjectName);
+                            txtProjectName.setValue(result.ProjectName);
+                            txtProjectManagerName.setValue(result.ProjectManagerName);
+                        }
+                        else {
+                            winRemodeling.hide();
+                        }
+                    },
+                    error: function (xmlHttpRequest, textStatus, errorThrown) {
+                        winRemodeling.hide();
+                    }
+                });
+            }, 50);
+            setTimeout(function () {
+                mini.unmask(el);
+            }, 300);
+        }
+    }
+
+    function onMapEditClick() {
+        if (bePlaceId.getValue() == "00000000-0000-0000-0000-000000000000") {
+            mini.alert("请选择一个要改造的基站");
+        }
+        else {
+            var el = winRemodeling.getEl();
+            mini.mask({
+                el: el,
+                cls: 'mini-mask-loading',
+                html: '加载中...'
+            });
+            setTimeout(function () {
+                $.ajax({
+                    url: "@Url.RouteUrl(new { controller = "Map", action = "GetPlacePoint" })",
+                    data: { PlaceId: bePlaceId.getValue(), AreaId: "00000000-0000-0000-0000-000000000000", PlaceName: "", Lng: 0, Lat: 0, Profession: 1 },
+                    type: "get",
+                    async: false,
+                    success: function (result, textStatus) {
+                        mini.unmask(el);
+                        if (result.Id != null && result.Id == bePlaceId.getValue()) {
+                            mini.open({
+                                url: "@Url.RouteUrl(new { controller = "Map", action = "NavigationMap" })",
+                                title: result.PlaceName,
+                                iconCls: "icon-map",
+                                width: 800,
+                                height: 550,
+                                showMaxButton: true,
+                                onload: function () {
+                                    var iframe = this.getIFrameEl();
+                                    var data = result;
+                                    iframe.contentWindow.SetData(data);
+                                },
+                            });
+                        }
+                    },
+                    error: function (xmlHttpRequest, textStatus, errorThrown) {
+                        mini.unmask(el);
+                    }
+                });
+            }, 50);
+        }
+    }
+
+    function onRemoveClick() {
+        var rows = dgRemodeling.getSelecteds();
+        if (rows.length == 0) {
+            mini.alert("请选择要删除的数据");
+        }
+        else {
+            mini.confirm("确定要删除选中的数据？", "删除基站改造",
+            function (action) {
+                if (action == "ok") {
+                    var loading = mini.loading("处理中,请稍后...", "删除数据");
+                    var jsonData = mini.encode(rows);
+                    $.ajax({
+                        url: "@Url.RouteUrl(new { controller = "BaseStationBM", action = "RemoveShareSummarys" })",
+                        data: AddAntiForgeryToken({ data: jsonData }),
+                        type: "post",
+                        success: function (result, textStatus) {
+                            mini.hideMessageBox(loading);
+                            if (result.Code != null && result.Code == 0) {
+                                ShowSucessMessage(result.Message);
+                                BindDgRemodeling();
+                            }
+                        },
+                        error: function (xmlHttpRequest, textStatus, errorThrown) {
+                            mini.hideMessageBox(loading);
+                        }
+                    });
+                }
+            });
+        }
+    }
+
+    function onClearClick() {
+        ClearFrmRemodeling();
+    }
+
+    function onSaveClick() {
+        frmRemodeling.validate();
+        if (frmRemodeling.isValid() == false) return;
+        var loading = mini.loading("处理中,请稍后...", "保存数据");
+        var jsonData = mini.encode(frmRemodeling.getData());
+        $.ajax({
+            url: "@Url.RouteUrl(new { controller = "BaseStationBM", action = "SaveShareSummary" })",
+            data: AddAntiForgeryToken({ data: jsonData }),
+            type: "post",
+            success: function (result, textStatus) {
+                mini.hideMessageBox(loading);
+                if (result.Code != null && result.Code == 0) {
+                    winRemodeling.hide();
+                    ShowSucessMessage(result.Message);
+                    BindDgRemodeling();
+                }
+            },
+            error: function (xmlHttpRequest, textStatus, errorThrown) {
+                mini.hideMessageBox(loading);
+            }
+        });
+    }
+
+    function BindDgOperatorsSharing() {
+        btnOSSearch.setEnabled(false);
+        var query_OSPlaceCode = txtOSPlaceCode.getValue();
+        var query_OSPlaceName = txtOSPlaceName.getValue();
+        var query_OSAreaId = cbOSAreaId.getValue();
+        var query_OSReseauId = cbOSReseauId.getValue();
+        var query_OSPlaceCategoryId = cbOSPlaceCategoryId.getValue();
+        var query_OSUrgency = cbOSUrgency.getValue();
+        var query_OSCompanyId = cbOSCompanyId.getValue();
+        if (dgOperatorsSharing.getUrl() == "") {
+            dgOperatorsSharing.setUrl("@Url.RouteUrl(new { controller = "BaseStationBM", action = "GetOperatorsSharingsPageBySelect" })");
+        }
+        dgOperatorsSharing.clearSelect(false);
+        dgOperatorsSharing.load({ PlaceCode: query_OSPlaceCode, PlaceName: query_OSPlaceName, AreaId: query_OSAreaId, ReseauId: query_OSReseauId, PlaceCategoryId: query_OSPlaceCategoryId, Urgency: query_OSUrgency, CompanyId: query_OSCompanyId });
+    }
+
+    function onDgOperatorsSharingLoad() {
+        btnOSSearch.setEnabled(true);
+    }
+
+    function onDgOperatorsSharingDrawCell(e) {
+        if (e.field == "Map") {
+            e.cellHtml = "<a class='navigationmap' onclick='onDgOperatorsSharingMapClick(\"" + e.record.PlaceId + "\");'></a>";
+        }
+    }
+
+    function onDgOperatorsSharingMapClick(id) {
+        var el = dgOperatorsSharing.getEl();
+        mini.mask({
+            el: el,
+            cls: 'mini-mask-loading',
+            html: '加载中...'
+        });
+        setTimeout(function () {
+            $.ajax({
+                url: "@Url.RouteUrl(new { controller = "Map", action = "GetPlacePoint" })",
+                data: { PlaceId: id, AreaId: "00000000-0000-0000-0000-000000000000", PlaceName: "", Lng: 0, Lat: 0, Profession: 1 },
+                type: "get",
+                async: false,
+                success: function (result, textStatus) {
+                    mini.unmask(el);
+                    if (result.Id != null && result.Id == id) {
+                        mini.open({
+                            url: "@Url.RouteUrl(new { controller = "Map", action = "NavigationMap" })",
+                            title: result.PlaceName,
+                            iconCls: "icon-map",
+                            width: 800,
+                            height: 550,
+                            showMaxButton: true,
+                            onload: function () {
+                                var iframe = this.getIFrameEl();
+                                var data = result;
+                                iframe.contentWindow.SetData(data);
+                            }
+                        });
+                    }
+                },
+                error: function (xmlHttpRequest, textStatus, errorThrown) {
+                    mini.unmask(el);
+                }
+            });
+        }, 50);
+    }
+
+    function onDgOperatorsSharingRowDblClick(e) {
+        openType = 0;
+        winOperatorsSharing.hide();
+        hdOperatorsSharingId.setValue(e.record.Id);
+        txtReferencePlaceName.setValue(e.record.PlaceName);
+        tabOperatorsSharingCollection.setActiveIndex(1);
+        hdOSCId.setValue("00000000-0000-0000-0000-000000000000");
+        hdOSCCreateUserId.setValue("00000000-0000-0000-0000-000000000000");
+        dpOSCCreateDate.setValue(new Date());
+        BindDgOperatorsSharingCollection();
+        BindFrmOSCRemodelingByOS(e.record.Id);
+        winOperatorsSharingCollection.setTitle("共享申请汇总");
+        winOperatorsSharingCollection.show();
+        tabOperatorsSharingCollection.setActiveIndex(0);
+    }
+
+    function BindCbOSReseauId(areaId) {
+        cbOSReseauId.setUrl("@Url.RouteUrl(new { controller = "BaseData", action = "GetUsedReseaus" })" + "/" + areaId + "?getType=2");
+    }
+
+    function onCbOSAreaIdValueChanged(e) {
+        BindCbOSReseauId(e.sender.getValue());
+    }
+
+    function onCbOSReseauIdLoad() {
+        cbOSReseauId.setValue("00000000-0000-0000-0000-000000000000");
+    }
+
+    function onOSSearchClick() {
+        winOSQuery.show();
+    }
+
+    function onOSOKClick() {
+        BindDgOperatorsSharing();
+        winOSQuery.hide();
+    }
+
+    function BindDgOperatorsSharingCollection() {
+        btnOSCSearch.setEnabled(false);
+        var query_OperatorsSharingId = hdOperatorsSharingId.getValue();
+        var query_OSCId = hdOSCId.getValue();
+        if (dgOperatorsSharingCollection.getUrl() == "") {
+            dgOperatorsSharingCollection.setUrl("@Url.RouteUrl(new { controller = "BaseStationBM", action = "GetOperatorsSharingsByPlace" })");
+        }
+        dgOperatorsSharingCollection.clearSelect(false);
+        dgOperatorsSharingCollection.load({ OperatorsSharingId: query_OperatorsSharingId, RemodelingId: query_OSCId });
+    }
+
+    function onDgOperatorsSharingCollectionLoad() {
+        if (hdOSCId.getValue() != "" && hdOSCId.getValue() != "00000000-0000-0000-0000-000000000000") {
+            var rows = dgOperatorsSharingCollection.findRows(function (row) {
+                if (row.RemodelingId == hdOSCId.getValue()) {
+                    return true;
+                }
+            });
+            dgOperatorsSharingCollection.selects(rows);
+        }
+        btnOSCSearch.setEnabled(true);
+    }
+
+    function onDgOperatorsSharingCollectionDrawCell(e) {
+        if (e.field == "Map") {
+            e.cellHtml = "<a class='navigationmap' onclick='onDgOperatorsSharingCollectionMapClick(\"" + e.record.PlaceId + "\");'></a>";
+        }
+    }
+
+    function onDgOperatorsSharingCollectionMapClick(id) {
+        var el = dgOperatorsSharingCollection.getEl();
+        mini.mask({
+            el: el,
+            cls: 'mini-mask-loading',
+            html: '加载中...'
+        });
+        setTimeout(function () {
+            $.ajax({
+                url: "@Url.RouteUrl(new { controller = "Map", action = "GetPlacePoint" })",
+                data: { PlaceId: id, AreaId: "00000000-0000-0000-0000-000000000000", PlaceName: "", Lng: 0, Lat: 0, Profession: 1 },
+                type: "get",
+                async: false,
+                success: function (result, textStatus) {
+                    mini.unmask(el);
+                    if (result.Id != null && result.Id == id) {
+                        mini.open({
+                            url: "@Url.RouteUrl(new { controller = "Map", action = "NavigationMap" })",
+                            title: result.PlaceName,
+                            iconCls: "icon-map",
+                            width: 800,
+                            height: 550,
+                            showMaxButton: true,
+                            onload: function () {
+                                var iframe = this.getIFrameEl();
+                                var data = result;
+                                iframe.contentWindow.SetData(data);
+                            }
+                        });
+                    }
+                },
+                error: function (xmlHttpRequest, textStatus, errorThrown) {
+                    mini.unmask(el);
+                }
+            });
+        }, 50);
+    }
+
+    function ClearFrmOSCRemodeling() {
+        var idOSCValue = hdOSCId.getValue();
+        var createUserIdOSCValue = hdOSCCreateUserId.getValue();
+        var createDateOSCValue = dpOSCCreateDate.getValue();
+        frmOSCRemodeling.clear();
+        hdOSCId.setValue(idOSCValue);
+        hdOSCCreateUserId.setValue(createUserIdOSCValue);
+        dpOSCCreateDate.setValue(createDateOSCValue);
+        beOSCPlaceId.setValue("00000000-0000-0000-0000-000000000000");
+        beOSCPlaceId.setText("请选择");
+        cbOSCAreaId.setValue("00000000-0000-0000-0000-000000000000");
+        cbOSCReseauId.setData("[{Id:'00000000-0000-0000-0000-000000000000',ReseauName:'请选择'}]");
+        cbOSCReseauId.setValue("00000000-0000-0000-0000-000000000000");
+        cbOSCPlaceCategoryId.setValue("00000000-0000-0000-0000-000000000000");
+        cbOSCPropertyRight.setValue(0);
+        cbOSCMobileShare.setValue(0);
+        cbOSCTelecomShare.setValue(0);
+        cbOSCUnicomShare.setValue(0);
+        cbOSCUrgency.setValue(1);
+        cbOSCOrderState.setValue(1);
+        txtOSCProjectName.setValue("");
+        txtOSCProjectManagerName.setValue("");
+        //beOSCProjectId.setValue("00000000-0000-0000-0000-000000000000");
+        //beOSCProjectId.setText("请选择");
+    }
+
+    function onWinOperatorsSharingCollectionClose(e) {
+        if (e.name == "close" && openType == 1) {
+            BindDgRemodeling();
+        }
+    }
+
+    function onOSCPlaceSelectButtonClick() {
+        var beSelect = this;
+        mini.open({
+            url: "@Url.RouteUrl(new { controller = "CustomControl", action = "PlaceSelection" })" + "?Profession=1",
+            title: "选择基站",
+            width: 700,
+            height: 410,
+            allowResize: false,
+            ondestroy: function (action) {
+                if (action == "ok") {
+                    var iframe = this.getIFrameEl();
+                    var data = iframe.contentWindow.GetData();
+                    data = mini.clone(data);
+                    txtOSCPlaceCode.setValue(data.PlaceCode);
+                    beSelect.setValue(data.Id);
+                    beSelect.setText(data.PlaceName);
+                    cbOSCAreaId.setValue(data.AreaId);
+                    cbOSCReseauId.setUrl("@Url.RouteUrl(new { controller = "BaseData", action = "GetUsedReseaus" })" + "/" + data.AreaId + "?getType=2");
+                    cbOSCReseauId.setValue(data.ReseauId);
+                    cbOSCPlaceCategoryId.setValue(data.PlaceCategoryId);
+                    txtOSCLng.setValue(data.Lng);
+                    txtOSCLat.setValue(data.Lat);
+                    cbOSCPropertyRight.setValue(data.PropertyRight);
+                    cbOSCMobileShare.setValue(data.MobileShare);
+                    cbOSCTelecomShare.setValue(data.TelecomShare);
+                    cbOSCUnicomShare.setValue(data.UnicomShare);
+                }
+                else if (action == "cancel") {
+                    beSelect.setValue("00000000-0000-0000-0000-000000000000");
+                    beSelect.setText("请选择");
+                    txtOSCPlaceCode.setValue("");
+                    cbOSCAreaId.setValue("00000000-0000-0000-0000-000000000000");
+                    cbOSCReseauId.setData("[{Id:'00000000-0000-0000-0000-000000000000',ReseauName:'请选择'}]");
+                    cbOSCReseauId.setValue("00000000-0000-0000-0000-000000000000");
+                    cbOSCPlaceCategoryId.setValue("00000000-0000-0000-0000-000000000000");
+                    txtOSCLng.setValue("");
+                    txtOSCLat.setValue("");
+                    cbOSCPropertyRight.setValue(0);
+                    cbOSCMobileShare.setValue(0);
+                    cbOSCTelecomShare.setValue(0);
+                    cbOSCUnicomShare.setValue(0);
+                }
+                beSelect.validate();
+            }
+        });
+    }
+
+    function onOSCPlaceSelectButtonCloseClick() {
+        this.setValue("00000000-0000-0000-0000-000000000000");
+        this.setText("请选择");
+        txtOSCPlaceCode.setValue("");
+        cbOSCAreaId.setValue("00000000-0000-0000-0000-000000000000");
+        cbOSCReseauId.setData("[{Id:'00000000-0000-0000-0000-000000000000',ReseauName:'请选择'}]");
+        cbOSCReseauId.setValue("00000000-0000-0000-0000-000000000000");
+        cbOSCPlaceCategoryId.setValue("00000000-0000-0000-0000-000000000000");
+        txtOSCLng.setValue("");
+        txtOSCLat.setValue("");
+        cbOSCPropertyRight.setValue(0);
+        cbOSCMobileShare.setValue(0);
+        cbOSCTelecomShare.setValue(0);
+        cbOSCUnicomShare.setValue(0);
+        this.validate();
+    }
+
+    function onOSCPlaceIdValidation(e) {
+        if (e.isValid) {
+            if (e.value == "00000000-0000-0000-0000-000000000000") {
+                e.errorText = "请选择一个要改造的基站";
+                e.isValid = false;
+            }
+        }
+    }
+
+    function onOSCSearchClick() {
+        tabOperatorsSharingCollection.setActiveIndex(1);
+        BindDgOperatorsSharingCollection();
+    }
+
+    function BindFrmOSCRemodelingByOS(operatorsSharingId) {
+        ClearFrmOSCRemodeling();
+        var el = winOperatorsSharingCollection.getEl();
+        mini.mask({
+            el: el,
+            cls: 'mini-mask-loading',
+            html: '加载中...'
+        });
+        setTimeout(function () {
+            $.ajax({
+                url: "@Url.RouteUrl(new { controller = "BaseStationBM", action = "GetOperatorsSharingById" })" + "/" + operatorsSharingId,
+                type: "get",
+                async: false,
+                success: function (result, textStatus) {
+                    if (result.Id != null && result.Id == operatorsSharingId) {
+                        cbOSCReseauId.setUrl("@Url.RouteUrl(new { controller = "BaseData", action = "GetUsedReseaus" })" + "/" + result.AreaId + "?getType=1");
+                        txtOSCPlaceCode.setValue(result.PlaceCode);
+                        beOSCPlaceId.setValue(result.PlaceId);
+                        beOSCPlaceId.setText(result.PlaceName);
+                        cbOSCAreaId.setValue(result.AreaId);
+                        cbOSCReseauId.setValue(result.ReseauId);
+                        cbOSCPlaceCategoryId.setValue(result.PlaceCategoryId);
+                        txtOSCLng.setValue(result.Lng);
+                        txtOSCLat.setValue(result.Lat);
+                        cbOSCPropertyRight.setValue(result.PropertyRight);
+                        cbOSCMobileShare.setValue(result.MobileShare);
+                        cbOSCTelecomShare.setValue(result.TelecomShare);
+                        cbOSCUnicomShare.setValue(result.UnicomShare);
+                        cbOSCUrgency.setValue(result.Urgency);
+                    }
+                    else {
+                        winOperatorsSharingCollection.hide();
+                    }
+                },
+                error: function (xmlHttpRequest, textStatus, errorThrown) {
+                    winOperatorsSharingCollection.hide();
+                }
+            });
+        }, 50);
+        setTimeout(function () {
+            mini.unmask(el);
+        }, 300);
+    }
+
+    function onOSCMapEditClick() {
+        if (beOSCPlaceId.getValue() == "00000000-0000-0000-0000-000000000000") {
+            mini.alert("请选择一个要改造的基站");
+        }
+        else {
+            var el = winOperatorsSharingCollection.getEl();
+            mini.mask({
+                el: el,
+                cls: 'mini-mask-loading',
+                html: '加载中...'
+            });
+            setTimeout(function () {
+                $.ajax({
+                    url: "@Url.RouteUrl(new { controller = "Map", action = "GetPlacePoint" })",
+                    data: { PlaceId: beOSCPlaceId.getValue(), AreaId: "00000000-0000-0000-0000-000000000000", PlaceName: "", Lng: 0, Lat: 0, Profession: 1 },
+                    type: "get",
+                    async: false,
+                    success: function (result, textStatus) {
+                        mini.unmask(el);
+                        if (result.Id != null && result.Id == beOSCPlaceId.getValue()) {
+                            mini.open({
+                                url: "@Url.RouteUrl(new { controller = "Map", action = "NavigationMap" })",
+                                title: result.PlaceName,
+                                iconCls: "icon-map",
+                                width: 800,
+                                height: 550,
+                                showMaxButton: true,
+                                onload: function () {
+                                    var iframe = this.getIFrameEl();
+                                    var data = result;
+                                    iframe.contentWindow.SetData(data);
+                                },
+                            });
+                        }
+                    },
+                    error: function (xmlHttpRequest, textStatus, errorThrown) {
+                        mini.unmask(el);
+                    }
+                });
+            }, 50);
+        }
+    }
+
+    function onOSCSaveClick() {
+        tabOperatorsSharingCollection.setActiveIndex(0);
+        frmOSCRemodeling.validate();
+        if (frmOSCRemodeling.isValid() == false) return;
+        var loading = mini.loading("处理中,请稍后...", "保存数据");
+        var jsonData = mini.encode(frmOSCRemodeling.getData());
+        $.ajax({
+            url: "@Url.RouteUrl(new { controller = "BaseStationBM", action = "SaveShareSummaryByOSC" })",
+            data: AddAntiForgeryToken({ data: jsonData }),
+            type: "post",
+            success: function (result, textStatus) {
+                mini.hideMessageBox(loading);
+                if (result.Code != null && result.Code == 0) {
+                    openType = 1;
+                    hdOSCId.setValue(result.Id);
+                    hdOSCCreateUserId.setValue(result.CreateUserId);
+                    txtReferencePlaceName.setValue(beOSCPlaceId.getText());
+                    ShowSucessMessage(result.Message);
+                    tabOperatorsSharingCollection.setActiveIndex(1);
+                    BindDgOperatorsSharingCollection();
+                }
+            },
+            error: function (xmlHttpRequest, textStatus, errorThrown) {
+                mini.hideMessageBox(loading);
+            }
+        });
+    }
+
+    function onOSCAssociateClick() {
+        tabOperatorsSharingCollection.setActiveIndex(1);
+        if (hdOSCId.getValue() == "" || hdOSCId.getValue() == "00000000-0000-0000-0000-000000000000") {
+            mini.alert("请先保存铁塔公司基站改造");
+        }
+        else {
+            var rows = dgOperatorsSharingCollection.findRows(function (row) {
+                if (dgOperatorsSharingCollection.isSelected(row) == true && row.RemodelingId == "00000000-0000-0000-0000-000000000000") {
+                    return true;
+                }
+                else if (dgOperatorsSharingCollection.isSelected(row) == false && row.RemodelingId != "00000000-0000-0000-0000-000000000000") {
+                    return true;
+                }
+            });
+            if (rows.length == 0) {
+                mini.alert("未修改数据,无需提交关联");
+            }
+            else {
+                var loading = mini.loading("处理中,请稍后...", "关联数据");
+                var jsonData = mini.encode(rows);
+                $.ajax({
+                    url: "@Url.RouteUrl(new { controller = "BaseStationBM", action = "RemodelingAssociate" })",
+                    data: AddAntiForgeryToken({ data: jsonData, RemodelingId: hdOSCId.getValue(), RemodelingCreateUserId: hdOSCCreateUserId.getValue() }),
+                    type: "post",
+                    success: function (result, textStatus) {
+                        mini.hideMessageBox(loading);
+                        if (result.Code != null && result.Code == 0) {
+                            ShowSucessMessage(result.Message);
+                            BindDgOperatorsSharingCollection();
+                        }
+                    },
+                    error: function (xmlHttpRequest, textStatus, errorThrown) {
+                        mini.hideMessageBox(loading);
+                    }
+                });
+            }
+        }
+    }
+
+    function onTabOperatorsSharingCollectionActiveChanged() {
+        mini.layout();
+    }
+
+    function onMenuCollectionClick() {
+        btnOSCSave.setVisible(true);
+        BindDgOperatorsSharing();
+        winOperatorsSharing.show();
+    }
+
+    function onMenuAssociateClick() {
+        var rows = dgRemodeling.getSelecteds();
+        if (rows.length == 0) {
+            mini.alert("请选择一条要关联的数据");
+        }
+        else {
+            openType = 0;
+            hdOperatorsSharingId.setValue("00000000-0000-0000-0000-000000000000");
+            txtReferencePlaceName.setValue("");
+            btnOSCSave.setVisible(false);
+            ClearFrmOSCRemodeling();
+            winOperatorsSharingCollection.setTitle("关联共享申请");
+            winOperatorsSharingCollection.show();
+            tabOperatorsSharingCollection.setActiveIndex(1);
+            var el = winOperatorsSharingCollection.getEl();
+            mini.mask({
+                el: el,
+                cls: 'mini-mask-loading',
+                html: '加载中...'
+            });
+            setTimeout(function () {
+                $.ajax({
+                    url: "@Url.RouteUrl(new { controller = "BaseStationBM", action = "GetShareSummaryById" })" + "/" + rows[0].Id,
+                    type: "get",
+                    async: false,
+                    success: function (result, textStatus) {
+                        if (result.Id != null && result.Id == rows[0].Id) {
+                            cbOSCReseauId.setUrl("@Url.RouteUrl(new { controller = "BaseData", action = "GetUsedReseaus" })" + "/" + result.AreaId + "?getType=1");
+                            hdOSCId.setValue(result.Id);
+                            hdOSCCreateUserId.setValue(result.CreateUserId);
+                            dpOSCCreateDate.setValue(result.CreateDateText);
+                            txtOSCPlaceCode.setValue(result.PlaceCode);
+                            beOSCPlaceId.setValue(result.PlaceId);
+                            beOSCPlaceId.setText(result.PlaceName);
+                            txtReferencePlaceName.setValue(result.PlaceName);
+                            cbOSCPlaceCategoryId.setValue(result.PlaceCategoryId);
+                            cbOSCAreaId.setValue(result.AreaId);
+                            cbOSCReseauId.setValue(result.ReseauId);
+                            txtOSCLng.setValue(result.Lng);
+                            txtOSCLat.setValue(result.Lat);
+                            cbOSCPropertyRight.setValue(result.PropertyRight);
+                            cbOSCMobileShare.setValue(result.MobileShare);
+                            cbOSCTelecomShare.setValue(result.TelecomShare);
+                            cbOSCUnicomShare.setValue(result.UnicomShare);
+                            cbOSCUrgency.setValue(result.Urgency);
+                            txtOSCProjectName.setValue(result.ProjectName);
+                            txtOSCProjectManagerName.setValue(result.ProjectManagerName);
+                            //beOSCProjectId.setValue(result.ProjectId);
+                            //beOSCProjectId.setText(result.ProjectName);
+                            cbOSCOrderState.setValue(result.OrderState);
+                            txtOSCRemarks.setValue(result.Remarks);
+                            BindDgOperatorsSharingCollection();
+                        }
+                        else {
+                            winOperatorsSharingCollection.hide();
+                        }
+                    },
+                    error: function (xmlHttpRequest, textStatus, errorThrown) {
+                        winOperatorsSharingCollection.hide();
+                    }
+                });
+            }, 50);
+            setTimeout(function () {
+                mini.unmask(el);
+            }, 300);
+        }
+    }
+
+    function onMenuIssueClick() {
+        var rows = dgRemodeling.getSelecteds();
+        if (rows.length == 0) {
+            mini.alert("请选择要操作的数据");
+        }
+        else {
+            mini.confirm("确定要下达选中的改造安排？", "改造下达",
+            function (action) {
+                if (action == "ok") {
+                    var loading = mini.loading("处理中,请稍后...", "改造下达");
+                    var jsonData = mini.encode(rows);
+                    $.ajax({
+                        url: "@Url.RouteUrl(new { controller = "BaseStationBM", action = "IssueShareSummary" })",
+                        data: AddAntiForgeryToken({ data: jsonData }),
+                        type: "post",
+                        success: function (result, textStatus) {
+                            mini.hideMessageBox(loading);
+                            if (result.Code != null && result.Code == 0) {
+                                ShowSucessMessage(result.Message);
+                                BindDgRemodeling();
+                            }
+                        },
+                        error: function (xmlHttpRequest, textStatus, errorThrown) {
+                            mini.hideMessageBox(loading);
+                        }
+                    });
+                }
+            });
+        }
+    }
+
+    function onMenuCancelIssueClick() {
+        var rows = dgRemodeling.getSelecteds();
+        if (rows.length == 0) {
+            mini.alert("请选择要操作的数据");
+        }
+        else {
+            mini.confirm("确定要取消下达选中的改造安排？", "取消改造下达",
+            function (action) {
+                if (action == "ok") {
+                    var loading = mini.loading("处理中,请稍后...", "取消改造下达");
+                    var jsonData = mini.encode(rows);
+                    $.ajax({
+                        url: "@Url.RouteUrl(new { controller = "BaseStationBM", action = "CancelIssueShareSummary" })",
+                        data: AddAntiForgeryToken({ data: jsonData }),
+                        type: "post",
+                        success: function (result, textStatus) {
+                            mini.hideMessageBox(loading);
+                            if (result.Code != null && result.Code == 0) {
+                                ShowSucessMessage(result.Message);
+                                BindDgRemodeling();
+                            }
+                        },
+                        error: function (xmlHttpRequest, textStatus, errorThrown) {
+                            mini.hideMessageBox(loading);
+                        }
+                    });
+                }
+            });
+        }
+    }
+
+    function onCellClick(e) {
+        if (e.column.field == "PlaceName") {
+            var el = dgOperatorsSharing.getEl();
+            mini.mask({
+                el: el,
+                cls: 'mini-mask-loading',
+                html: '加载中...'
+            });
+            setTimeout(function () {
+                mini.unmask(el);
+                mini.open({
+                    url: "@Url.RouteUrl(new { controller = "BaseData", action = "PlaceInfo" })" + "/" + e.record.PlaceId,
+                    title: "站点信息",
+                    //iconCls: "icon-editor",
+                    width: 670,
+                    height: 580,
+                });
+            }, 50);
+        }
+    }
+
+    function onSendClick() {
+        var rows = dgRemodeling.getSelecteds();
+        if (rows.length == 0) {
+            mini.alert("请选择一条要发送的数据");
+        }
+        else {
+            var el = dgRemodeling.getEl();
+            mini.mask({
+                el: el,
+                cls: 'mini-mask-loading',
+                html: '加载中...'
+            });
+            setTimeout(function () {
+                $.ajax({
+                    url: "@Url.RouteUrl(new { controller = "BaseStationBM", action = "GetShareSummaryById" })" + "/" + rows[0].Id,
+                    type: "get",
+                    async: false,
+                    success: function (result, textStatus) {
+                        mini.unmask(el);
+                        if (result.Id != null) {
+                            if (result.OrderState != 1) {
+                                mini.alert("选择的基站改造已经发送过流程");
+                            }
+                            else {
+                                mini.open({
+                                    url: "@Url.RouteUrl(new { controller = "WorkFlow", action = "WFInstanceSend" })" + "?WFCategoryId=ABDAED6E-6D03-4553-9A66-76E92E8FDCEC&EntityId=" + rows[0].Id,
+                                    title: "发送改造确认单",
+                                    width: 850,
+                                    height: 500,
+                                    allowResize: false,
+                                    ondestroy: function (action) {
+                                        if (action == "ok") {
+                                            ShowSucessMessage("公文发送成功");
+                                            BindDgRemodeling();
+                                        }
+                                        else if (action == "cancel") {
+                                        }
+                                    }
+                                });
+                            }
+                        }
+                        else {
+                        }
+                    },
+                    error: function (xmlHttpRequest, textStatus, errorThrown) {
+                        mini.unmask(el);
+                    }
+                });
+            }, 50);
+        }
+    }
+</script>

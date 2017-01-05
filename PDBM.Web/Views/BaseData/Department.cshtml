@@ -1,0 +1,311 @@
+﻿<div id="myToolbar" class="mini-toolbar" style="border-bottom: 0px; padding: 0px;">
+    <table style="width: 100%;" cellpadding="0" cellspacing="0">
+        <tr>
+            <td style="width: 100%;">
+                <a class="mini-button" iconcls="icon-help" plain="true" href="@Url.RouteUrl(new { controller = "File", action = "DownloadHelpFiles" })?FileName=Department" target="_blank"></a>当前位置：基础数据>组织机构>部门
+            </td>
+            <td style="white-space: nowrap;">
+                <a id="btnSearch" class="mini-button" iconcls="icon-search" plain="true" onclick="onSearchClick">查询</a>
+                <a class="mini-button" iconcls="icon-add" plain="true" onclick="onAddClick">新增</a>
+                <a class="mini-button" iconcls="icon-edit" plain="true" onclick="onEditClick">修改</a>
+                <a class="mini-button" iconcls="icon-remove" plain="true" onclick="onRemoveClick">删除</a>
+            </td>
+        </tr>
+    </table>
+</div>
+<div class="mini-fit">
+    <div class="mini-splitter" style="width:100%;height:100%;">
+        <div showcollapsebutton="false" size="180" maxsize="250" minsize="100">
+            <div id="treeCompany" class="mini-tree" style="width:100%; height:100%;" showtreeicon="true" textfield="CompanyName" valuefield="Id" idfield="Id" parentfield="PId"
+                 resultastree="false" expandonload="true" onnodeselect="onTreeCompanyNodeSelect" expandonnodeclick="true"></div>
+        </div>
+        <div showcollapsebutton="false">
+            <div id="dgDepartment" class="mini-datagrid" style="width: 100%; height: 100%;" idfield="Id" allowmovecolumn="false" borderstyle="border:0px;"
+                 multiselect="true" showpager="false" fitcolumns="false" onlycheckselection="true" url="@Url.RouteUrl(new { controller = "BaseData", action = "GetDepartments" })"
+                 onload="onDgDepartmentLoad" ondrawcell="onDrawCell">
+                <div property="columns">
+                    <div type="indexcolumn"></div>
+                    <div type="checkcolumn"></div>
+                    <div field="DepartmentCode" header="部门编码" width="120"></div>
+                    <div field="DepartmentName" header="部门名称" width="180"></div>
+                    <div field="FullName" header="部门经理" width="100"></div>
+                    <div type="comboboxcolumn" field="State" header="状态" width="70">
+                        <input property="editor" class="mini-combobox" style="width: 100%;" data=@Html.Raw(ViewData["State"]) />
+                    </div>
+                    <div field="Remarks" header="备注" width="280"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="winDepartment" class="mini-window" style="width: 350px; height: 280px;"
+     showmodal="true" allowresize="false">
+    <div id="frmDepartment" class="form">
+        <input class="mini-hidden" id="Id" name="Id" />
+        <table style="width: 100%;">
+            <tr>
+                <td style="width: 80px; text-align: right;">公司</td>
+                <td>
+                    <input id="CompanyId" name="CompanyId" class="mini-combobox" style="width:200px;" textfield="CompanyName" valuefield="Id" />
+                </td>
+            </tr>
+            <tr>
+                <td style="width: 80px; text-align: right;">部门编码</td>
+                <td>
+                    <input id="DepartmentCode" name="DepartmentCode" class="mini-textbox" requirederrortext="请输入部门编码" required="true" style="width: 200px;" />
+                </td>
+            </tr>
+            <tr>
+                <td style="width: 80px; text-align: right;">部门名称</td>
+                <td>
+                    <input id="DepartmentName" name="DepartmentName" class="mini-textbox" requirederrortext="请输入部门名称" required="true" style="width: 200px;" />
+                </td>
+            </tr>
+            <tr>
+                <td style="width: 80px; text-align: right;">部门经理</td>
+                <td>
+                    <input id="ManagerUserId" name="ManagerUserId" style="width:200px;" allowinput="false" class="mini-buttonedit searchbox" showclose="true" text="无" value="00000000-0000-0000-0000-000000000000"
+                           onbuttonclick="onUserSelectButtonClick" oncloseclick="onUserSelectButtonCloseClick" />
+                </td>
+            </tr>
+            <tr>
+                <td style="width: 80px; text-align: right;">状态</td>
+                <td>
+                    <input id="State" name="State" class="mini-combobox" value="1" style="width: 200px;" data=@Html.Raw(ViewData["State"]) />
+                </td>
+            </tr>
+            <tr>
+                <td style="width: 80px; text-align: right;">备注</td>
+                <td>
+                    <input id="Remarks" name="Remarks" class="mini-textarea" style="width: 200px; height: 60px;" />
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div style="text-align: center; padding: 10px;">
+        <a class="mini-button" iconcls="icon-save" onclick="onSaveClick" style="margin-right: 10px;">保存</a>
+        <a class="mini-button" iconcls="icon-cancel" onclick="onClearClick">清空</a>
+    </div>
+</div>
+<script type="text/javascript">
+    mini.parse();
+
+    var btnSearch = mini.get("btnSearch");
+    var treeCompany = mini.get("treeCompany");
+    var dgDepartment = mini.get("dgDepartment");
+    var winDepartment = mini.get("winDepartment");
+    var frmDepartment = new mini.Form("#frmDepartment");
+    var txtDepartmentId = mini.get("Id");
+    var cbCompanyId = mini.get("CompanyId");
+    var txtDepartmentCode = mini.get("DepartmentCode");
+    var cbState = mini.get("State");
+    var beManagerUserId = mini.get("ManagerUserId");
+
+    Init();
+
+    function Init() {
+        treeCompany.loadList(@Html.Raw(ViewData["CompanysTree"]), "Id", "PId");
+        if (treeCompany.getList().length > 1) {
+            treeCompany.select(1, false);
+        }
+        else {
+            treeCompany.select(0, false);
+        }
+        BindDgDepartment(treeCompany.getValue());
+        cbCompanyId.setData(@Html.Raw(ViewData["Companys"]));
+    }
+
+    function onTreeCompanyNodeSelect(e){
+        BindDgDepartment(e.node.Id);
+    }
+
+    function BindDgDepartment(companyId) {
+        btnSearch.setEnabled(false);
+        dgDepartment.clearSelect(false);
+        var el = treeCompany.getEl();
+        mini.mask({
+            el: el,
+            cls: 'mini-mask-loading',
+            html: '加载中...'
+        });
+        dgDepartment.load({ CompanyId: companyId });
+    }
+
+    function onDgDepartmentLoad() {
+        btnSearch.setEnabled(true);
+        var el = treeCompany.getEl();
+        mini.unmask(el);
+    }
+
+    function onUserSelectButtonClick() {
+        var beSelect = this;
+        mini.open({
+            url: "@Url.RouteUrl(new { controller = "CustomControl", action = "UserSelection" })",
+            title: "选择用户",
+            width: 620,
+            height: 350,
+            allowResize: false,
+            ondestroy: function (action) {
+                if (action == "ok") {
+                    var iframe = this.getIFrameEl();
+                    var data = iframe.contentWindow.GetData();
+                    data = mini.clone(data);
+                    beSelect.setValue(data.id);
+                    beSelect.setText(data.text);
+                }
+                else if (action == "cancel") {
+                    beSelect.setValue("00000000-0000-0000-0000-000000000000");
+                    beSelect.setText("无");
+                }
+            }
+        });
+    }
+
+    function onUserSelectButtonCloseClick() {
+        this.setValue("00000000-0000-0000-0000-000000000000");
+        this.setText("无");
+    }
+
+    function ClearFrmDepartment() {
+        var idValue = txtDepartmentId.getValue();
+        var companyIdValue = cbCompanyId.getValue();
+        frmDepartment.clear();
+        txtDepartmentId.setValue(idValue);
+        cbCompanyId.setValue(companyIdValue);
+        beManagerUserId.setValue("00000000-0000-0000-0000-000000000000");
+        beManagerUserId.setText("无");
+        cbState.setValue(1);
+    }
+
+    function onDrawCell(e) {
+        if (e.field == "State" && e.value == 2) {
+            e.cellStyle = "color:red;";
+        }
+    }
+
+    function onSearchClick() {
+        var companyId = treeCompany.getValue();
+        if (companyId == null || companyId == ""){
+            companyId = "00000000-0000-0000-0000-000000000000";
+        }
+        BindDgDepartment(companyId);
+    }
+
+    function onAddClick() {
+        var companyId = treeCompany.getValue();
+        if (companyId == null || companyId == "" || companyId == "00000000-0000-0000-0000-000000000000"){
+            mini.alert("请选择一个公司");
+        }
+        else {
+            txtDepartmentId.setValue("");
+            cbCompanyId.setValue(companyId);
+            cbCompanyId.setEnabled(true);
+            ClearFrmDepartment();
+            winDepartment.setTitle("新增部门");
+            winDepartment.show();
+            txtDepartmentCode.focus();
+        }
+    }
+
+    function onEditClick() {
+        var rows = dgDepartment.getSelecteds();
+        if (rows.length == 0) {
+            mini.alert("请选择一条要修改的数据");
+        }
+        else {
+            ClearFrmDepartment();
+            winDepartment.setTitle("修改部门");
+            winDepartment.show();
+            var el = winDepartment.getEl();
+            mini.mask({
+                el: el,
+                cls: 'mini-mask-loading',
+                html: '加载中...'
+            });
+            setTimeout(function () {
+                $.ajax({
+                    url: "@Url.RouteUrl(new { controller = "BaseData", action = "GetDepartmentById" })" + "/" + rows[0].Id,
+                    type: "get",
+                    async: false,
+                    success: function (result, textStatus) {
+                        if (result.Id != null && result.Id == rows[0].Id){
+                            cbCompanyId.setEnabled(false);
+                            frmDepartment.setData(result);
+                            beManagerUserId.setValue(result.ManagerUserId);
+                            beManagerUserId.setText(result.FullName);
+                            txtDepartmentCode.focus();
+                        }
+                        else{
+                            winDepartment.hide();
+                        }
+                    },
+                    error: function (xmlHttpRequest, textStatus, errorThrown) {
+                        winDepartment.hide();
+                    }
+                });
+            }, 50);
+            setTimeout(function () {
+                mini.unmask(el);
+            }, 300);
+        }
+    }
+
+    function onRemoveClick() {
+        var rows = dgDepartment.getSelecteds();
+        if (rows.length == 0) {
+            mini.alert("请选择要删除的数据");
+        }
+        else {
+            mini.confirm("确定要删除选中的数据？", "删除部门",
+            function (action) {
+                if (action == "ok") {
+                    var loading = mini.loading("处理中,请稍后...", "删除数据");
+                    var jsonData = mini.encode(rows);
+                    $.ajax({
+                        url: "@Url.RouteUrl(new { controller = "BaseData", action = "RemoveDepartments" })",
+                        data: AddAntiForgeryToken({ data: jsonData }),
+                        type: "post",
+                        success: function (result, textStatus) {
+                            mini.hideMessageBox(loading);
+                            if (result.Code != null && result.Code == 0) {
+                                ShowSucessMessage(result.Message);
+                                BindDgDepartment(treeCompany.getValue());
+                            }
+                        },
+                        error: function (xmlHttpRequest, textStatus, errorThrown) {
+                            mini.hideMessageBox(loading);
+                        }
+                    });
+                }
+            });
+        }
+    }
+
+    function onSaveClick() {
+        frmDepartment.validate();
+        if (frmDepartment.isValid() == false) return;
+        var loading = mini.loading("处理中,请稍后...", "保存数据");
+        var jsonData = mini.encode(frmDepartment.getData());
+        $.ajax({
+            url: "@Url.RouteUrl(new { controller = "BaseData", action = "SaveDepartment" })",
+            data: AddAntiForgeryToken({ data: jsonData }),
+            type: "post",
+            success: function (result, textStatus) {
+                mini.hideMessageBox(loading);
+                if (result.Code != null && result.Code == 0) {
+                    winDepartment.hide();
+                    ShowSucessMessage(result.Message);
+                    BindDgDepartment(treeCompany.getValue());
+                }
+            },
+            error: function (xmlHttpRequest, textStatus, errorThrown) {
+                mini.hideMessageBox(loading);
+            }
+        });
+    }
+
+    function onClearClick() {
+        ClearFrmDepartment();
+        txtDepartmentCode.focus();
+    }
+</script>

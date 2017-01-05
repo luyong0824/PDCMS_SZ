@@ -1,0 +1,214 @@
+﻿<div id="myToolbar" class="mini-toolbar" style="border-bottom: 0px; padding: 0px;">
+    <table style="width: 100%;" cellpadding="0" cellspacing="0">
+        <tr>
+            <td style="width: 100%;">
+                <a class="mini-button" iconcls="icon-help" plain="true" href="@Url.RouteUrl(new { controller = "File", action = "DownloadHelpFiles" })?FileName=PostUser" target="_blank"></a>当前位置：基础数据>用户管理>岗位用户
+            </td>
+            <td style="white-space: nowrap;">
+                <input id="cbCompany" class="mini-combobox" width="150" textfield="CompanyName" valuefield="Id" onvaluechanged="onCbCompanyValueChanged" />&nbsp;
+                <input id="cbDepartment" class="mini-combobox" textfield="DepartmentName" valuefield="Id" onload="onCBDepartmentLoad" />
+                <a id="btnSearch" class="mini-button" iconcls="icon-search" plain="true" onclick="onSearchClick">查询</a>
+                <a class="mini-button" iconcls="icon-save" plain="true" onclick="onSaveClick">保存</a>
+            </td>
+        </tr>
+    </table>
+</div>
+<div class="mini-fit">
+    <div class="mini-splitter" style="width:100%;height:100%;">
+        <div showcollapsebutton="false" size="280" maxsize="350" minsize="200">
+            <div id="treeCustomer" class="mini-tree" style="width:100%; height:100%;" showtreeicon="true" textfield="Name" valuefield="Id" idfield="Id" parentfield="PId"
+                 resultastree="false" expandonload="true" onnodeselect="onTreeCustomerTypeNodeSelect" ondrawnode="onDrawnode" expandonnodeclick="true"></div>
+        </div>
+        <div showcollapsebutton="false">
+            <div id="treeDgUser" class="mini-treegrid" style="width: 100%; height: 100%;" idfield="Id" treecolumn="Name" showtreeicon="true" parentfield="PId" borderstyle="border:0px;"
+                 allowmovecolumn="false" fitcolumns="false" resultastree="false" showcheckbox="true" onlycheckselection="true" checkrecursive="true" autoload="false" expandonload="true"
+                 ajaxasync="true" multiselect="true" url="@Url.RouteUrl(new { controller = "BaseData", action = "GetCustomerUsers" })" onload="onTreeDgUserLoad" onnodecheck="onTreeDgUserNodeCheck"
+                 expandonnodeclick="true">
+                <div property="columns">
+                    <div type="indexcolumn"></div>
+                    <div name="Name" field="Name" width="320">公司/部门/用户</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    mini.parse();
+
+    var isPageInit = true;
+    var btnSearch = mini.get("btnSearch");
+    var cbCompany = mini.get("cbCompany");
+    var cbDepartment = mini.get("cbDepartment");
+    var treeDgUser = mini.get("treeDgUser");
+    var treeCustomer = mini.get("treeCustomer");
+
+    Init();
+
+    function Init(){
+        treeCustomer.loadList(@Html.Raw(ViewData["CustomerTree"]), "Id", "PId");
+        //if (treeCustomer.getList().length > 8) {
+        //    treeCustomer.select(8, false);
+        //}
+        //else {
+        //    treeCustomer.select(0, false);
+        //}
+
+        if (treeCustomer.getList().length > 0) {
+            if(treeCustomer.getList().length > 1){
+                treeCustomer.select(1, false);
+            }
+            else if(treeCustomer.getList().length == 1){
+                treeCustomer.select(0, false);
+                treeCustomer.getList()[0].Id="00000000-0000-0000-0000-000000000000";
+
+            }
+            BindCbCompany();
+            BindTreeDgUser(treeCustomer.getValue());
+        }
+    }
+
+    function BindTreeDgUser(customerId) {
+        btnSearch.setEnabled(false);
+        var el = treeCustomer.getEl();
+        mini.mask({
+            el: el,
+            cls: 'mini-mask-loading',
+            html: '加载中...'
+        });
+        var departmentId = cbDepartment.getValue();
+        var companyId = cbCompany.getValue();
+        //var customerId = treeCustomer.getValue();
+        //if (customerType == null || customerType == "") {
+        //    customerType = "00000000-0000-0000-0000-000000000000";
+        //}
+        treeDgUser.clearSelect(false);
+        treeDgUser.load({ CompanyId: companyId, DepartmentId: departmentId, CustomerId: customerId });
+    }
+
+    function onTreeDgUserLoad() {
+        var rows = treeDgUser.findRows(function (row) {
+            if (row.CustomerUserId != "00000000-0000-0000-0000-000000000000" &&
+                row.isLeaf == true) {
+                return true;
+            }
+        });
+        treeDgUser.checkNodes(rows);
+        treeDgUser.selects(rows);
+        btnSearch.setEnabled(true);
+        var el = treeCustomer.getEl();
+        mini.unmask(el);
+    }
+
+    function onTreeDgUserNodeCheck(e) {
+        //选中
+        if (treeDgUser.isCheckedNode(e.node) == true) {
+            //父节点
+            if (e.node.isLeaf == false) {
+                var childNodes = treeDgUser.getAllChildNodes(e.node);
+                if (childNodes.length > 0) {
+                    for (var i = 0; i < childNodes.length; i++) {
+                        if (childNodes[i].isLeaf == true) {
+                            treeDgUser.select(childNodes[i]);
+                        }
+                    }
+                }
+            }
+            else {
+                treeDgUser.select(e.node);
+            }
+        }
+        else {
+            //父节点
+            if (e.node.isLeaf == false) {
+                var childNodes = treeDgUser.getAllChildNodes(e.node);
+                if (childNodes.length > 0)
+                    for (var i = 0; i < childNodes.length; i++) {
+                        if (childNodes[i].isLeaf == true) {
+                            treeDgUser.deselect(childNodes[i]);
+                        }
+                    }
+            }
+            else {
+                treeDgUser.deselect(e.node);
+            }
+        }
+    }
+
+    function onTreeCustomerTypeNodeSelect(e) {
+        BindTreeDgUser(e.node.Id);
+    }
+
+    function BindCbCompany(){
+        cbCompany.setData(@Html.Raw(ViewData["Companys"]));
+        cbCompany.setValue("@ViewData["CompanyId"]");
+        BindCbDepartment(cbCompany.getValue());
+    }
+
+    function onCbCompanyValueChanged(){
+        BindCbDepartment(cbCompany.getValue());
+    }
+
+    function BindCbDepartment(companyId){
+        cbDepartment.setUrl("@Url.RouteUrl(new { controller = "BaseData", action = "GetUsedDepartments" })" + "/" + companyId + "?getType=3");
+    }
+
+    function onCBDepartmentLoad(){
+        cbDepartment.setValue("00000000-0000-0000-0000-000000000000");
+    }
+
+    function onSearchClick() {
+        BindTreeDgUser(treeCustomer.getValue());
+    }
+
+    function onSaveClick() {
+        var customerId = treeCustomer.getValue();
+        if (customerId == null || customerId == "" || customerId == "00000000-0000-0000-0000-000000000000") {
+            mini.alert("请选择一个往来单位");
+        }
+        else {
+            var rows = treeDgUser.findRows(function (row) {
+                if (row.isLeaf == true) {
+                    if (treeDgUser.isChecked(row) == true && row.CustomerUserId == "00000000-0000-0000-0000-000000000000") {
+                        return true;
+                    }
+                    else if (treeDgUser.isChecked(row) == false && row.CustomerUserId != "00000000-0000-0000-0000-000000000000") {
+                        return true;
+                    }
+                }
+            });
+            if (rows.length == 0) {
+                mini.alert("未修改数据,无需提交保存");
+            }
+            else {
+                var loading = mini.loading("处理中,请稍后...", "保存数据");
+                var jsonData = mini.encode(rows);
+                $.ajax({
+                    url: "@Url.RouteUrl(new { controller = "BaseData", action = "SaveCustomerUsers" })",
+                    data: AddAntiForgeryToken({ data: jsonData, CustomerId: customerId }),
+                    type: "post",
+                    success: function (result, textStatus) {
+                        mini.hideMessageBox(loading);
+                        if (result.Code != null && result.Code == 0) {
+                            ShowSucessMessage(result.Message);
+                            BindTreeDgUser(treeCustomer.getValue());
+                        }
+                    },
+                    error: function (xmlHttpRequest, textStatus, errorThrown) {
+                        mini.hideMessageBox(loading);
+                    }
+                });
+            }
+        }
+    }
+
+    function onDrawnode(e) {
+        if(treeCustomer.getList().length>8){
+            if(treeCustomer.isLeaf(e.node)==false){
+                e.node.Id="00000000-0000-0000-0000-000000000000";
+            }
+        }
+        else{
+            e.node.Id="00000000-0000-0000-0000-000000000000";
+        }
+    }
+</script>

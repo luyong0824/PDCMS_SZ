@@ -1,0 +1,12 @@
+--------------------------------Time:2016-12-11 11:23:58,656--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.ServiceModel.FaultException`1[PDBM.DataTransferObjects.FaultObject]: The underlying provider failed on Open. (错误详细信息等于 PDBM.DataTransferObjects.FaultObject)。
+--------------------------------END--------------------------------
+
+--------------------------------Time:2016-12-11 11:25:47,255--------------------------------
+Message:Exception
+Level:ERROR
+Exception:System.ServiceModel.FaultException`1[PDBM.DataTransferObjects.FaultObject]: 找不到存储过程 'prc_GetMenuInfoByUserId'。 (错误详细信息等于 PDBM.DataTransferObjects.FaultObject)。
+--------------------------------END--------------------------------
+

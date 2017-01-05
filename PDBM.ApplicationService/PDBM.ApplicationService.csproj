@@ -1,0 +1,169 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{1EB7507E-0EB6-4695-A6DF-54E9EBA39537}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>PDBM.ApplicationService</RootNamespace>
+    <AssemblyName>PDBM.ApplicationService</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="Services\BaseData\AccountingEntityService.cs" />
+    <Compile Include="Services\BaseData\AreaService.cs" />
+    <Compile Include="Services\BaseData\CompanyService.cs" />
+    <Compile Include="Services\BaseData\CustomerService.cs" />
+    <Compile Include="Services\BaseData\CustomerUserService.cs" />
+    <Compile Include="Services\BaseData\DepartmentService.cs" />
+    <Compile Include="Services\BaseData\DutyUserService.cs" />
+    <Compile Include="Services\BaseData\MaterialCategoryService.cs" />
+    <Compile Include="Services\BaseData\MaterialService.cs" />
+    <Compile Include="Services\BaseData\MaterialSpecService.cs" />
+    <Compile Include="Services\BaseData\MenuService.cs" />
+    <Compile Include="Services\BaseData\PlaceCategoryService.cs" />
+    <Compile Include="Services\BaseData\PlaceOwnerService.cs" />
+    <Compile Include="Services\BaseData\PlacePropertyLogService.cs" />
+    <Compile Include="Services\BaseData\PlacePropertyService.cs" />
+    <Compile Include="Services\BaseData\PlaceService.cs" />
+    <Compile Include="Services\BaseData\PostService.cs" />
+    <Compile Include="Services\BaseData\PostUserService.cs" />
+    <Compile Include="Services\BaseData\ProjectService.cs" />
+    <Compile Include="Services\BaseData\ReseauService.cs" />
+    <Compile Include="Services\BaseData\RoleMenuItemService.cs" />
+    <Compile Include="Services\BaseData\RoleService.cs" />
+    <Compile Include="Services\BaseData\RoleUserService.cs" />
+    <Compile Include="Services\BaseData\SceneService.cs" />
+    <Compile Include="Services\BaseData\UnitService.cs" />
+    <Compile Include="Services\BaseData\UserService.cs" />
+    <Compile Include="Services\BaseData\WorkBigClassService.cs" />
+    <Compile Include="Services\BaseData\WorkSmallClassService.cs" />
+    <Compile Include="Services\BMMgmt\AddressExplorLogService.cs" />
+    <Compile Include="Services\BMMgmt\AddressExplorService.cs" />
+    <Compile Include="Services\BMMgmt\AddressingService.cs" />
+    <Compile Include="Services\BMMgmt\BlindSpotFeedBackService.cs" />
+    <Compile Include="Services\BMMgmt\BusinessVolumeService.cs" />
+    <Compile Include="Services\BMMgmt\ConstructionTaskService.cs" />
+    <Compile Include="Services\BMMgmt\DelayApplyService.cs" />
+    <Compile Include="Services\BMMgmt\EngineeringTaskService.cs" />
+    <Compile Include="Services\BMMgmt\EquipmentInstallLogService.cs" />
+    <Compile Include="Services\BMMgmt\EquipmentInstallService.cs" />
+    <Compile Include="Services\BMMgmt\ExternalElectricPowerLogService.cs" />
+    <Compile Include="Services\BMMgmt\ExternalElectricPowerService.cs" />
+    <Compile Include="Services\BMMgmt\FoundationTestLogService.cs" />
+    <Compile Include="Services\BMMgmt\FoundationTestService.cs" />
+    <Compile Include="Services\BMMgmt\MachineRoomLogService.cs" />
+    <Compile Include="Services\BMMgmt\MachineRoomService.cs" />
+    <Compile Include="Services\BMMgmt\MaterialListService.cs" />
+    <Compile Include="Services\BMMgmt\MaterialSpecListService.cs" />
+    <Compile Include="Services\BMMgmt\NoticeService.cs" />
+    <Compile Include="Services\BMMgmt\OperatorsConfirmService.cs" />
+    <Compile Include="Services\BMMgmt\OperatorsPlanningDemandService.cs" />
+    <Compile Include="Services\BMMgmt\OperatorsSharingService.cs" />
+    <Compile Include="Services\BMMgmt\PlaceBusinessVolumeService.cs" />
+    <Compile Include="Services\BMMgmt\PlaceDesignService.cs" />
+    <Compile Include="Services\BMMgmt\PlanningApplyHeaderService.cs" />
+    <Compile Include="Services\BMMgmt\PlanningApplyService.cs" />
+    <Compile Include="Services\BMMgmt\PlanningService.cs" />
+    <Compile Include="Services\BMMgmt\ProjectCodeListService.cs" />
+    <Compile Include="Services\BMMgmt\ProjectTaskService.cs" />
+    <Compile Include="Services\BMMgmt\PurchaseService.cs" />
+    <Compile Include="Services\BMMgmt\OperatorsPlanningService.cs" />
+    <Compile Include="Services\BMMgmt\RemodelingService.cs" />
+    <Compile Include="Services\BMMgmt\TaskPropertyLogService.cs" />
+    <Compile Include="Services\BMMgmt\TaskPropertyService.cs" />
+    <Compile Include="Services\BMMgmt\TowerBaseLogService.cs" />
+    <Compile Include="Services\BMMgmt\TowerBaseService.cs" />
+    <Compile Include="Services\BMMgmt\TowerLogService.cs" />
+    <Compile Include="Services\BMMgmt\TowerService.cs" />
+    <Compile Include="Services\BMMgmt\WorkApplyService.cs" />
+    <Compile Include="Services\BMMgmt\WorkOrderDetailService.cs" />
+    <Compile Include="Services\BMMgmt\WorkOrderService.cs" />
+    <Compile Include="Services\DataOutput\DataOutputService.cs" />
+    <Compile Include="Services\DataService.cs" />
+    <Compile Include="Services\Enum\EnumService.cs" />
+    <Compile Include="Services\FileMgmt\FileService.cs" />
+    <Compile Include="Services\DataImport\DataImportService.cs" />
+    <Compile Include="Services\Map\MapService.cs" />
+    <Compile Include="Services\WorkFlow\WFActivityEditorService.cs" />
+    <Compile Include="Services\WorkFlow\WFActivityInstanceEditorService.cs" />
+    <Compile Include="Services\WorkFlow\WFActivityService.cs" />
+    <Compile Include="Services\WorkFlow\WFCategoryService.cs" />
+    <Compile Include="Services\WorkFlow\WFInstanceService.cs" />
+    <Compile Include="Services\WorkFlow\WFProcessService.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\PDBM.DataTransferObjects\PDBM.DataTransferObjects.csproj">
+      <Project>{5ad91431-e1ea-4cc7-bf12-8dd845717b5f}</Project>
+      <Name>PDBM.DataTransferObjects</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PDBM.Domain\PDBM.Domain.csproj">
+      <Project>{861e3b9f-f2e2-4ced-a55a-54f68b23e707}</Project>
+      <Name>PDBM.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PDBM.Infrastructure\PDBM.Infrastructure.csproj">
+      <Project>{722f4e02-8228-46e4-8f30-1f6c905b9f6f}</Project>
+      <Name>PDBM.Infrastructure</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PDBM.ServiceContracts\PDBM.ServiceContracts.csproj">
+      <Project>{11359556-d66e-48d9-9fc2-550d9d830eda}</Project>
+      <Name>PDBM.ServiceContracts</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

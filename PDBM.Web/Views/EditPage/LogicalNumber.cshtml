@@ -1,0 +1,454 @@
+﻿<div id="frmAddressing" class="form">
+    <input class="mini-hidden" id="Id" name="Id" value="@ViewData["Id"]" />
+    <input class="mini-hidden" id="ProjectTaskId" name="ProjectTaskId" value="@ViewData["ProjectTaskId"]" />
+    <input class="mini-hidden" id="WFActivityInstanceId" name="WFActivityInstanceId" value="@ViewData["WFActivityInstanceId"]" />
+    <input class="mini-hidden" id="PlanningId" name="PlanningId" value="@ViewData["PlanningId"]" />
+    <input class="mini-hidden" id="PlaceId" name="PlaceId" value="@ViewData["PlaceId"]" />
+    <input class="mini-hidden" id="FileIdList" name="FileIdList" value="@ViewData["FileIdList"]" />
+    <input class="mini-hidden" id="DesignFileIdList" name="DesignFileIdList" value="@ViewData["DesignFileIdList"]" />
+    <div id="tabContent" class="mini-tabs" activeindex="0" style="width: 600px; height: 500px;" plain="true">
+        <div title="登记逻辑号" style="height:100%">
+            <table style="width: 100%;">
+                <tr>
+                    <td style="width: 80px; text-align: right;">单据编号</td>
+                    <td>
+                        <input id="OrderCode" name="OrderCode" class="mini-textbox" readonly="true" style="width: 200px;" value="@ViewData["OrderCode"]" />
+                    </td>
+                    <td style="width: 80px; text-align: right;">申请日期</td>
+                    <td>
+                        <input id="CreateDateText" name="CreateDateText" class="mini-textbox" readonly="true" style="width: 200px;" value="@ViewData["CreateDateText"]" />
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 80px; text-align: right;">基站名称</td>
+                    <td>
+                        <input id="PlaceName" name="PlaceName" class="mini-textbox" readonly="true" style="width: 200px;" value="@ViewData["PlaceName"]" />
+                    </td>
+                    <td style="width: 80px; text-align: right;">基站类型</td>
+                    <td>
+                        <input id="PlaceCategoryName" name="PlaceCategoryName" class="mini-textbox" readonly="true" style="width: 200px;" value="@ViewData["PlaceCategoryName"]" />
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 80px; text-align: right;">导航图</td>
+                    <td>
+                        <a class="navigationmapedit" onclick="onMapClick();"></a>
+                    </td>
+                    <td style="width: 80px; text-align: right;">附件</td>
+                    <td>
+                        <table>
+                            <tr>
+                                <td style="width:16px">
+                                    <a class="fileedit" onclick="onFileClick();"></a>
+                                </td>
+                                <td>
+                                    附件数量：<input id="Count" name="Count" class="mini-textbox" value="@ViewData["Count"]" />
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 80px; text-align: right;">总设单位</td>
+                    <td>
+                        <input id="GeneralDesignName" name="GeneralDesignName" class="mini-textbox" readonly="true" style="width: 200px;" value="@ViewData["GeneralDesignName"]" />
+                    </td>
+                    <td style="width: 80px; text-align: right;">拟建网络</td>
+                    <td>
+                        <input id="ProposedNetwork" name="ProposedNetwork" class="mini-textbox" readonly="true" style="width:200px;" value="@ViewData["ProposedNetwork"]" />
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 80px; text-align: right;">总设日期</td>
+                    <td>
+                        <input id="DesignDate" name="DesignDate" class="mini-datepicker" style="width:98px;" enabled="false" showclearbutton="false" allowinput="false" />
+                    </td>
+                    <td style="width: 80px; text-align: right;">总设图</td>
+                    <td>
+                        <table>
+                            <tr>
+                                <td style="width:16px">
+                                    <a class="fileedit" onclick="onDesignFileClick();"></a>
+                                </td>
+                                <td>
+                                    附件数量：<input id="DesignCount" name="DesignCount" class="mini-textbox" value="@ViewData["DesignCount"]" />
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 80px; text-align: right;">项目编号</td>
+                    <td>
+                        <input id="ProjectCode" name="ProjectCode" class="mini-textbox" readonly="true" style="width: 200px;" value="@ViewData["ProjectCode"]" />
+                    </td>
+                    <td style="width: 80px; text-align: right;">项目进度</td>
+                    <td>
+                        <input id="ProjectProgressName" name="ProjectProgressName" class="mini-textbox" readonly="true" style="width:200px;" value="@ViewData["ProjectProgressName"]" />
+                    </td>
+                </tr>
+            </table>
+            <div id="div1">
+                <fieldset>
+                    <legend><b>天桅</b></legend>
+                    <table style="width: 100%;">
+                        <tr>
+                            <td style="width: 80px; text-align: right;">工程经理</td>
+                            <td>
+                                <input id="ProjectManagerName1" name="ProjectManagerName1" class="mini-textbox" readonly="true" style="width: 200px;" value="@ViewData["ProjectManagerName1"]" />
+                            </td>
+                            <td style="width: 80px; text-align: right;">工程进度</td>
+                            <td>
+                                <input id="EngineeringProgressName1" name="EngineeringProgressName1" class="mini-textbox" readonly="true" style="width:200px;" value="@ViewData["EngineeringProgressName1"]" />
+                            </td>
+                        </tr>
+                    </table>
+                </fieldset>
+            </div>
+            <div id="div2">
+                <fieldset>
+                    <legend><b>天桅基础</b></legend>
+                    <table style="width: 100%;">
+                        <tr>
+                            <td style="width: 80px; text-align: right;">工程经理</td>
+                            <td>
+                                <input id="ProjectManagerName2" name="ProjectManagerName2" class="mini-textbox" readonly="true" style="width: 200px;" value="@ViewData["ProjectManagerName2"]" />
+                            </td>
+                            <td style="width: 80px; text-align: right;">工程进度</td>
+                            <td>
+                                <input id="EngineeringProgressName2" name="EngineeringProgressName2" class="mini-textbox" readonly="true" style="width:200px;" value="@ViewData["EngineeringProgressName2"]" />
+                            </td>
+                        </tr>
+                    </table>
+                </fieldset>
+            </div>
+            <div id="div3">
+                <fieldset>
+                    <legend><b>机房</b></legend>
+                    <table style="width: 100%;">
+                        <tr>
+                            <td style="width: 80px; text-align: right;">工程经理</td>
+                            <td>
+                                <input id="ProjectManagerName3" name="ProjectManagerName3" class="mini-textbox" readonly="true" style="width: 200px;" value="@ViewData["ProjectManagerName3"]" />
+                            </td>
+                            <td style="width: 80px; text-align: right;">工程进度</td>
+                            <td>
+                                <input id="EngineeringProgressName3" name="EngineeringProgressName3" class="mini-textbox" readonly="true" style="width:200px;" value="@ViewData["EngineeringProgressName3"]" />
+                            </td>
+                        </tr>
+                    </table>
+                </fieldset>
+            </div>
+            <div id="div4">
+                <fieldset>
+                    <legend><b>外电引入</b></legend>
+                    <table style="width: 100%;">
+                        <tr>
+                            <td style="width: 80px; text-align: right;">工程经理</td>
+                            <td>
+                                <input id="ProjectManagerName4" name="ProjectManagerName4" class="mini-textbox" readonly="true" style="width: 200px;" value="@ViewData["ProjectManagerName4"]" />
+                            </td>
+                            <td style="width: 80px; text-align: right;">工程进度</td>
+                            <td>
+                                <input id="EngineeringProgressName4" name="EngineeringProgressName4" class="mini-textbox" readonly="true" style="width:200px;" value="@ViewData["EngineeringProgressName4"]" />
+                            </td>
+                        </tr>
+                    </table>
+                </fieldset>
+            </div>
+            <div id="div5">
+                <fieldset>
+                    <legend><b>设备安装</b></legend>
+                    <table style="width: 100%;">
+                        <tr>
+                            <td style="width: 80px; text-align: right;">工程经理</td>
+                            <td>
+                                <input id="ProjectManagerName5" name="ProjectManagerName5" class="mini-textbox" readonly="true" style="width: 200px;" value="@ViewData["ProjectManagerName5"]" />
+                            </td>
+                            <td style="width: 80px; text-align: right;">工程进度</td>
+                            <td>
+                                <input id="EngineeringProgressName5" name="EngineeringProgressName5" class="mini-textbox" readonly="true" style="width:200px;" value="@ViewData["EngineeringProgressName5"]" />
+                            </td>
+                        </tr>
+                    </table>
+                </fieldset>
+            </div>
+            <div id="div6">
+                <fieldset>
+                    <legend><b>线路</b></legend>
+                    <table style="width: 100%;">
+                        <tr>
+                            <td style="width: 80px; text-align: right;">工程经理</td>
+                            <td>
+                                <input id="ProjectManagerName6" name="ProjectManagerName6" class="mini-textbox" readonly="true" style="width: 200px;" value="@ViewData["ProjectManagerName6"]" />
+                            </td>
+                            <td style="width: 80px; text-align: right;">工程进度</td>
+                            <td>
+                                <input id="EngineeringProgressName6" name="EngineeringProgressName6" class="mini-textbox" readonly="true" style="width:200px;" value="@ViewData["EngineeringProgressName6"]" />
+                            </td>
+                        </tr>
+                    </table>
+                </fieldset>
+            </div>
+            <fieldset>
+                <legend><b>本次编辑内容</b></legend>
+                <table style="width: 100%;">
+                    <tr>
+                        <td style="width: 80px; text-align: right;">2G逻辑号</td>
+                        <td>
+                            <input id="G2Number" name="G2Number" class="mini-textbox" style="width: 200px;" value="@ViewData["G2Number"]" />
+                        </td>
+                        <td style="width: 80px; text-align: right;">2D逻辑号</td>
+                        <td>
+                            <input id="D2Number" name="D2Number" class="mini-textbox" style="width:200px;" value="@ViewData["D2Number"]" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="width: 80px; text-align: right;">3G逻辑号</td>
+                        <td>
+                            <input id="G3Number" name="G3Number" class="mini-textbox" style="width: 200px;" value="@ViewData["G3Number"]" />
+                        </td>
+                        <td style="width: 80px; text-align: right;">4G逻辑号</td>
+                        <td>
+                            <input id="G4Number" name="G4Number" class="mini-textbox" style="width:200px;" value="@ViewData["G4Number"]" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="width: 80px; text-align: right;">5G逻辑号</td>
+                        <td colspan="3">
+                            <input id="G5Number" name="G5Number" class="mini-textbox" style="width: 200px;" value="@ViewData["G5Number"]" />
+                        </td>
+                    </tr>
+                </table>
+            </fieldset>
+        </div>
+    </div>
+    <table style="width: 100%;">
+        <tr>
+            <td align="center">
+                <a class="mini-button" iconcls="icon-save" onclick="onSaveClick">保存</a>
+            </td>
+        </tr>
+    </table>
+</div>
+<script type="text/javascript">
+    mini.parse();
+
+    var frmAddressing = new mini.Form("#frmAddressing");
+    var txtAddressingId = mini.get("Id");
+    var txtProjectTaskId = mini.get("ProjectTaskId");
+    var txtWFActivityInstanceId = mini.get("WFActivityInstanceId");
+    var txtPlanningId = mini.get("PlanningId");
+    var txtPlaceId = mini.get("PlaceId");
+    var txtFileIdList = mini.get("FileIdList");
+    var txtDesignFileIdList = mini.get("DesignFileIdList");
+    var dp_DesignDate = mini.get("DesignDate");
+
+    var count = mini.get("Count");
+    count.setWidth("10px");
+    if (count.setReadOnly) count.setReadOnly(true);     //只读
+    if (count.setIsValid) count.setIsValid(true);      //去除错误提示
+    if (count.addCls) count.addCls("asLabel");          //增加asLabel外观
+
+    var designCount = mini.get("DesignCount");
+    designCount.setWidth("10px");
+    if (designCount.setReadOnly) designCount.setReadOnly(true);     //只读
+    if (designCount.setIsValid) designCount.setIsValid(true);      //去除错误提示
+    if (designCount.addCls) designCount.addCls("asLabel");          //增加asLabel外观
+
+    init()
+
+    function init() {
+        dp_DesignDate.setValue("@ViewData["DesignDateText"]");
+
+        if ("@ViewData["Mark1"]" == "1") {
+            document.getElementById("div1").style.display = "";
+        }
+        else {
+            document.getElementById("div1").style.display = "none";
+        }
+        if ("@ViewData["Mark2"]" == "1") {
+            document.getElementById("div2").style.display = "";
+        }
+        else {
+            document.getElementById("div2").style.display = "none";
+        }
+        if ("@ViewData["Mark3"]" == "1") {
+            document.getElementById("div3").style.display = "";
+        }
+        else {
+            document.getElementById("div3").style.display = "none";
+        }
+        if ("@ViewData["Mark4"]" == "1") {
+            document.getElementById("div4").style.display = "";
+        }
+        else {
+            document.getElementById("div4").style.display = "none";
+        }
+        if ("@ViewData["Mark5"]" == "1") {
+            document.getElementById("div5").style.display = "";
+        }
+        else {
+            document.getElementById("div5").style.display = "none";
+        }
+        if ("@ViewData["Mark6"]" == "1") {
+            document.getElementById("div6").style.display = "";
+        }
+        else {
+            document.getElementById("div6").style.display = "none";
+        }
+    }
+
+    function onMapClick() {
+        var el = document.body;
+        mini.mask({
+            el: el,
+            cls: 'mini-mask-loading',
+            html: '加载中...'
+        });
+        setTimeout(function () {
+            var url, data, getId;
+            if (txtPlaceId.getValue() == "00000000-0000-0000-0000-000000000000") {
+                url = "@Url.RouteUrl(new { controller = "Map", action = "GetPlanningPoint" })";
+                data = { PlanningId: txtPlanningId.getValue(), AreaId: "00000000-0000-0000-0000-000000000000", PlanningName: "", Lng: 0, Lat: 0, Profession: 1 };
+                getId = txtPlanningId.getValue();
+            }
+            else {
+                url = "@Url.RouteUrl(new { controller = "Map", action = "GetPlacePoint" })";
+                data = { PlaceId: txtPlaceId.getValue(), AreaId: "00000000-0000-0000-0000-000000000000", PlaceName: "", Lng: 0, Lat: 0, Profession: 1 };
+                getId = txtPlaceId.getValue();
+            }
+            $.ajax({
+                url: url,
+                data: data,
+                type: "get",
+                async: false,
+                success: function (result, textStatus) {
+                    mini.unmask(el);
+                    if (result.Id != null && result.Id == getId) {
+                        var title;
+                        if (txtPlaceId.getValue() == "00000000-0000-0000-0000-000000000000") {
+                            title = result.PlanningName;
+                        }
+                        else {
+                            title = result.PlaceName;
+                        }
+                        mini.open({
+                            url: "@Url.RouteUrl(new { controller = "Map", action = "NavigationMap" })",
+                            title: title,
+                            iconCls: "icon-map",
+                            width: 800,
+                            height: 550,
+                            showMaxButton: true,
+                            onload: function () {
+                                var iframe = this.getIFrameEl();
+                                var data = result;
+                                iframe.contentWindow.SetData(data);
+                            }
+                        });
+                    }
+                },
+                error: function (xmlHttpRequest, textStatus, errorThrown) {
+                    mini.unmask(el);
+                }
+            });
+        }, 50);
+    }
+
+    function onFileClick() {
+        var el = document.body;
+        mini.mask({
+            el: el,
+            cls: 'mini-mask-loading',
+            html: '加载中...'
+        });
+        setTimeout(function () {
+            $.ajax({
+                url: "@Url.RouteUrl(new { controller = "File", action = "GetAddressingFiles" })",
+                data: { AddressingId: txtAddressingId.getValue(), FileIdList: txtFileIdList.getValue() },
+                type: "get",
+                async: false,
+                success: function (result, textStatus) {
+                    mini.unmask(el);
+                    if (result.Code == null || !result.Code) {
+                        mini.open({
+                            url: "@Url.RouteUrl(new { controller = "File", action = "FileManager" })",
+                            title: "附件",
+                            iconCls: "icon-file",
+                            width: 620,
+                            height: 250,
+                            allowResize: false,
+                            onload: function () {
+                                var iframe = this.getIFrameEl();
+                                var data = result;
+                                iframe.contentWindow.SetData(data);
+                            }
+                        });
+                    }
+                },
+                error: function (xmlHttpRequest, textStatus, errorThrown) {
+                    mini.unmask(el);
+                }
+            });
+        }, 50);
+    }
+
+    function onDesignFileClick() {
+        var el = document.body;
+        mini.mask({
+            el: el,
+            cls: 'mini-mask-loading',
+            html: '加载中...'
+        });
+        setTimeout(function () {
+            $.ajax({
+                url: "@Url.RouteUrl(new { controller = "File", action = "GetGeneralDesignFiles" })",
+                data: { ProjectTaskId: txtProjectTaskId.getValue(), FileIdList: txtDesignFileIdList.getValue() },
+                type: "get",
+                async: false,
+                success: function (result, textStatus) {
+                    mini.unmask(el);
+                    if (result.Code == null || !result.Code) {
+                        mini.open({
+                            url: "@Url.RouteUrl(new { controller = "File", action = "FileManager" })",
+                            title: "附件",
+                            iconCls: "icon-file",
+                            width: 620,
+                            height: 250,
+                            allowResize: false,
+                            onload: function () {
+                                var iframe = this.getIFrameEl();
+                                var data = result;
+                                iframe.contentWindow.SetData(data);
+                            }
+                        });
+                    }
+                },
+                error: function (xmlHttpRequest, textStatus, errorThrown) {
+                    mini.unmask(el);
+                }
+            });
+        }, 50);
+    }
+
+    function onSaveClick() {
+        frmAddressing.validate();
+        if (frmAddressing.isValid() == false) return;
+        var loading = mini.loading("处理中,请稍后...", "保存数据");
+        var jsonData = mini.encode(frmAddressing.getData());
+        $.ajax({
+            url: "@Url.RouteUrl(new { controller = "EditPage", action = "SaveLogicalNumber" })",
+            data: AddAntiForgeryToken({ data: jsonData }),
+            type: "post",
+            success: function (result, textStatus) {
+                mini.hideMessageBox(loading);
+                if (result.Code != null && result.Code == 0) {
+                    ShowSucessMessage(result.Message);
+                }
+            },
+            error: function (xmlHttpRequest, textStatus, errorThrown) {
+                mini.hideMessageBox(loading);
+            }
+        });
+    }
+</script>

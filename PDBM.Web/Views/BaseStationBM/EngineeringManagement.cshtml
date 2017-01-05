@@ -1,0 +1,2416 @@
+﻿<div id="myToolbar" class="mini-toolbar" style="border-bottom: 0px; padding: 0px;">
+    <table style="width: 100%;" cellpadding="0" cellspacing="0">
+        <tr>
+            <td style="width: 100%;">
+                <a class="mini-button" iconcls="icon-help" plain="true" href="@Url.RouteUrl(new { controller = "File", action = "DownloadHelpFiles" })?FileName=EngineeringManagement" target="_blank"></a>当前位置：基站建维>施工管理>工程管理
+            </td>
+            <td style="white-space: nowrap;">
+                <a id="btnSearch" class="mini-button" iconcls="icon-search" plain="true" onclick="onSearchClick">查询</a>
+                <a id="btnEdit" class="mini-button" iconcls="icon-edit" plain="true" onclick="onEditClick">修改</a>
+            </td>
+        </tr>
+    </table>
+</div>
+<div class="mini-fit">
+    <div id="dgEngineeringManagement" class="mini-datagrid" style="width: 100%; height: 100%;" idfield="Id" allowmovecolumn="false"
+         multiselect="true" fitcolumns="false" onlycheckselection="true" showreloadbutton="false" pagesize="15" sizelist="[15,30,50,100]"
+         virtualscroll="false" frozenstartcolumn="0" frozenendcolumn="3" ondrawcell="onDrawCell" onload="onDgEngineeringManagementLoad" oncellclick="onCellClick">
+        <div property="columns">
+            <div type="indexcolumn"></div>
+            <div type="checkcolumn"></div>
+            <div field="PlaceId"></div>
+            <div field="TaskModelId"></div>
+            <div field="ConstructionTaskId"></div>
+            <div field="GroupPlaceCode" header="站点编码" width="80"></div>
+            <div field="PlaceName" header="基站名称" width="150"></div>
+            <div field="AreaName" header="区域" width="80"></div>
+            <div field="ReseauName" header="网格" width="80"></div>
+            <div field="PlaceCategoryName" header="基站类型" width="80"></div>
+            <div field="Map" header="导航图" width="50"></div>
+            <div type="comboboxcolumn" field="ConstructionMethod" header="建设方式" width="60">
+                <input property="editor" class="mini-combobox" style="width: 100%;" data=@Html.Raw(ViewData["ConstructionMethod"]) />
+            </div>
+            <div field="ProjectName" header="建设项目" width="200"></div>
+            <div type="comboboxcolumn" field="TaskModel" header="工程名称" width="60">
+                <input property="editor" class="mini-combobox" style="width: 100%;" data=@Html.Raw(ViewData["TaskModel"]) />
+            </div>
+            <div field="RestDays" header="剩余天数" width="60"></div>
+            <div field="FullName" header="工程经理" width="60"></div>
+            <div field="CustomerName" header="施工单位" width="60"></div>
+            <div field="SupervisorCustomerName" header="监理单位" width="60"></div>
+            <div type="comboboxcolumn" field="ConstructionProgress" header="现场进度" width="60">
+                <input property="editor" class="mini-combobox" style="width: 100%;" data=@Html.Raw(ViewData["ConstructionProgress"]) />
+            </div>
+            <div type="comboboxcolumn" field="SubmitState" header="资料状态" width="60">
+                <input property="editor" class="mini-combobox" style="width: 100%;" data=@Html.Raw(ViewData["SubmitState"]) />
+            </div>
+        </div>
+    </div>
+</div>
+<div id="winQuery" class="mini-window" style="width: 600px; height: 190px;"
+     showmodal="true" allowresize="false" title="查询条件">
+    <table style="width: 100%;">
+        <tr>
+            <td style="width: 80px; text-align: right;">基站名称</td>
+            <td>
+                <input id="txtPlaceName" class="mini-textbox" style="width:200px;" />
+            </td>
+            <td style="width: 80px; text-align: right;">基站类型</td>
+            <td>
+                <input id="cbPlaceCategoryId" class="mini-combobox" value="00000000-0000-0000-0000-000000000000" style="width:200px;" textfield="PlaceCategoryName" valuefield="Id" data="[{Id:'00000000-0000-0000-0000-000000000000',PlaceCategoryName:'全部'}]"
+                       onload="onCbPlaceCategoryIdLoad" />
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 80px; text-align: right;">区域</td>
+            <td>
+                <input id="cbAreaId" class="mini-combobox" value="00000000-0000-0000-0000-000000000000" style="width:200px;" textfield="AreaName" valuefield="Id" data=@Html.Raw(ViewData["AreasByAll"])
+                       onvaluechanged="onCbAreaIdValueChanged" />
+            </td>
+            <td style="width: 80px; text-align: right;">网格</td>
+            <td>
+                <input id="cbReseauId" class="mini-combobox" value="00000000-0000-0000-0000-000000000000" style="width:200px;" textfield="ReseauName" valuefield="Id" data="[{Id:'00000000-0000-0000-0000-000000000000',ReseauName:'全部'}]"
+                       onload="onCbReseauIdLoad" />
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 80px; text-align: right;">施工单位</td>
+            <td>
+                <input id="CustomerId" name="CustomerId" style="width:200px;" allowinput="false" class="mini-buttonedit searchbox" showclose="true" text="全部" value="00000000-0000-0000-0000-000000000000"
+                       onbuttonclick="onCustomerSelectButtonClick" oncloseclick="onCustomerSelectButtonCloseClick" />
+            </td>
+            <td style="width: 80px; text-align: right;">监理单位</td>
+            <td>
+                <input id="SupervisorCustomerId" name="SupervisorCustomerId" style="width:200px;" allowinput="false" class="mini-buttonedit searchbox" showclose="true" text="全部" value="00000000-0000-0000-0000-000000000000"
+                       onbuttonclick="onSupervisorCustomerIdSelectButtonClick" oncloseclick="onSupervisorCustomerIdSelectButtonCloseClick" />
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 80px; text-align: right;">工程名称</td>
+            <td>
+                <input id="cbTaskModel" class="mini-combobox" value="0" style="width:200px;" data=@Html.Raw(ViewData["TaskModelByAll"]) />
+            </td>
+            <td style="width: 80px; text-align: right;">建设进度</td>
+            <td>
+                <input id="cbConstructionProgress" class="mini-combobox" value="6" style="width:200px;" data=@Html.Raw(ViewData["ConstructionProgressByAll"]) />
+            </td>
+        </tr>
+    </table>
+    <div style="text-align: center; padding: 10px;">
+        <a class="mini-button" iconcls="icon-ok" onclick="onOKClick">确定</a>
+    </div>
+</div>
+<div id="winEngineeringManagement1" class="mini-window" style="width: 600px; height: 460px;"
+     showmodal="true" allowresize="false">
+    <div id="frmEngineeringManagement1" class="form">
+        <input class="mini-hidden" id="Id" name="Id" value="@ViewData["Id"]" />
+        <input class="mini-hidden" id="TowerId" name="TowerId" value="@ViewData["TowerId"]" />
+        <input class="mini-hidden" id="TowerBudget" name="TowerBudget" value="@ViewData["TowerBudget"]" />
+        <input class="mini-hidden" id="FileIdList1" name="FileIdList1" value="@ViewData["FileIdList"]" />
+        <input class="mini-hidden" id="FileIdListTower" name="FileIdListTower" value="@ViewData["FileIdListTower"]" />
+        <fieldset>
+            <legend><b>进度</b></legend>
+            <table style="width: 100%;">
+                <tr>
+                    <td style="width: 80px; text-align: right;">建设进度</td>
+                    <td>
+                        <input id="ConstructionProgress" name="ConstructionProgress" class="mini-combobox" value="1" style="width:150px;" data=@Html.Raw(ViewData["ConstructionProgress"]) />
+                    </td>
+                    <td style="width: 80px; text-align: right;">现场影像</td>
+                    <td style="width:150px">
+                        <table>
+                            <tr>
+                                <td style="width:16px">
+                                    <a class="fileedit" onclick="onFileEditClick1()"></a>
+                                </td>
+                                <td style="width:134px">
+                                    附件数量：<input id="Count1" name="Count1" class="mini-textbox" value="@ViewData["Count1"]" />
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 80px; text-align: right;">进度简述</td>
+                    <td colspan="3">
+                        <input id="ProgressMemos" name="ProgressMemos" class="mini-textarea" style="width: 93%; height: 40px;" />
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 80px; text-align: right;">
+                        登记人
+                    </td>
+                    <td style="width:150px">
+                        <input id="ProgressFullName" name="ProgressFullName" class="mini-textbox" style="width:150px;" value="@ViewData["ProgressFullName"]" />
+                    </td>
+                    <td style="width: 80px; text-align: right;">
+                        登记日期
+                    </td>
+                    <td style="width:150px">
+                        <input id="ProgressModifyDate" name="ProgressModifyDate" class="mini-textbox" style="width:150px;" value="@ViewData["ProgressModifyDate"]" />
+                    </td>
+                </tr>
+            </table>
+        </fieldset>
+        <fieldset>
+            <legend><b>资源</b></legend>
+            <table style="width: 100%;">
+                <tr>
+                    <td style="width: 80px; text-align: right;">铁塔类型</td>
+                    <td style="width:150px">
+                        <input id="TowerType" name="TowerType" class="mini-combobox" value="0" style="width:150px;" data=@Html.Raw(ViewData["TowerTypeList"]) required="true" onvalidation="onTowerTypeValidation" />
+                    </td>
+                    <td style="width: 80px; text-align: right;">铁塔高度(米)</td>
+                    <td style="width:150px">
+                        <input id="TowerHeight" name="TowerHeight" class="mini-textbox" vtype='float' value="0.00" required="true" style="width: 150px;" />
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 80px; text-align: right;">平台数量(层)</td>
+                    <td style="width:150px">
+                        <input id="PlatFormNumber" name="PlatFormNumber" class="mini-textbox" vtype='int' value="0" required="true" style="width: 150px;" />
+                    </td>
+                    <td style="width: 80px; text-align: right;">抱杆数量(根)</td>
+                    <td style="width:150px">
+                        <input id="PoleNumber" name="PoleNumber" class="mini-textbox" vtype='int' value="0" required="true" style="width: 150px;" />
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 80px; text-align: right;">铁塔图纸</td>
+                    <td colspan="3">
+                        <table>
+                            <tr>
+                                <td style="width:16px">
+                                    <a class="fileedit" onclick="onFileEditTowerClick();"></a>
+                                </td>
+                                <td>
+                                    附件数量：<input id="TowerCount" name="TowerCount" class="mini-textbox" value="@ViewData["TowerCount"]" />
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 80px; text-align: right;">
+                        登记人
+                    </td>
+                    <td style="width:150px">
+                        <input id="TowerFullName" name="TowerFullName" class="mini-textbox" style="width:150px;" value="@ViewData["TowerFullName"]" />
+                    </td>
+                    <td style="width: 80px; text-align: right;">
+                        登记日期
+                    </td>
+                    <td style="width:150px">
+                        <input id="TowerModifyDate" name="TowerModifyDate" class="mini-textbox" style="width:150px;" value="@ViewData["TowerModifyDate"]" />
+                    </td>
+                </tr>
+            </table>
+        </fieldset>
+        <fieldset>
+            <legend><b>资料</b></legend>
+            <table style="width: 100%;">
+                <tr>
+                    <td style="width: 80px; text-align: right;">资料状态</td>
+                    <td colspan="3">
+                        <input id="SubmitState" name="SubmitState" class="mini-combobox" value="1" style="width:150px;" data=@Html.Raw(ViewData["SubmitState"]) />
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 80px; text-align: right;">
+                        登记人
+                    </td>
+                    <td style="width:150px">
+                        <input id="SubmitFullName" name="SubmitFullName" class="mini-textbox" style="width:150px;" value="@ViewData["SubmitFullName"]" />
+                    </td>
+                    <td style="width: 80px; text-align: right;">
+                        登记日期
+                    </td>
+                    <td style="width:150px">
+                        <input id="SubmitModifyDate" name="SubmitModifyDate" class="mini-textbox" style="width:150px;" value="@ViewData["SubmitModifyDate"]" />
+                    </td>
+                </tr>
+            </table>
+        </fieldset>
+    </div>
+    <div style="text-align: center; padding: 10px;">
+        <a class="mini-button" iconcls="icon-save" onclick="onSaveClick1" style="margin-right: 10px;">保存</a>
+    </div>
+</div>
+<div id="winEngineeringManagement2" class="mini-window" style="width: 600px; height: 410px;"
+     showmodal="true" allowresize="false">
+    <div id="frmEngineeringManagement2" class="form">
+        <input class="mini-hidden" id="Id" name="Id" value="@ViewData["Id"]" />
+        <input class="mini-hidden" id="TowerBaseId" name="TowerBaseId" value="@ViewData["TowerBaseId"]" />
+        <input class="mini-hidden" id="TowerBaseBudget" name="TowerBaseBudget" value="@ViewData["TowerBaseBudget"]" />
+        <input class="mini-hidden" id="FileIdList2" name="FileIdList2" value="@ViewData["FileIdList"]" />
+        <input class="mini-hidden" id="FileIdListTowerBase" name="FileIdListTowerBase" value="@ViewData["FileIdListTowerBase"]" />
+        <fieldset>
+            <legend><b>进度</b></legend>
+            <table style="width: 100%;">
+                <tr>
+                    <td style="width: 80px; text-align: right;">建设进度</td>
+                    <td>
+                        <input id="ConstructionProgress" name="ConstructionProgress" class="mini-combobox" value="1" style="width:150px;" data=@Html.Raw(ViewData["ConstructionProgress"]) />
+                    </td>
+                    <td style="width: 80px; text-align: right;">现场影像</td>
+                    <td style="width:150px">
+                        <table>
+                            <tr>
+                                <td style="width:16px">
+                                    <a class="fileedit" onclick="onFileEditClick2()"></a>
+                                </td>
+                                <td style="width:134px">
+                                    附件数量：<input id="Count2" name="Count2" class="mini-textbox" value="@ViewData["Count2"]" />
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 80px; text-align: right;">进度简述</td>
+                    <td colspan="3">
+                        <input id="ProgressMemos" name="ProgressMemos" class="mini-textarea" style="width: 93%; height: 40px;" />
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 80px; text-align: right;">
+                        登记人
+                    </td>
+                    <td style="width:150px">
+                        <input id="ProgressFullName" name="ProgressFullName" class="mini-textbox" style="width:150px;" value="@ViewData["ProgressFullName"]" />
+                    </td>
+                    <td style="width: 80px; text-align: right;">
+                        登记日期
+                    </td>
+                    <td style="width:150px">
+                        <input id="ProgressModifyDate" name="ProgressModifyDate" class="mini-textbox" style="width:150px;" value="@ViewData["ProgressModifyDate"]" />
+                    </td>
+                </tr>
+            </table>
+        </fieldset>
+        <fieldset>
+            <legend><b>资源</b></legend>
+            <table style="width: 100%;">
+                <tr>
+                    <td style="width: 80px; text-align: right;">基础类型</td>
+                    <td style="width:150px">
+                        <input id="TowerBaseType" name="TowerBaseType" class="mini-combobox" value="0" style="width:150px;" data=@Html.Raw(ViewData["TowerBaseTypeList"]) required="true" onvalidation="onTowerBaseTypeValidation" />
+                    </td>
+                    <td style="width: 80px; text-align: right;">塔基图纸</td>
+                    <td style="width:150px">
+                        <table>
+                            <tr>
+                                <td style="width:16px">
+                                    <a class="fileedit" onclick="onFileEditTowerBaseClick();"></a>
+                                </td>
+                                <td>
+                                    附件数量：<input id="TowerBaseCount" name="TowerBaseCount" class="mini-textbox" value="@ViewData["TowerBaseCount"]" />
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 80px; text-align: right;">
+                        登记人
+                    </td>
+                    <td style="width:150px">
+                        <input id="TowerBaseFullName" name="TowerBaseFullName" class="mini-textbox" style="width:150px;" value="@ViewData["TowerBaseFullName"]" />
+                    </td>
+                    <td style="width: 80px; text-align: right;">
+                        登记日期
+                    </td>
+                    <td style="width:150px">
+                        <input id="TowerBaseModifyDate" name="TowerBaseModifyDate" class="mini-textbox" style="width:150px;" value="@ViewData["TowerBaseModifyDate"]" />
+                    </td>
+                </tr>
+            </table>
+        </fieldset>
+        <fieldset>
+            <legend><b>资料</b></legend>
+            <table style="width: 100%;">
+                <tr>
+                    <td style="width: 80px; text-align: right;">资料状态</td>
+                    <td colspan="3">
+                        <input id="SubmitState" name="SubmitState" class="mini-combobox" value="1" style="width:150px;" data=@Html.Raw(ViewData["SubmitState"]) />
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 80px; text-align: right;">
+                        登记人
+                    </td>
+                    <td style="width:150px">
+                        <input id="SubmitFullName" name="SubmitFullName" class="mini-textbox" style="width:150px;" value="@ViewData["SubmitFullName"]" />
+                    </td>
+                    <td style="width: 80px; text-align: right;">
+                        登记日期
+                    </td>
+                    <td style="width:150px">
+                        <input id="SubmitModifyDate" name="SubmitModifyDate" class="mini-textbox" style="width:150px;" value="@ViewData["SubmitModifyDate"]" />
+                    </td>
+                </tr>
+            </table>
+        </fieldset>
+    </div>
+    <div style="text-align: center; padding: 10px;">
+        <a class="mini-button" iconcls="icon-save" onclick="onSaveClick2" style="margin-right: 10px;">保存</a>
+    </div>
+</div>
+<div id="winEngineeringManagement3" class="mini-window" style="width: 600px; height: 435px;"
+     showmodal="true" allowresize="false">
+    <div id="frmEngineeringManagement3" class="form">
+        <input class="mini-hidden" id="Id" name="Id" value="@ViewData["Id"]" />
+        <input class="mini-hidden" id="MachineRoomId" name="MachineRoomId" value="@ViewData["MachineRoomId"]" />
+        <input class="mini-hidden" id="MachineRoomBudget" name="MachineRoomBudget" value="@ViewData["MachineRoomBudget"]" />
+        <input class="mini-hidden" id="FileIdList3" name="FileIdList3" value="@ViewData["FileIdList"]" />
+        <input class="mini-hidden" id="FileIdListMachineRoom" name="FileIdListMachineRoom" value="@ViewData["FileIdListMachineRoom"]" />
+        <fieldset>
+            <legend><b>进度</b></legend>
+            <table style="width: 100%;">
+                <tr>
+                    <td style="width: 80px; text-align: right;">建设进度</td>
+                    <td>
+                        <input id="ConstructionProgress" name="ConstructionProgress" class="mini-combobox" value="1" style="width:150px;" data=@Html.Raw(ViewData["ConstructionProgress"]) />
+                    </td>
+                    <td style="width: 80px; text-align: right;">现场影像</td>
+                    <td style="width:150px">
+                        <table>
+                            <tr>
+                                <td style="width:16px">
+                                    <a class="fileedit" onclick="onFileEditClick3()"></a>
+                                </td>
+                                <td style="width:134px">
+                                    附件数量：<input id="Count3" name="Count3" class="mini-textbox" value="@ViewData["Count3"]" />
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 80px; text-align: right;">进度简述</td>
+                    <td colspan="3">
+                        <input id="ProgressMemos" name="ProgressMemos" class="mini-textarea" style="width: 93%; height: 40px;" />
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 80px; text-align: right;">
+                        登记人
+                    </td>
+                    <td style="width:150px">
+                        <input id="ProgressFullName" name="ProgressFullName" class="mini-textbox" style="width:150px;" value="@ViewData["ProgressFullName"]" />
+                    </td>
+                    <td style="width: 80px; text-align: right;">
+                        登记日期
+                    </td>
+                    <td style="width:150px">
+                        <input id="ProgressModifyDate" name="ProgressModifyDate" class="mini-textbox" style="width:150px;" value="@ViewData["ProgressModifyDate"]" />
+                    </td>
+                </tr>
+            </table>
+        </fieldset>
+        <fieldset>
+            <legend><b>资源</b></legend>
+            <table style="width: 100%;">
+                <tr>
+                    <td style="width: 80px; text-align: right;">机房类型</td>
+                    <td style="width:150px">
+                        <input id="MachineRoomType" name="MachineRoomType" class="mini-combobox" value="0" style="width:150px;" data=@Html.Raw(ViewData["MachineRoomTypeList"]) required="true" onvalidation="onMachineRoomTypeValidation" />
+                    </td>
+                    <td style="width: 80px; text-align: right;">机房面积(m²)</td>
+                    <td style="width:150px">
+                        <input id="MachineRoomArea" name="MachineRoomArea" class="mini-textbox" vtype='float' value="0.00" required="true" style="width: 150px;" />
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 80px; text-align: right;">机房图纸</td>
+                    <td colspan="3">
+                        <table>
+                            <tr>
+                                <td style="width:16px">
+                                    <a class="fileedit" onclick="onFileEditMachineRoomClick();"></a>
+                                </td>
+                                <td>
+                                    附件数量：<input id="MachineRoomCount" name="MachineRoomCount" class="mini-textbox" value="@ViewData["MachineRoomCount"]" />
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 80px; text-align: right;">
+                        登记人
+                    </td>
+                    <td style="width:150px">
+                        <input id="MachineRoomFullName" name="MachineRoomFullName" class="mini-textbox" style="width:150px;" value="@ViewData["MachineRoomFullName"]" />
+                    </td>
+                    <td style="width: 80px; text-align: right;">
+                        登记日期
+                    </td>
+                    <td style="width:150px">
+                        <input id="MachineRoomModifyDate" name="MachineRoomModifyDate" class="mini-textbox" style="width:150px;" value="@ViewData["MachineRoomModifyDate"]" />
+                    </td>
+                </tr>
+            </table>
+        </fieldset>
+        <fieldset>
+            <legend><b>资料</b></legend>
+            <table style="width: 100%;">
+                <tr>
+                    <td style="width: 80px; text-align: right;">资料状态</td>
+                    <td colspan="3">
+                        <input id="SubmitState" name="SubmitState" class="mini-combobox" value="1" style="width:150px;" data=@Html.Raw(ViewData["SubmitState"]) />
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 80px; text-align: right;">
+                        登记人
+                    </td>
+                    <td style="width:150px">
+                        <input id="SubmitFullName" name="SubmitFullName" class="mini-textbox" style="width:150px;" value="@ViewData["SubmitFullName"]" />
+                    </td>
+                    <td style="width: 80px; text-align: right;">
+                        登记日期
+                    </td>
+                    <td style="width:150px">
+                        <input id="SubmitModifyDate" name="SubmitModifyDate" class="mini-textbox" style="width:150px;" value="@ViewData["SubmitModifyDate"]" />
+                    </td>
+                </tr>
+            </table>
+        </fieldset>
+    </div>
+    <div style="text-align: center; padding: 10px;">
+        <a class="mini-button" iconcls="icon-save" onclick="onSaveClick3" style="margin-right: 10px;">保存</a>
+    </div>
+</div>
+<div id="winEngineeringManagement4" class="mini-window" style="width: 600px; height: 410px;"
+     showmodal="true" allowresize="false">
+    <div id="frmEngineeringManagement4" class="form">
+        <input class="mini-hidden" id="Id" name="Id" value="@ViewData["Id"]" />
+        <input class="mini-hidden" id="ExternalElectricPowerId" name="ExternalElectricPowerId" value="@ViewData["ExternalElectricPowerId"]" />
+        <input class="mini-hidden" id="ExternalBudget" name="ExternalBudget" value="@ViewData["ExternalBudget"]" />
+        <input class="mini-hidden" id="FileIdList4" name="FileIdList4" value="@ViewData["FileIdList"]" />
+        <input class="mini-hidden" id="FileIdListExternal" name="FileIdListExternal" value="@ViewData["FileIdListExternal"]" />
+        <fieldset>
+            <legend><b>进度</b></legend>
+            <table style="width: 100%;">
+                <tr>
+                    <td style="width: 80px; text-align: right;">建设进度</td>
+                    <td>
+                        <input id="ConstructionProgress" name="ConstructionProgress" class="mini-combobox" value="1" style="width:150px;" data=@Html.Raw(ViewData["ConstructionProgress"]) />
+                    </td>
+                    <td style="width: 80px; text-align: right;">现场影像</td>
+                    <td style="width:150px">
+                        <table>
+                            <tr>
+                                <td style="width:16px">
+                                    <a class="fileedit" onclick="onFileEditClick4()"></a>
+                                </td>
+                                <td style="width:134px">
+                                    附件数量：<input id="Count4" name="Count4" class="mini-textbox" value="@ViewData["Count4"]" />
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 80px; text-align: right;">进度简述</td>
+                    <td colspan="3">
+                        <input id="ProgressMemos" name="ProgressMemos" class="mini-textarea" style="width: 93%; height: 40px;" />
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 80px; text-align: right;">
+                        登记人
+                    </td>
+                    <td style="width:150px">
+                        <input id="ProgressFullName" name="ProgressFullName" class="mini-textbox" style="width:150px;" value="@ViewData["ProgressFullName"]" />
+                    </td>
+                    <td style="width: 80px; text-align: right;">
+                        登记日期
+                    </td>
+                    <td style="width:150px">
+                        <input id="ProgressModifyDate" name="ProgressModifyDate" class="mini-textbox" style="width:150px;" value="@ViewData["ProgressModifyDate"]" />
+                    </td>
+                </tr>
+            </table>
+        </fieldset>
+        <fieldset>
+            <legend><b>资源</b></legend>
+            <table style="width: 100%;">
+                <tr>
+                    <td style="width: 80px; text-align: right;">引入方式</td>
+                    <td style="width:150px">
+                        <input id="ExternalElectric" name="ExternalElectric" class="mini-combobox" value="0" style="width:150px;" data=@Html.Raw(ViewData["ExternalElectricList"]) required="true" onvalidation="onExternalElectricValidation" />
+                    </td>
+                    <td style="width: 80px; text-align: right;">路由图</td>
+                    <td style="width:150px">
+                        <table>
+                            <tr>
+                                <td style="width:16px">
+                                    <a class="fileedit" onclick="onFileEditExternalClick();"></a>
+                                </td>
+                                <td>
+                                    附件数量：<input id="ExternalCount" name="ExternalCount" class="mini-textbox" value="@ViewData["ExternalCount"]" />
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 80px; text-align: right;">
+                        登记人
+                    </td>
+                    <td style="width:150px">
+                        <input id="ExternalFullName" name="ExternalFullName" class="mini-textbox" style="width:150px;" value="@ViewData["ExternalFullName"]" />
+                    </td>
+                    <td style="width: 80px; text-align: right;">
+                        登记日期
+                    </td>
+                    <td style="width:150px">
+                        <input id="ExternalModifyDate" name="ExternalModifyDate" class="mini-textbox" style="width:150px;" value="@ViewData["ExternalModifyDate"]" />
+                    </td>
+                </tr>
+            </table>
+        </fieldset>
+        <fieldset>
+            <legend><b>资料</b></legend>
+            <table style="width: 100%;">
+                <tr>
+                    <td style="width: 80px; text-align: right;">资料状态</td>
+                    <td colspan="3">
+                        <input id="SubmitState" name="SubmitState" class="mini-combobox" value="1" style="width:150px;" data=@Html.Raw(ViewData["SubmitState"]) />
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 80px; text-align: right;">
+                        登记人
+                    </td>
+                    <td style="width:150px">
+                        <input id="SubmitFullName" name="SubmitFullName" class="mini-textbox" style="width:150px;" value="@ViewData["SubmitFullName"]" />
+                    </td>
+                    <td style="width: 80px; text-align: right;">
+                        登记日期
+                    </td>
+                    <td style="width:150px">
+                        <input id="SubmitModifyDate" name="SubmitModifyDate" class="mini-textbox" style="width:150px;" value="@ViewData["SubmitModifyDate"]" />
+                    </td>
+                </tr>
+            </table>
+        </fieldset>
+    </div>
+    <div style="text-align: center; padding: 10px;">
+        <a class="mini-button" iconcls="icon-save" onclick="onSaveClick4" style="margin-right: 10px;">保存</a>
+    </div>
+</div>
+
+<div id="winEngineeringManagement5" class="mini-window" style="width: 600px; height: 435px;"
+     showmodal="true" allowresize="false">
+    <div id="frmEngineeringManagement5" class="form">
+        <input class="mini-hidden" id="Id" name="Id" value="@ViewData["Id"]" />
+        <input class="mini-hidden" id="EquipmentInstallId" name="EquipmentInstallId" value="@ViewData["EquipmentInstallId"]" />
+        <input class="mini-hidden" id="EquipmentBudget" name="EquipmentBudget" value="@ViewData["EquipmentBudget"]" />
+        <input class="mini-hidden" id="FileIdList5" name="FileIdList5" value="@ViewData["FileIdList"]" />
+        <input class="mini-hidden" id="FileIdListEquipmentInstall" name="FileIdListEquipmentInstall" value="@ViewData["FileIdListEquipmentInstall"]" />
+        <fieldset>
+            <legend><b>进度</b></legend>
+            <table style="width: 100%;">
+                <tr>
+                    <td style="width: 80px; text-align: right;">建设进度</td>
+                    <td>
+                        <input id="ConstructionProgress" name="ConstructionProgress" class="mini-combobox" value="1" style="width:150px;" data=@Html.Raw(ViewData["ConstructionProgress"]) />
+                    </td>
+                    <td style="width: 80px; text-align: right;">现场影像</td>
+                    <td style="width:150px">
+                        <table>
+                            <tr>
+                                <td style="width:16px">
+                                    <a class="fileedit" onclick="onFileEditClick5()"></a>
+                                </td>
+                                <td style="width:134px">
+                                    附件数量：<input id="Count5" name="Count5" class="mini-textbox" value="@ViewData["Count5"]" />
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 80px; text-align: right;">进度简述</td>
+                    <td colspan="3">
+                        <input id="ProgressMemos" name="ProgressMemos" class="mini-textarea" style="width: 93%; height: 40px;" />
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 80px; text-align: right;">
+                        登记人
+                    </td>
+                    <td style="width:150px">
+                        <input id="ProgressFullName" name="ProgressFullName" class="mini-textbox" style="width:150px;" value="@ViewData["ProgressFullName"]" />
+                    </td>
+                    <td style="width: 80px; text-align: right;">
+                        登记日期
+                    </td>
+                    <td style="width:150px">
+                        <input id="ProgressModifyDate" name="ProgressModifyDate" class="mini-textbox" style="width:150px;" value="@ViewData["ProgressModifyDate"]" />
+                    </td>
+                </tr>
+            </table>
+        </fieldset>
+        <fieldset>
+            <legend><b>资源</b></legend>
+            <table style="width: 100%;">
+                <tr>
+                    <td style="width: 80px; text-align: right;">开关电源(A)</td>
+                    <td style="width:150px">
+                        <input id="SwitchPower" name="SwitchPower" class="mini-textbox" vtype='float' value="0.00" required="true" style="width: 150px;" />
+                    </td>
+                    <td style="width: 80px; text-align: right;">蓄电池(AH)</td>
+                    <td style="width:150px">
+                        <input id="Battery" name="Battery" class="mini-textbox" vtype='float' value="0.00" required="true" style="width: 150px;" />
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 80px; text-align: right;">机柜数量(个)</td>
+                    <td style="width:150px">
+                        <input id="CabinetNumber" name="CabinetNumber" class="mini-textbox" vtype='int' value="0" required="true" style="width: 150px;" />
+                    </td>
+                    <td style="width: 80px; text-align: right;">安装图纸</td>
+                    <td style="width:150px">
+                        <table>
+                            <tr>
+                                <td style="width:16px">
+                                    <a class="fileedit" onclick="onFileEditEquipmentInstallClick();"></a>
+                                </td>
+                                <td>
+                                    附件数量：<input id="EquipmentCount" name="EquipmentCount" class="mini-textbox" value="@ViewData["EquipmentCount"]" />
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 80px; text-align: right;">
+                        登记人
+                    </td>
+                    <td style="width:150px">
+                        <input id="EquipmentFullName" name="EquipmentFullName" class="mini-textbox" style="width:150px;" value="@ViewData["EquipmentFullName"]" />
+                    </td>
+                    <td style="width: 80px; text-align: right;">
+                        登记日期
+                    </td>
+                    <td style="width:150px">
+                        <input id="EquipmentModifyDate" name="EquipmentModifyDate" class="mini-textbox" style="width:150px;" value="@ViewData["EquipmentModifyDate"]" />
+                    </td>
+                </tr>
+            </table>
+        </fieldset>
+        <fieldset>
+            <legend><b>资料</b></legend>
+            <table style="width: 100%;">
+                <tr>
+                    <td style="width: 80px; text-align: right;">资料状态</td>
+                    <td colspan="3">
+                        <input id="SubmitState" name="SubmitState" class="mini-combobox" value="1" style="width:150px;" data=@Html.Raw(ViewData["SubmitState"]) />
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 80px; text-align: right;">
+                        登记人
+                    </td>
+                    <td style="width:150px">
+                        <input id="SubmitFullName" name="SubmitFullName" class="mini-textbox" style="width:150px;" value="@ViewData["SubmitFullName"]" />
+                    </td>
+                    <td style="width: 80px; text-align: right;">
+                        登记日期
+                    </td>
+                    <td style="width:150px">
+                        <input id="SubmitModifyDate" name="SubmitModifyDate" class="mini-textbox" style="width:150px;" value="@ViewData["SubmitModifyDate"]" />
+                    </td>
+                </tr>
+            </table>
+        </fieldset>
+    </div>
+    <div style="text-align: center; padding: 10px;">
+        <a class="mini-button" iconcls="icon-save" onclick="onSaveClick5" style="margin-right: 10px;">保存</a>
+    </div>
+</div>
+<div id="winEngineeringManagement6" class="mini-window" style="width: 600px; height: 410px;"
+     showmodal="true" allowresize="false">
+    <div id="frmEngineeringManagement6" class="form">
+        <input class="mini-hidden" id="Id" name="Id" value="@ViewData["Id"]" />
+        <input class="mini-hidden" id="AddressExplorId" name="AddressExplorId" value="@ViewData["AddressExplorId"]" />
+        <input class="mini-hidden" id="AddressBudget" name="AddressBudget" value="@ViewData["AddressBudget"]" />
+        <input class="mini-hidden" id="FileIdList6" name="FileIdList6" value="@ViewData["FileIdList"]" />
+        <input class="mini-hidden" id="FileIdListAddress" name="FileIdListAddress" value="@ViewData["FileIdListAddress"]" />
+        <fieldset>
+            <legend><b>进度</b></legend>
+            <table style="width: 100%;">
+                <tr>
+                    <td style="width: 80px; text-align: right;">建设进度</td>
+                    <td>
+                        <input id="ConstructionProgress" name="ConstructionProgress" class="mini-combobox" value="1" style="width:150px;" data=@Html.Raw(ViewData["ConstructionProgress"]) />
+                    </td>
+                    <td style="width: 80px; text-align: right;">现场影像</td>
+                    <td style="width:150px">
+                        <table>
+                            <tr>
+                                <td style="width:16px">
+                                    <a class="fileedit" onclick="onFileEditClick6()"></a>
+                                </td>
+                                <td style="width:134px">
+                                    附件数量：<input id="Count6" name="Count6" class="mini-textbox" value="@ViewData["Count6"]" />
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 80px; text-align: right;">进度简述</td>
+                    <td colspan="3">
+                        <input id="ProgressMemos" name="ProgressMemos" class="mini-textarea" style="width: 93%; height: 40px;" />
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 80px; text-align: right;">
+                        登记人
+                    </td>
+                    <td style="width:150px">
+                        <input id="ProgressFullName" name="ProgressFullName" class="mini-textbox" style="width:150px;" value="@ViewData["ProgressFullName"]" />
+                    </td>
+                    <td style="width: 80px; text-align: right;">
+                        登记日期
+                    </td>
+                    <td style="width:150px">
+                        <input id="ProgressModifyDate" name="ProgressModifyDate" class="mini-textbox" style="width:150px;" value="@ViewData["ProgressModifyDate"]" />
+                    </td>
+                </tr>
+            </table>
+        </fieldset>
+        <fieldset>
+            <legend><b>资源</b></legend>
+            <table style="width: 100%;">
+                <tr>
+                    <td style="width: 80px; text-align: right;">地勘报告</td>
+                    <td colspan="3">
+                        <table>
+                            <tr>
+                                <td style="width:16px">
+                                    <a class="fileedit" onclick="onFileEditAddressClick();"></a>
+                                </td>
+                                <td>
+                                    附件数量：<input id="AddressCount" name="AddressCount" class="mini-textbox" value="@ViewData["AddressCount"]" />
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 80px; text-align: right;">
+                        登记人
+                    </td>
+                    <td style="width:150px">
+                        <input id="AddressFullName" name="AddressFullName" class="mini-textbox" style="width:150px;" value="@ViewData["AddressFullName"]" />
+                    </td>
+                    <td style="width: 80px; text-align: right;">
+                        登记日期
+                    </td>
+                    <td style="width:150px">
+                        <input id="AddressModifyDate" name="AddressModifyDate" class="mini-textbox" style="width:150px;" value="@ViewData["AddressModifyDate"]" />
+                    </td>
+                </tr>
+            </table>
+        </fieldset>
+        <fieldset>
+            <legend><b>资料</b></legend>
+            <table style="width: 100%;">
+                <tr>
+                    <td style="width: 80px; text-align: right;">资料状态</td>
+                    <td colspan="3">
+                        <input id="SubmitState" name="SubmitState" class="mini-combobox" value="1" style="width:150px;" data=@Html.Raw(ViewData["SubmitState"]) />
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 80px; text-align: right;">
+                        登记人
+                    </td>
+                    <td style="width:150px">
+                        <input id="SubmitFullName" name="SubmitFullName" class="mini-textbox" style="width:150px;" value="@ViewData["SubmitFullName"]" />
+                    </td>
+                    <td style="width: 80px; text-align: right;">
+                        登记日期
+                    </td>
+                    <td style="width:150px">
+                        <input id="SubmitModifyDate" name="SubmitModifyDate" class="mini-textbox" style="width:150px;" value="@ViewData["SubmitModifyDate"]" />
+                    </td>
+                </tr>
+            </table>
+        </fieldset>
+    </div>
+    <div style="text-align: center; padding: 10px;">
+        <a class="mini-button" iconcls="icon-save" onclick="onSaveClick6" style="margin-right: 10px;">保存</a>
+    </div>
+</div>
+<div id="winEngineeringManagement7" class="mini-window" style="width: 600px; height: 410px;"
+     showmodal="true" allowresize="false">
+    <div id="frmEngineeringManagement7" class="form">
+        <input class="mini-hidden" id="Id" name="Id" value="@ViewData["Id"]" />
+        <input class="mini-hidden" id="FoundationTestId" name="FoundationTestId" value="@ViewData["FoundationTestId"]" />
+        <input class="mini-hidden" id="FoundationBudget" name="FoundationBudget" value="@ViewData["FoundationBudget"]" />
+        <input class="mini-hidden" id="FileIdList7" name="FileIdList7" value="@ViewData["FileIdList"]" />
+        <input class="mini-hidden" id="FileIdListFoundation" name="FileIdListFoundation" value="@ViewData["FileIdListFoundation"]" />
+        <fieldset>
+            <legend><b>进度</b></legend>
+            <table style="width: 100%;">
+                <tr>
+                    <td style="width: 80px; text-align: right;">建设进度</td>
+                    <td>
+                        <input id="ConstructionProgress" name="ConstructionProgress" class="mini-combobox" value="1" style="width:150px;" data=@Html.Raw(ViewData["ConstructionProgress"]) />
+                    </td>
+                    <td style="width: 80px; text-align: right;">现场影像</td>
+                    <td style="width:150px">
+                        <table>
+                            <tr>
+                                <td style="width:16px">
+                                    <a class="fileedit" onclick="onFileEditClick7()"></a>
+                                </td>
+                                <td style="width:134px">
+                                    附件数量：<input id="Count7" name="Count7" class="mini-textbox" value="@ViewData["Count7"]" />
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 80px; text-align: right;">进度简述</td>
+                    <td colspan="3">
+                        <input id="ProgressMemos" name="ProgressMemos" class="mini-textarea" style="width: 93%; height: 40px;" />
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 80px; text-align: right;">
+                        登记人
+                    </td>
+                    <td style="width:150px">
+                        <input id="ProgressFullName" name="ProgressFullName" class="mini-textbox" style="width:150px;" value="@ViewData["ProgressFullName"]" />
+                    </td>
+                    <td style="width: 80px; text-align: right;">
+                        登记日期
+                    </td>
+                    <td style="width:150px">
+                        <input id="ProgressModifyDate" name="ProgressModifyDate" class="mini-textbox" style="width:150px;" value="@ViewData["ProgressModifyDate"]" />
+                    </td>
+                </tr>
+            </table>
+        </fieldset>
+        <fieldset>
+            <legend><b>资源</b></legend>
+            <table style="width: 100%;">
+                <tr>
+                    <td style="width: 80px; text-align: right;">动测报告</td>
+                    <td colspan="3">
+                        <table>
+                            <tr>
+                                <td style="width:16px">
+                                    <a class="fileedit" onclick="onFileEditFoundationClick();"></a>
+                                </td>
+                                <td>
+                                    附件数量：<input id="FoundationCount" name="FoundationCount" class="mini-textbox" value="@ViewData["FoundationCount"]" />
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 80px; text-align: right;">
+                        登记人
+                    </td>
+                    <td style="width:150px">
+                        <input id="FoundationFullName" name="FoundationFullName" class="mini-textbox" style="width:150px;" value="@ViewData["FoundationFullName"]" />
+                    </td>
+                    <td style="width: 80px; text-align: right;">
+                        登记日期
+                    </td>
+                    <td style="width:150px">
+                        <input id="FoundationModifyDate" name="FoundationModifyDate" class="mini-textbox" style="width:150px;" value="@ViewData["FoundationModifyDate"]" />
+                    </td>
+                </tr>
+            </table>
+        </fieldset>
+        <fieldset>
+            <legend><b>资料</b></legend>
+            <table style="width: 100%;">
+                <tr>
+                    <td style="width: 80px; text-align: right;">资料状态</td>
+                    <td colspan="3">
+                        <input id="SubmitState" name="SubmitState" class="mini-combobox" value="1" style="width:150px;" data=@Html.Raw(ViewData["SubmitState"]) />
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 80px; text-align: right;">
+                        登记人
+                    </td>
+                    <td style="width:150px">
+                        <input id="SubmitFullName" name="SubmitFullName" class="mini-textbox" style="width:150px;" value="@ViewData["SubmitFullName"]" />
+                    </td>
+                    <td style="width: 80px; text-align: right;">
+                        登记日期
+                    </td>
+                    <td style="width:150px">
+                        <input id="SubmitModifyDate" name="SubmitModifyDate" class="mini-textbox" style="width:150px;" value="@ViewData["SubmitModifyDate"]" />
+                    </td>
+                </tr>
+            </table>
+        </fieldset>
+    </div>
+    <div style="text-align: center; padding: 10px;">
+        <a class="mini-button" iconcls="icon-save" onclick="onSaveClick7" style="margin-right: 10px;">保存</a>
+    </div>
+</div>
+<script type="text/javascript">
+    mini.parse();
+
+    var btnSearch = mini.get("btnSearch");
+    var dgEngineeringManagement = mini.get("dgEngineeringManagement");
+    var winQuery = mini.get("winQuery");
+    var txtPlaceName = mini.get("txtPlaceName");
+    var cbPlaceCategoryId = mini.get("cbPlaceCategoryId");
+    var cbAreaId = mini.get("cbAreaId");
+    var cbReseauId = mini.get("cbReseauId");
+    var beCustomerId = mini.get("CustomerId");
+    var beSupervisorCustomerId = mini.get("SupervisorCustomerId");
+    var cbTaskModel = mini.get("cbTaskModel");
+    var cbConstructionProgress = mini.get("cbConstructionProgress");
+    var winEngineeringManagement1 = mini.get("winEngineeringManagement1");
+    var frmEngineeringManagement1 = new mini.Form("#frmEngineeringManagement1");
+    var winEngineeringManagement2 = mini.get("winEngineeringManagement2");
+    var frmEngineeringManagement2 = new mini.Form("#frmEngineeringManagement2");
+    var winEngineeringManagement3 = mini.get("winEngineeringManagement3");
+    var frmEngineeringManagement3 = new mini.Form("#frmEngineeringManagement3");
+    var winEngineeringManagement4 = mini.get("winEngineeringManagement4");
+    var frmEngineeringManagement4 = new mini.Form("#frmEngineeringManagement4");
+    var winEngineeringManagement5 = mini.get("winEngineeringManagement5");
+    var frmEngineeringManagement5 = new mini.Form("#frmEngineeringManagement5");
+    var winEngineeringManagement6 = mini.get("winEngineeringManagement6");
+    var frmEngineeringManagement6 = new mini.Form("#frmEngineeringManagement6");
+    var winEngineeringManagement7 = mini.get("winEngineeringManagement7");
+    var frmEngineeringManagement7 = new mini.Form("#frmEngineeringManagement7");
+    var txtTaskPropertyId = mini.get("Id");
+    var txtFileIdList1 = mini.get("FileIdList1");
+    var txtFileIdList2 = mini.get("FileIdList2");
+    var txtFileIdList3 = mini.get("FileIdList3");
+    var txtFileIdList4 = mini.get("FileIdList4");
+    var txtFileIdList5 = mini.get("FileIdList5");
+    var txtFileIdList6 = mini.get("FileIdList6");
+    var txtFileIdList7 = mini.get("FileIdList7");
+    var txtFileIdListTower = mini.get("FileIdListTower");
+    var txtFileIdListTowerBase = mini.get("FileIdListTowerBase");
+    var txtFileIdListMachineRoom = mini.get("FileIdListMachineRoom");
+    var txtFileIdListExternal = mini.get("FileIdListExternal");
+    var txtFileIdListEquipmentInstall = mini.get("FileIdListEquipmentInstall");
+    var txtFileIdListAddress = mini.get("FileIdListAddress");
+    var txtFileIdListFoundation = mini.get("FileIdListFoundation");
+    var cb_ConstructionProgress = mini.get("ConstructionProgress");
+    var txtProgressMemos = mini.get("ProgressMemos");
+    var txtTowerId = mini.get("TowerId");
+    var txtTowerBaseId = mini.get("TowerBaseId");
+    var txtMachineRoomId = mini.get("MachineRoomId");
+    var txtExternalElectricPowerId = mini.get("ExternalElectricPowerId");
+    var txtEquipmentInstallId = mini.get("EquipmentInstallId");
+    var txtAddressExplorId = mini.get("AddressExplorId");
+    var txtFoundationTestId = mini.get("FoundationTestId");
+
+    var count1 = mini.get("Count1");
+    count1.setWidth("10px");
+    if (count1.setReadOnly) count1.setReadOnly(true);     //只读
+    if (count1.setIsValid) count1.setIsValid(true);      //去除错误提示
+    if (count1.addCls) count1.addCls("asLabel");          //增加asLabel外观
+
+    var count2 = mini.get("Count2");
+    count2.setWidth("10px");
+    if (count2.setReadOnly) count2.setReadOnly(true);     //只读
+    if (count2.setIsValid) count2.setIsValid(true);      //去除错误提示
+    if (count2.addCls) count2.addCls("asLabel");          //增加asLabel外观
+
+    var count3 = mini.get("Count3");
+    count3.setWidth("10px");
+    if (count3.setReadOnly) count3.setReadOnly(true);     //只读
+    if (count3.setIsValid) count3.setIsValid(true);      //去除错误提示
+    if (count3.addCls) count3.addCls("asLabel");          //增加asLabel外观
+
+    var count4 = mini.get("Count4");
+    count4.setWidth("10px");
+    if (count4.setReadOnly) count4.setReadOnly(true);     //只读
+    if (count4.setIsValid) count4.setIsValid(true);      //去除错误提示
+    if (count4.addCls) count4.addCls("asLabel");          //增加asLabel外观
+
+    var count5 = mini.get("Count5");
+    count5.setWidth("10px");
+    if (count5.setReadOnly) count5.setReadOnly(true);     //只读
+    if (count5.setIsValid) count5.setIsValid(true);      //去除错误提示
+    if (count5.addCls) count5.addCls("asLabel");          //增加asLabel外观
+
+    var count6 = mini.get("Count6");
+    count6.setWidth("10px");
+    if (count6.setReadOnly) count6.setReadOnly(true);     //只读
+    if (count6.setIsValid) count6.setIsValid(true);      //去除错误提示
+    if (count6.addCls) count6.addCls("asLabel");          //增加asLabel外观
+
+    var count7 = mini.get("Count7");
+    count7.setWidth("10px");
+    if (count7.setReadOnly) count7.setReadOnly(true);     //只读
+    if (count7.setIsValid) count7.setIsValid(true);      //去除错误提示
+    if (count7.addCls) count7.addCls("asLabel");          //增加asLabel外观
+
+    var towerCount = mini.get("TowerCount");
+    towerCount.setWidth("10px");
+    if (towerCount.setReadOnly) towerCount.setReadOnly(true);     //只读
+    if (towerCount.setIsValid) towerCount.setIsValid(true);      //去除错误提示
+    if (towerCount.addCls) towerCount.addCls("asLabel");          //增加asLabel外观
+
+    var towerBaseCount = mini.get("TowerBaseCount");
+    towerBaseCount.setWidth("10px");
+    if (towerBaseCount.setReadOnly) towerBaseCount.setReadOnly(true);     //只读
+    if (towerBaseCount.setIsValid) towerBaseCount.setIsValid(true);      //去除错误提示
+    if (towerBaseCount.addCls) towerBaseCount.addCls("asLabel");          //增加asLabel外观
+
+    var machineRoomCount = mini.get("MachineRoomCount");
+    machineRoomCount.setWidth("10px");
+    if (machineRoomCount.setReadOnly) machineRoomCount.setReadOnly(true);     //只读
+    if (machineRoomCount.setIsValid) machineRoomCount.setIsValid(true);      //去除错误提示
+    if (machineRoomCount.addCls) machineRoomCount.addCls("asLabel");          //增加asLabel外观
+
+    var externalCount = mini.get("ExternalCount");
+    externalCount.setWidth("10px");
+    if (externalCount.setReadOnly) externalCount.setReadOnly(true);     //只读
+    if (externalCount.setIsValid) externalCount.setIsValid(true);      //去除错误提示
+    if (externalCount.addCls) externalCount.addCls("asLabel");          //增加asLabel外观
+
+    var equipmentCount = mini.get("EquipmentCount");
+    equipmentCount.setWidth("10px");
+    if (equipmentCount.setReadOnly) equipmentCount.setReadOnly(true);     //只读
+    if (equipmentCount.setIsValid) equipmentCount.setIsValid(true);      //去除错误提示
+    if (equipmentCount.addCls) equipmentCount.addCls("asLabel");          //增加asLabel外观
+
+    var addressCount = mini.get("AddressCount");
+    addressCount.setWidth("10px");
+    if (addressCount.setReadOnly) addressCount.setReadOnly(true);     //只读
+    if (addressCount.setIsValid) addressCount.setIsValid(true);      //去除错误提示
+    if (addressCount.addCls) addressCount.addCls("asLabel");          //增加asLabel外观
+
+    var foundationCount = mini.get("FoundationCount");
+    foundationCount.setWidth("10px");
+    if (foundationCount.setReadOnly) foundationCount.setReadOnly(true);     //只读
+    if (foundationCount.setIsValid) foundationCount.setIsValid(true);      //去除错误提示
+    if (foundationCount.addCls) foundationCount.addCls("asLabel");          //增加asLabel外观
+
+    Init();
+
+    function Init() {
+        dgEngineeringManagement.hideColumn(2);
+        dgEngineeringManagement.hideColumn(3);
+        dgEngineeringManagement.hideColumn(4);
+        BindCbPlaceCategoryId();
+        BindDgEngineeringManagement();
+    }
+
+    function BindDgEngineeringManagement() {
+        btnSearch.setEnabled(false);
+        var query_PlaceName = txtPlaceName.getValue();
+        var query_PlaceCategoryId = cbPlaceCategoryId.getValue();
+        var query_AreaId = cbAreaId.getValue();
+        var query_ReseauId = cbReseauId.getValue();
+        var query_CustomerId = beCustomerId.getValue();
+        var query_ConstructionProgress = cbConstructionProgress.getValue();
+        var query_TaskModel = cbTaskModel.getValue();
+        var query_SupervisorCustomerId = beSupervisorCustomerId.getValue();
+        if (dgEngineeringManagement.getUrl() == "") {
+            dgEngineeringManagement.setUrl("@Url.RouteUrl(new { controller = "BaseStationBM", action = "GetTaskPropertysPage" })");
+        }
+        dgEngineeringManagement.clearSelect(false);
+        dgEngineeringManagement.load({
+            PlaceName: query_PlaceName, PlaceCategoryId: query_PlaceCategoryId, AreaId: query_AreaId, ReseauId: query_ReseauId, CustomerId: query_CustomerId,
+            ConstructionProgress: query_ConstructionProgress, TaskModel: query_TaskModel, SupervisorCustomerId: query_SupervisorCustomerId
+        });
+    }
+
+    function onDgEngineeringManagementLoad() {
+        btnSearch.setEnabled(true);
+    }
+
+    function onDrawCell(e) {
+        if (e.field == "Map") {
+            e.cellHtml = "<a class='navigationmap' onclick='onMapClick(\"" + e.record.PlaceId + "\");'></a>";
+        }
+        else if (e.field == "PlaceName") {
+            e.cellStyle = "color:blue";
+        }
+        else if (e.field == "ProjectName") {
+            e.cellStyle = "color:blue";
+        }
+        else if (e.field == "RestDays" && e.value < 4) {
+            e.cellStyle = "color:red";
+        }
+    }
+
+    function onMapClick(id) {
+        var el = dgEngineeringManagement.getEl();
+        mini.mask({
+            el: el,
+            cls: 'mini-mask-loading',
+            html: '加载中...'
+        });
+        setTimeout(function () {
+            $.ajax({
+                url: "@Url.RouteUrl(new { controller = "Map", action = "GetPlacePoint" })",
+                data: { PlaceId: id, AreaId: "00000000-0000-0000-0000-000000000000", PlaceName: "", Lng: 0, Lat: 0, Profession: 1 },
+                type: "get",
+                async: false,
+                success: function (result, textStatus) {
+                    mini.unmask(el);
+                    if (result.Id != null && result.Id == id) {
+                        mini.open({
+                            url: "@Url.RouteUrl(new { controller = "Map", action = "NavigationMap" })",
+                            title: result.PlaceName,
+                            iconCls: "icon-map",
+                            width: 800,
+                            height: 550,
+                            showMaxButton: true,
+                            onload: function () {
+                                var iframe = this.getIFrameEl();
+                                var data = result;
+                                iframe.contentWindow.SetData(data);
+                            }
+                        });
+                    }
+                },
+                error: function (xmlHttpRequest, textStatus, errorThrown) {
+                    mini.unmask(el);
+                }
+            });
+        }, 50);
+    }
+
+    function onCellClick(e) {
+        if (e.column.field == "PlaceName") {
+            var el = dgEngineeringManagement.getEl();
+            mini.mask({
+                el: el,
+                cls: 'mini-mask-loading',
+                html: '加载中...'
+            });
+            setTimeout(function () {
+                mini.unmask(el);
+                mini.open({
+                    url: "@Url.RouteUrl(new { controller = "BaseData", action = "PlaceInfo" })" + "/" + e.record.PlaceId,
+                    title: "站点信息",
+                    //iconCls: "icon-editor",
+                    width: 640,
+                    height: 500,
+                });
+            }, 50);
+        }
+        if (e.column.field == "ProjectName") {
+            var el = dgEngineeringManagement.getEl();
+            mini.mask({
+                el: el,
+                cls: 'mini-mask-loading',
+                html: '加载中...'
+            });
+            setTimeout(function () {
+                mini.unmask(el);
+                mini.open({
+                    url: "@Url.RouteUrl(new { controller = "BaseStationBM", action = "TaskCard" })" + "/" + e.record.ConstructionTaskId,
+                    title: "任务信息",
+                    //iconCls: "icon-editor",
+                    width: 640,
+                    height: 500,
+                });
+            }, 50);
+        }
+    }
+
+    function BindCbPlaceCategoryId() {
+        cbPlaceCategoryId.setUrl("@Url.RouteUrl(new { controller = "BaseData", action = "GetUsedPlaceCategorys" })" + "/" + 1 + "?getType=2");
+    }
+
+    function BindCbReseauId(areaId) {
+        cbReseauId.setUrl("@Url.RouteUrl(new { controller = "BaseData", action = "GetUsedReseaus" })" + "/" + areaId + "?getType=2");
+    }
+
+    function onCbAreaIdValueChanged(e) {
+        BindCbReseauId(e.sender.getValue());
+    }
+
+    function onCbPlaceCategoryIdLoad() {
+        cbPlaceCategoryId.setValue("00000000-0000-0000-0000-000000000000");
+    }
+
+    function onCbReseauIdLoad() {
+        cbReseauId.setValue("00000000-0000-0000-0000-000000000000");
+    }
+
+    function onSearchClick() {
+        winQuery.show();
+    }
+
+    function onOKClick() {
+        BindDgEngineeringManagement();
+        winQuery.hide();
+    }
+
+    function onCustomerSelectButtonClick() {
+        var beSelect = this;
+        mini.open({
+            url: "@Url.RouteUrl(new { controller = "CustomControl", action = "CustomerSelection" })",
+            title: "选择施工单位",
+            width: 685,
+            height: 410,
+            allowResize: false,
+            ondestroy: function (action) {
+                if (action == "ok") {
+                    var iframe = this.getIFrameEl();
+                    var data = iframe.contentWindow.GetData();
+                    data = mini.clone(data);
+                    beSelect.setValue(data.id);
+                    beSelect.setText(data.text);
+                }
+                else if (action == "cancel") {
+                    beSelect.setValue("00000000-0000-0000-0000-000000000000");
+                    beSelect.setText("全部");
+                }
+                beSelect.validate();
+            }
+        });
+    }
+
+    function onCustomerSelectButtonCloseClick() {
+        this.setValue("00000000-0000-0000-0000-000000000000");
+        this.setText("全部");
+        this.validate();
+    }
+
+    function onSupervisorCustomerIdSelectButtonClick() {
+        var beSelect = this;
+        mini.open({
+            url: "@Url.RouteUrl(new { controller = "CustomControl", action = "CustomerSelection" })",
+            title: "选择监理单位",
+            width: 685,
+            height: 410,
+            allowResize: false,
+            ondestroy: function (action) {
+                if (action == "ok") {
+                    var iframe = this.getIFrameEl();
+                    var data = iframe.contentWindow.GetData();
+                    data = mini.clone(data);
+                    beSelect.setValue(data.id);
+                    beSelect.setText(data.text);
+                }
+                else if (action == "cancel") {
+                    beSelect.setValue("00000000-0000-0000-0000-000000000000");
+                    beSelect.setText("全部");
+                }
+                beSelect.validate();
+            }
+        });
+    }
+
+    function onSupervisorCustomerIdSelectButtonCloseClick() {
+        this.setValue("00000000-0000-0000-0000-000000000000");
+        this.setText("全部");
+        this.validate();
+    }
+
+    function onEditClick() {
+        var rows = dgEngineeringManagement.getSelecteds();
+        if (rows.length == 0) {
+            mini.alert("请选择一条要修改的数据");
+        }
+        else {
+            if (rows[0].TaskModel == "1") {
+                frmEngineeringManagement1.clear();
+                winEngineeringManagement1.setTitle("工程信息登记");
+                winEngineeringManagement1.show();
+                var el = winEngineeringManagement1.getEl();
+                mini.mask({
+                    el: el,
+                    cls: 'mini-mask-loading',
+                    html: '加载中...'
+                });
+                setTimeout(function () {
+                    $.ajax({
+                        url: "@Url.RouteUrl(new { controller = "BaseStationBM", action = "GetTaskPropertyById" })",
+                        data: { Id: rows[0].Id },
+                        type: "get",
+                        async: false,
+                        success: function (result, textStatus) {
+                            if (result.Id != null) {
+                                frmEngineeringManagement1.setData(result);
+                                txtTaskPropertyId.setValue(result.Id);
+                                txtFileIdList1.setValue(result.FileIdList);
+                            }
+                            else {
+                                winEngineeringManagement1.hide();
+                            }
+                        },
+                        error: function (xmlHttpRequest, textStatus, errorThrown) {
+                            winEngineeringManagement1.hide();
+                        }
+                    });
+                }, 50);
+                setTimeout(function () {
+                    mini.unmask(el);
+                }, 300);
+            }
+            else if (rows[0].TaskModel == "2") {
+                frmEngineeringManagement2.clear();
+                winEngineeringManagement2.setTitle("工程信息登记");
+                winEngineeringManagement2.show();
+                var el = winEngineeringManagement2.getEl();
+                mini.mask({
+                    el: el,
+                    cls: 'mini-mask-loading',
+                    html: '加载中...'
+                });
+                setTimeout(function () {
+                    $.ajax({
+                        url: "@Url.RouteUrl(new { controller = "BaseStationBM", action = "GetTaskPropertyById" })",
+                        data: { Id: rows[0].Id },
+                        type: "get",
+                        async: false,
+                        success: function (result, textStatus) {
+                            if (result.Id != null) {
+                                frmEngineeringManagement2.setData(result);
+                                txtTaskPropertyId.setValue(result.Id);
+                                txtFileIdList2.setValue(result.FileIdList);
+                            }
+                            else {
+                                winEngineeringManagement2.hide();
+                            }
+                        },
+                        error: function (xmlHttpRequest, textStatus, errorThrown) {
+                            winEngineeringManagement2.hide();
+                        }
+                    });
+                }, 50);
+                setTimeout(function () {
+                    mini.unmask(el);
+                }, 300);
+            }
+            else if (rows[0].TaskModel == "3") {
+                frmEngineeringManagement3.clear();
+                winEngineeringManagement3.setTitle("工程信息登记");
+                winEngineeringManagement3.show();
+                var el = winEngineeringManagement3.getEl();
+                mini.mask({
+                    el: el,
+                    cls: 'mini-mask-loading',
+                    html: '加载中...'
+                });
+                setTimeout(function () {
+                    $.ajax({
+                        url: "@Url.RouteUrl(new { controller = "BaseStationBM", action = "GetTaskPropertyById" })",
+                        data: { Id: rows[0].Id },
+                        type: "get",
+                        async: false,
+                        success: function (result, textStatus) {
+                            if (result.Id != null) {
+                                frmEngineeringManagement3.setData(result);
+                                txtTaskPropertyId.setValue(result.Id);
+                                txtFileIdList3.setValue(result.FileIdList);
+                            }
+                            else {
+                                winEngineeringManagement3.hide();
+                            }
+                        },
+                        error: function (xmlHttpRequest, textStatus, errorThrown) {
+                            winEngineeringManagement3.hide();
+                        }
+                    });
+                }, 50);
+                setTimeout(function () {
+                    mini.unmask(el);
+                }, 300);
+            }
+            else if (rows[0].TaskModel == "4") {
+                frmEngineeringManagement4.clear();
+                winEngineeringManagement4.setTitle("工程信息登记");
+                winEngineeringManagement4.show();
+                var el = winEngineeringManagement4.getEl();
+                mini.mask({
+                    el: el,
+                    cls: 'mini-mask-loading',
+                    html: '加载中...'
+                });
+                setTimeout(function () {
+                    $.ajax({
+                        url: "@Url.RouteUrl(new { controller = "BaseStationBM", action = "GetTaskPropertyById" })",
+                        data: { Id: rows[0].Id },
+                        type: "get",
+                        async: false,
+                        success: function (result, textStatus) {
+                            if (result.Id != null) {
+                                frmEngineeringManagement4.setData(result);
+                                txtTaskPropertyId.setValue(result.Id);
+                                txtFileIdList4.setValue(result.FileIdList);
+                            }
+                            else {
+                                winEngineeringManagement4.hide();
+                            }
+                        },
+                        error: function (xmlHttpRequest, textStatus, errorThrown) {
+                            winEngineeringManagement4.hide();
+                        }
+                    });
+                }, 50);
+                setTimeout(function () {
+                    mini.unmask(el);
+                }, 300);
+            }
+            else if (rows[0].TaskModel == "5") {
+                frmEngineeringManagement5.clear();
+                winEngineeringManagement5.setTitle("工程信息登记");
+                winEngineeringManagement5.show();
+                var el = winEngineeringManagement5.getEl();
+                mini.mask({
+                    el: el,
+                    cls: 'mini-mask-loading',
+                    html: '加载中...'
+                });
+                setTimeout(function () {
+                    $.ajax({
+                        url: "@Url.RouteUrl(new { controller = "BaseStationBM", action = "GetTaskPropertyById" })",
+                        data: { Id: rows[0].Id },
+                        type: "get",
+                        async: false,
+                        success: function (result, textStatus) {
+                            if (result.Id != null) {
+                                frmEngineeringManagement5.setData(result);
+                                txtTaskPropertyId.setValue(result.Id);
+                                txtFileIdList5.setValue(result.FileIdList);
+                            }
+                            else {
+                                winEngineeringManagement5.hide();
+                            }
+                        },
+                        error: function (xmlHttpRequest, textStatus, errorThrown) {
+                            winEngineeringManagement5.hide();
+                        }
+                    });
+                }, 50);
+                setTimeout(function () {
+                    mini.unmask(el);
+                }, 300);
+            }
+            else if (rows[0].TaskModel == "6") {
+                frmEngineeringManagement6.clear();
+                winEngineeringManagement6.setTitle("工程信息登记");
+                winEngineeringManagement6.show();
+                var el = winEngineeringManagement6.getEl();
+                mini.mask({
+                    el: el,
+                    cls: 'mini-mask-loading',
+                    html: '加载中...'
+                });
+                setTimeout(function () {
+                    $.ajax({
+                        url: "@Url.RouteUrl(new { controller = "BaseStationBM", action = "GetTaskPropertyById" })",
+                        data: { Id: rows[0].Id },
+                        type: "get",
+                        async: false,
+                        success: function (result, textStatus) {
+                            if (result.Id != null) {
+                                frmEngineeringManagement6.setData(result);
+                                txtTaskPropertyId.setValue(result.Id);
+                                txtFileIdList6.setValue(result.FileIdList);
+                            }
+                            else {
+                                winEngineeringManagement6.hide();
+                            }
+                        },
+                        error: function (xmlHttpRequest, textStatus, errorThrown) {
+                            winEngineeringManagement6.hide();
+                        }
+                    });
+                }, 50);
+                setTimeout(function () {
+                    mini.unmask(el);
+                }, 300);
+            }
+            else if (rows[0].TaskModel == "7") {
+                frmEngineeringManagement7.clear();
+                winEngineeringManagement7.setTitle("工程信息登记");
+                winEngineeringManagement7.show();
+                var el = winEngineeringManagement7.getEl();
+                mini.mask({
+                    el: el,
+                    cls: 'mini-mask-loading',
+                    html: '加载中...'
+                });
+                setTimeout(function () {
+                    $.ajax({
+                        url: "@Url.RouteUrl(new { controller = "BaseStationBM", action = "GetTaskPropertyById" })",
+                        data: { Id: rows[0].Id },
+                        type: "get",
+                        async: false,
+                        success: function (result, textStatus) {
+                            if (result.Id != null) {
+                                frmEngineeringManagement7.setData(result);
+                                txtTaskPropertyId.setValue(result.Id);
+                                txtFileIdList7.setValue(result.FileIdList);
+                            }
+                            else {
+                                winEngineeringManagement7.hide();
+                            }
+                        },
+                        error: function (xmlHttpRequest, textStatus, errorThrown) {
+                            winEngineeringManagement7.hide();
+                        }
+                    });
+                }, 50);
+                setTimeout(function () {
+                    mini.unmask(el);
+                }, 300);
+            }
+        }
+    }
+
+    function onSaveClick1() {
+        frmEngineeringManagement1.validate();
+        if (frmEngineeringManagement1.isValid() == false) return;
+        var loading = mini.loading("处理中,请稍后...", "保存数据");
+        var jsonData = mini.encode(frmEngineeringManagement1.getData());
+        $.ajax({
+            url: "@Url.RouteUrl(new { controller = "BaseStationBM", action = "SaveTaskProperty1" })",
+            data: AddAntiForgeryToken({ data: jsonData }),
+            type: "post",
+            success: function (result, textStatus) {
+                mini.hideMessageBox(loading);
+                if (result.Code != null && result.Code == 0) {
+                    winEngineeringManagement1.hide();
+                    ShowSucessMessage(result.Message);
+                    BindDgEngineeringManagement();
+                }
+            },
+            error: function (xmlHttpRequest, textStatus, errorThrown) {
+                mini.hideMessageBox(loading);
+            }
+        });
+    }
+
+    function onSaveClick2() {
+        frmEngineeringManagement2.validate();
+        if (frmEngineeringManagement2.isValid() == false) return;
+        var loading = mini.loading("处理中,请稍后...", "保存数据");
+        var jsonData = mini.encode(frmEngineeringManagement2.getData());
+        $.ajax({
+            url: "@Url.RouteUrl(new { controller = "BaseStationBM", action = "SaveTaskProperty2" })",
+            data: AddAntiForgeryToken({ data: jsonData }),
+            type: "post",
+            success: function (result, textStatus) {
+                mini.hideMessageBox(loading);
+                if (result.Code != null && result.Code == 0) {
+                    winEngineeringManagement2.hide();
+                    ShowSucessMessage(result.Message);
+                    BindDgEngineeringManagement();
+                }
+            },
+            error: function (xmlHttpRequest, textStatus, errorThrown) {
+                mini.hideMessageBox(loading);
+            }
+        });
+    }
+
+    function onSaveClick3() {
+        frmEngineeringManagement3.validate();
+        if (frmEngineeringManagement3.isValid() == false) return;
+        var loading = mini.loading("处理中,请稍后...", "保存数据");
+        var jsonData = mini.encode(frmEngineeringManagement3.getData());
+        $.ajax({
+            url: "@Url.RouteUrl(new { controller = "BaseStationBM", action = "SaveTaskProperty3" })",
+            data: AddAntiForgeryToken({ data: jsonData }),
+            type: "post",
+            success: function (result, textStatus) {
+                mini.hideMessageBox(loading);
+                if (result.Code != null && result.Code == 0) {
+                    winEngineeringManagement3.hide();
+                    ShowSucessMessage(result.Message);
+                    BindDgEngineeringManagement();
+                }
+            },
+            error: function (xmlHttpRequest, textStatus, errorThrown) {
+                mini.hideMessageBox(loading);
+            }
+        });
+    }
+
+    function onSaveClick4() {
+        frmEngineeringManagement4.validate();
+        if (frmEngineeringManagement4.isValid() == false) return;
+        var loading = mini.loading("处理中,请稍后...", "保存数据");
+        var jsonData = mini.encode(frmEngineeringManagement4.getData());
+        $.ajax({
+            url: "@Url.RouteUrl(new { controller = "BaseStationBM", action = "SaveTaskProperty4" })",
+            data: AddAntiForgeryToken({ data: jsonData }),
+            type: "post",
+            success: function (result, textStatus) {
+                mini.hideMessageBox(loading);
+                if (result.Code != null && result.Code == 0) {
+                    winEngineeringManagement4.hide();
+                    ShowSucessMessage(result.Message);
+                    BindDgEngineeringManagement();
+                }
+            },
+            error: function (xmlHttpRequest, textStatus, errorThrown) {
+                mini.hideMessageBox(loading);
+            }
+        });
+    }
+
+    function onSaveClick5() {
+        frmEngineeringManagement5.validate();
+        if (frmEngineeringManagement5.isValid() == false) return;
+        var loading = mini.loading("处理中,请稍后...", "保存数据");
+        var jsonData = mini.encode(frmEngineeringManagement5.getData());
+        $.ajax({
+            url: "@Url.RouteUrl(new { controller = "BaseStationBM", action = "SaveTaskProperty5" })",
+            data: AddAntiForgeryToken({ data: jsonData }),
+            type: "post",
+            success: function (result, textStatus) {
+                mini.hideMessageBox(loading);
+                if (result.Code != null && result.Code == 0) {
+                    winEngineeringManagement5.hide();
+                    ShowSucessMessage(result.Message);
+                    BindDgEngineeringManagement();
+                }
+            },
+            error: function (xmlHttpRequest, textStatus, errorThrown) {
+                mini.hideMessageBox(loading);
+            }
+        });
+    }
+
+    function onSaveClick6() {
+        frmEngineeringManagement6.validate();
+        if (frmEngineeringManagement6.isValid() == false) return;
+        var loading = mini.loading("处理中,请稍后...", "保存数据");
+        var jsonData = mini.encode(frmEngineeringManagement6.getData());
+        $.ajax({
+            url: "@Url.RouteUrl(new { controller = "BaseStationBM", action = "SaveTaskProperty6" })",
+            data: AddAntiForgeryToken({ data: jsonData }),
+            type: "post",
+            success: function (result, textStatus) {
+                mini.hideMessageBox(loading);
+                if (result.Code != null && result.Code == 0) {
+                    winEngineeringManagement6.hide();
+                    ShowSucessMessage(result.Message);
+                    BindDgEngineeringManagement();
+                }
+            },
+            error: function (xmlHttpRequest, textStatus, errorThrown) {
+                mini.hideMessageBox(loading);
+            }
+        });
+    }
+
+    function onSaveClick7() {
+        frmEngineeringManagement7.validate();
+        if (frmEngineeringManagement7.isValid() == false) return;
+        var loading = mini.loading("处理中,请稍后...", "保存数据");
+        var jsonData = mini.encode(frmEngineeringManagement7.getData());
+        $.ajax({
+            url: "@Url.RouteUrl(new { controller = "BaseStationBM", action = "SaveTaskProperty7" })",
+            data: AddAntiForgeryToken({ data: jsonData }),
+            type: "post",
+            success: function (result, textStatus) {
+                mini.hideMessageBox(loading);
+                if (result.Code != null && result.Code == 0) {
+                    winEngineeringManagement7.hide();
+                    ShowSucessMessage(result.Message);
+                    BindDgEngineeringManagement();
+                }
+            },
+            error: function (xmlHttpRequest, textStatus, errorThrown) {
+                mini.hideMessageBox(loading);
+            }
+        });
+    }
+
+    function onFileEditClick1() {
+        var el = winEngineeringManagement1.getEl();
+        mini.mask({
+            el: el,
+            cls: 'mini-mask-loading',
+            html: '加载中...'
+        });
+        setTimeout(function () {
+            $.ajax({
+                url: "@Url.RouteUrl(new { controller = "File", action = "GetProgressFiles" })",
+                data: { Id: txtTaskPropertyId.getValue(), FileIdList: txtFileIdList1.getValue() },
+                type: "get",
+                async: false,
+                success: function (result, textStatus) {
+                    mini.unmask(el);
+                    if (result.Code == null || !result.Code) {
+                        mini.open({
+                            url: "@Url.RouteUrl(new { controller = "File", action = "FileManager" })",
+                            title: "现场影像",
+                            iconCls: "icon-file",
+                            width: 620,
+                            height: 250,
+                            allowResize: false,
+                            onload: function () {
+                                var iframe = this.getIFrameEl();
+                                var data = result;
+                                iframe.contentWindow.SetDataEdit(data);
+                            },
+                            ondestroy: function (action) {
+                                if (action == "ok") {
+                                    var iframe = this.getIFrameEl();
+                                    var data = iframe.contentWindow.GetData();
+                                    data = mini.clone(data);
+                                    txtFileIdList1.setValue(data.FileIdList);
+                                }
+                            }
+                        });
+                    }
+                },
+                error: function (xmlHttpRequest, textStatus, errorThrown) {
+                    mini.unmask(el);
+                }
+            });
+        }, 50);
+    }
+
+    function onFileEditClick2() {
+        var el = winEngineeringManagement2.getEl();
+        mini.mask({
+            el: el,
+            cls: 'mini-mask-loading',
+            html: '加载中...'
+        });
+        setTimeout(function () {
+            $.ajax({
+                url: "@Url.RouteUrl(new { controller = "File", action = "GetProgressFiles" })",
+                data: { Id: txtTaskPropertyId.getValue(), FileIdList: txtFileIdList2.getValue() },
+                type: "get",
+                async: false,
+                success: function (result, textStatus) {
+                    mini.unmask(el);
+                    if (result.Code == null || !result.Code) {
+                        mini.open({
+                            url: "@Url.RouteUrl(new { controller = "File", action = "FileManager" })",
+                            title: "现场影像",
+                            iconCls: "icon-file",
+                            width: 620,
+                            height: 250,
+                            allowResize: false,
+                            onload: function () {
+                                var iframe = this.getIFrameEl();
+                                var data = result;
+                                iframe.contentWindow.SetDataEdit(data);
+                            },
+                            ondestroy: function (action) {
+                                if (action == "ok") {
+                                    var iframe = this.getIFrameEl();
+                                    var data = iframe.contentWindow.GetData();
+                                    data = mini.clone(data);
+                                    txtFileIdList2.setValue(data.FileIdList);
+                                }
+                            }
+                        });
+                    }
+                },
+                error: function (xmlHttpRequest, textStatus, errorThrown) {
+                    mini.unmask(el);
+                }
+            });
+        }, 50);
+    }
+
+    function onFileEditClick3() {
+        var el = winEngineeringManagement3.getEl();
+        mini.mask({
+            el: el,
+            cls: 'mini-mask-loading',
+            html: '加载中...'
+        });
+        setTimeout(function () {
+            $.ajax({
+                url: "@Url.RouteUrl(new { controller = "File", action = "GetProgressFiles" })",
+                data: { Id: txtTaskPropertyId.getValue(), FileIdList: txtFileIdList3.getValue() },
+                type: "get",
+                async: false,
+                success: function (result, textStatus) {
+                    mini.unmask(el);
+                    if (result.Code == null || !result.Code) {
+                        mini.open({
+                            url: "@Url.RouteUrl(new { controller = "File", action = "FileManager" })",
+                            title: "现场影像",
+                            iconCls: "icon-file",
+                            width: 620,
+                            height: 250,
+                            allowResize: false,
+                            onload: function () {
+                                var iframe = this.getIFrameEl();
+                                var data = result;
+                                iframe.contentWindow.SetDataEdit(data);
+                            },
+                            ondestroy: function (action) {
+                                if (action == "ok") {
+                                    var iframe = this.getIFrameEl();
+                                    var data = iframe.contentWindow.GetData();
+                                    data = mini.clone(data);
+                                    txtFileIdList3.setValue(data.FileIdList);
+                                }
+                            }
+                        });
+                    }
+                },
+                error: function (xmlHttpRequest, textStatus, errorThrown) {
+                    mini.unmask(el);
+                }
+            });
+        }, 50);
+    }
+
+    function onFileEditClick4() {
+        var el = winEngineeringManagement4.getEl();
+        mini.mask({
+            el: el,
+            cls: 'mini-mask-loading',
+            html: '加载中...'
+        });
+        setTimeout(function () {
+            $.ajax({
+                url: "@Url.RouteUrl(new { controller = "File", action = "GetProgressFiles" })",
+                data: { Id: txtTaskPropertyId.getValue(), FileIdList: txtFileIdList4.getValue() },
+                type: "get",
+                async: false,
+                success: function (result, textStatus) {
+                    mini.unmask(el);
+                    if (result.Code == null || !result.Code) {
+                        mini.open({
+                            url: "@Url.RouteUrl(new { controller = "File", action = "FileManager" })",
+                            title: "现场影像",
+                            iconCls: "icon-file",
+                            width: 620,
+                            height: 250,
+                            allowResize: false,
+                            onload: function () {
+                                var iframe = this.getIFrameEl();
+                                var data = result;
+                                iframe.contentWindow.SetDataEdit(data);
+                            },
+                            ondestroy: function (action) {
+                                if (action == "ok") {
+                                    var iframe = this.getIFrameEl();
+                                    var data = iframe.contentWindow.GetData();
+                                    data = mini.clone(data);
+                                    txtFileIdList4.setValue(data.FileIdList);
+                                }
+                            }
+                        });
+                    }
+                },
+                error: function (xmlHttpRequest, textStatus, errorThrown) {
+                    mini.unmask(el);
+                }
+            });
+        }, 50);
+    }
+
+    function onFileEditClick5() {
+        var el = winEngineeringManagement5.getEl();
+        mini.mask({
+            el: el,
+            cls: 'mini-mask-loading',
+            html: '加载中...'
+        });
+        setTimeout(function () {
+            $.ajax({
+                url: "@Url.RouteUrl(new { controller = "File", action = "GetProgressFiles" })",
+                data: { Id: txtTaskPropertyId.getValue(), FileIdList: txtFileIdList5.getValue() },
+                type: "get",
+                async: false,
+                success: function (result, textStatus) {
+                    mini.unmask(el);
+                    if (result.Code == null || !result.Code) {
+                        mini.open({
+                            url: "@Url.RouteUrl(new { controller = "File", action = "FileManager" })",
+                            title: "现场影像",
+                            iconCls: "icon-file",
+                            width: 620,
+                            height: 250,
+                            allowResize: false,
+                            onload: function () {
+                                var iframe = this.getIFrameEl();
+                                var data = result;
+                                iframe.contentWindow.SetDataEdit(data);
+                            },
+                            ondestroy: function (action) {
+                                if (action == "ok") {
+                                    var iframe = this.getIFrameEl();
+                                    var data = iframe.contentWindow.GetData();
+                                    data = mini.clone(data);
+                                    txtFileIdList5.setValue(data.FileIdList);
+                                }
+                            }
+                        });
+                    }
+                },
+                error: function (xmlHttpRequest, textStatus, errorThrown) {
+                    mini.unmask(el);
+                }
+            });
+        }, 50);
+    }
+
+    function onFileEditClick6() {
+        var el = winEngineeringManagement6.getEl();
+        mini.mask({
+            el: el,
+            cls: 'mini-mask-loading',
+            html: '加载中...'
+        });
+        setTimeout(function () {
+            $.ajax({
+                url: "@Url.RouteUrl(new { controller = "File", action = "GetProgressFiles" })",
+                data: { Id: txtTaskPropertyId.getValue(), FileIdList: txtFileIdList6.getValue() },
+                type: "get",
+                async: false,
+                success: function (result, textStatus) {
+                    mini.unmask(el);
+                    if (result.Code == null || !result.Code) {
+                        mini.open({
+                            url: "@Url.RouteUrl(new { controller = "File", action = "FileManager" })",
+                            title: "现场影像",
+                            iconCls: "icon-file",
+                            width: 620,
+                            height: 250,
+                            allowResize: false,
+                            onload: function () {
+                                var iframe = this.getIFrameEl();
+                                var data = result;
+                                iframe.contentWindow.SetDataEdit(data);
+                            },
+                            ondestroy: function (action) {
+                                if (action == "ok") {
+                                    var iframe = this.getIFrameEl();
+                                    var data = iframe.contentWindow.GetData();
+                                    data = mini.clone(data);
+                                    txtFileIdList6.setValue(data.FileIdList);
+                                }
+                            }
+                        });
+                    }
+                },
+                error: function (xmlHttpRequest, textStatus, errorThrown) {
+                    mini.unmask(el);
+                }
+            });
+        }, 50);
+    }
+
+    function onFileEditClick7() {
+        var el = winEngineeringManagement7.getEl();
+        mini.mask({
+            el: el,
+            cls: 'mini-mask-loading',
+            html: '加载中...'
+        });
+        setTimeout(function () {
+            $.ajax({
+                url: "@Url.RouteUrl(new { controller = "File", action = "GetProgressFiles" })",
+                data: { Id: txtTaskPropertyId.getValue(), FileIdList: txtFileIdList7.getValue() },
+                type: "get",
+                async: false,
+                success: function (result, textStatus) {
+                    mini.unmask(el);
+                    if (result.Code == null || !result.Code) {
+                        mini.open({
+                            url: "@Url.RouteUrl(new { controller = "File", action = "FileManager" })",
+                            title: "现场影像",
+                            iconCls: "icon-file",
+                            width: 620,
+                            height: 250,
+                            allowResize: false,
+                            onload: function () {
+                                var iframe = this.getIFrameEl();
+                                var data = result;
+                                iframe.contentWindow.SetDataEdit(data);
+                            },
+                            ondestroy: function (action) {
+                                if (action == "ok") {
+                                    var iframe = this.getIFrameEl();
+                                    var data = iframe.contentWindow.GetData();
+                                    data = mini.clone(data);
+                                    txtFileIdList7.setValue(data.FileIdList);
+                                }
+                            }
+                        });
+                    }
+                },
+                error: function (xmlHttpRequest, textStatus, errorThrown) {
+                    mini.unmask(el);
+                }
+            });
+        }, 50);
+    }
+
+    function onFileEditTowerClick() {
+        var el = winEngineeringManagement1.getEl();
+        mini.mask({
+            el: el,
+            cls: 'mini-mask-loading',
+            html: '加载中...'
+        });
+        setTimeout(function () {
+            $.ajax({
+                url: "@Url.RouteUrl(new { controller = "File", action = "GetTowerFiles" })",
+                data: { TowerId: txtTowerId.getValue(), FileIdList: txtFileIdListTower.getValue() },
+                type: "get",
+                async: false,
+                success: function (result, textStatus) {
+                    mini.unmask(el);
+                    if (result.Code == null || !result.Code) {
+                        mini.open({
+                            url: "@Url.RouteUrl(new { controller = "File", action = "FileManager" })",
+                            title: "铁塔图纸",
+                            iconCls: "icon-file",
+                            width: 620,
+                            height: 250,
+                            allowResize: false,
+                            onload: function () {
+                                var iframe = this.getIFrameEl();
+                                var data = result;
+                                iframe.contentWindow.SetDataEdit(data);
+                            },
+                            ondestroy: function (action) {
+                                if (action == "ok") {
+                                    var iframe = this.getIFrameEl();
+                                    var data = iframe.contentWindow.GetData();
+                                    data = mini.clone(data);
+                                    txtFileIdListTower.setValue(data.FileIdList);
+                                }
+                            }
+                        });
+                    }
+                },
+                error: function (xmlHttpRequest, textStatus, errorThrown) {
+                    mini.unmask(el);
+                }
+            });
+        }, 50);
+    }
+
+    function onFileEditTowerBaseClick() {
+        var el = winEngineeringManagement2.getEl();
+        mini.mask({
+            el: el,
+            cls: 'mini-mask-loading',
+            html: '加载中...'
+        });
+        setTimeout(function () {
+            $.ajax({
+                url: "@Url.RouteUrl(new { controller = "File", action = "GetTowerBaseFiles" })",
+                data: { TowerBaseId: txtTowerBaseId.getValue(), FileIdList: txtFileIdListTowerBase.getValue() },
+                type: "get",
+                async: false,
+                success: function (result, textStatus) {
+                    mini.unmask(el);
+                    if (result.Code == null || !result.Code) {
+                        mini.open({
+                            url: "@Url.RouteUrl(new { controller = "File", action = "FileManager" })",
+                            title: "塔基图纸",
+                            iconCls: "icon-file",
+                            width: 620,
+                            height: 250,
+                            allowResize: false,
+                            onload: function () {
+                                var iframe = this.getIFrameEl();
+                                var data = result;
+                                iframe.contentWindow.SetDataEdit(data);
+                            },
+                            ondestroy: function (action) {
+                                if (action == "ok") {
+                                    var iframe = this.getIFrameEl();
+                                    var data = iframe.contentWindow.GetData();
+                                    data = mini.clone(data);
+                                    txtFileIdListTowerBase.setValue(data.FileIdList);
+                                }
+                            }
+                        });
+                    }
+                },
+                error: function (xmlHttpRequest, textStatus, errorThrown) {
+                    mini.unmask(el);
+                }
+            });
+        }, 50);
+    }
+
+    function onFileEditMachineRoomClick() {
+        var el = winEngineeringManagement3.getEl();
+        mini.mask({
+            el: el,
+            cls: 'mini-mask-loading',
+            html: '加载中...'
+        });
+        setTimeout(function () {
+            $.ajax({
+                url: "@Url.RouteUrl(new { controller = "File", action = "GetMachineRoomFiles" })",
+                data: { MachineRoomId: txtMachineRoomId.getValue(), FileIdList: txtFileIdListMachineRoom.getValue() },
+                type: "get",
+                async: false,
+                success: function (result, textStatus) {
+                    mini.unmask(el);
+                    if (result.Code == null || !result.Code) {
+                        mini.open({
+                            url: "@Url.RouteUrl(new { controller = "File", action = "FileManager" })",
+                            title: "机房图纸",
+                            iconCls: "icon-file",
+                            width: 620,
+                            height: 250,
+                            allowResize: false,
+                            onload: function () {
+                                var iframe = this.getIFrameEl();
+                                var data = result;
+                                iframe.contentWindow.SetDataEdit(data);
+                            },
+                            ondestroy: function (action) {
+                                if (action == "ok") {
+                                    var iframe = this.getIFrameEl();
+                                    var data = iframe.contentWindow.GetData();
+                                    data = mini.clone(data);
+                                    txtFileIdListMachineRoom.setValue(data.FileIdList);
+                                }
+                            }
+                        });
+                    }
+                },
+                error: function (xmlHttpRequest, textStatus, errorThrown) {
+                    mini.unmask(el);
+                }
+            });
+        }, 50);
+    }
+
+    function onFileEditExternalClick() {
+        var el = winEngineeringManagement4.getEl();
+        mini.mask({
+            el: el,
+            cls: 'mini-mask-loading',
+            html: '加载中...'
+        });
+        setTimeout(function () {
+            $.ajax({
+                url: "@Url.RouteUrl(new { controller = "File", action = "GetExternalElectricPowerFiles" })",
+                data: { ExternalElectricPowerId: txtExternalElectricPowerId.getValue(), FileIdList: txtFileIdListExternal.getValue() },
+                type: "get",
+                async: false,
+                success: function (result, textStatus) {
+                    mini.unmask(el);
+                    if (result.Code == null || !result.Code) {
+                        mini.open({
+                            url: "@Url.RouteUrl(new { controller = "File", action = "FileManager" })",
+                            title: "路由图",
+                            iconCls: "icon-file",
+                            width: 620,
+                            height: 250,
+                            allowResize: false,
+                            onload: function () {
+                                var iframe = this.getIFrameEl();
+                                var data = result;
+                                iframe.contentWindow.SetDataEdit(data);
+                            },
+                            ondestroy: function (action) {
+                                if (action == "ok") {
+                                    var iframe = this.getIFrameEl();
+                                    var data = iframe.contentWindow.GetData();
+                                    data = mini.clone(data);
+                                    txtFileIdListExternal.setValue(data.FileIdList);
+                                }
+                            }
+                        });
+                    }
+                },
+                error: function (xmlHttpRequest, textStatus, errorThrown) {
+                    mini.unmask(el);
+                }
+            });
+        }, 50);
+    }
+
+    function onFileEditEquipmentInstallClick() {
+        var el = winEngineeringManagement5.getEl();
+        mini.mask({
+            el: el,
+            cls: 'mini-mask-loading',
+            html: '加载中...'
+        });
+        setTimeout(function () {
+            $.ajax({
+                url: "@Url.RouteUrl(new { controller = "File", action = "GetEquipmentInstallFiles" })",
+                data: { EquipmentInstallId: txtEquipmentInstallId.getValue(), FileIdList: txtFileIdListEquipmentInstall.getValue() },
+                type: "get",
+                async: false,
+                success: function (result, textStatus) {
+                    mini.unmask(el);
+                    if (result.Code == null || !result.Code) {
+                        mini.open({
+                            url: "@Url.RouteUrl(new { controller = "File", action = "FileManager" })",
+                            title: "安装图纸",
+                            iconCls: "icon-file",
+                            width: 620,
+                            height: 250,
+                            allowResize: false,
+                            onload: function () {
+                                var iframe = this.getIFrameEl();
+                                var data = result;
+                                iframe.contentWindow.SetDataEdit(data);
+                            },
+                            ondestroy: function (action) {
+                                if (action == "ok") {
+                                    var iframe = this.getIFrameEl();
+                                    var data = iframe.contentWindow.GetData();
+                                    data = mini.clone(data);
+                                    txtFileIdListEquipmentInstall.setValue(data.FileIdList);
+                                }
+                            }
+                        });
+                    }
+                },
+                error: function (xmlHttpRequest, textStatus, errorThrown) {
+                    mini.unmask(el);
+                }
+            });
+        }, 50);
+    }
+
+    function onFileEditAddressClick() {
+        var el = winEngineeringManagement6.getEl();
+        mini.mask({
+            el: el,
+            cls: 'mini-mask-loading',
+            html: '加载中...'
+        });
+        setTimeout(function () {
+            $.ajax({
+                url: "@Url.RouteUrl(new { controller = "File", action = "GetAddressExplorFiles" })",
+                data: { AddressExplorId: txtAddressExplorId.getValue(), FileIdList: txtFileIdListAddress.getValue() },
+                type: "get",
+                async: false,
+                success: function (result, textStatus) {
+                    mini.unmask(el);
+                    if (result.Code == null || !result.Code) {
+                        mini.open({
+                            url: "@Url.RouteUrl(new { controller = "File", action = "FileManager" })",
+                            title: "地勘报告",
+                            iconCls: "icon-file",
+                            width: 620,
+                            height: 250,
+                            allowResize: false,
+                            onload: function () {
+                                var iframe = this.getIFrameEl();
+                                var data = result;
+                                iframe.contentWindow.SetDataEdit(data);
+                            },
+                            ondestroy: function (action) {
+                                if (action == "ok") {
+                                    var iframe = this.getIFrameEl();
+                                    var data = iframe.contentWindow.GetData();
+                                    data = mini.clone(data);
+                                    txtFileIdListAddress.setValue(data.FileIdList);
+                                }
+                            }
+                        });
+                    }
+                },
+                error: function (xmlHttpRequest, textStatus, errorThrown) {
+                    mini.unmask(el);
+                }
+            });
+        }, 50);
+    }
+
+    function onFileEditFoundationClick() {
+        var el = winEngineeringManagement7.getEl();
+        mini.mask({
+            el: el,
+            cls: 'mini-mask-loading',
+            html: '加载中...'
+        });
+        setTimeout(function () {
+            $.ajax({
+                url: "@Url.RouteUrl(new { controller = "File", action = "GetFoundationTestFiles" })",
+                data: { FoundationTestId: txtFoundationTestId.getValue(), FileIdList: txtFileIdListFoundation.getValue() },
+                type: "get",
+                async: false,
+                success: function (result, textStatus) {
+                    mini.unmask(el);
+                    if (result.Code == null || !result.Code) {
+                        mini.open({
+                            url: "@Url.RouteUrl(new { controller = "File", action = "FileManager" })",
+                            title: "动测报告",
+                            iconCls: "icon-file",
+                            width: 620,
+                            height: 250,
+                            allowResize: false,
+                            onload: function () {
+                                var iframe = this.getIFrameEl();
+                                var data = result;
+                                iframe.contentWindow.SetDataEdit(data);
+                            },
+                            ondestroy: function (action) {
+                                if (action == "ok") {
+                                    var iframe = this.getIFrameEl();
+                                    var data = iframe.contentWindow.GetData();
+                                    data = mini.clone(data);
+                                    txtFileIdListFoundation.setValue(data.FileIdList);
+                                }
+                            }
+                        });
+                    }
+                },
+                error: function (xmlHttpRequest, textStatus, errorThrown) {
+                    mini.unmask(el);
+                }
+            });
+        }, 50);
+    }
+
+    function onTowerTypeValidation(e) {
+        if (e.isValid) {
+            if (e.value == "0") {
+                e.errorText = "请选择铁塔类型";
+                e.isValid = false;
+            }
+        }
+    }
+
+    function onTowerBaseTypeValidation(e) {
+        if (e.isValid) {
+            if (e.value == "0") {
+                e.errorText = "请选择塔基类型";
+                e.isValid = false;
+            }
+        }
+    }
+
+    function onMachineRoomTypeValidation(e) {
+        if (e.isValid) {
+            if (e.value == "0") {
+                e.errorText = "请选择机房类型";
+                e.isValid = false;
+            }
+        }
+    }
+
+    function onExternalElectricValidation(e) {
+        if (e.isValid) {
+            if (e.value == "0") {
+                e.errorText = "请选择引入方式";
+                e.isValid = false;
+            }
+        }
+    }
+</script>

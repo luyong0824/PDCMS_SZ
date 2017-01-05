@@ -1,0 +1,494 @@
+﻿<div id="myToolbar" class="mini-toolbar" style="border-left:0px; border-right:0px; border-top:0px; padding: 0px;">
+    <table style="width: 100%;" cellpadding="0" cellspacing="0">
+        <tr>
+            <td style="width: 100%;"></td>
+            <td style="white-space: nowrap;">
+                <a id="btnAdd" class="mini-button" iconcls="icon-add" plain="true" onclick="onAddClick">添加步骤</a>
+                <a id="btnRemove" class="mini-button" iconcls="icon-remove" plain="true" onclick="onRemoveClick">删除步骤</a>
+                <a id="btnOK" class="mini-button" iconcls="icon-ok" plain="true" onclick="onOKClick">确定发送</a>
+            </td>
+        </tr>
+    </table>
+</div>
+<table style="width: 100%;">
+    <tr>
+        <td style="width: 150px; text-align: right;">发送日期</td>
+        <td colspan="3" style="width: 200px;">
+            <input id="txtCreateDate" name="txtCreateDate" class="mini-textbox" style="width: 200px;" enabled="false" value="@ViewData["SendDate"]" />
+        </td>
+        <td rowspan="5" valign="top">
+            <div class="mini-fit">
+                <div class="mini-tabs" activeindex="0" style="width: 370px; height: 100%;" plain="true">
+                    <div title="内容">
+                        <input id="txtContent" name="txtContent" class="mini-textarea" style="width: 100%; height: 100%;" />
+                    </div>
+                </div>
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td style="width: 150px; text-align: right;">发送人</td>
+        <td colspan="3" style="width: 200px;">
+            <input id="txtFullName" name="txtFullName" class="mini-textbox" style="width: 200px;" enabled="false" value="@ViewData["FullName"]" />
+        </td>
+    </tr>
+    <tr>
+        <td style="width: 150px; text-align: right;">标题</td>
+        <td colspan="3" style="width: 200px;">
+            <input id="txtWFProcessInstanceName" name="txtWFProcessInstanceName" class="mini-textbox" requirederrortext="请输入标题" required="true" style="width: 200px;" value="@ViewData["WFProcessInstanceName"]" />
+        </td>
+    </tr>
+    <tr>
+        <td style="width: 150px; text-align: right;">流程</td>
+        <td colspan="3" style="width: 200px;">
+            <input id="cbWFProcess" name="cbWFProcess" class="mini-combobox" style="width: 180px;" textfield="WFProcessName" valuefield="Id" required="true" onvalidation="onWFProcessValidation" onvaluechanged="onWFProcessValueChanged" data=@Html.Raw(ViewData["WFProcesses"]) /><a id="btnReload" class="mini-button" iconcls="icon-reload" plain="true" onclick="onReloadClick"></a>
+        </td>
+    </tr>
+    <tr>
+        <td style="width: 150px; text-align: right;">单据查看</td>
+        <td style="width: 80px;">
+            <a class="showdocument" onclick="onShowDocumentClick();" />
+        </td>
+        <td style="width: 80px; text-align: right; display: none;">附件上传</td>
+        <td style="width: 40px; display: none;">
+            <a class="fileedit" onclick="onFileEditClick();" /><input class="mini-hidden" id="txtFileIdList" name="txtFileIdList" />
+        </td>
+    </tr>
+</table>
+<div class="mini-fit">
+    <div id="dgWFActivity" class="mini-datagrid" style="width: 100%; height: 100%;" allowcelledit="true" allowcellselect="true" allowmovecolumn="false" borderstyle="border-left:0px;border-right:0px;border-bottom:0px;"
+         multiselect="true" showpager="false" fitcolumns="false" onlycheckselection="true" url="@Url.RouteUrl(new { controller = "WorkFlow", action = "GetWFActivitysBySend" })"
+         ondrawcell="onDrawCell" onload="onDgWFActivityLoad" oncellbeginedit="onDgWFActivityCellBeginEdit" oncellcommitedit="onDgWFActivityCellCommitEdit" oncellendedit="onDgWFActivityCellEndEdit">
+        <div property="columns">
+            <div type="indexcolumn"></div>
+            <div type="checkcolumn">&nbsp;</div>
+            <div field="Id" header="" visible="false"></div>
+            <div field="PostId" header="" visible="false"></div>
+            <div field="PredefinedIsManager" header="" visible="false"></div>
+            <div field="PredefinedDepartmentId" header="" visible="false"></div>
+            <div field="PredefinedUserId" header="" visible="false"></div>
+            <div field="SerialId" header="步骤顺序" width="60"></div>
+            <div field="WFActivityName" header="步骤名称" width="80">
+                <input property="editor" class="mini-textbox" style="width:100%;" />
+            </div>
+            <div type="comboboxcolumn" field="CompanyId" header="公司" width="80">
+                <input property="editor" class="mini-combobox" textfield="CompanyName" valuefield="Id" data=@Html.Raw(ViewData["Companys"]) />
+            </div>
+            <div field="DepartmentId" displayfield="DepartmentName" header="部门" width="100">
+                <input property="editor" class="mini-combobox" style="width:100%;" valuefield="Id" textfield="DepartmentName" />
+            </div>
+            <div field="UserId" displayfield="FullName" header="用户" width="80">
+                <input property="editor" class="mini-combobox" style="width:100%;" valuefield="Id" textfield="FullName" />
+            </div>
+            <div field="Timelimit" header="时限(小时)" width="70">
+                <input property="editor" class="mini-spinner" minvalue="0" maxvalue="168" defaultvalue="24" />
+            </div>
+            <div type="comboboxcolumn" field="WFActivityOperate" header="操作类型" width="80">
+                <input property="editor" class="mini-combobox" style="width:100%;" data=@Html.Raw(ViewData["WFActivityOperate"]) />
+            </div>
+            <div field="WFActivityEditorId" displayfield="WFActivityEditorName" header="编辑类型" width="100">
+                <input property="editor" class="mini-combobox" style="width:100%;" valuefield="Id" textfield="WFActivityEditorName" />
+            </div>
+            <div type="comboboxcolumn" field="IsMustEdit" displayfield="MustEditName" header="是否必须编辑" width="85">
+                <input property="editor" class="mini-combobox" style="width:100%;" data=@Html.Raw(ViewData["Bool"]) />
+            </div>
+            <div type="comboboxcolumn" field="IsNecessaryStep" header="是否必要步骤" readonly="true" width="85">
+                <input property="editor" class="mini-combobox" style="width:100%;" data=@Html.Raw(ViewData["Bool"]) />
+            </div>
+            <div type="comboboxcolumn" field="WFActivityOrder" header="排序方式" width="60">
+                <input property="editor" class="mini-combobox" style="width:100%;" data=@Html.Raw(ViewData["WFActivityOrder"]) />
+            </div>
+            <div field="Move" header="调整" width="50"></div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    mini.parse();
+
+    var txtWFProcessInstanceName = mini.get("txtWFProcessInstanceName");
+    var cbWFProcess = mini.get("cbWFProcess");
+    var btnReload = mini.get("btnReload");
+    var txtFileIdList = mini.get("txtFileIdList");
+    var txtContent = mini.get("txtContent");
+    var dgWFActivity = mini.get("dgWFActivity");
+    var companyId = "@ViewData["CompanyId"]";
+    var returnData = {};
+
+    Init();
+
+    function Init() {
+        cbWFProcess.select(0);
+        BindDgWFActivity(cbWFProcess.getValue());
+        txtWFProcessInstanceName.focus();
+    }
+
+    function GetData() {
+        return returnData;
+    }
+
+    function CloseWindow(action) {
+        if (window.CloseOwnerWindow) {
+            return window.CloseOwnerWindow(action);
+        }
+        else {
+            window.close();
+        }
+    }
+
+    function onWFProcessValidation(e) {
+        if (e.isValid) {
+            if (e.value == "00000000-0000-0000-0000-000000000000") {
+                e.errorText = "请选择一个流程";
+                e.isValid = false;
+            }
+        }
+    }
+
+    function onWFProcessValueChanged(e) {
+        BindDgWFActivity(e.sender.getValue());
+    }
+
+    function BindDgWFActivity(wfProcessId) {
+        cbWFProcess.setEnabled(false);
+        btnReload.setEnabled(false);
+        dgWFActivity.clearSelect(false);
+        dgWFActivity.load({ WFProcessId: wfProcessId, EntityId: "@ViewData["EntityId"]" });
+    }
+
+    function onDgWFActivityLoad() {
+        cbWFProcess.setEnabled(true);
+        btnReload.setEnabled(true);
+    }
+
+    function onDrawCell(e) {
+        if (e.field == "Move" && e.record.Id == "00000000-0000-0000-0000-000000000000") {
+            e.cellHtml = "<table><tr><td style='width: 15px;'><a class='moveup' onclick='onMoveUpClick();' /></td><td><a class='movedown' onclick='onMoveDownClick();' /></td></tr></table>";
+        }
+    }
+
+    function onDgWFActivityCellBeginEdit(e) {
+        if (e.field == "WFActivityName") {
+            if (e.record.Id != "00000000-0000-0000-0000-000000000000") {
+                e.cancel = true;
+            }
+        }
+        else if (e.field == "CompanyId") {
+            if (e.record.Id != "00000000-0000-0000-0000-000000000000") {
+                e.cancel = true;
+            }
+        }
+        else if (e.field == "DepartmentId") {
+            if (e.record.PredefinedDepartmentId != "00000000-0000-0000-0000-000000000000" && e.record.Id != "00000000-0000-0000-0000-000000000000") {
+                e.cancel = true;
+            }
+            else if (e.record.PredefinedDepartmentId == "00000000-0000-0000-0000-000000000000" && e.record.Id != "00000000-0000-0000-0000-000000000000") {
+                e.editor.setUrl("@Url.RouteUrl(new { controller = "BaseData", action = "GetUsedDepartmentsBySend" })" + "?CompanyId=" + e.record.CompanyId + "&PostId=" + e.record.PostId);
+            }
+            else {
+                e.editor.setUrl("@Url.RouteUrl(new { controller = "BaseData", action = "GetUsedDepartments" })" + "/" + e.record.CompanyId + "?getType=1");
+            }
+        }
+        else if (e.field == "UserId") {
+            if (e.record.PredefinedUserId != "00000000-0000-0000-0000-000000000000" && e.record.Id != "00000000-0000-0000-0000-000000000000") {
+                e.cancel = true;
+            }
+            else if (e.record.PredefinedUserId == "00000000-0000-0000-0000-000000000000" && e.record.Id != "00000000-0000-0000-0000-000000000000") {
+                e.editor.setUrl("@Url.RouteUrl(new { controller = "BaseData", action = "GetUsedUsersBySend" })" + "?DepartmentId=" + e.record.DepartmentId + "&PostId=" + e.record.PostId);
+            }
+            else {
+                e.editor.setUrl("@Url.RouteUrl(new { controller = "BaseData", action = "GetUsedUsers" })" + "/" + e.record.DepartmentId + "?getType=1");
+            }
+        }
+        else if (e.field == "Timelimit") {
+            if (e.record.Id != "00000000-0000-0000-0000-000000000000") {
+                e.cancel = true;
+            }
+        }
+        else if (e.field == "WFActivityOperate") {
+            if (e.record.Id != "00000000-0000-0000-0000-000000000000") {
+                e.cancel = true;
+            }
+        }
+        else if (e.field == "WFActivityEditorId") {
+            if (e.record.Id != "00000000-0000-0000-0000-000000000000") {
+                e.cancel = true;
+            }
+            else {
+                if (e.record.WFActivityOperate == 3) {
+                    e.editor.setUrl("@Url.RouteUrl(new { controller = "WorkFlow", action = "GetWFActivityEditors" })" + "?WFCategoryId=" + "@ViewData["WFCategoryId"]");
+                }
+                else {
+                    e.editor.setData([{ Id: '00000000-0000-0000-0000-000000000000', WFActivityEditorName: '无' }]);
+                }
+            }
+        }
+        else if (e.field == "WFActivityOrder") {
+            if (e.record.Id != "00000000-0000-0000-0000-000000000000") {
+                e.cancel = true;
+            }
+        }
+        else if (e.field == "IsMustEdit") {
+            if (e.record.Id != "00000000-0000-0000-0000-000000000000") {
+                e.cancel = true;
+            }
+        }
+        else if (e.field == "IsNecessaryStep") {
+            if (e.record.Id != "00000000-0000-0000-0000-000000000000") {
+                e.cancel = true;
+            }
+        }
+    }
+
+    function onDgWFActivityCellCommitEdit(e) {
+        var grid = e.sender;
+        var record = e.record;
+        if (e.field == "CompanyId") {
+            grid.updateRow(record, { DepartmentId: "00000000-0000-0000-0000-000000000000", DepartmentName: "请选择", UserId: "00000000-0000-0000-0000-000000000000", FullName: "请选择" });
+        }
+        else if (e.field == "DepartmentId") {
+            grid.updateRow(record, { UserId: "00000000-0000-0000-0000-000000000000", FullName: "请选择" });
+        }
+    }
+
+    function onDgWFActivityCellEndEdit(e) {
+        var grid = e.sender;
+        var record = e.record;
+        if (e.field == "WFActivityOperate") {
+            if (record.WFActivityOperate == 3) {
+                grid.updateRow(record, { WFActivityEditorId: '00000000-0000-0000-0000-000000000000', WFActivityEditorName: '请选择' });
+                grid.updateRow(record, { IsMustEdit: '1', MustEditName: '是' });
+            }
+            else {
+                grid.updateRow(record, { WFActivityEditorId: '00000000-0000-0000-0000-000000000000', WFActivityEditorName: '无' });
+                grid.updateRow(record, { IsMustEdit: '2', MustEditName: '否' });
+            }
+        }
+        else if (e.field == "WFActivityOrder") {
+            var rowCount = grid.getData().length;
+            var startSerialId = 1;
+            for (var i = 0; i < rowCount; i++) {
+                grid.updateRow(grid.getRow(i), { SerialId: startSerialId });
+                if (grid.getRow(i).WFActivityOrder == 1) {
+                    startSerialId++;
+                }
+            }
+        }
+    }
+
+    function onMoveUpClick() {
+        var row = dgWFActivity.getCurrentCell()[0];
+        var index = dgWFActivity.indexOf(row);
+        var previousRow = dgWFActivity.getRow(index - 1);
+        if (previousRow && previousRow.PredefinedIsManager != 1) {
+            dgWFActivity.moveRow(row, index - 1);
+
+            var rowCount = dgWFActivity.getData().length;
+            var startSerialId = 1;
+            for (var i = 0; i < rowCount; i++) {
+                dgWFActivity.updateRow(dgWFActivity.getRow(i), { SerialId: startSerialId });
+                if (dgWFActivity.getRow(i).WFActivityOrder == 1) {
+                    startSerialId++;
+                }
+            }
+        }
+    }
+
+    function onMoveDownClick() {
+        var row = dgWFActivity.getCurrentCell()[0];
+        var index = dgWFActivity.indexOf(row);
+        if (index < dgWFActivity.getData().length - 1) {
+            dgWFActivity.moveRow(row, index + 2);
+
+            var rowCount = dgWFActivity.getData().length;
+            var startSerialId = 1;
+            for (var i = 0; i < rowCount; i++) {
+                dgWFActivity.updateRow(dgWFActivity.getRow(i), { SerialId: startSerialId });
+                if (dgWFActivity.getRow(i).WFActivityOrder == 1) {
+                    startSerialId++;
+                }
+            }
+        }
+    }
+
+    function onReloadClick() {
+        if (cbWFProcess.getValue() != "00000000-0000-0000-0000-000000000000") {
+            BindDgWFActivity(cbWFProcess.getValue());
+        }
+    }
+
+    function onShowDocumentClick() {
+        @*OpenPrintWindow("@Url.RouteUrl(new { controller = "", action = "" })" + "@ViewData["PrintUrl"]");*@
+        var el = document.body;
+        mini.mask({
+            el: el,
+            cls: 'mini-mask-loading',
+            html: '加载中...'
+        });
+        setTimeout(function () {
+            mini.unmask(el);
+            mini.open({
+                url: "@Url.RouteUrl(new { controller = "", action = "" })" + "@ViewData["PrintUrl"]",
+                width: 1050,
+                height: 600,
+            });
+        }, 50);
+    }
+
+    function onFileEditClick() {
+        var el = document.body;
+        mini.mask({
+            el: el,
+            cls: 'mini-mask-loading',
+            html: '加载中...'
+        });
+        setTimeout(function () {
+            $.ajax({
+                url: "@Url.RouteUrl(new { controller = "File", action = "GetFiles" })",
+                data: { FileIdList: txtFileIdList.getValue() },
+                type: "get",
+                async: false,
+                success: function (result, textStatus) {
+                    mini.unmask(el);
+                    if (result.Code == null || !result.Code) {
+                        mini.open({
+                            url: "@Url.RouteUrl(new { controller = "File", action = "FileManager" })",
+                            title: "附件",
+                            iconCls: "icon-file",
+                            width: 620,
+                            height: 250,
+                            allowResize: false,
+                            onload: function () {
+                                var iframe = this.getIFrameEl();
+                                var data = result;
+                                iframe.contentWindow.SetDataEdit(data);
+                            },
+                            ondestroy: function (action) {
+                                if (action == "ok") {
+                                    var iframe = this.getIFrameEl();
+                                    var data = iframe.contentWindow.GetData();
+                                    data = mini.clone(data);
+                                    txtFileIdList.setValue(data.FileIdList);
+                                }
+                            }
+                        });
+                    }
+                },
+                error: function (xmlHttpRequest, textStatus, errorThrown) {
+                    mini.unmask(el);
+                }
+            });
+        }, 50);
+    }
+
+    function onAddClick() {
+        var count = dgWFActivity.getData().length;
+        var newSerialId = 1;
+        if (count > 0) {
+            var lastRow = dgWFActivity.getRow(count - 1);
+            if (lastRow.WFActivityOrder == 1) {
+                newSerialId = lastRow.SerialId + 1;
+            }
+            else {
+                newSerialId = lastRow.SerialId;
+            }
+        }
+
+        var newRow = {
+            Id: "00000000-0000-0000-0000-000000000000", PostId: "00000000-0000-0000-0000-000000000000", PredefinedDepartmentId: "00000000-0000-0000-0000-000000000000", PredefinedUserId: "00000000-0000-0000-0000-000000000000",
+            SerialId: newSerialId, WFActivityName: "新增", CompanyId: companyId, DepartmentId: "00000000-0000-0000-0000-000000000000", DepartmentName: "请选择", UserId: "00000000-0000-0000-0000-000000000000", FullName: "请选择",
+            Timelimit: 24, WFActivityOperate: 1, WFActivityEditorId: "00000000-0000-0000-0000-000000000000", WFActivityEditorName: "无", IsMustEdit: 2, MustEditName: '否', IsNecessaryStep: 2, WFActivityOrder: 1
+        };
+        dgWFActivity.addRow(newRow);
+    }
+
+    function onRemoveClick() {
+        var rows = dgWFActivity.getSelecteds();
+        if (rows.length == 0) {
+            mini.alert("请选择要删除的数据");
+        }
+        else {
+            mini.confirm("确定要删除选中的数据？", "删除流程步骤",
+            function (action) {
+                if (action == "ok") {
+                    for (var i = 0; i < rows.length; i++) {
+                        if (rows[i].IsNecessaryStep == "2") {
+                            dgWFActivity.removeRow(rows[i]);
+                        }
+                        else {
+                            mini.alert("必要步骤不可删除");
+                            break;
+                        }
+                    }
+                    dgWFActivity.clearSelect();
+                    var rowCount = dgWFActivity.getData().length;
+                    var startSerialId = 1;
+                    for (var i = 0; i < rowCount; i++) {
+                        dgWFActivity.updateRow(dgWFActivity.getRow(i), { SerialId: startSerialId });
+                        if (dgWFActivity.getRow(i).WFActivityOrder == 1) {
+                            startSerialId++;
+                        }
+                    }
+                }
+            });
+        }
+    }
+
+    function onOKClick() {
+        txtWFProcessInstanceName.validate();
+        cbWFProcess.validate();
+        if (txtWFProcessInstanceName.isValid() == false || cbWFProcess.isValid() == false) return;
+
+        if (dgWFActivity.getData().length == 0) {
+            mini.alert("请添加流程步骤");
+            return;
+        }
+
+        var errorUserRows = dgWFActivity.findRows(function (row) {
+            if (row.UserId == "00000000-0000-0000-0000-000000000000") {
+                return true;
+            }
+        });
+        if (errorUserRows.length > 0) {
+            mini.alert("第" + (dgWFActivity.indexOf(errorUserRows[0]) + 1) + "行：请选择一个用户");
+            return;
+        }
+
+        var errorEditorRows = dgWFActivity.findRows(function (row) {
+            if (row.WFActivityOperate == 3 && row.WFActivityEditorId == "00000000-0000-0000-0000-000000000000") {
+                return true;
+            }
+        });
+        if (errorEditorRows.length > 0) {
+            mini.alert("第" + (dgWFActivity.indexOf(errorEditorRows[0]) + 1) + "行：请选择一个编辑类型");
+            return;
+        }
+
+        var errorOperateRows = dgWFActivity.findRows(function (row) {
+            if (row.WFActivityOperate == 1 || row.WFActivityOperate == 3) {
+                return true;
+            }
+        });
+        if (errorOperateRows.length == 0) {
+            mini.alert("流程步骤中的操作类型不能都为\"阅\"");
+            return;
+        }
+
+        var loading = mini.loading("处理中,请稍后...", "发送流程");
+        var data = dgWFActivity.getData();
+        var jsonData = mini.encode(data);
+        $.ajax({
+            url: "@Url.RouteUrl(new { controller = "WorkFlow", action = "WFInstanceSending" })",
+            data: AddAntiForgeryToken({ EntityId: "@ViewData["EntityId"]", WFProcessInstanceName: txtWFProcessInstanceName.getValue(), WFProcessId: cbWFProcess.getValue(), FileIdList: txtFileIdList.getValue(), Content: txtContent.getValue(), data: jsonData }),
+            type: "post",
+            success: function (result, textStatus) {
+                mini.hideMessageBox(loading);
+                if (result.Code != null && result.Code == 0) {
+                    CloseWindow("ok");
+                }
+            },
+            error: function (xmlHttpRequest, textStatus, errorThrown) {
+                mini.hideMessageBox(loading);
+            }
+        });
+    }
+</script>

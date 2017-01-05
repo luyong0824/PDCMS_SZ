@@ -1,0 +1,361 @@
+﻿<div id="myToolbar" class="mini-toolbar" style="border-bottom: 0px; padding: 0px;">
+    <table style="width: 100%;" cellpadding="0" cellspacing="0">
+        <tr>
+            <td style="width: 100%;">
+                <a class="mini-button" iconcls="icon-help" plain="true" href="@Url.RouteUrl(new { controller = "File", action = "DownloadHelpFiles" })?FileName=PlaceReport" target="_blank"></a>当前位置：基站建维>基站报表>基站清单
+            </td>
+            <td style="white-space: nowrap;">
+                <a id="btnSearch" class="mini-button" iconcls="icon-search" plain="true" onclick="onSearchClick">查询</a>
+                <a id="btnShowMap" class="mini-button" iconcls="icon-map" plain="true" onclick="onShowMapClick">地图导航</a>
+                <a class="mini-button" iconcls="icon-excel" plain="true" onclick="ExportExcel">导出Excel</a>
+            </td>
+        </tr>
+    </table>
+</div>
+<div class="mini-fit">
+    <div id="dgPlace" class="mini-datagrid" style="width: 100%; height: 100%;" idfield="Id" allowmovecolumn="false"
+         multiselect="true" fitcolumns="false" onlycheckselection="true" showreloadbutton="false" pagesize="15" sizelist="[15,50,100,500]"
+         virtualscroll="false" frozenstartcolumn="0" frozenendcolumn="2" ondrawcell="onDrawCell" onload="onDgPlaceLoad" oncellclick="onCellClick">
+        <div property="columns">
+            <div type="indexcolumn"></div>
+            <div field="IsFile" header=""></div>
+            <div field="PlaceCode" header="基站编码" width="80"></div>
+            <div field="PlaceName" header="基站名称" width="150"></div>
+            <div field="PlaceCategoryName" header="基站类型" width="80"></div>
+            <div field="AreaName" header="区域" width="80"></div>
+            <div field="ReseauName" header="网格" width="80"></div>
+            <div field="Lng" header="经度" width="80"></div>
+            <div field="Lat" header="纬度" width="80"></div>
+            <div field="Map" header="导航图" width="50"></div>
+            <div field="File" header="附件" width="50"></div>
+            <div type="comboboxcolumn" field="Importance" header="重要性程度" width="70">
+                <input property="editor" class="mini-combobox" style="width: 100%;" data=@Html.Raw(ViewData["Importance"]) />
+            </div>
+            <div field="PlaceOwnerName" header="产权" width="60"></div>
+            <div field="OwnerName" header="业主名称" width="100"></div>
+            <div field="OwnerContact" header="联系人" width="100"></div>
+            <div field="OwnerPhoneNumber" header="联系方式" width="100"></div>
+            <div type="comboboxcolumn" field="State" header="状态" width="50">
+                <input property="editor" class="mini-combobox" style="width: 100%;" data=@Html.Raw(ViewData["State"]) />
+            </div>
+            <div field="FullName" header="登记人" width="100"></div>
+            <div field="CreateDate" header="登记日期" width="100" dateformat="yyyy-MM-dd"></div>
+        </div>
+    </div>
+</div>
+<div id="winQuery" class="mini-window" style="width: 600px; height: 190px;"
+     showmodal="true" allowresize="false" title="查询条件">
+    <table style="width: 100%;">
+        <tr>
+            <td style="width: 80px; text-align: right;">基站编码</td>
+            <td>
+                <input id="txtPlaceCode" class="mini-textbox" style="width:200px;" />
+            </td>
+            <td style="width: 80px; text-align: right;">基站名称</td>
+            <td>
+                <input id="txtPlaceName" class="mini-textbox" style="width:200px;" />
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 80px; text-align: right;">基站类型</td>
+            <td>
+                <input id="cbPlaceCategoryId" class="mini-combobox" value="00000000-0000-0000-0000-000000000000" style="width:200px;" textfield="PlaceCategoryName" valuefield="Id" data=@Html.Raw(ViewData["PlaceCategorysByAll"]) />
+            </td>
+            <td style="width: 80px; text-align: right;">产权</td>
+            <td>
+                <input id="cbPlaceOwner" class="mini-combobox" value="00000000-0000-0000-0000-000000000000" style="width:200px;" textfield="PlaceOwnerName" valuefield="Id" data=@Html.Raw(ViewData["PlaceOwnersByAll"]) />
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 80px; text-align: right;">区域</td>
+            <td>
+                <input id="cbAreaId" class="mini-combobox" value="00000000-0000-0000-0000-000000000000" style="width:200px;" textfield="AreaName" valuefield="Id" data=@Html.Raw(ViewData["AreasByAll"])
+                       onvaluechanged="onCbAreaIdValueChanged" />
+            </td>
+            <td style="width: 80px; text-align: right;">网格</td>
+            <td>
+                <input id="cbReseauId" class="mini-combobox" value="00000000-0000-0000-0000-000000000000" style="width:200px;" textfield="ReseauName" valuefield="Id" data="[{Id:'00000000-0000-0000-0000-000000000000',ReseauName:'全部'}]"
+                       onload="onCbReseauIdLoad" />
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 80px; text-align: right;">重要性程度</td>
+            <td>
+                <input id="cbImportance" class="mini-combobox" value="0" style="width:200px;" data=@Html.Raw(ViewData["ImportanceByAll"]) />
+            </td>
+            <td style="width: 80px; text-align: right;">状态</td>
+            <td>
+                <input id="cbState" class="mini-combobox" value="0" style="width:200px;" data=@Html.Raw(ViewData["StateByAll"]) />
+            </td>
+        </tr>
+    </table>
+    <div style="text-align: center; padding: 10px;">
+        <a class="mini-button" iconcls="icon-ok" onclick="onOKClick">确定</a>
+    </div>
+</div>
+<iframe id="exportIFrame" style="display:none;"></iframe>
+<!--导出Excel相关HTML-->
+<form id="excelForm" action="export.aspx?type=excel" method="post" target="excelIFrame">
+    <input type="hidden" name="columns" id="excelData" />
+</form>
+<iframe id="excelIFrame" name="excelIFrame" style="display:none;"></iframe>
+<script type="text/javascript">
+    mini.parse();
+
+    var btnSearch = mini.get("btnSearch");
+    var dgPlace = mini.get("dgPlace");
+    var winQuery = mini.get("winQuery");
+    var txtPlaceCode = mini.get("txtPlaceCode");
+    var txtPlaceName = mini.get("txtPlaceName");
+    var cbPlaceCategoryId = mini.get("cbPlaceCategoryId");
+    var cbPlaceOwner = mini.get("cbPlaceOwner");
+    var cbAreaId = mini.get("cbAreaId");
+    var cbReseauId = mini.get("cbReseauId");
+    var cbImportance = mini.get("cbImportance");
+    var cbState = mini.get("cbState");
+    dgPlace.hideColumn(1);
+
+    function BindDgPlace() {
+        btnSearch.setEnabled(false);
+        var query_PlaceCode = txtPlaceCode.getValue();
+        var query_PlaceName = txtPlaceName.getValue();
+        var query_PlaceCategoryId = cbPlaceCategoryId.getValue();
+        var query_PlaceOwner = cbPlaceOwner.getValue();
+        var query_AreaId = cbAreaId.getValue();
+        var query_ReseauId = cbReseauId.getValue();
+        var query_Importance = cbImportance.getValue();
+        var query_State = cbState.getValue();
+        if (dgPlace.getUrl() == "") {
+            dgPlace.setUrl("@Url.RouteUrl(new { controller = "BaseStationBM", action = "GetPlaceImportsPage" })");
+        }
+        dgPlace.clearSelect(false);
+        dgPlace.load({ PlaceCode: query_PlaceCode, PlaceName: query_PlaceName, PlaceCategoryId: query_PlaceCategoryId, PlaceOwner: query_PlaceOwner, AreaId: query_AreaId, ReseauId: query_ReseauId, Importance: query_Importance, State: query_State });
+    }
+
+    function onDgPlaceLoad() {
+        btnSearch.setEnabled(true);
+    }
+
+    function onDrawCell(e) {
+        if (e.field == "State" && e.value == 2) {
+            e.cellStyle = "color:red;";
+        }
+        if (e.field == "Map") {
+            e.cellHtml = "<a class='navigationmap' onclick='onMapClick(\"" + e.record.Id + "\");'></a>";
+        }
+        if (e.field == "File" && e.record.IsFile != "") {
+            e.cellHtml = "<a class='file' onclick='onFileClick(\"" + e.record.Id + "\");'></a>";
+        }
+        if (e.field == "PlaceName") {
+            e.cellStyle = "color:blue";
+        }
+    }
+
+    function onMapClick(id) {
+        var el = dgPlace.getEl();
+        mini.mask({
+            el: el,
+            cls: 'mini-mask-loading',
+            html: '加载中...'
+        });
+        setTimeout(function () {
+            $.ajax({
+                url: "@Url.RouteUrl(new { controller = "Map", action = "GetPlacePoint" })",
+                data: { PlaceId: id, AreaId: "00000000-0000-0000-0000-000000000000", PlaceName: "", Lng: 0, Lat: 0, Profession: 1 },
+                type: "get",
+                async: false,
+                success: function (result, textStatus) {
+                    mini.unmask(el);
+                    if (result.Id != null && result.Id == id) {
+                        mini.open({
+                            url: "@Url.RouteUrl(new { controller = "Map", action = "NavigationMap" })",
+                            title: result.PlaceName,
+                            iconCls: "icon-map",
+                            width: 800,
+                            height: 550,
+                            showMaxButton: true,
+                            onload: function () {
+                                var iframe = this.getIFrameEl();
+                                var data = result;
+                                iframe.contentWindow.SetData(data);
+                            }
+                        });
+                    }
+                },
+                error: function (xmlHttpRequest, textStatus, errorThrown) {
+                    mini.unmask(el);
+                }
+            });
+        }, 50);
+    }
+
+    function onFileClick(id) {
+        var el = dgPlace.getEl();
+        mini.mask({
+            el: el,
+            cls: 'mini-mask-loading',
+            html: '加载中...'
+        });
+        setTimeout(function () {
+            $.ajax({
+                url: "@Url.RouteUrl(new { controller = "File", action = "GetPlaceFiles" })",
+                data: { PlaceId: id, FileIdList: "" },
+                type: "get",
+                async: false,
+                success: function (result, textStatus) {
+                    mini.unmask(el);
+                    if (result.Code == null || !result.Code) {
+                        mini.open({
+                            url: "@Url.RouteUrl(new { controller = "File", action = "FileManager" })",
+                            title: "示意图",
+                            iconCls: "icon-file",
+                            width: 620,
+                            height: 250,
+                            allowResize: false,
+                            onload: function () {
+                                var iframe = this.getIFrameEl();
+                                var data = result;
+                                iframe.contentWindow.SetData(data);
+                            }
+                        });
+                    }
+                },
+                error: function (xmlHttpRequest, textStatus, errorThrown) {
+                    mini.unmask(el);
+                }
+            });
+        }, 50);
+    }
+
+    function BindCbPlaceCategoryId(profession) {
+        cbPlaceCategoryId.setUrl("@Url.RouteUrl(new { controller = "BaseData", action = "GetUsedPlaceCategorys" })" + "/" + profession + "?getType=2");
+    }
+
+    function BindCbReseauId(areaId) {
+        cbReseauId.setUrl("@Url.RouteUrl(new { controller = "BaseData", action = "GetUsedReseaus" })" + "/" + areaId + "?getType=2");
+    }
+
+    function onCbProfessionValueChanged(e) {
+        BindCbPlaceCategoryId(e.sender.getValue());
+    }
+
+    function onCbAreaIdValueChanged(e) {
+        BindCbReseauId(e.sender.getValue());
+    }
+
+    function onCbPlaceCategoryIdLoad() {
+        cbPlaceCategoryId.setValue("00000000-0000-0000-0000-000000000000");
+    }
+
+    function onCbReseauIdLoad() {
+        cbReseauId.setValue("00000000-0000-0000-0000-000000000000");
+    }
+
+    function onSearchClick() {
+        winQuery.show();
+    }
+
+    function onOKClick() {
+        BindDgPlace();
+        winQuery.hide();
+    }
+
+    function onShowMapClick() {
+        var placeIdList = "";
+        var rows = dgPlace.getData();
+        if (rows.length != 0) {
+            for (var i = 0; i < rows.length; i++) {
+                placeIdList = placeIdList + rows[i].Id;
+                if (i != rows.length - 1) {
+                    placeIdList = placeIdList + ",";
+                }
+            }
+        }
+        else {
+            mini.alert("请先查询数据");
+            return;
+        }
+        setTimeout(function () {
+            var url, data;
+            url = "@Url.RouteUrl(new { controller = "Map", action = "GetPlacePoints" })";
+            data = { PlaceIdList: placeIdList };
+            $.ajax({
+                url: url,
+                data: data,
+                type: "post",
+                async: false,
+                success: function (result, textStatus) {
+                    var title;
+                    title = "地图导航";
+                    mini.open({
+                        url: "@Url.RouteUrl(new { controller = "Map", action = "NavigationMap" })",
+                        title: title,
+                        iconCls: "icon-map",
+                        width: 800,
+                        height: 550,
+                        showMaxButton: true,
+                        onload: function () {
+                            var iframe = this.getIFrameEl();
+                            var data = result;
+                            iframe.contentWindow.SetData(data);
+                        },
+                        ondestroy: function (action) {
+                            if (action == "ok") {
+                                var iframe = this.getIFrameEl();
+                                var data = iframe.contentWindow.GetData();
+                                data = mini.clone(data);
+                            }
+                        }
+                    });
+                },
+                error: function (xmlHttpRequest, textStatus, errorThrown) {
+                }
+            });
+        }, 50);
+    }
+
+    function onCellClick(e) {
+        if (e.column.field == "PlaceName") {
+            var el = dgPlace.getEl();
+            mini.mask({
+                el: el,
+                cls: 'mini-mask-loading',
+                html: '加载中...'
+            });
+            setTimeout(function () {
+                mini.unmask(el);
+                mini.open({
+                    url: "@Url.RouteUrl(new { controller = "BaseData", action = "PlaceInfo" })" + "/" + e.record.Id,
+                    title: "站点信息",
+                    //iconCls: "icon-editor",
+                    width: 670,
+                    height: 500,
+                });
+            }, 50);
+        }
+    }
+
+    function ExportExcel() {
+        var columns = dgPlace.getBottomColumns();
+        function getColumns(columns) {
+            columns = columns.clone();
+            for (var i = columns.length - 1; i >= 0; i--) {
+                var column = columns[i];
+                if (!column.field) {
+                    columns.removeAt(i);
+                } else {
+                    var c = { header: column.header, field: column.field };
+                    columns[i] = c;
+                }
+            }
+            return columns;
+        }
+
+        var columns = getColumns(columns);
+        var json = mini.encode(columns);
+        document.getElementById("excelData").value = json;
+        var excelForm = document.getElementById("excelForm");
+        excelForm.action = "@Url.RouteUrl(new { controller = "DataOutput", action = "ExportPlacesBaseStationExcel" })" + "?PlaceCode=" + txtPlaceCode.getValue() + "&PlaceName=" + txtPlaceName.getValue() + "&PlaceCategoryId=" + cbPlaceCategoryId.getValue() + "&PlaceOwner=" + cbPlaceOwner.getValue() + "&AreaId=" + cbAreaId.getValue() + "&ReseauId=" + cbReseauId.getValue() + "&Importance=" + cbImportance.getValue() + "&State=" + cbState.getValue() + "&Profession=1";
+        excelForm.submit();
+    }
+</script>

@@ -1,0 +1,417 @@
+﻿<div id="myToolbar" class="mini-toolbar" style="border-bottom: 0px; padding: 0px;">
+    <table style="width: 100%;" cellpadding="0" cellspacing="0">
+        <tr>
+            <td style="width: 100%;">
+                <a class="mini-button" iconcls="icon-help" plain="true" href="@Url.RouteUrl(new { controller = "File", action = "DownloadHelpFiles" })?FileName=MyWFInstance" target="_blank"></a>当前位置：业务流程>公文管理>我的公文
+            </td>
+            <td style="white-space: nowrap;">
+                <a id="btnSearch" class="mini-button" iconcls="icon-search" plain="true" onclick="onSearchClick">查询</a>
+            </td>
+        </tr>
+    </table>
+</div>
+<div class="mini-fit">
+    <div id="tabMyWFInstance" class="mini-tabs" activeindex="0" style="width:100%;height:100%;" plain="false">
+        <div title="待处理公文">
+            <div class="mini-fit">
+                <div id="dgDoing" class="mini-datagrid" style="width: 100%; height: 100%;" idfield="Id" allowmovecolumn="false"
+                     multiselect="true" fitcolumns="false" onlycheckselection="true" showreloadbutton="false" pagesize="15" sizelist="[15,30,50,100]"
+                     onload="onDgLoad" onrowclick="onDgDoingRowClick">
+                    <div property="columns">
+                        <div type="indexcolumn"></div>
+                        <div field="WFProcessInstanceCode" header="公文编码" width="130"></div>
+                        <div field="WFProcessInstanceName" header="标题" width="180"></div>
+                        <div field="WFProcessName" header="流程" width="150"></div>
+                        <div field="ReceivedDate" header="收文日期" width="80" dateformat="yyyy-MM-dd"></div>
+                        <div field="FullName" header="发起人" width="80"></div>
+                        <div field="CreateDate" header="发起日期" width="80" dateformat="yyyy-MM-dd"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div title="已处理公文">
+            <div id="dgDoed" class="mini-datagrid" style="width: 100%; height: 100%;" idfield="Id" allowmovecolumn="false"
+                 multiselect="true" fitcolumns="false" onlycheckselection="true" showreloadbutton="false" pagesize="15" sizelist="[15,30,50,100]"
+                 onload="onDgLoad" onrowclick="onDgDoedRowClick">
+                <div property="columns">
+                    <div type="indexcolumn"></div>
+                    <div field="WFProcessInstanceCode" header="公文编码" width="130"></div>
+                    <div field="WFProcessInstanceName" header="标题" width="180"></div>
+                    <div field="WFProcessName" header="流程" width="150"></div>
+                    <div field="ReceivedDate" header="收文日期" width="80" dateformat="yyyy-MM-dd"></div>
+                    <div field="OperateDate" header="处理日期" width="80" dateformat="yyyy-MM-dd"></div>
+                    <div type="comboboxcolumn" field="WFActivityOperate" header="操作类型" width="80">
+                        <input property="editor" class="mini-combobox" style="width: 100%;" data=@Html.Raw(ViewData["WFActivityOperate"]) />
+                    </div>
+                    <div type="comboboxcolumn" field="WFActivityInstanceResult" header="处理结果" width="80">
+                        <input property="editor" class="mini-combobox" style="width: 100%;" data=@Html.Raw(ViewData["WFActivityInstanceResult"]) />
+                    </div>
+                    <div field="Content" header="内容" width="150"></div>
+                    <div field="FullName" header="发起人" width="80"></div>
+                    <div field="CreateDate" header="发起日期" width="80" dateformat="yyyy-MM-dd"></div>
+                </div>
+            </div>
+        </div>
+        <div title="已发送公文(待处理)">
+            <div id="dgSendedToDoing" class="mini-datagrid" style="width: 100%; height: 100%;" idfield="Id" allowmovecolumn="false"
+                 multiselect="true" fitcolumns="false" onlycheckselection="true" showreloadbutton="false" pagesize="15" sizelist="[15,30,50,100]"
+                 onload="onDgLoad" onrowclick="onDgSendedToDoingRowClick">
+                <div property="columns">
+                    <div type="indexcolumn"></div>
+                    <div field="WFProcessInstanceCode" header="公文编码" width="130"></div>
+                    <div field="WFProcessInstanceName" header="标题" width="180"></div>
+                    <div field="WFProcessName" header="流程" width="150"></div>
+                    <div field="CreateDate" header="发起日期" width="80" dateformat="yyyy-MM-dd"></div>
+                    <div type="comboboxcolumn" field="WFProcessInstanceState" header="公文状态" width="80">
+                        <input property="editor" class="mini-combobox" style="width: 100%;" data=@Html.Raw(ViewData["WFProcessInstanceState"]) />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div title="已发送公文(已处理)">
+            <div id="dgSendedToDoed" class="mini-datagrid" style="width: 100%; height: 100%;" idfield="Id" allowmovecolumn="false"
+                 multiselect="true" fitcolumns="false" onlycheckselection="true" showreloadbutton="false" pagesize="15" sizelist="[15,30,50,100]"
+                 onload="onDgLoad" onrowclick="onDgSendedToDoedRowClick">
+                <div property="columns">
+                    <div type="indexcolumn"></div>
+                    <div field="WFProcessInstanceCode" header="公文编码" width="130"></div>
+                    <div field="WFProcessInstanceName" header="标题" width="180"></div>
+                    <div field="WFProcessName" header="流程" width="150"></div>
+                    <div field="CreateDate" header="发起日期" width="80" dateformat="yyyy-MM-dd"></div>
+                    <div type="comboboxcolumn" field="WFProcessInstanceState" header="公文状态" width="80">
+                        <input property="editor" class="mini-combobox" style="width: 100%;" data=@Html.Raw(ViewData["WFProcessInstanceState"]) />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="winQueryDoing" class="mini-window" style="width: 350px; height: 190px;"
+     showmodal="true" allowresize="false" title="查询条件">
+    <table style="width: 100%;">
+        <tr>
+            <td style="width: 80px; text-align: right;">发起日期</td>
+            <td>
+                <table border="0" cellpadding="0" cellspacing="0">
+                    <tr>
+                        <td><input id="dpBeginDate1" class="mini-datepicker" style="width:98px;" value="new Date()" showclearbutton="false" allowinput="false" /></td>
+                        <td>至</td>
+                        <td><input id="dpEndDate1" class="mini-datepicker" style="width:98px;" value="new Date()" showclearbutton="false" allowinput="false" /></td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 80px; text-align: right;">公文编码</td>
+            <td>
+                <input id="txtWFProcessInstanceCode1" class="mini-textbox" style="width:208px;" />
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 80px; text-align: right;">标题</td>
+            <td>
+                <input id="txtWFProcessInstanceName1" class="mini-textbox" style="width:208px;" />
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 80px; text-align: right;">流程</td>
+            <td>
+                <input id="cbWFProcessId1" class="mini-combobox" style="width:208px;" textfield="WFProcessName" valuefield="Id" value="00000000-0000-0000-0000-000000000000" data=@Html.Raw(ViewData["WFProcesses"]) />
+            </td>
+        </tr>
+    </table>
+    <div style="text-align: center; padding: 10px;">
+        <a class="mini-button" iconcls="icon-ok" onclick="onOK1Click">确定</a>
+    </div>
+</div>
+<div id="winQueryDoed" class="mini-window" style="width: 350px; height: 190px;"
+     showmodal="true" allowresize="false" title="查询条件">
+    <table style="width: 100%;">
+        <tr>
+            <td style="width: 80px; text-align: right;">发起日期</td>
+            <td>
+                <table border="0" cellpadding="0" cellspacing="0">
+                    <tr>
+                        <td><input id="dpBeginDate2" class="mini-datepicker" style="width:98px;" value="new Date()" showclearbutton="false" allowinput="false" /></td>
+                        <td>至</td>
+                        <td><input id="dpEndDate2" class="mini-datepicker" style="width:98px;" value="new Date()" showclearbutton="false" allowinput="false" /></td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 80px; text-align: right;">公文编码</td>
+            <td>
+                <input id="txtWFProcessInstanceCode2" class="mini-textbox" style="width:208px;" />
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 80px; text-align: right;">标题</td>
+            <td>
+                <input id="txtWFProcessInstanceName2" class="mini-textbox" style="width:208px;" />
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 80px; text-align: right;">流程</td>
+            <td>
+                <input id="cbWFProcessId2" class="mini-combobox" style="width:208px;" textfield="WFProcessName" valuefield="Id" value="00000000-0000-0000-0000-000000000000" data=@Html.Raw(ViewData["WFProcesses"]) />
+            </td>
+        </tr>
+    </table>
+    <div style="text-align: center; padding: 10px;">
+        <a class="mini-button" iconcls="icon-ok" onclick="onOK2Click">确定</a>
+    </div>
+</div>
+<div id="winQuerySendedToDoing" class="mini-window" style="width: 350px; height: 190px;"
+     showmodal="true" allowresize="false" title="查询条件">
+    <table style="width: 100%;">
+        <tr>
+            <td style="width: 80px; text-align: right;">发起日期</td>
+            <td>
+                <table border="0" cellpadding="0" cellspacing="0">
+                    <tr>
+                        <td><input id="dpBeginDate3" class="mini-datepicker" style="width:98px;" value="new Date()" showclearbutton="false" allowinput="false" /></td>
+                        <td>至</td>
+                        <td><input id="dpEndDate3" class="mini-datepicker" style="width:98px;" value="new Date()" showclearbutton="false" allowinput="false" /></td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 80px; text-align: right;">公文编码</td>
+            <td>
+                <input id="txtWFProcessInstanceCode3" class="mini-textbox" style="width:208px;" />
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 80px; text-align: right;">标题</td>
+            <td>
+                <input id="txtWFProcessInstanceName3" class="mini-textbox" style="width:208px;" />
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 80px; text-align: right;">流程</td>
+            <td>
+                <input id="cbWFProcessId3" class="mini-combobox" style="width:208px;" textfield="WFProcessName" valuefield="Id" value="00000000-0000-0000-0000-000000000000" data=@Html.Raw(ViewData["WFProcesses"]) />
+            </td>
+        </tr>
+    </table>
+    <div style="text-align: center; padding: 10px;">
+        <a class="mini-button" iconcls="icon-ok" onclick="onOK3Click">确定</a>
+    </div>
+</div>
+<div id="winQuerySendedToDoed" class="mini-window" style="width: 350px; height: 215px;"
+     showmodal="true" allowresize="false" title="查询条件">
+    <table style="width: 100%;">
+        <tr>
+            <td style="width: 80px; text-align: right;">发起日期</td>
+            <td>
+                <table border="0" cellpadding="0" cellspacing="0">
+                    <tr>
+                        <td><input id="dpBeginDate4" class="mini-datepicker" style="width:98px;" value="new Date()" showclearbutton="false" allowinput="false" /></td>
+                        <td>至</td>
+                        <td><input id="dpEndDate4" class="mini-datepicker" style="width:98px;" value="new Date()" showclearbutton="false" allowinput="false" /></td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 80px; text-align: right;">公文编码</td>
+            <td>
+                <input id="txtWFProcessInstanceCode4" class="mini-textbox" style="width:208px;" />
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 80px; text-align: right;">标题</td>
+            <td>
+                <input id="txtWFProcessInstanceName4" class="mini-textbox" style="width:208px;" />
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 80px; text-align: right;">流程</td>
+            <td>
+                <input id="cbWFProcessId4" class="mini-combobox" style="width:208px;" textfield="WFProcessName" valuefield="Id" value="00000000-0000-0000-0000-000000000000" data=@Html.Raw(ViewData["WFProcesses"]) />
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 80px; text-align: right;">公文状态</td>
+            <td>
+                <input id="cbWFProcessInstanceState4" class="mini-combobox" value="0" style="width:208px;" data=@Html.Raw(ViewData["WFProcessInstanceStateByAll"]) />
+            </td>
+        </tr>
+    </table>
+    <div style="text-align: center; padding: 10px;">
+        <a class="mini-button" iconcls="icon-ok" onclick="onOK4Click">确定</a>
+    </div>
+</div>
+<script type="text/javascript">
+    mini.parse();
+
+    var btnSearch = mini.get("btnSearch");
+    var tabMyWFInstance = mini.get("tabMyWFInstance");
+    var dgDoing = mini.get("dgDoing");
+    var dgDoed = mini.get("dgDoed");
+    var dgSendedToDoing = mini.get("dgSendedToDoing");
+    var dgSendedToDoed = mini.get("dgSendedToDoed");
+    var winQueryDoing = mini.get("winQueryDoing");
+    var winQueryDoed = mini.get("winQueryDoed");
+    var winQuerySendedToDoing = mini.get("winQuerySendedToDoing");
+    var winQuerySendedToDoed = mini.get("winQuerySendedToDoed");
+    var dpBeginDate1 = mini.get("dpBeginDate1");
+    var dpEndDate1 = mini.get("dpEndDate1");
+    var txtWFProcessInstanceCode1 = mini.get("txtWFProcessInstanceCode1");
+    var txtWFProcessInstanceName1 = mini.get("txtWFProcessInstanceName1");
+    var cbWFProcessId1 = mini.get("cbWFProcessId1");
+    var dpBeginDate2 = mini.get("dpBeginDate2");
+    var dpEndDate2 = mini.get("dpEndDate2");
+    var txtWFProcessInstanceCode2 = mini.get("txtWFProcessInstanceCode2");
+    var txtWFProcessInstanceName2 = mini.get("txtWFProcessInstanceName2");
+    var cbWFProcessId2 = mini.get("cbWFProcessId2");
+    var dpBeginDate3 = mini.get("dpBeginDate3");
+    var dpEndDate3 = mini.get("dpEndDate3");
+    var txtWFProcessInstanceCode3 = mini.get("txtWFProcessInstanceCode3");
+    var txtWFProcessInstanceName3 = mini.get("txtWFProcessInstanceName3");
+    var cbWFProcessId3 = mini.get("cbWFProcessId3");
+    var dpBeginDate4 = mini.get("dpBeginDate4");
+    var dpEndDate4 = mini.get("dpEndDate4");
+    var txtWFProcessInstanceCode4 = mini.get("txtWFProcessInstanceCode4");
+    var txtWFProcessInstanceName4 = mini.get("txtWFProcessInstanceName4");
+    var cbWFProcessId4 = mini.get("cbWFProcessId4");
+    var cbWFProcessInstanceState4 = mini.get("cbWFProcessInstanceState4");
+
+    Init();
+
+    function Init() {
+        dpBeginDate1.setValue(new Date().DateAdd("m", -1));
+        dpBeginDate2.setValue(new Date().DateAdd("m", -1));
+        dpBeginDate3.setValue(new Date().DateAdd("m", -1));
+        dpBeginDate4.setValue(new Date().DateAdd("m", -1));
+    }
+
+    function BindDgDoing() {
+        btnSearch.setEnabled(false);
+        var query_BeginDate = dpBeginDate1.getFormValue();
+        var query_EndDate = dpEndDate1.getFormValue();
+        var query_WFProcessInstanceCode = txtWFProcessInstanceCode1.getValue();
+        var query_WFProcessInstanceName = txtWFProcessInstanceName1.getValue();
+        var query_WFProcessId = cbWFProcessId1.getValue();
+        if (dgDoing.getUrl() == "") {
+            dgDoing.setUrl("@Url.RouteUrl(new { controller = "WorkFlow", action = "GetMyWFInstancesDoingPage" })");
+        }
+        dgDoing.clearSelect(false);
+        dgDoing.load({ BeginDate: query_BeginDate, EndDate: query_EndDate, WFProcessInstanceCode: query_WFProcessInstanceCode, WFProcessInstanceName: query_WFProcessInstanceName, WFProcessId: query_WFProcessId });
+    }
+
+    function BindDgDoed() {
+        btnSearch.setEnabled(false);
+        var query_BeginDate = dpBeginDate2.getFormValue();
+        var query_EndDate = dpEndDate2.getFormValue();
+        var query_WFProcessInstanceCode = txtWFProcessInstanceCode2.getValue();
+        var query_WFProcessInstanceName = txtWFProcessInstanceName2.getValue();
+        var query_WFProcessId = cbWFProcessId2.getValue();
+        if (dgDoed.getUrl() == "") {
+            dgDoed.setUrl("@Url.RouteUrl(new { controller = "WorkFlow", action = "GetMyWFInstancesDoedPage" })");
+        }
+        dgDoed.clearSelect(false);
+        dgDoed.load({ BeginDate: query_BeginDate, EndDate: query_EndDate, WFProcessInstanceCode: query_WFProcessInstanceCode, WFProcessInstanceName: query_WFProcessInstanceName, WFProcessId: query_WFProcessId });
+    }
+
+    function BindDgSendedToDoing() {
+        btnSearch.setEnabled(false);
+        var query_BeginDate = dpBeginDate3.getFormValue();
+        var query_EndDate = dpEndDate3.getFormValue();
+        var query_WFProcessInstanceCode = txtWFProcessInstanceCode3.getValue();
+        var query_WFProcessInstanceName = txtWFProcessInstanceName3.getValue();
+        var query_WFProcessId = cbWFProcessId3.getValue();
+        if (dgSendedToDoing.getUrl() == "") {
+            dgSendedToDoing.setUrl("@Url.RouteUrl(new { controller = "WorkFlow", action = "GetMyWFInstancesSendedToDoingPage" })");
+        }
+        dgSendedToDoing.clearSelect(false);
+        dgSendedToDoing.load({ BeginDate: query_BeginDate, EndDate: query_EndDate, WFProcessInstanceCode: query_WFProcessInstanceCode, WFProcessInstanceName: query_WFProcessInstanceName, WFProcessId: query_WFProcessId });
+    }
+
+    function BindDgSendedToDoed() {
+        btnSearch.setEnabled(false);
+        var query_BeginDate = dpBeginDate4.getFormValue();
+        var query_EndDate = dpEndDate4.getFormValue();
+        var query_WFProcessInstanceCode = txtWFProcessInstanceCode4.getValue();
+        var query_WFProcessInstanceName = txtWFProcessInstanceName4.getValue();
+        var query_WFProcessId = cbWFProcessId4.getValue();
+        var query_WFProcessInstanceState = cbWFProcessInstanceState4.getValue();
+        if (dgSendedToDoed.getUrl() == "") {
+            dgSendedToDoed.setUrl("@Url.RouteUrl(new { controller = "WorkFlow", action = "GetMyWFInstancesSendedToDoedPage" })");
+        }
+        dgSendedToDoed.clearSelect(false);
+        dgSendedToDoed.load({ BeginDate: query_BeginDate, EndDate: query_EndDate, WFProcessInstanceCode: query_WFProcessInstanceCode, WFProcessInstanceName: query_WFProcessInstanceName, WFProcessId: query_WFProcessId, WFProcessInstanceState: query_WFProcessInstanceState });
+    }
+
+    function onDgLoad() {
+        btnSearch.setEnabled(true);
+    }
+
+    function onDgDoingRowClick(e) {
+        mini.open({
+            url: "@Url.RouteUrl(new { controller = "WorkFlow", action = "WFInstanceDo" })" + "/" + e.record.Id,
+            title: "公文处理",
+            width: 850,
+            height: 500,
+            allowResize: false,
+            ondestroy: function (action) {
+                if (action == "ok") {
+                    ShowSucessMessage("公文处理成功");
+                    BindDgDoing();
+                }
+                else if (action == "cancel") {
+                }
+            }
+        });
+    }
+
+    function onDgDoedRowClick(e) {
+        OpenPrintWindow("@Url.RouteUrl(new { controller = "", action = "" })" + e.record.PrintUrl);
+    }
+
+    function onDgSendedToDoingRowClick(e) {
+        OpenPrintWindow("@Url.RouteUrl(new { controller = "", action = "" })" + e.record.PrintUrl);
+    }
+
+    function onDgSendedToDoedRowClick(e) {
+        OpenPrintWindow("@Url.RouteUrl(new { controller = "", action = "" })" + e.record.PrintUrl);
+    }
+
+    function onSearchClick() {
+        var currentIndex = tabMyWFInstance.getActiveIndex();
+        if (currentIndex == 0) {
+            winQueryDoing.show();
+        }
+        else if (currentIndex == 1) {
+            winQueryDoed.show();
+        }
+        else if (currentIndex == 2) {
+            winQuerySendedToDoing.show();
+        }
+        else if (currentIndex == 3) {
+            winQuerySendedToDoed.show();
+        }
+    }
+
+    function onOK1Click() {
+        BindDgDoing();
+        winQueryDoing.hide();
+    }
+
+    function onOK2Click() {
+        BindDgDoed();
+        winQueryDoed.hide();
+    }
+
+    function onOK3Click() {
+        BindDgSendedToDoing();
+        winQuerySendedToDoing.hide();
+    }
+
+    function onOK4Click() {
+        BindDgSendedToDoed();
+        winQuerySendedToDoed.hide();
+    }
+</script>

@@ -1,0 +1,165 @@
+﻿<div id="myToolbar" class="mini-toolbar" style="border-bottom: 0px; padding: 0px;">
+    <table style="width: 100%;" cellpadding="0" cellspacing="0">
+        <tr>
+            <td style="width: 100%;">
+                <a class="mini-button" iconcls="icon-help" plain="true" href="@Url.RouteUrl(new { controller = "File", action = "DownloadHelpFiles" })?FileName=Notice" target="_blank"></a>当前位置：基站建维>规划寻址>规划调整通知
+            </td>
+            <td style="white-space: nowrap;">
+                <a id="btnSearch" class="mini-button" iconcls="icon-search" plain="true" onclick="onSearchClick">查询</a>
+                <a class="mini-button" iconcls="icon-ok" plain="true" onclick="onNoticeStateClick">标记已阅</a>
+            </td>
+        </tr>
+    </table>
+</div>
+<div class="mini-fit">
+    <div id="dgNotice" class="mini-datagrid" style="width: 100%; height: 100%;" idfield="Id" allowmovecolumn="false"
+         multiselect="true" fitcolumns="false" onlycheckselection="true" showreloadbutton="false" pagesize="15" sizelist="[15,30,50,100]"
+         virtualscroll="false" frozenstartcolumn="0" ondrawcell="onDrawCell" onload="onDgNoticeLoad" oncellclick="onCellClick">
+        <div property="columns">
+            <div type="indexcolumn"></div>
+            <div type="checkcolumn"></div>
+            <div field="NoticeState" header=""></div>
+            <div field="CreateDate" header="通知日期" width="100" dateformat="yyyy-MM-dd"></div>
+            <div field="CreateFullName" header="通知人" width="80"></div>
+            <div type="comboboxcolumn" field="NoticeType" header="通知类型" width="80">
+                <input property="editor" class="mini-combobox" style="width: 100%;" data=@Html.Raw(ViewData["NoticeType"]) />
+            </div>
+            <div field="NoticeContent" header="通知内容" width="400"></div>
+            <div field="NoticeStateName" header="通知状态" width="80"></div>
+            <div field="ModifyDate" header="阅知日期" width="100" dateformat="yyyy-MM-dd"></div>
+        </div>
+    </div>
+</div>
+<div id="winQuery" class="mini-window" style="width: 320px; height: 170px;"
+     showmodal="true" allowresize="false" title="查询条件">
+    <table style="width: 100%;">
+        <tr>
+            <td style="width: 80px; text-align: right;">查询日期</td>
+            <td>
+                <table border="0" cellpadding="0" cellspacing="0">
+                    <tr>
+                        <td><input id="dpBeginDate" class="mini-datepicker" style="width:98px;" value="new Date()" showclearbutton="false" allowinput="false" /></td>
+                        <td>至</td>
+                        <td><input id="dpEndDate" class="mini-datepicker" style="width:98px;" value="new Date()" showclearbutton="false" allowinput="false" /></td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 80px; text-align: right;">通知内容</td>
+            <td>
+                <input id="txtNoticeContent" class="mini-textbox" style="width:208px;" />
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 80px; text-align: right;">通知状态</td>
+            <td>
+                <input id="cbNoticeState" class="mini-combobox" value="1" style="width:208px;" data=@Html.Raw(ViewData["NoticeStateByAll"]) />
+            </td>
+        </tr>
+    </table>
+    <div style="text-align: center; padding: 10px;">
+        <a class="mini-button" iconcls="icon-ok" onclick="onOKClick">确定</a>
+    </div>
+</div>
+<script type="text/javascript">
+    mini.parse();
+
+    var btnSearch = mini.get("btnSearch");
+    var dgNotice = mini.get("dgNotice");
+    var winQuery = mini.get("winQuery");
+    var dpBeginDate = mini.get("dpBeginDate");
+    var dpEndDate = mini.get("dpEndDate");
+    var txtNoticeContent = mini.get("txtNoticeContent");
+    var cbNoticeState = mini.get("cbNoticeState");
+
+    init();
+
+    function init() {
+        dgNotice.hideColumn(2);
+        dpBeginDate.setValue(new Date().DateAdd("m", -1));
+        BindDgNotice();
+    }
+
+    function BindDgNotice() {
+        btnSearch.setEnabled(false);
+        var query_BeginDate = dpBeginDate.getFormValue();
+        var query_EndDate = dpEndDate.getFormValue();
+        var query_NoticeContent = txtNoticeContent.getValue();
+        var query_NoticeState = cbNoticeState.getValue();
+        if (dgNotice.getUrl() == "") {
+            dgNotice.setUrl("@Url.RouteUrl(new { controller = "BaseStationBM", action = "GetNoticePage" })");
+        }
+        dgNotice.clearSelect(false);
+        dgNotice.load({ BeginDate: query_BeginDate, EndDate: query_EndDate, NoticeContent: query_NoticeContent, NoticeState: query_NoticeState });
+    }
+
+    function onDgNoticeLoad() {
+        btnSearch.setEnabled(true);
+    }
+
+    function onSearchClick() {
+        winQuery.show();
+    }
+
+    function onOKClick() {
+        BindDgNotice();
+        winQuery.hide();
+    }
+
+    function onDrawCell(e) {
+        if (e.field == "NoticeStateName") {
+            if (e.record.NoticeState == 1) {
+                e.cellStyle = "color:blue";
+                e.cellHtml = "未阅";
+            }
+            else {
+                e.cellHtml = "已阅";
+            }
+        }
+    }
+
+    function onCellClick(e) {
+        if (e.column.field == "NoticeStateName" && e.record.NoticeState == 1) {
+            $.ajax({
+                url: "@Url.RouteUrl(new { controller = "BaseStationBM", action = "SaveNoticeState" })" + "/" + e.record.Id,
+                type: "post",
+                success: function (result, textStatus) {
+                    if (result.Code != null && result.Code == 0) {
+                        ShowSucessMessage(result.Message);
+                        BindDgNotice();
+                    }
+                },
+                error: function (xmlHttpRequest, textStatus, errorThrown) {
+                }
+            });
+        }
+    }
+
+    function onNoticeStateClick() {
+        var rows = dgNotice.getSelecteds();
+        if (rows.length == 0) {
+            mini.alert("请选择要操作的数据");
+        }
+        else {
+            var loading = mini.loading("处理中,请稍后...", "标记已阅");
+            var jsonData = mini.encode(rows);
+            $.ajax({
+                url: "@Url.RouteUrl(new { controller = "BaseStationBM", action = "SaveNoticeStates" })",
+                data: AddAntiForgeryToken({ data: jsonData }),
+                type: "post",
+                success: function (result, textStatus) {
+                    mini.hideMessageBox(loading);
+                    if (result.Code != null && result.Code == 0) {
+                        ShowSucessMessage(result.Message);
+                        BindDgNotice();
+                    }
+                },
+                error: function (xmlHttpRequest, textStatus, errorThrown) {
+                    mini.hideMessageBox(loading);
+                }
+            });
+        }
+    }
+
+</script>

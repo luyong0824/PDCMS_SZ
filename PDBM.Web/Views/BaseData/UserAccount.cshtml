@@ -1,0 +1,376 @@
+﻿<div id="myToolbar" class="mini-toolbar" style="border-bottom: 0px; padding: 0px;">
+    <table style="width: 100%;" cellpadding="0" cellspacing="0">
+        <tr>
+            <td style="width: 100%;">
+                <a class="mini-button" iconcls="icon-help" plain="true" href="@Url.RouteUrl(new { controller = "File", action = "DownloadHelpFiles" })?FileName=UserAccount" target="_blank"></a>当前位置：基础数据>用户管理>用户账号
+            </td>
+            <td style="white-space: nowrap;">
+                <a id="btnSearch" class="mini-button" iconcls="icon-search" plain="true" onclick="onSearchClick">查询</a>
+                <a class="mini-button" iconcls="icon-add" plain="true" onclick="onAddClick">新增</a>
+                <a class="mini-button" iconcls="icon-edit" plain="true" onclick="onEditClick">修改</a>
+                <a class="mini-button" iconcls="icon-remove" plain="true" onclick="onRemoveClick">删除</a>
+            </td>
+        </tr>
+    </table>
+</div>
+<div class="mini-fit">
+    <div id="dgUser" class="mini-datagrid" style="width: 100%; height: 100%;" idfield="Id" allowmovecolumn="false"
+         multiselect="true" fitcolumns="false" onlycheckselection="true" showreloadbutton="false" pagesize="15" sizelist="[15,30,50,100]"
+         ondrawcell="onDrawCell" onload="onDgUserLoad">
+        <div property="columns">
+            <div type="indexcolumn"></div>
+            <div type="checkcolumn"></div>
+            <div field="UserName" header="用户名" width="120"></div>
+            <div field="FullName" header="姓名" width="120"></div>
+            <div field="Email" header="邮箱" width="150"></div>
+            <div field="PhoneNumber" header="手机号" width="120"></div>
+            <div field="CompanyName" header="公司" width="150"></div>
+            <div field="DepartmentName" header="部门" width="150"></div>
+            <div type="comboboxcolumn" field="State" header="状态" width="70">
+                <input property="editor" class="mini-combobox" style="width: 100%;" data=@Html.Raw(ViewData["State"]) />
+            </div>
+        </div>
+    </div>
+</div>
+<div id="winQuery" class="mini-window" style="width: 350px; height: 265px;"
+     showmodal="true" allowresize="false" title="查询条件">
+    <table style="width: 100%;">
+        <tr>
+            <td style="width: 80px; text-align: right;">公司</td>
+            <td>
+                <input id="cbCompany" class="mini-combobox" style="width:200px;" textfield="CompanyName" valuefield="Id"
+                       onvaluechanged="onCbCompanyValueChanged" />
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 80px; text-align: right;">部门</td>
+            <td>
+                <input id="cbDepartment" class="mini-combobox" style="width:200px;" textfield="DepartmentName" valuefield="Id" onload="onCbDepartmentLoad" />
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 80px; text-align: right;">用户名</td>
+            <td>
+                <input id="txtUserName" class="mini-textbox" style="width:200px;" />
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 80px; text-align: right;">姓名</td>
+            <td>
+                <input id="txtFullName" class="mini-textbox" style="width:200px;" />
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 80px; text-align: right;">邮箱</td>
+            <td>
+                <input id="txtEmail" class="mini-textbox" style="width:200px;" />
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 80px; text-align: right;">手机号</td>
+            <td>
+                <input id="txtPhoneNumber" class="mini-textbox" style="width:200px;" />
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 80px; text-align: right;">状态</td>
+            <td>
+                <input id="cbState" class="mini-combobox" value="0" style="width:200px;" data=@Html.Raw(ViewData["StateByAll"]) />
+            </td>
+        </tr>
+    </table>
+    <div style="text-align: center; padding: 10px;">
+        <a class="mini-button" iconcls="icon-ok" onclick="onOKClick">确定</a>
+    </div>
+</div>
+<div id="winUser" class="mini-window" style="width: 350px; height: 270px;"
+     showmodal="true" allowresize="false">
+    <div id="frmUser" class="form">
+        <input class="mini-hidden" id="Id" name="Id" />
+        <table style="width: 100%;">
+            <tr>
+                <td style="width: 80px; text-align: right;">公司</td>
+                <td>
+                    <input id="CompanyId" name="CompanyId" class="mini-combobox" style="width:200px;" textfield="CompanyName" valuefield="Id"
+                           onvaluechanged="onCbCompanyIdValueChanged" />
+                </td>
+            </tr>
+            <tr>
+                <td style="width: 80px; text-align: right;">部门</td>
+                <td>
+                    <input id="DepartmentId" name="DepartmentId" class="mini-combobox" style="width:200px;" textfield="DepartmentName" valuefield="Id" required="true"
+                           onvalidation="onCbDepartmentIdValidation" onload="onCbDepartmentIdLoad" />
+                </td>
+            </tr>
+            <tr>
+                <td style="width: 80px; text-align: right;">用户名</td>
+                <td>
+                    <input id="UserName" name="UserName" class="mini-textbox" requirederrortext="请输入用户名" required="true" style="width: 200px;" />
+                </td>
+            </tr>
+            <tr>
+                <td style="width: 80px; text-align: right;">姓名</td>
+                <td>
+                    <input id="FullName" name="FullName" class="mini-textbox" requirederrortext="请输入姓名" required="true" style="width: 200px;" />
+                </td>
+            </tr>
+            <tr>
+                <td style="width: 80px; text-align: right;">邮箱</td>
+                <td>
+                    <input id="Email" name="Email" class="mini-textbox" style="width: 200px;" />
+                </td>
+            </tr>
+            <tr>
+                <td style="width: 80px; text-align: right;">手机号</td>
+                <td>
+                    <input id="PhoneNumber" name="PhoneNumber" class="mini-textbox" style="width: 200px;" />
+                </td>
+            </tr>
+            <tr>
+                <td style="width: 80px; text-align: right;">状态</td>
+                <td>
+                    <input id="State" name="State" class="mini-combobox" value="1" style="width: 200px;" data=@Html.Raw(ViewData["State"]) />
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div style="text-align: center; padding: 10px;">
+        <a class="mini-button" iconcls="icon-save" onclick="onSaveClick" style="margin-right: 10px;">保存</a>
+        <a class="mini-button" iconcls="icon-cancel" onclick="onClearClick">清空</a>
+    </div>
+</div>
+<script type="text/javascript">
+    mini.parse();
+
+    var btnSearch = mini.get("btnSearch");
+    var dgUser = mini.get("dgUser");
+    var winQuery = mini.get("winQuery");
+    var cbCompany = mini.get("cbCompany");
+    var cbDepartment = mini.get("cbDepartment");
+    var txtUserName = mini.get("txtUserName");
+    var txtFullName = mini.get("txtFullName");
+    var txtEmail = mini.get("txtEmail");
+    var txtPhoneNumber = mini.get("txtPhoneNumber");
+    var cbState = mini.get("cbState");
+    var winUser = mini.get("winUser");
+    var frmUser = new mini.Form("#frmUser");
+    var txtUserId = mini.get("Id");
+    var cbCompanyId = mini.get("CompanyId");
+    var cbDepartmentId = mini.get("DepartmentId");
+    var txt_UserName = mini.get("UserName");
+    var txt_FullName = mini.get("FullName");
+    var txt_Email = mini.get("Email");
+    var txt_PhoneNumber = mini.get("PhoneNumber");
+    var cb_State = mini.get("State");
+
+    Init();
+
+    function Init() {
+        BindCbCompany();
+        BindCbCompanyId();
+    }
+
+    function BindDgUser() {
+        btnSearch.setEnabled(false);
+        var query_CompanyId = cbCompany.getValue();
+        var query_DepartmentId = cbDepartment.getValue();
+        var query_UserName = txtUserName.getValue();
+        var query_FullName = txtFullName.getValue();
+        var query_Email = txtEmail.getValue();
+        var query_PhoneNumber = txtPhoneNumber.getValue();
+        var query_State = cbState.getValue();
+        if (dgUser.getUrl() == "") {
+            dgUser.setUrl("@Url.RouteUrl(new { controller = "BaseData", action = "GetUserAccountsPage" })");
+        }
+        dgUser.clearSelect(false);
+        dgUser.load({ CompanyId: query_CompanyId, DepartmentId: query_DepartmentId, UserName: query_UserName, FullName: query_FullName, Email: query_Email, PhoneNumber: query_PhoneNumber, State: query_State });
+    }
+
+    function onDgUserLoad() {
+        btnSearch.setEnabled(true);
+    }
+
+    function onDrawCell(e) {
+        if (e.field == "State" && e.value == 2) {
+            e.cellStyle = "color:red;";
+        }
+    }
+
+    function BindCbCompany() {
+        cbCompany.setData(@Html.Raw(ViewData["Companys"]));
+        cbCompany.setValue("@ViewData["CompanyId"]");
+        BindCbDepartment(cbCompany.getValue());
+    }
+
+    function BindCbCompanyId() {
+        cbCompanyId.setData(@Html.Raw(ViewData["Companys"]));
+        cbCompanyId.setValue("@ViewData["CompanyId"]");
+        BindCbDepartmentId(cbCompanyId.getValue());
+    }
+
+    function onCbCompanyValueChanged() {
+        BindCbDepartment(cbCompany.getValue());
+    }
+
+    function onCbCompanyIdValueChanged() {
+        BindCbDepartmentId(cbCompanyId.getValue());
+    }
+
+    function BindCbDepartment(companyId) {
+        cbDepartment.setUrl("@Url.RouteUrl(new { controller = "BaseData", action = "GetUsedDepartments" })" + "/" + companyId + "?getType=2");
+    }
+
+    function BindCbDepartmentId(companyId) {
+        cbDepartmentId.setUrl("@Url.RouteUrl(new { controller = "BaseData", action = "GetUsedDepartments" })" + "/" + companyId + "?getType=1");
+    }
+
+    function onCbDepartmentLoad() {
+        cbDepartment.setValue("00000000-0000-0000-0000-000000000000");
+    }
+
+    function onCbDepartmentIdLoad() {
+        cbDepartmentId.setValue("00000000-0000-0000-0000-000000000000");
+    }
+
+    function onCbDepartmentIdValidation(e) {
+        if (e.isValid) {
+            if (e.value == "00000000-0000-0000-0000-000000000000") {
+                e.errorText = "请选择部门";
+                e.isValid = false;
+            }
+        }
+    }
+
+    function ClearFrmUser() {
+        var idValue = txtUserId.getValue();
+        var companyIdValue = cbCompanyId.getValue();
+        var departmentIdValue = cbDepartmentId.getValue();
+        frmUser.clear();
+        txtUserId.setValue(idValue);
+        cbCompanyId.setValue(companyIdValue);
+        cbDepartmentId.setValue(departmentIdValue);
+        cb_State.setValue(1);
+    }
+
+    function onSearchClick() {
+        winQuery.show();
+    }
+
+    function onOKClick() {
+        BindDgUser();
+        winQuery.hide();
+    }
+
+    function onAddClick() {
+        txtUserId.setValue("");
+        cbDepartmentId.setValue("00000000-0000-0000-0000-000000000000");
+        cbCompanyId.setEnabled(true);
+        cbDepartmentId.setEnabled(true);
+        ClearFrmUser();
+        winUser.setTitle("新增用户");
+        winUser.show();
+        txt_UserName.focus();
+    }
+
+    function onEditClick() {
+        var rows = dgUser.getSelecteds();
+        if (rows.length == 0) {
+            mini.alert("请选择一条要修改的数据");
+        }
+        else {
+            ClearFrmUser();
+            winUser.setTitle("修改用户");
+            winUser.show();
+            var el = winUser.getEl();
+            mini.mask({
+                el: el,
+                cls: 'mini-mask-loading',
+                html: '加载中...'
+            });
+            setTimeout(function () {
+                $.ajax({
+                    url: "@Url.RouteUrl(new { controller = "BaseData", action = "GetUserAccountById" })" + "/" + rows[0].Id,
+                    type: "get",
+                    async: false,
+                    success: function (result, textStatus) {
+                        if (result.Id != null && result.Id == rows[0].Id) {
+                            cbCompanyId.setEnabled(false);
+                            cbDepartmentId.setEnabled(false);
+                            BindCbDepartmentId(result.CompanyId);
+                            frmUser.setData(result);
+                            txt_UserName.focus();
+                        }
+                        else {
+                            winUser.hide();
+                        }
+                    },
+                    error: function (xmlHttpRequest, textStatus, errorThrown) {
+                        winUser.hide();
+                    }
+                });
+            }, 50);
+            setTimeout(function () {
+                mini.unmask(el);
+            }, 300);
+        }
+    }
+
+    function onRemoveClick() {
+        var rows = dgUser.getSelecteds();
+        if (rows.length == 0) {
+            mini.alert("请选择要删除的数据");
+        }
+        else {
+            mini.confirm("确定要删除选中的数据？", "删除用户",
+            function (action) {
+                if (action == "ok") {
+                    var loading = mini.loading("处理中,请稍后...", "删除数据");
+                    var jsonData = mini.encode(rows);
+                    $.ajax({
+                        url: "@Url.RouteUrl(new { controller = "BaseData", action = "RemoveUserAccounts" })",
+                        data: AddAntiForgeryToken({ data: jsonData }),
+                        type: "post",
+                        success: function (result, textStatus) {
+                            mini.hideMessageBox(loading);
+                            if (result.Code != null && result.Code == 0) {
+                                ShowSucessMessage(result.Message);
+                                BindDgUser();
+                            }
+                        },
+                        error: function (xmlHttpRequest, textStatus, errorThrown) {
+                            mini.hideMessageBox(loading);
+                        }
+                    });
+                }
+            });
+        }
+    }
+
+    function onSaveClick() {
+        frmUser.validate();
+        if (frmUser.isValid() == false) return;
+        var loading = mini.loading("处理中,请稍后...", "保存数据");
+        var jsonData = mini.encode(frmUser.getData());
+        $.ajax({
+            url: "@Url.RouteUrl(new { controller = "BaseData", action = "SaveUserAccount" })",
+            data: AddAntiForgeryToken({ data: jsonData }),
+            type: "post",
+            success: function (result, textStatus) {
+                mini.hideMessageBox(loading);
+                if (result.Code != null && result.Code == 0) {
+                    winUser.hide();
+                    ShowSucessMessage(result.Message);
+                    BindDgUser();
+                }
+            },
+            error: function (xmlHttpRequest, textStatus, errorThrown) {
+                mini.hideMessageBox(loading);
+            }
+        });
+    }
+
+    function onClearClick() {
+        ClearFrmUser();
+        txt_UserName.focus();
+    }
+</script>

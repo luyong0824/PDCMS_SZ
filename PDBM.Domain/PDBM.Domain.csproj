@@ -1,0 +1,226 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{861E3B9F-F2E2-4CED-A55A-54F68B23E707}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>PDBM.Domain</RootNamespace>
+    <AssemblyName>PDBM.Domain</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Common\IAggregateRoot.cs" />
+    <Compile Include="Common\IEntity.cs" />
+    <Compile Include="EventHandlers\IDomainEventHandler.cs" />
+    <Compile Include="EventHandlers\WorkFlow\WFActivityInstanceDoingEventHandler.cs" />
+    <Compile Include="EventHandlers\WorkFlow\WFProcessInstanceOrderModifyingEventHandler.cs" />
+    <Compile Include="EventHandlers\WorkFlow\WFProcessInstanceSendingEventHandler.cs" />
+    <Compile Include="Events\DomainEvent.cs" />
+    <Compile Include="Events\IDomainEvent.cs" />
+    <Compile Include="Events\WorkFlow\WFProcessInstanceOrderModifyingEvent.cs" />
+    <Compile Include="Events\WorkFlow\WFActivityInstanceDoingEvent.cs" />
+    <Compile Include="Events\WorkFlow\WFProcessInstanceSendingEvent.cs" />
+    <Compile Include="Models\AggregateFactory.cs" />
+    <Compile Include="Models\AggregateRoot.cs" />
+    <Compile Include="Models\BaseData\AccountingEntity.cs" />
+    <Compile Include="Models\BaseData\Area.cs" />
+    <Compile Include="Models\BaseData\CodeSeed.cs" />
+    <Compile Include="Models\BaseData\Company.cs" />
+    <Compile Include="Models\BaseData\Customer.cs" />
+    <Compile Include="Models\BaseData\CustomerUser.cs" />
+    <Compile Include="Models\BaseData\Department.cs" />
+    <Compile Include="Models\BaseData\DutyUser.cs" />
+    <Compile Include="Models\BaseData\Material.cs" />
+    <Compile Include="Models\BaseData\MaterialCategory.cs" />
+    <Compile Include="Models\BaseData\MaterialSpec.cs" />
+    <Compile Include="Models\BaseData\Menu.cs" />
+    <Compile Include="Models\BaseData\MenuItem.cs" />
+    <Compile Include="Models\BaseData\MenuSub.cs" />
+    <Compile Include="Models\BaseData\Mission.cs" />
+    <Compile Include="Models\BaseData\OrderCodeSeed.cs" />
+    <Compile Include="Models\BaseData\Place.cs" />
+    <Compile Include="Models\BaseData\PlaceProperty.cs" />
+    <Compile Include="Models\BaseData\PlacePropertyLog.cs" />
+    <Compile Include="Models\BaseData\Post.cs" />
+    <Compile Include="Models\BaseData\PostUser.cs" />
+    <Compile Include="Models\BaseData\ProjectProfession.cs" />
+    <Compile Include="Models\BaseData\PlaceOwner.cs" />
+    <Compile Include="Models\BaseData\Scene.cs" />
+    <Compile Include="Models\BaseData\PlaceCategory.cs" />
+    <Compile Include="Models\BaseData\Project.cs" />
+    <Compile Include="Models\BaseData\RelatedCompany.cs" />
+    <Compile Include="Models\BaseData\RelatedCompanyCategory.cs" />
+    <Compile Include="Models\BaseData\Reseau.cs" />
+    <Compile Include="Models\BaseData\Role.cs" />
+    <Compile Include="Models\BaseData\RoleMenuItem.cs" />
+    <Compile Include="Models\BaseData\RoleUser.cs" />
+    <Compile Include="Models\BaseData\Unit.cs" />
+    <Compile Include="Models\BaseData\User.cs" />
+    <Compile Include="Models\BaseData\WorkBigClass.cs" />
+    <Compile Include="Models\BaseData\WorkSmallClass.cs" />
+    <Compile Include="Models\BMMgmt\AddressExplor.cs" />
+    <Compile Include="Models\BMMgmt\AddressExplorLog.cs" />
+    <Compile Include="Models\BMMgmt\Addressing.cs" />
+    <Compile Include="Models\BMMgmt\BlindSpotFeedBack.cs" />
+    <Compile Include="Models\BMMgmt\BusinessVolume.cs" />
+    <Compile Include="Models\BMMgmt\ConstructionTask.cs" />
+    <Compile Include="Models\BMMgmt\DelayApply.cs" />
+    <Compile Include="Models\BMMgmt\EngineeringTask.cs" />
+    <Compile Include="Models\BMMgmt\EquipmentInstall.cs" />
+    <Compile Include="Models\BMMgmt\EquipmentInstallLog.cs" />
+    <Compile Include="Models\BMMgmt\ExternalElectricPower.cs" />
+    <Compile Include="Models\BMMgmt\ExternalElectricPowerLog.cs" />
+    <Compile Include="Models\BMMgmt\FoundationTest.cs" />
+    <Compile Include="Models\BMMgmt\FoundationTestLog.cs" />
+    <Compile Include="Models\BMMgmt\MachineRoom.cs" />
+    <Compile Include="Models\BMMgmt\MachineRoomLog.cs" />
+    <Compile Include="Models\BMMgmt\MaterialList.cs" />
+    <Compile Include="Models\BMMgmt\MaterialSpecList.cs" />
+    <Compile Include="Models\BMMgmt\Notice.cs" />
+    <Compile Include="Models\BMMgmt\OperatorsConfirm.cs" />
+    <Compile Include="Models\BMMgmt\OperatorsConfirmDetail.cs" />
+    <Compile Include="Models\BMMgmt\OperatorsPlanning.cs" />
+    <Compile Include="Models\BMMgmt\OperatorsPlanningDemand.cs" />
+    <Compile Include="Models\BMMgmt\PlaceBusinessVolume.cs" />
+    <Compile Include="Models\BMMgmt\PlaceDesign.cs" />
+    <Compile Include="Models\BMMgmt\Planning.cs" />
+    <Compile Include="Models\BMMgmt\PlanningApply.cs" />
+    <Compile Include="Models\BMMgmt\PlanningApplyHeader.cs" />
+    <Compile Include="Models\BMMgmt\ProjectCodeList.cs" />
+    <Compile Include="Models\BMMgmt\ProjectTask.cs" />
+    <Compile Include="Models\BMMgmt\Purchase.cs" />
+    <Compile Include="Models\BMMgmt\OperatorsSharing.cs" />
+    <Compile Include="Models\BMMgmt\Remodeling.cs" />
+    <Compile Include="Models\BMMgmt\TaskProperty.cs" />
+    <Compile Include="Models\BMMgmt\TaskPropertyLog.cs" />
+    <Compile Include="Models\BMMgmt\Tower.cs" />
+    <Compile Include="Models\BMMgmt\TowerBase.cs" />
+    <Compile Include="Models\BMMgmt\TowerBaseLog.cs" />
+    <Compile Include="Models\BMMgmt\TowerLog.cs" />
+    <Compile Include="Models\BMMgmt\WorkApply.cs" />
+    <Compile Include="Models\BMMgmt\WorkOrder.cs" />
+    <Compile Include="Models\BMMgmt\WorkOrderDetail.cs" />
+    <Compile Include="Models\Enum\AddressingMode.cs" />
+    <Compile Include="Models\Enum\AddressingState.cs" />
+    <Compile Include="Models\Enum\Bool.cs" />
+    <Compile Include="Models\Enum\CompanyNameId.cs" />
+    <Compile Include="Models\Enum\CompanyNature.cs" />
+    <Compile Include="Models\Enum\ConstructionMethod.cs" />
+    <Compile Include="Models\Enum\Duty.cs" />
+    <Compile Include="Models\Enum\EngineeringProgress.cs" />
+    <Compile Include="Models\Enum\CustomerType.cs" />
+    <Compile Include="Models\Enum\Demand.cs" />
+    <Compile Include="Models\Enum\DemandState.cs" />
+    <Compile Include="Models\Enum\DoState.cs" />
+    <Compile Include="Models\Enum\ExternalElectric.cs" />
+    <Compile Include="Models\Enum\FireControl.cs" />
+    <Compile Include="Models\Enum\Importance.cs" />
+    <Compile Include="Models\Enum\LogicalType.cs" />
+    <Compile Include="Models\Enum\MachineRoomType.cs" />
+    <Compile Include="Models\Enum\MaterialSpecType.cs" />
+    <Compile Include="Models\Enum\MissionCategory.cs" />
+    <Compile Include="Models\Enum\NoticeState.cs" />
+    <Compile Include="Models\Enum\NoticeType.cs" />
+    <Compile Include="Models\Enum\OperationType.cs" />
+    <Compile Include="Models\Enum\PlaceMapState.cs" />
+    <Compile Include="Models\Enum\PlanningAdvice.cs" />
+    <Compile Include="Models\Enum\Profession.cs" />
+    <Compile Include="Models\Enum\ProjectCategory.cs" />
+    <Compile Include="Models\Enum\ProjectProgress.cs" />
+    <Compile Include="Models\Enum\ProjectType.cs" />
+    <Compile Include="Models\Enum\PropertyRight.cs" />
+    <Compile Include="Models\Enum\PropertyType.cs" />
+    <Compile Include="Models\Enum\RegisterType.cs" />
+    <Compile Include="Models\Enum\RequestState.cs" />
+    <Compile Include="Models\Enum\SourceType.cs" />
+    <Compile Include="Models\Enum\State.cs" />
+    <Compile Include="Models\Enum\SubmitState.cs" />
+    <Compile Include="Models\Enum\TaskModel.cs" />
+    <Compile Include="Models\Enum\TowerBaseType.cs" />
+    <Compile Include="Models\Enum\TowerType.cs" />
+    <Compile Include="Models\Enum\Urgency.cs" />
+    <Compile Include="Models\Enum\WFActivityInstanceFlow.cs" />
+    <Compile Include="Models\Enum\WFActivityInstanceResult.cs" />
+    <Compile Include="Models\Enum\WFActivityInstanceState.cs" />
+    <Compile Include="Models\Enum\WFActivityOperate.cs" />
+    <Compile Include="Models\Enum\WFActivityOrder.cs" />
+    <Compile Include="Models\Enum\WFProcessInstanceState.cs" />
+    <Compile Include="Models\FileMgmt\File.cs" />
+    <Compile Include="Models\FileMgmt\FileAssociation.cs" />
+    <Compile Include="Models\PropertyValidator.cs" />
+    <Compile Include="Models\WorkFlow\WFActivity.cs" />
+    <Compile Include="Models\WorkFlow\WFActivityEditor.cs" />
+    <Compile Include="Models\WorkFlow\WFActivityInstance.cs" />
+    <Compile Include="Models\WorkFlow\WFActivityInstanceEditor.cs" />
+    <Compile Include="Models\WorkFlow\WFCategory.cs" />
+    <Compile Include="Models\WorkFlow\WFProcess.cs" />
+    <Compile Include="Models\WorkFlow\WFProcessInstance.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\BaseData\ICodeSeedRepository.cs" />
+    <Compile Include="Repositories\BaseData\IOrderCodeSeedRepository.cs" />
+    <Compile Include="Repositories\IRepository.cs" />
+    <Compile Include="Repositories\IRepositoryContext.cs" />
+    <Compile Include="Repositories\Repository.cs" />
+    <Compile Include="Repositories\RepositoryContext.cs" />
+    <Compile Include="Services\BMMgmtService.cs" />
+    <Compile Include="Services\IBMMgmtService.cs" />
+    <Compile Include="Specifications\AndNotSpecification.cs" />
+    <Compile Include="Specifications\AndSpecification.cs" />
+    <Compile Include="Specifications\AnySpecification.cs" />
+    <Compile Include="Specifications\CompositeSpecification.cs" />
+    <Compile Include="Specifications\ExpressionBuilder.cs" />
+    <Compile Include="Specifications\ExpressionSpecification.cs" />
+    <Compile Include="Specifications\ICompositeSpecification.cs" />
+    <Compile Include="Specifications\ISpecification.cs" />
+    <Compile Include="Specifications\NoneSpecification.cs" />
+    <Compile Include="Specifications\NotSpecification.cs" />
+    <Compile Include="Specifications\OrSpecification.cs" />
+    <Compile Include="Specifications\ParameterRebinder.cs" />
+    <Compile Include="Specifications\Specification.cs" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\PDBM.Infrastructure\PDBM.Infrastructure.csproj">
+      <Project>{722f4e02-8228-46e4-8f30-1f6c905b9f6f}</Project>
+      <Name>PDBM.Infrastructure</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

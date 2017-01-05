@@ -1,0 +1,217 @@
+﻿<div id="myToolbar" class="mini-toolbar" style="border-bottom: 0px; padding: 0px;">
+    <table style="width: 100%;" cellpadding="0" cellspacing="0">
+        <tr>
+            <td style="width: 100%;">
+                <a class="mini-button" iconcls="icon-help" plain="true" href="@Url.RouteUrl(new { controller = "File", action = "DownloadHelpFiles" })?FileName=WorkBigClass" target="_blank"></a>当前位置：基础数据>工单管理>工单大类
+            </td>
+            <td style="white-space: nowrap;">
+                <a id="btnSearch" class="mini-button" iconcls="icon-search" plain="true" onclick="onSearchClick">查询</a>
+                <a class="mini-button" iconcls="icon-add" plain="true" onclick="onAddClick">新增</a>
+                <a class="mini-button" iconcls="icon-edit" plain="true" onclick="onEditClick">修改</a>
+                <a class="mini-button" iconcls="icon-remove" plain="true" onclick="onRemoveClick">删除</a>
+            </td>
+        </tr>
+    </table>
+</div>
+<div class="mini-fit">
+    <div id="dgWorkBigClass" class="mini-datagrid" style="width: 100%; height: 100%;" idfield="Id" allowmovecolumn="false"
+         multiselect="true" showpager="false" fitcolumns="false" onlycheckselection="true" url="@Url.RouteUrl(new { controller = "BaseData", action = "GetWorkBigClasss" })"
+         ondrawcell="onDrawCell" onload="onDgWorkBigClassLoad">
+        <div property="columns">
+            <div type="indexcolumn"></div>
+            <div type="checkcolumn"></div>
+            <div field="BigClassCode" header="大类编码" width="120"></div>
+            <div field="BigClassName" header="大类名称" width="120"></div>
+            <div type="comboboxcolumn" field="State" header="状态" width="70">
+                <input property="editor" class="mini-combobox" style="width: 100%;" data=@Html.Raw(ViewData["State"]) />
+            </div>
+            <div field="Remarks" header="备注" width="280"></div>
+        </div>
+    </div>
+</div>
+<div id="winWorkBigClass" class="mini-window" style="width: 350px; height: 240px;" showmodal="true" allowresize="false">
+    <div id="frmWorkBigClass" class="form">
+        <input class="mini-hidden" id="Id" name="Id" />
+        <table style="width: 100%;">
+            <tr>
+                <td style="width: 80px; text-align: right;">大类编码</td>
+                <td>
+                    <input id="BigClassCode" name="BigClassCode" class="mini-textbox" requirederrortext="请输入大类编码" required="true" style="width: 200px;" />
+                </td>
+            </tr>
+            <tr>
+                <td style="width: 80px; text-align: right;">大类名称</td>
+                <td>
+                    <input id="BigClassName" name="BigClassName" class="mini-textbox" requirederrortext="请输入大类名称" required="true" style="width: 200px;" />
+                </td>
+            </tr>
+            <tr>
+                <td style="width: 80px; text-align: right;">状态</td>
+                <td>
+                    <input id="State" name="State" class="mini-combobox" value="1" style="width: 200px;" data=@Html.Raw(ViewData["State"]) />
+                </td>
+            </tr>
+            <tr>
+                <td style="width: 80px; text-align: right;">备注</td>
+                <td>
+                    <input id="Remarks" name="Remarks" class="mini-textarea" style="width: 200px; height: 60px;" />
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div style="text-align: center; padding: 10px;">
+        <a class="mini-button" iconcls="icon-save" onclick="onSaveClick" style="margin-right: 10px;">保存</a>
+        <a class="mini-button" iconcls="icon-cancel" onclick="onClearClick">清空</a>
+    </div>
+</div>
+<script type="text/javascript">
+    mini.parse();
+
+    var btnSearch = mini.get("btnSearch");
+    var dgWorkBigClass = mini.get("dgWorkBigClass");
+    var winWorkBigClass = mini.get("winWorkBigClass");
+    var frmWorkBigClass = new mini.Form("#frmWorkBigClass");
+    var txtWorkBigClassId = mini.get("Id");
+    var txtBigClassCode = mini.get("BigClassCode");
+    var cbState = mini.get("State");
+
+    Init();
+
+    function Init() {
+        BindDgWorkBigClass();
+    }
+
+    function BindDgWorkBigClass() {
+        btnSearch.setEnabled(false);
+        dgWorkBigClass.clearSelect(false);
+        dgWorkBigClass.load();
+    }
+
+    function onDgWorkBigClassLoad() {
+        btnSearch.setEnabled(true);
+    }
+
+    function onDrawCell(e) {
+        if (e.field == "State" && e.value == 2) {
+            e.cellStyle = "color:red;";
+        }
+    }
+
+    function ClearFrmWorkBigClass() {
+        var idValue = txtWorkBigClassId.getValue();
+        frmWorkBigClass.clear();
+        txtWorkBigClassId.setValue(idValue);
+        cbState.setValue(1);
+    }
+
+    function onSearchClick() {
+        BindDgWorkBigClass();
+    }
+
+    function onAddClick() {
+        txtWorkBigClassId.setValue("");
+        ClearFrmWorkBigClass();
+        winWorkBigClass.setTitle("新增大类");
+        winWorkBigClass.show();
+        txtBigClassCode.focus();
+    }
+
+    function onEditClick() {
+        var rows = dgWorkBigClass.getSelecteds();
+        if (rows.length == 0) {
+            mini.alert("请选择一条要修改的数据");
+        }
+        else {
+            ClearFrmWorkBigClass();
+            winWorkBigClass.setTitle("修改大类");
+            winWorkBigClass.show();
+            var el = winWorkBigClass.getEl();
+            mini.mask({
+                el: el,
+                cls: 'mini-mask-loading',
+                html: '加载中...'
+            });
+            setTimeout(function () {
+                $.ajax({
+                    url: "@Url.RouteUrl(new { controller = "BaseData", action = "GetWorkBigClassById" })" + "/" + rows[0].Id,
+                    type: "get",
+                    async: false,
+                    success: function (result, textStatus) {
+                        if (result.Id != null && result.Id == rows[0].Id) {
+                            frmWorkBigClass.setData(result);
+                            txtBigClassCode.focus();
+                        }
+                        else {
+                            winWorkBigClass.hide();
+                        }
+                    },
+                    error: function (xmlHttpRequest, textStatus, errorThrown) {
+                        winWorkBigClass.hide();
+                    }
+                });
+            }, 50);
+            setTimeout(function () {
+                mini.unmask(el);
+            }, 300);
+        }
+    }
+
+    function onRemoveClick() {
+        var rows = dgWorkBigClass.getSelecteds();
+        if (rows.length == 0) {
+            mini.alert("请选择要删除的数据");
+        }
+        else {
+            mini.confirm("确定要删除选中的数据？", "删除大类",
+            function (action) {
+                if (action == "ok") {
+                    var loading = mini.loading("处理中,请稍后...", "删除数据");
+                    var jsonData = mini.encode(rows);
+                    $.ajax({
+                        url: "@Url.RouteUrl(new { controller = "BaseData", action = "RemoveWorkBigClasss" })",
+                        data: AddAntiForgeryToken({ data: jsonData }),
+                        type: "post",
+                        success: function (result, textStatus) {
+                            mini.hideMessageBox(loading);
+                            if (result.Code != null && result.Code == 0) {
+                                ShowSucessMessage(result.Message);
+                                BindDgWorkBigClass();
+                            }
+                        },
+                        error: function (xmlHttpRequest, textStatus, errorThrown) {
+                            mini.hideMessageBox(loading);
+                        }
+                    });
+                }
+            });
+        }
+    }
+
+    function onSaveClick() {
+        frmWorkBigClass.validate();
+        if (frmWorkBigClass.isValid() == false) return;
+        var loading = mini.loading("处理中,请稍后...", "保存数据");
+        var jsonData = mini.encode(frmWorkBigClass.getData());
+        $.ajax({
+            url: "@Url.RouteUrl(new { controller = "BaseData", action = "SaveWorkBigClass" })",
+            data: AddAntiForgeryToken({ data: jsonData }),
+            type: "post",
+            success: function (result, textStatus) {
+                mini.hideMessageBox(loading);
+                if (result.Code != null && result.Code == 0) {
+                    winWorkBigClass.hide();
+                    ShowSucessMessage(result.Message);
+                    BindDgWorkBigClass();
+                }
+            },
+            error: function (xmlHttpRequest, textStatus, errorThrown) {
+                mini.hideMessageBox(loading);
+            }
+        });
+    }
+
+    function onClearClick() {
+        ClearFrmWorkBigClass();
+        txtBigClassCode.focus();
+    }
+</script>

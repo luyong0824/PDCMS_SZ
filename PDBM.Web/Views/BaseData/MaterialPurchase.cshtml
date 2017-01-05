@@ -1,0 +1,225 @@
+﻿<div id="myToolbar" class="mini-toolbar" style="border-bottom: 0px; padding: 0px;">
+    <table style="width: 100%;" cellpadding="0" cellspacing="0">
+        <tr>
+            <td style="width: 100%;">
+                <a class="mini-button" iconcls="icon-help" plain="true" href="@Url.RouteUrl(new { controller = "File", action = "DownloadHelpFiles" })?FileName=MaterialPurchase" target="_blank"></a>当前位置：基础数据>物资管理>物资申购
+            </td>
+            <td style="white-space: nowrap;">
+                <a id="btnSearch" class="mini-button" iconcls="icon-search" plain="true" onclick="onSearchClick">查询</a>
+                <a class="mini-button" iconcls="icon-edit" plain="true" onclick="onConfirmClick">申购确认</a>
+                <a class="mini-button" iconcls="icon-excel" plain="true" onclick="ExportExcel">导出Excel</a>
+            </td>
+        </tr>
+    </table>
+</div>
+<div class="mini-fit">
+    <div id="dgMaterialList" class="mini-datagrid" style="width: 100%; height: 100%;" idfield="Id" allowmovecolumn="false"
+         multiselect="true" fitcolumns="false" onlycheckselection="true" showreloadbutton="false" pagesize="15" sizelist="[15,30,50,100]"
+         virtualscroll="false" frozenstartcolumn="0" onload="onDgMaterialListLoad">
+        <div property="columns">
+            <div type="indexcolumn"></div>
+            <div type="checkcolumn"></div>
+            <div field="ProjectName" header="建设项目" width="150"></div>
+            <div field="AreaName" header="区域" width="80"></div>
+            <div field="ReseauName" header="网格" width="80"></div>
+            <div field="PlaceCategoryName" header="基站类型" width="80"></div>
+            <div field="PlaceName" header="基站名称" width="120"></div>
+            <div field="MaterialName" header="物资名称" width="120"></div>
+            <div field="MaterialSpecName" header="设计规格" width="120"></div>
+            <div field="UnitName" header="单位" width="50"></div>
+            <div field="SpecNumber" header="数量" width="50"></div>
+            <div field="Price" header="参考单价" width="80"></div>
+            <div field="TotalPrice" header="参考总价" width="80"></div>
+            @*<div field="SupplierCustomerName" header="供应商" width="120"></div>*@
+            <div type="comboboxcolumn" field="DoState" header="申购状态" width="80">
+                <input property="editor" class="mini-combobox" style="width: 100%;" data=@Html.Raw(ViewData["DoState"]) />
+            </div>
+            <div field="DesignCustomerName" header="设计单位" width="120"></div>
+            <div field="FullName" header="设计人" width="80"></div>
+            <div field="CreateDate" header="编制日期" width="100" dateformat="yyyy-MM-dd"></div>
+        </div>
+    </div>
+</div>
+<div id="winQuery" class="mini-window" style="width: 600px; height: 160px;"
+     showmodal="true" allowresize="false" title="查询条件">
+    <table style="width: 100%;">
+        <tr>
+            <td style="width: 80px; text-align: right;">基站名称</td>
+            <td>
+                <input id="txtPlaceName" class="mini-textbox" style="width:200px;" />
+            </td>
+            <td style="width: 80px; text-align: right;">基站类型</td>
+            <td>
+                <input id="cbPlaceCategoryId" class="mini-combobox" value="00000000-0000-0000-0000-000000000000" style="width:200px;" textfield="PlaceCategoryName" valuefield="Id" data=@Html.Raw(ViewData["PlaceCategorysByAll"]) />
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 80px; text-align: right;">区域</td>
+            <td>
+                <input id="cbAreaId" class="mini-combobox" value="00000000-0000-0000-0000-000000000000" style="width:200px;" textfield="AreaName" valuefield="Id" data=@Html.Raw(ViewData["AreasByAll"])
+                       onvaluechanged="onCbAreaIdValueChanged" />
+            </td>
+            <td style="width: 80px; text-align: right;">网格</td>
+            <td>
+                <input id="cbReseauId" class="mini-combobox" value="00000000-0000-0000-0000-000000000000" style="width:200px;" textfield="ReseauName" valuefield="Id" data="[{Id:'00000000-0000-0000-0000-000000000000',ReseauName:'全部'}]"
+                       onload="onCbReseauIdLoad" />
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 80px; text-align: right;">物资名称</td>
+            <td>
+                <input id="txtMaterialName" class="mini-textbox" style="width:200px;" />
+            </td>
+            <td style="width: 80px; text-align: right;">申购确认</td>
+            <td>
+                <input id="cbDoState" class="mini-combobox" value="1" style="width:200px;" data=@Html.Raw(ViewData["DoStateByAll"]) />
+            </td>
+        </tr>
+    </table>
+    <div style="text-align: center; padding: 10px;">
+        <a class="mini-button" iconcls="icon-ok" onclick="onOKClick">确定</a>
+    </div>
+</div>
+<div id="winConfirm" class="mini-window" style="width: 230px; height: 110px;"
+     showmodal="true" allowresize="false" title="申购确认">
+    <table style="width: 100%;">
+        <tr>
+            <td style="width: 70px; text-align: right;">请确认</td>
+            <td>
+                <input id="cbDoStateConfirm" class="mini-combobox" value="2" style="width:100px;" data=@Html.Raw(ViewData["DoStateByConfirm"]) />
+            </td>
+        </tr>
+    </table>
+    <div style="text-align: center; padding: 10px;">
+        <a class="mini-button" iconcls="icon-ok" onclick="onConfirmOKClick">确定</a>
+    </div>
+</div>
+<iframe id="exportIFrame" style="display:none;"></iframe>
+<!--导出Excel相关HTML-->
+<form id="excelForm" action="export.aspx?type=excel" method="post" target="excelIFrame">
+    <input type="hidden" name="columns" id="excelData" />
+</form>
+<iframe id="excelIFrame" name="excelIFrame" style="display:none;"></iframe>
+<script type="text/javascript">
+    mini.parse();
+
+    var btnSearch = mini.get("btnSearch");
+    var dgMaterialList = mini.get("dgMaterialList");
+    var winQuery = mini.get("winQuery");
+    var txtPlaceName = mini.get("txtPlaceName");
+    var cbPlaceCategoryId = mini.get("cbPlaceCategoryId");
+    var cbAreaId = mini.get("cbAreaId");
+    var cbReseauId = mini.get("cbReseauId");
+    var txtMaterialName = mini.get("txtMaterialName");
+    var cbDoState = mini.get("cbDoState");
+    var winConfirm = mini.get("winConfirm");
+    var cbDoStateConfirm = mini.get("cbDoStateConfirm");
+
+    Init();
+
+    function Init() {
+        BindDgMaterialList();
+    }
+
+    function BindDgMaterialList() {
+        btnSearch.setEnabled(false);
+        var query_PlaceName = txtPlaceName.getValue();
+        var query_PlaceCategoryId = cbPlaceCategoryId.getValue();
+        var query_AreaId = cbAreaId.getValue();
+        var query_ReseauId = cbReseauId.getValue();
+        var query_MaterialName = txtMaterialName.getValue();
+        var query_DoState = cbDoState.getValue();
+        if (dgMaterialList.getUrl() == "") {
+            dgMaterialList.setUrl("@Url.RouteUrl(new { controller = "BaseData", action = "GetMaterialPurchasePage" })");
+        }
+        dgMaterialList.clearSelect(false);
+        dgMaterialList.load({ PlaceName: query_PlaceName, PlaceCategoryId: query_PlaceCategoryId, AreaId: query_AreaId, ReseauId: query_ReseauId, MaterialName: query_MaterialName, DoState: query_DoState });
+    }
+
+    function onDgMaterialListLoad() {
+        btnSearch.setEnabled(true);
+    }
+
+    function BindCbReseauId(areaId) {
+        cbReseauId.setUrl("@Url.RouteUrl(new { controller = "BaseData", action = "GetUsedReseaus" })" + "/" + areaId + "?getType=2");
+    }
+
+    function onCbAreaIdValueChanged(e) {
+        BindCbReseauId(e.sender.getValue());
+    }
+
+    function onCbReseauIdLoad() {
+        cbReseauId.setValue("00000000-0000-0000-0000-000000000000");
+    }
+
+    function onSearchClick() {
+        winQuery.show();
+    }
+
+    function onOKClick() {
+        BindDgMaterialList();
+        winQuery.hide();
+    }
+
+    function onConfirmClick() {
+        var rows = dgMaterialList.getSelecteds();
+        if (rows.length == 0) {
+            mini.alert("请选择要操作的数据");
+        }
+        else {
+            cbDoStateConfirm.setValue(2);
+            winConfirm.show();
+        }
+    }
+
+    function onConfirmOKClick() {
+        var rows = dgMaterialList.getSelecteds();
+        if (rows.length == 0) {
+            mini.alert("请选择要操作的数据");
+        }
+        else {
+            var loading = mini.loading("处理中,请稍后...", "申购确认");
+            var jsonData = mini.encode(rows);
+            $.ajax({
+                url: "@Url.RouteUrl(new { controller = "BaseData", action = "DoStateConfirm" })",
+                data: AddAntiForgeryToken({ DoState: cbDoStateConfirm.getValue(), data: jsonData }),
+                type: "post",
+                success: function (result, textStatus) {
+                    mini.hideMessageBox(loading);
+                    if (result.Code != null && result.Code == 0) {
+                        winConfirm.hide();
+                        ShowSucessMessage(result.Message);
+                        BindDgMaterialList();
+                    }
+                },
+                error: function (xmlHttpRequest, textStatus, errorThrown) {
+                    mini.hideMessageBox(loading);
+                }
+            });
+        }
+    }
+
+    function ExportExcel() {
+        var columns = dgMaterialList.getBottomColumns();
+        function getColumns(columns) {
+            columns = columns.clone();
+            for (var i = columns.length - 1; i >= 0; i--) {
+                var column = columns[i];
+                if (!column.field) {
+                    columns.removeAt(i);
+                } else {
+                    var c = { header: column.header, field: column.field };
+                    columns[i] = c;
+                }
+            }
+            return columns;
+        }
+
+        var columns = getColumns(columns);
+        var json = mini.encode(columns);
+        document.getElementById("excelData").value = json;
+        var excelForm = document.getElementById("excelForm");
+        excelForm.action = "@Url.RouteUrl(new { controller = "DataOutput", action = "ExportMaterialPurchaseExcel" })" + "?PlaceName=" + txtPlaceName.getValue() + "&PlaceCategoryId=" + cbPlaceCategoryId.getValue() + "&AreaId=" + cbAreaId.getValue() + "&ReseauId=" + cbReseauId.getValue() + "&MaterialName=" + txtMaterialName.getValue() + "&DoState=" + cbDoState.getValue();
+        excelForm.submit();
+    }
+</script>

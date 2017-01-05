@@ -1,0 +1,1129 @@
+﻿<div id="myToolbar" class="mini-toolbar" style="border-bottom: 0px; padding: 0px;">
+    <table style="width: 100%;" cellpadding="0" cellspacing="0">
+        <tr>
+            <td style="width: 100%;">
+                <a class="mini-button" iconcls="icon-help" plain="true" href="@Url.RouteUrl(new { controller = "File", action = "DownloadHelpFiles" })?FileName=NewRemodeling" target="_blank"></a>当前位置：基站建维>规划寻址>改造基站
+            </td>
+            <td style="white-space: nowrap;">
+                <a id="btnSearch" class="mini-button" iconcls="icon-search" plain="true" onclick="onSearchClick">查询</a>
+                <a class="mini-button" iconcls="icon-add" plain="true" onclick="onAddClick">新增</a>
+                <a class="mini-button" iconcls="icon-add" plain="true" onclick="onImportClick">批量导入</a>
+                <a class="mini-button" iconcls="icon-edit" plain="true" onclick="onEditClick">修改</a>
+                <a class="mini-button" iconcls="icon-remove" plain="true" onclick="onRemoveClick">删除</a>
+                <a class="mini-button" iconcls="icon-downgrade" plain="true" onclick="onSendClick">发送</a>
+            </td>
+        </tr>
+    </table>
+</div>
+<div class="mini-fit">
+    <div id="dgRemodeling" class="mini-datagrid" style="width: 100%; height: 100%;" idfield="Id" allowmovecolumn="false"
+         multiselect="true" fitcolumns="false" onlycheckselection="true" showreloadbutton="false" pagesize="15" sizelist="[15,30,50,100]"
+         virtualscroll="false" frozenstartcolumn="0" frozenendcolumn="3" onload="onDgRemodelingLoad" ondrawcell="onDrawCell" oncellclick="onCellClick">
+        <div property="columns">
+            <div type="indexcolumn"></div>
+            <div type="checkcolumn"></div>
+            <div field="PlaceId"></div>
+            <div field="PlaceCode" header="基站编码" width="80"></div>
+            <div field="PlaceName" header="基站名称" width="150"></div>
+            <div field="AreaName" header="区域" width="80"></div>
+            <div field="ReseauName" header="网格" width="80"></div>
+            <div field="PlaceCategoryName" header="基站类型" width="80"></div>
+            <div field="Lng" header="经度" width="80"></div>
+            <div field="Lat" header="纬度" width="80"></div>
+            <div field="Map" header="导航图" width="50"></div>
+            <div type="comboboxcolumn" field="PropertyRight" header="产权" width="60">
+                <input property="editor" class="mini-combobox" style="width: 100%;" data=@Html.Raw(ViewData["PropertyRight"]) />
+            </div>
+            <div type="comboboxcolumn" field="MobileShare" header="移动共享" width="80">
+                <input property="editor" class="mini-combobox" style="width: 100%;" data=@Html.Raw(ViewData["Bool"]) />
+            </div>
+            <div type="comboboxcolumn" field="TelecomShare" header="电信共享" width="80">
+                <input property="editor" class="mini-combobox" style="width: 100%;" data=@Html.Raw(ViewData["Bool"]) />
+            </div>
+            <div type="comboboxcolumn" field="UnicomShare" header="联通共享" width="80">
+                <input property="editor" class="mini-combobox" style="width: 100%;" data=@Html.Raw(ViewData["Bool"]) />
+            </div>
+            <div type="comboboxcolumn" field="OrderState" header="改造状态" width="80">
+                <input property="editor" class="mini-combobox" style="width: 100%;" data=@Html.Raw(ViewData["OrderState"]) />
+            </div>
+            <div field="Remarks" header="备注" width="150"></div>
+            <div field="FullName" header="创建人" width="100"></div>
+            <div field="CreateDate" header="创建日期" width="100" dateformat="yyyy-MM-dd"></div>
+        </div>
+    </div>
+</div>
+<div id="winQuery" class="mini-window" style="width: 350px; height: 320px;"
+     showmodal="true" allowresize="false" title="查询条件">
+    <table style="width: 100%;">
+        <tr>
+            <td style="width: 80px; text-align: right;">创建日期</td>
+            <td>
+                <table border="0" cellpadding="0" cellspacing="0">
+                    <tr>
+                        <td><input id="dpBeginDate" class="mini-datepicker" style="width:98px;" value="new Date()" showclearbutton="false" allowinput="false" /></td>
+                        <td>至</td>
+                        <td><input id="dpEndDate" class="mini-datepicker" style="width:98px;" value="new Date()" showclearbutton="false" allowinput="false" /></td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 80px; text-align: right;">基站编码</td>
+            <td>
+                <input id="txtPlaceCode" class="mini-textbox" style="width:208px;" />
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 80px; text-align: right;">基站名称</td>
+            <td>
+                <input id="txtPlaceName" class="mini-textbox" style="width:208px;" />
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 80px; text-align: right;">区域</td>
+            <td>
+                <input id="cbAreaId" class="mini-combobox" value="00000000-0000-0000-0000-000000000000" style="width:208px;" textfield="AreaName" valuefield="Id" data=@Html.Raw(ViewData["AreasByAll"])
+                       onvaluechanged="onCbAreaIdValueChanged" />
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 80px; text-align: right;">网格</td>
+            <td>
+                <input id="cbReseauId" class="mini-combobox" value="00000000-0000-0000-0000-000000000000" style="width:208px;" textfield="ReseauName" valuefield="Id" data="[{Id:'00000000-0000-0000-0000-000000000000',ReseauName:'全部'}]"
+                       onload="onCbReseauIdLoad" />
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 80px; text-align: right;">基站类型</td>
+            <td>
+                <input id="cbPlaceCategoryId" class="mini-combobox" value="00000000-0000-0000-0000-000000000000" style="width:208px;" textfield="PlaceCategoryName" valuefield="Id" data=@Html.Raw(ViewData["PlaceCategorysByAll"]) />
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 80px; text-align: right;">紧要程度</td>
+            <td>
+                <input id="cbUrgency" class="mini-combobox" value="0" style="width:208px;" data=@Html.Raw(ViewData["UrgencyByAll"]) />
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 80px; text-align: right;">改造状态</td>
+            <td>
+                <input id="cbOrderState" class="mini-combobox" value="1" style="width:208px;" data=@Html.Raw(ViewData["OrderStateAll"]) />
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 80px; text-align: right;">创建人</td>
+            <td>
+                <input id="beCreateUserId" style="width:208px;" allowinput="false" class="mini-buttonedit searchbox" showclose="true" text="全部" value="00000000-0000-0000-0000-000000000000"
+                       onbuttonclick="onCreateUserSelectButtonClick" oncloseclick="onCreateUserSelectButtonCloseClick" />
+            </td>
+        </tr>
+    </table>
+    <div style="text-align: center; padding: 10px;">
+        <a class="mini-button" iconcls="icon-ok" onclick="onOKClick">确定</a>
+    </div>
+</div>
+<div id="winRemodeling" class="mini-window" style="width: 660px; height: 500px;"
+     showmodal="true" allowresize="false">
+    <div id="frmRemodeling" class="form">
+        <input class="mini-hidden" id="Id" name="Id" />
+        <input class="mini-hidden" id="MobileDemand" name="MobileDemand" />
+        <input class="mini-hidden" id="TelecomDemand" name="TelecomDemand" />
+        <input class="mini-hidden" id="UnicomDemand" name="UnicomDemand" />
+        <div id="tabContent" class="mini-tabs" activeindex="0" style="width: 640px; height: 420px;" plain="true">
+            <div title="改造信息" style="height:100%">
+                <fieldset>
+                    <legend><b>站点信息</b></legend>
+                    <table style="width: 100%;">
+                        <tr>
+                            <td style="width: 80px; text-align: right;">创建日期</td>
+                            <td>
+                                <input id="CreateDate" name="CreateDate" class="mini-datepicker" style="width:98px;" value="new Date()" showclearbutton="false" allowinput="false" enabled="false" />
+                            </td>
+                            <td style="width: 80px; text-align: right;">基站编码</td>
+                            <td>
+                                <input id="PlaceCode" name="PlaceCode" class="mini-textbox" style="width: 200px;" enabled="false" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="width: 80px; text-align: right;">基站名称</td>
+                            <td>
+                                <input id="PlaceId" name="PlaceId" style="width:200px;" allowinput="false" class="mini-buttonedit searchbox" showclose="true" text="请选择" value="00000000-0000-0000-0000-000000000000" required="true"
+                                       onbuttonclick="onPlaceSelectButtonClick" oncloseclick="onPlaceSelectButtonCloseClick" onvalidation="onPlaceIdValidation" />
+                            </td>
+                            <td style="width: 80px; text-align: right;">区域</td>
+                            <td>
+                                <input id="AreaId" name="AreaId" class="mini-combobox" style="width:200px;" enabled="false" textfield="AreaName" valuefield="Id"
+                                       data=@Html.Raw(ViewData["AreasBySelect"]) />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="width: 80px; text-align: right;">基站类型</td>
+                            <td>
+                                <input id="PlaceCategoryId" name="PlaceCategoryId" class="mini-combobox" style="width:200px;" enabled="false" textfield="PlaceCategoryName" valuefield="Id"
+                                       data=@Html.Raw(ViewData["PlaceCategorysBySelect"]) />
+                            </td>
+                            <td style="width: 80px; text-align: right;">网格</td>
+                            <td>
+                                <input id="ReseauId" name="ReseauId" class="mini-combobox" value="00000000-0000-0000-0000-000000000000" style="width:200px;" enabled="false" textfield="ReseauName" valuefield="Id" data="[{Id:'00000000-0000-0000-0000-000000000000',ReseauName:'请选择'}]" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="width: 80px; text-align: right;">经度</td>
+                            <td>
+                                <input id="Lng" name="Lng" class="mini-textbox" vtype='float' style="width: 200px;" enabled="false" />
+                            </td>
+                            <td style="width: 80px; text-align: right;">纬度</td>
+                            <td>
+                                <input id="Lat" name="Lat" class="mini-textbox" vtype='float' style="width: 200px;" enabled="false" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="width: 80px; text-align: right;">导航图</td>
+                            <td>
+                                <a class="navigationmapedit" onclick="onMapEditClick();"></a>
+                            </td>
+                            <td style="width: 80px; text-align: right;">产权</td>
+                            <td>
+                                <input id="PropertyRight" name="PropertyRight" class="mini-combobox" style="width:200px;" enabled="false" data=@Html.Raw(ViewData["PropertyRightBySelect"]) />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="width: 80px; text-align: right;">移动共享</td>
+                            <td>
+                                <input id="MobileShare" name="MobileShare" class="mini-combobox" style="width:200px;" enabled="false" data=@Html.Raw(ViewData["BoolBySelect"]) />
+                            </td>
+                            <td style="width: 80px; text-align: right;">电信共享</td>
+                            <td>
+                                <input id="TelecomShare" name="TelecomShare" class="mini-combobox" style="width:200px;" enabled="false" data=@Html.Raw(ViewData["BoolBySelect"]) />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="width: 80px; text-align: right;">联通共享</td>
+                            <td>
+                                <input id="UnicomShare" name="UnicomShare" class="mini-combobox" style="width:200px;" enabled="false" data=@Html.Raw(ViewData["BoolBySelect"]) />
+                            </td>
+                            <td style="width: 80px; text-align: right;">改造状态</td>
+                            <td>
+                                <input id="OrderState" name="OrderState" class="mini-combobox" value="2" style="width:200px;" enabled="false" data=@Html.Raw(ViewData["OrderState"]) />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="width: 80px; text-align: right;">备注</td>
+                            <td colspan="3">
+                                <input id="Remarks" name="Remarks" class="mini-textarea" style="width: 99%; height: 45px;" />
+                            </td>
+                        </tr>
+                    </table>
+                </fieldset>
+                <fieldset>
+                    <legend><b><div id="ck_Mobile" name="ck_Mobile" class="mini-checkbox" readonly="false" text="移动" onvaluechanged="onValueChangedMobile"></div></b></legend>
+                    <table>
+                        <tr>
+                            <td style="width: 80px; text-align: right;">抱杆数量(根)</td>
+                            <td>
+                                <input id="MobilePoleNumber" name="MobilePoleNumber" class="mini-textbox" emptytext="0" vtype='int' style="width: 200px;" />
+                            </td>
+                            <td style="width: 80px; text-align: right;">机柜数量(个)</td>
+                            <td>
+                                <input id="MobileCabinetNumber" name="MobileCabinetNumber" class="mini-textbox" emptytext="0" vtype='int' style="width: 200px;" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="width: 80px; text-align: right;">用电量(KW)</td>
+                            <td>
+                                <input id="MobilePowerUsed" name="MobilePowerUsed" class="mini-textbox" emptytext="0" vtype='float' style="width: 200px;" />
+                            </td>
+                            <td style="width: 80px; text-align: right;">确认人</td>
+                            <td>
+                                <input id="MobileUserId" name="MobileUserId" style="width:208px;" allowinput="false" class="mini-buttonedit searchbox" showclose="true" text="请选择" value="00000000-0000-0000-0000-000000000000" required="true"
+                                       onbuttonclick="onUserSelectButtonClick" oncloseclick="onUserSelectButtonCloseClick" onvalidation="onBeMobileUserIdValidation" />
+                            </td>
+                        </tr>
+                    </table>
+                </fieldset>
+                <fieldset>
+                    <legend><b><div id="ck_Telecom" name="ck_Telecom" class="mini-checkbox" readonly="false" text="电信" onvaluechanged="onValueChangedTelecom"></div></b></legend>
+                    <table>
+                        <tr>
+                            <td style="width: 80px; text-align: right;">抱杆数量(根)</td>
+                            <td>
+                                <input id="TelecomPoleNumber" name="TelecomPoleNumber" class="mini-textbox" emptytext="0" vtype='int' style="width: 200px;" />
+                            </td>
+                            <td style="width: 80px; text-align: right;">机柜数量(个)</td>
+                            <td>
+                                <input id="TelecomCabinetNumber" name="TelecomCabinetNumber" class="mini-textbox" emptytext="0" vtype='int' style="width: 200px;" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="width: 80px; text-align: right;">用电量(KW)</td>
+                            <td>
+                                <input id="TelecomPowerUsed" name="TelecomPowerUsed" class="mini-textbox" emptytext="0" vtype='float' style="width: 200px;" />
+                            </td>
+                            <td style="width: 80px; text-align: right;">确认人</td>
+                            <td>
+                                <input id="TelecomUserId" name="TelecomUserId" style="width:208px;" allowinput="false" class="mini-buttonedit searchbox" showclose="true" text="请选择" value="00000000-0000-0000-0000-000000000000" required="true"
+                                       onbuttonclick="onUserSelectButtonClick" oncloseclick="onUserSelectButtonCloseClick" onvalidation="onBeTelecomUserIdValidation" />
+                            </td>
+                        </tr>
+                    </table>
+                </fieldset>
+                <fieldset>
+                    <legend><b><div id="ck_Unicom" name="ck_Unicom" class="mini-checkbox" readonly="false" text="联通" onvaluechanged="onValueChangedUnicom"></div></b></legend>
+                    <table>
+                        <tr>
+                            <td style="width: 80px; text-align: right;">抱杆数量(根)</td>
+                            <td>
+                                <input id="UnicomPoleNumber" name="UnicomPoleNumber" class="mini-textbox" emptytext="0" vtype='int' style="width: 200px;" />
+                            </td>
+                            <td style="width: 80px; text-align: right;">机柜数量(个)</td>
+                            <td>
+                                <input id="UnicomCabinetNumber" name="UnicomCabinetNumber" class="mini-textbox" emptytext="0" vtype='int' style="width: 200px;" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="width: 80px; text-align: right;">用电量(KW)</td>
+                            <td>
+                                <input id="UnicomPowerUsed" name="UnicomPowerUsed" class="mini-textbox" emptytext="0" vtype='float' style="width: 200px;" />
+                            </td>
+                            <td style="width: 80px; text-align: right;">确认人</td>
+                            <td>
+                                <input id="UnicomUserId" name="UnicomUserId" style="width:208px;" allowinput="false" class="mini-buttonedit searchbox" showclose="true" text="请选择" value="00000000-0000-0000-0000-000000000000" required="true"
+                                       onbuttonclick="onUserSelectButtonClick" oncloseclick="onUserSelectButtonCloseClick" onvalidation="onBeUnicomUserIdValidation" />
+                            </td>
+                        </tr>
+                    </table>
+                </fieldset>
+            </div>
+        </div>
+    </div>
+    <div style="text-align: center; padding: 10px;">
+        <a class="mini-button" iconcls="icon-save" onclick="onSaveClick" style="margin-right: 10px;">保存</a>
+        <a class="mini-button" iconcls="icon-cancel" onclick="onClearClick">清空</a>
+    </div>
+</div>
+<div id="winImport" class="mini-window" style="width: 330px; height: 150px;"
+     showmodal="true" allowresize="false" title="批量导入改造基站">
+    <table style="width: 100%;">
+        <tr>
+            <td style="width: 80px; text-align: right;">示例及模板</td>
+            <td>
+                <a href="@Url.RouteUrl(new { controller = "File", action = "DownloadTemplatesAndSamples" })?FileType=13" target="_blank">模板下载</a>&nbsp;&nbsp;<a href="@Url.RouteUrl(new { controller = "File", action = "DownloadTemplatesAndSamples" })?FileType=14" target="_blank">示例下载</a>
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 80px; text-align: right;">导入文件</td>
+            <td>
+                <input id="beFile" style="width:200px;" allowinput="false" class="mini-buttonedit searchbox" showclose="true" text="请上传" value="00000000-0000-0000-0000-000000000000" required="true"
+                       onbuttonclick="onFileSelectButtonClick" oncloseclick="onFileSelectButtonCloseClick" onvalidation="onBeFileValidation" />
+            </td>
+        </tr>
+    </table>
+    <div style="text-align: center; padding: 10px;">
+        <a class="mini-button" iconcls="icon-ok" onclick="onImportOKClick">确定导入</a>
+    </div>
+</div>
+<div id="winImportError" class="mini-window" style="width: 600px; height: 320px;"
+     showmodal="true" allowresize="false" title="批量导入错误提示">
+    <div class="mini-fit">
+        <div id="dgImportError" class="mini-datagrid" style="width: 100%; height: 100%;" allowmovecolumn="false"
+             multiselect="true" fitcolumns="false" onlycheckselection="true" showpager="false"
+             virtualscroll="true" ondrawcell="onDgImportErrorDrawCell">
+            <div property="columns">
+                <div type="indexcolumn"></div>
+                <div field="ObjectName" header="对象名称" width="100"></div>
+                <div field="PropertyName" header="属性名称" width="100"></div>
+                <div field="ErrorMessage" header="错误信息" width="320"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    mini.parse();
+
+    var btnSearch = mini.get("btnSearch");
+    var dgRemodeling = mini.get("dgRemodeling");
+    var winQuery = mini.get("winQuery");
+    var dpBeginDate = mini.get("dpBeginDate");
+    var dpEndDate = mini.get("dpEndDate");
+    var txtPlaceCode = mini.get("txtPlaceCode");
+    var txtPlaceName = mini.get("txtPlaceName");
+    var cbAreaId = mini.get("cbAreaId");
+    var cbReseauId = mini.get("cbReseauId");
+    var cbPlaceCategoryId = mini.get("cbPlaceCategoryId");
+    var cbUrgency = mini.get("cbUrgency");
+    var cbOrderState = mini.get("cbOrderState");
+    var beCreateUserId = mini.get("beCreateUserId");
+    var winRemodeling = mini.get("winRemodeling");
+    var frmRemodeling = new mini.Form("#frmRemodeling");
+    var txtRemodelingId = mini.get("Id");
+    var txtMobileDemand = mini.get("MobileDemand");
+    var txtTelecomDemand = mini.get("TelecomDemand");
+    var txtUnicomDemand = mini.get("UnicomDemand");
+    var dpCreateDate = mini.get("CreateDate");
+    var txt_PlaceCode = mini.get("PlaceCode");
+    var bePlaceId = mini.get("PlaceId");
+    var cb_AreaId = mini.get("AreaId");
+    var cb_PlaceCategoryId = mini.get("PlaceCategoryId");
+    var cb_ReseauId = mini.get("ReseauId");
+    var txtLng = mini.get("Lng");
+    var txtLat = mini.get("Lat");
+    var cbPropertyRight = mini.get("PropertyRight");
+    var cbMobileShare = mini.get("MobileShare");
+    var cbTelecomShare = mini.get("TelecomShare");
+    var cbUnicomShare = mini.get("UnicomShare");
+    var cb_OrderState = mini.get("OrderState");
+    var ck_Mobile = mini.get("ck_Mobile");
+    var txt_MobilePoleNumber = mini.get("MobilePoleNumber");
+    var txt_MobileCabinetNumber = mini.get("MobileCabinetNumber");
+    var txt_MobilePowerUsed = mini.get("MobilePowerUsed");
+    var beMobileUserId = mini.get("MobileUserId");
+    var ck_Telecom = mini.get("ck_Telecom");
+    var txt_TelecomPoleNumber = mini.get("TelecomPoleNumber");
+    var txt_TelecomCabinetNumber = mini.get("TelecomCabinetNumber");
+    var txt_TelecomPowerUsed = mini.get("TelecomPowerUsed");
+    var beTelecomUserId = mini.get("TelecomUserId");
+    var ck_Unicom = mini.get("ck_Unicom");
+    var txt_UnicomPoleNumber = mini.get("UnicomPoleNumber");
+    var txt_UnicomCabinetNumber = mini.get("UnicomCabinetNumber");
+    var txt_UnicomPowerUsed = mini.get("UnicomPowerUsed");
+    var beUnicomUserId = mini.get("UnicomUserId");
+    var winImport = mini.get("winImport");
+    var beFile = mini.get("beFile");
+    var winImportError = mini.get("winImportError");
+    var dgImportError = mini.get("dgImportError");
+
+    function SetEnabledMobile(checked) {
+        txt_MobilePoleNumber.setEnabled(checked);
+        txt_MobileCabinetNumber.setEnabled(checked);
+        txt_MobilePowerUsed.setEnabled(checked);
+        beMobileUserId.setEnabled(checked);
+
+        if (checked == false) {
+            txt_MobilePoleNumber.setValue(0);
+            txt_MobileCabinetNumber.setValue(0);
+            txt_MobilePowerUsed.setValue(0);
+            beMobileUserId.setValue("00000000-0000-0000-0000-000000000000");
+            beMobileUserId.setText("请选择");
+        }
+    }
+
+    function SetEnabledTelecom(checked) {
+        txt_TelecomPoleNumber.setEnabled(checked);
+        txt_TelecomCabinetNumber.setEnabled(checked);
+        txt_TelecomPowerUsed.setEnabled(checked);
+        beTelecomUserId.setEnabled(checked);
+
+        if (checked == false) {
+            txt_TelecomPoleNumber.setValue(0);
+            txt_TelecomCabinetNumber.setValue(0);
+            txt_TelecomPowerUsed.setValue(0);
+            beTelecomUserId.setValue("00000000-0000-0000-0000-000000000000");
+            beTelecomUserId.setText("请选择");
+        }
+    }
+
+    function SetEnabledUnicom(checked) {
+        txt_UnicomPoleNumber.setEnabled(checked);
+        txt_UnicomCabinetNumber.setEnabled(checked);
+        txt_UnicomPowerUsed.setEnabled(checked);
+        beUnicomUserId.setEnabled(checked);
+
+        if (checked == false) {
+            txt_UnicomPoleNumber.setValue(0);
+            txt_UnicomCabinetNumber.setValue(0);
+            txt_UnicomPowerUsed.setValue(0);
+            beUnicomUserId.setValue("00000000-0000-0000-0000-000000000000");
+            beUnicomUserId.setText("请选择");
+        }
+    }
+
+    function onValueChangedMobile(e) {
+        var checked = this.getChecked();
+        SetEnabledMobile(checked);
+        if (checked == true) {
+            txtMobileDemand.setValue("1");
+        }
+        else {
+            txtMobileDemand.setValue("2");
+        }
+    }
+
+    function onValueChangedTelecom(e) {
+        var checked = this.getChecked();
+        SetEnabledTelecom(checked);
+        if (checked == true) {
+            txtTelecomDemand.setValue("1");
+        }
+        else {
+            txtTelecomDemand.setValue("2");
+        }
+    }
+
+    function onValueChangedUnicom(e) {
+        var checked = this.getChecked();
+        SetEnabledUnicom(checked);
+        if (checked == true) {
+            txtUnicomDemand.setValue("1");
+        }
+        else {
+            txtUnicomDemand.setValue("2");
+        }
+    }
+
+    Init();
+
+    function Init() {
+        dgRemodeling.hideColumn(2);
+        dpBeginDate.setValue(new Date().DateAdd("y", -1));
+        beCreateUserId.setValue("@ViewData["UserId"]");
+        beCreateUserId.setText("@ViewData["FullName"]");
+        BindDgRemodeling();
+    }
+
+    function BindDgRemodeling() {
+        btnSearch.setEnabled(false);
+        var query_BeginDate = dpBeginDate.getFormValue();
+        var query_EndDate = dpEndDate.getFormValue();
+        var query_PlaceCode = txtPlaceCode.getValue();
+        var query_PlaceName = txtPlaceName.getValue();
+        var query_AreaId = cbAreaId.getValue();
+        var query_ReseauId = cbReseauId.getValue();
+        var query_PlaceCategoryId = cbPlaceCategoryId.getValue();
+        var query_Urgency = cbUrgency.getValue();
+        var query_OrderState = cbOrderState.getValue();
+        var query_CreateUserId = beCreateUserId.getValue();
+        if (dgRemodeling.getUrl() == "") {
+            dgRemodeling.setUrl("@Url.RouteUrl(new { controller = "BaseStationBM", action = "GetNewRemodelingsPage" })");
+        }
+        dgRemodeling.clearSelect(false);
+        dgRemodeling.load({ BeginDate: query_BeginDate, EndDate: query_EndDate, PlaceCode: query_PlaceCode, PlaceName: query_PlaceName, AreaId: query_AreaId, ReseauId: query_ReseauId, PlaceCategoryId: query_PlaceCategoryId, Urgency: query_Urgency, OrderState: query_OrderState, CreateUserId: query_CreateUserId });
+    }
+
+    function onDgRemodelingLoad() {
+        btnSearch.setEnabled(true);
+    }
+
+    function onDrawCell(e) {
+        if (e.field == "Map") {
+            e.cellHtml = "<a class='navigationmap' onclick='onMapClick(\"" + e.record.PlaceId + "\");'></a>";
+        }
+        else if (e.field == "PlaceName") {
+            e.cellStyle = "color:blue";
+        }
+    }
+
+    function onMapClick(id) {
+        var el = dgRemodeling.getEl();
+        mini.mask({
+            el: el,
+            cls: 'mini-mask-loading',
+            html: '加载中...'
+        });
+        setTimeout(function () {
+            $.ajax({
+                url: "@Url.RouteUrl(new { controller = "Map", action = "GetPlacePoint" })",
+                data: { PlaceId: id, AreaId: "00000000-0000-0000-0000-000000000000", PlaceName: "", Lng: 0, Lat: 0, Profession: 1 },
+                type: "get",
+                async: false,
+                success: function (result, textStatus) {
+                    mini.unmask(el);
+                    if (result.Id != null && result.Id == id) {
+                        mini.open({
+                            url: "@Url.RouteUrl(new { controller = "Map", action = "NavigationMap" })",
+                            title: result.PlaceName,
+                            iconCls: "icon-map",
+                            width: 800,
+                            height: 550,
+                            showMaxButton: true,
+                            onload: function () {
+                                var iframe = this.getIFrameEl();
+                                var data = result;
+                                iframe.contentWindow.SetData(data);
+                            }
+                        });
+                    }
+                },
+                error: function (xmlHttpRequest, textStatus, errorThrown) {
+                    mini.unmask(el);
+                }
+            });
+        }, 50);
+    }
+
+    function BindCbReseauId(areaId) {
+        cbReseauId.setUrl("@Url.RouteUrl(new { controller = "BaseData", action = "GetUsedReseaus" })" + "/" + areaId + "?getType=2");
+    }
+
+    function onCbAreaIdValueChanged(e) {
+        BindCbReseauId(e.sender.getValue());
+    }
+
+    function onCbReseauIdLoad() {
+        cbReseauId.setValue("00000000-0000-0000-0000-000000000000");
+    }
+
+    function BindReseauId(areaId) {
+        cb_ReseauId.setUrl("@Url.RouteUrl(new { controller = "BaseData", action = "GetUsedReseaus" })" + "/" + areaId + "?getType=1");
+    }
+
+    function onCreateUserSelectButtonClick() {
+        var beSelect = this;
+        mini.open({
+            url: "@Url.RouteUrl(new { controller = "CustomControl", action = "UserSelection" })",
+            title: "选择用户",
+            width: 620,
+            height: 350,
+            allowResize: false,
+            ondestroy: function (action) {
+                if (action == "ok") {
+                    var iframe = this.getIFrameEl();
+                    var data = iframe.contentWindow.GetData();
+                    data = mini.clone(data);
+                    beSelect.setValue(data.id);
+                    beSelect.setText(data.text);
+                    beSelect.validate();
+                }
+                else if (action == "cancel") {
+                    beSelect.setValue("00000000-0000-0000-0000-000000000000");
+                    beSelect.setText("全部");
+                    beSelect.validate();
+                }
+            }
+        });
+    }
+
+    function onCreateUserSelectButtonCloseClick() {
+        this.setValue("00000000-0000-0000-0000-000000000000");
+        this.setText("全部");
+        this.validate();
+    }
+
+    function onPlaceSelectButtonClick() {
+        var beSelect = this;
+        mini.open({
+            url: "@Url.RouteUrl(new { controller = "CustomControl", action = "PlaceSelection" })" + "?Profession=1",
+            title: "选择基站",
+            width: 700,
+            height: 410,
+            allowResize: false,
+            ondestroy: function (action) {
+                if (action == "ok") {
+                    var iframe = this.getIFrameEl();
+                    var data = iframe.contentWindow.GetData();
+                    data = mini.clone(data);
+                    txt_PlaceCode.setValue(data.PlaceCode);
+                    beSelect.setValue(data.Id);
+                    beSelect.setText(data.PlaceName);
+                    cb_AreaId.setValue(data.AreaId);
+                    BindReseauId(data.AreaId);
+                    cb_ReseauId.setValue(data.ReseauId);
+                    cb_PlaceCategoryId.setValue(data.PlaceCategoryId);
+                    txtLng.setValue(data.Lng);
+                    txtLat.setValue(data.Lat);
+                    cbPropertyRight.setValue(data.PropertyRight);
+                    cbMobileShare.setValue(data.MobileShare);
+                    cbTelecomShare.setValue(data.TelecomShare);
+                    cbUnicomShare.setValue(data.UnicomShare);
+                }
+                else if (action == "cancel") {
+                    beSelect.setValue("00000000-0000-0000-0000-000000000000");
+                    beSelect.setText("请选择");
+                    txt_PlaceCode.setValue("");
+                    cb_AreaId.setValue("00000000-0000-0000-0000-000000000000");
+                    cb_ReseauId.setData("[{Id:'00000000-0000-0000-0000-000000000000',ReseauName:'请选择'}]");
+                    cb_ReseauId.setValue("00000000-0000-0000-0000-000000000000");
+                    cb_PlaceCategoryId.setValue("00000000-0000-0000-0000-000000000000");
+                    txtLng.setValue("");
+                    txtLat.setValue("");
+                    cbPropertyRight.setValue(0);
+                    cbMobileShare.setValue(0);
+                    cbTelecomShare.setValue(0);
+                    cbUnicomShare.setValue(0);
+                }
+                beSelect.validate();
+            }
+        });
+    }
+
+    function onPlaceSelectButtonCloseClick() {
+        this.setValue("00000000-0000-0000-0000-000000000000");
+        this.setText("请选择");
+        txt_PlaceCode.setValue("");
+        cb_AreaId.setValue("00000000-0000-0000-0000-000000000000");
+        cb_ReseauId.setData("[{Id:'00000000-0000-0000-0000-000000000000',ReseauName:'请选择'}]");
+        cb_ReseauId.setValue("00000000-0000-0000-0000-000000000000");
+        cb_PlaceCategoryId.setValue("00000000-0000-0000-0000-000000000000");
+        txtLng.setValue("");
+        txtLat.setValue("");
+        cbPropertyRight.setValue(0);
+        cbMobileShare.setValue(0);
+        cbTelecomShare.setValue(0);
+        cbUnicomShare.setValue(0);
+        this.validate();
+    }
+
+    function onPlaceIdValidation(e) {
+        if (e.isValid) {
+            if (e.value == "00000000-0000-0000-0000-000000000000") {
+                e.errorText = "请选择一个要改造的基站";
+                e.isValid = false;
+            }
+        }
+    }
+
+    function ClearFrmRemodeling() {
+        var idValue = txtRemodelingId.getValue();
+        var createDateValue = dpCreateDate.getFormValue();
+        var orderStateValue = cb_OrderState.getValue();
+        frmRemodeling.clear();
+        txtRemodelingId.setValue(idValue);
+        dpCreateDate.setValue(createDateValue);
+        cb_OrderState.setValue(orderStateValue);
+        bePlaceId.setValue("00000000-0000-0000-0000-000000000000");
+        bePlaceId.setText("请选择");
+        cb_AreaId.setValue("00000000-0000-0000-0000-000000000000");
+        cb_ReseauId.setData("[{Id:'00000000-0000-0000-0000-000000000000',ReseauName:'请选择'}]");
+        cb_ReseauId.setValue("00000000-0000-0000-0000-000000000000");
+        cb_PlaceCategoryId.setValue("00000000-0000-0000-0000-000000000000");
+        cbPropertyRight.setValue(0);
+        cbMobileShare.setValue(0);
+        cbTelecomShare.setValue(0);
+        cbUnicomShare.setValue(0);
+        ck_Mobile.setValue(true);
+        ck_Telecom.setValue(true);
+        ck_Unicom.setValue(true);
+        SetEnabledMobile(true);
+        SetEnabledTelecom(true);
+        SetEnabledUnicom(true);
+        txtMobileDemand.setValue("1");
+        txtTelecomDemand.setValue("1");
+        txtUnicomDemand.setValue("1");
+        beMobileUserId.setValue("00000000-0000-0000-0000-000000000000");
+        beMobileUserId.setText("请选择");
+        beTelecomUserId.setValue("00000000-0000-0000-0000-000000000000");
+        beTelecomUserId.setText("请选择");
+        beUnicomUserId.setValue("00000000-0000-0000-0000-000000000000");
+        beUnicomUserId.setText("请选择");
+    }
+
+    function onSearchClick() {
+        winQuery.show();
+    }
+
+    function onOKClick() {
+        BindDgRemodeling();
+        winQuery.hide();
+    }
+
+    function onAddClick() {
+        txtRemodelingId.setValue("");
+        dpCreateDate.setValue(new Date());
+        cb_OrderState.setValue(1);
+        ClearFrmRemodeling();
+        winRemodeling.setTitle("新增基站改造");
+        winRemodeling.show();
+    }
+
+    function onEditClick() {
+        var rows = dgRemodeling.getSelecteds();
+        if (rows.length == 0) {
+            mini.alert("请选择一条要修改的数据");
+        }
+        else {
+            ClearFrmRemodeling();
+            winRemodeling.setTitle("修改基站改造");
+            winRemodeling.show();
+            var el = winRemodeling.getEl();
+            mini.mask({
+                el: el,
+                cls: 'mini-mask-loading',
+                html: '加载中...'
+            });
+            setTimeout(function () {
+                $.ajax({
+                    url: "@Url.RouteUrl(new { controller = "BaseStationBM", action = "GetNewRemodelingById" })" + "/" + rows[0].Id,
+                    type: "get",
+                    async: false,
+                    success: function (result, textStatus) {
+                        if (result.Id != null && result.Id == rows[0].Id) {
+                            BindReseauId(result.AreaId);
+                            frmRemodeling.setData(result);
+                            dpCreateDate.setValue(result.CreateDateText);
+                            bePlaceId.setText(result.PlaceName);
+                            if (result.MobileDemand == 1) {
+                                ck_Mobile.setValue(true);
+                                SetEnabledMobile(true);
+                            }
+                            else {
+                                ck_Mobile.setValue(false);
+                                SetEnabledMobile(false);
+                            }
+                            beMobileUserId.setValue(result.MobileUserId);
+                            beMobileUserId.setText(result.MobileUserFullName);
+                            if (result.TelecomDemand == 1) {
+                                ck_Telecom.setValue(true);
+                                SetEnabledTelecom(true);
+                            }
+                            else {
+                                ck_Telecom.setValue(false);
+                                SetEnabledTelecom(false);
+                            }
+                            beTelecomUserId.setValue(result.TelecomUserId);
+                            beTelecomUserId.setText(result.TelecomUserFullName);
+                            if (result.UnicomDemand == 1) {
+                                ck_Unicom.setValue(true);
+                                SetEnabledUnicom(true);
+                            }
+                            else {
+                                ck_Unicom.setValue(false);
+                                SetEnabledUnicom(false);
+                            }
+                            beUnicomUserId.setValue(result.UnicomUserId);
+                            beUnicomUserId.setText(result.UnicomUserFullName);
+                        }
+                        else {
+                            winRemodeling.hide();
+                        }
+                    },
+                    error: function (xmlHttpRequest, textStatus, errorThrown) {
+                        winRemodeling.hide();
+                    }
+                });
+            }, 50);
+            setTimeout(function () {
+                mini.unmask(el);
+            }, 300);
+        }
+    }
+
+    function onMapEditClick() {
+        if (bePlaceId.getValue() == "00000000-0000-0000-0000-000000000000") {
+            mini.alert("请选择一个要改造的基站");
+        }
+        else {
+            var el = winRemodeling.getEl();
+            mini.mask({
+                el: el,
+                cls: 'mini-mask-loading',
+                html: '加载中...'
+            });
+            setTimeout(function () {
+                $.ajax({
+                    url: "@Url.RouteUrl(new { controller = "Map", action = "GetPlacePoint" })",
+                    data: { PlaceId: bePlaceId.getValue(), AreaId: "00000000-0000-0000-0000-000000000000", PlaceName: "", Lng: 0, Lat: 0, Profession: 1 },
+                    type: "get",
+                    async: false,
+                    success: function (result, textStatus) {
+                        mini.unmask(el);
+                        if (result.Id != null && result.Id == bePlaceId.getValue()) {
+                            mini.open({
+                                url: "@Url.RouteUrl(new { controller = "Map", action = "NavigationMap" })",
+                                title: result.PlaceName,
+                                iconCls: "icon-map",
+                                width: 800,
+                                height: 550,
+                                showMaxButton: true,
+                                onload: function () {
+                                    var iframe = this.getIFrameEl();
+                                    var data = result;
+                                    iframe.contentWindow.SetData(data);
+                                },
+                            });
+                        }
+                    },
+                    error: function (xmlHttpRequest, textStatus, errorThrown) {
+                        mini.unmask(el);
+                    }
+                });
+            }, 50);
+        }
+    }
+
+    function onRemoveClick() {
+        var rows = dgRemodeling.getSelecteds();
+        if (rows.length == 0) {
+            mini.alert("请选择要删除的数据");
+        }
+        else {
+            mini.confirm("确定要删除选中的数据？", "删除基站改造",
+            function (action) {
+                if (action == "ok") {
+                    var loading = mini.loading("处理中,请稍后...", "删除数据");
+                    var jsonData = mini.encode(rows);
+                    $.ajax({
+                        url: "@Url.RouteUrl(new { controller = "BaseStationBM", action = "RemoveNewRemodelings" })",
+                        data: AddAntiForgeryToken({ data: jsonData }),
+                        type: "post",
+                        success: function (result, textStatus) {
+                            mini.hideMessageBox(loading);
+                            if (result.Code != null && result.Code == 0) {
+                                ShowSucessMessage(result.Message);
+                                BindDgRemodeling();
+                            }
+                        },
+                        error: function (xmlHttpRequest, textStatus, errorThrown) {
+                            mini.hideMessageBox(loading);
+                        }
+                    });
+                }
+            });
+        }
+    }
+
+    function onClearClick() {
+        ClearFrmRemodeling();
+    }
+
+    function onSaveClick() {
+        frmRemodeling.validate();
+        if (frmRemodeling.isValid() == false) return;
+        var loading = mini.loading("处理中,请稍后...", "保存数据");
+        var jsonData = mini.encode(frmRemodeling.getData());
+        $.ajax({
+            url: "@Url.RouteUrl(new { controller = "BaseStationBM", action = "SaveNewRemodeling" })",
+            data: AddAntiForgeryToken({ data: jsonData }),
+            type: "post",
+            success: function (result, textStatus) {
+                mini.hideMessageBox(loading);
+                if (result.Code != null && result.Code == 0) {
+                    winRemodeling.hide();
+                    ShowSucessMessage(result.Message);
+                    BindDgRemodeling();
+                }
+            },
+            error: function (xmlHttpRequest, textStatus, errorThrown) {
+                mini.hideMessageBox(loading);
+            }
+        });
+    }
+
+    function onSendClick() {
+        var rows = dgRemodeling.getSelecteds();
+        if (rows.length == 0) {
+            mini.alert("请选择一条要发送的数据");
+        }
+        else {
+            var el = dgRemodeling.getEl();
+            mini.mask({
+                el: el,
+                cls: 'mini-mask-loading',
+                html: '加载中...'
+            });
+            setTimeout(function () {
+                $.ajax({
+                    url: "@Url.RouteUrl(new { controller = "BaseStationBM", action = "GetShareSummaryById" })" + "/" + rows[0].Id,
+                    type: "get",
+                    async: false,
+                    success: function (result, textStatus) {
+                        mini.unmask(el);
+                        if (result.Id != null) {
+                            if (result.OrderState != 1) {
+                                mini.alert("选择的基站改造已经发送过流程");
+                            }
+                            else {
+                                mini.open({
+                                    url: "@Url.RouteUrl(new { controller = "WorkFlow", action = "WFInstanceSend" })" + "?WFCategoryId=ABDAED6E-6D03-4553-9A66-76E92E8FDCEC&EntityId=" + rows[0].Id,
+                                    title: "发送改造确认单",
+                                    width: 850,
+                                    height: 500,
+                                    allowResize: false,
+                                    ondestroy: function (action) {
+                                        if (action == "ok") {
+                                            ShowSucessMessage("公文发送成功");
+                                            BindDgRemodeling();
+                                        }
+                                        else if (action == "cancel") {
+                                        }
+                                    }
+                                });
+                            }
+                        }
+                        else {
+                        }
+                    },
+                    error: function (xmlHttpRequest, textStatus, errorThrown) {
+                        mini.unmask(el);
+                    }
+                });
+            }, 50);
+        }
+    }
+
+    function onUserSelectButtonClick() {
+        var beSelect = this;
+        mini.open({
+            url: "@Url.RouteUrl(new { controller = "CustomControl", action = "UserSelection" })",
+            title: "选择用户",
+            width: 620,
+            height: 350,
+            allowResize: false,
+            ondestroy: function (action) {
+                if (action == "ok") {
+                    var iframe = this.getIFrameEl();
+                    var data = iframe.contentWindow.GetData();
+                    data = mini.clone(data);
+                    beSelect.setValue(data.id);
+                    beSelect.setText(data.text);
+                    beSelect.validate();
+                }
+                else if (action == "cancel") {
+                    beSelect.setValue("00000000-0000-0000-0000-000000000000");
+                    beSelect.setText("请选择");
+                    beSelect.validate();
+                }
+            }
+        });
+    }
+
+    function onUserSelectButtonCloseClick() {
+        this.setValue("00000000-0000-0000-0000-000000000000");
+        this.setText("请选择");
+        this.validate();
+    }
+
+    function onBeMobileUserIdValidation(e) {
+        if (e.isValid) {
+            if (e.value == "00000000-0000-0000-0000-000000000000") {
+                e.errorText = "请选择移动确认人";
+                e.isValid = false;
+            }
+        }
+    }
+
+    function onBeTelecomUserIdValidation(e) {
+        if (e.isValid) {
+            if (e.value == "00000000-0000-0000-0000-000000000000") {
+                e.errorText = "请选择电信确认人";
+                e.isValid = false;
+            }
+        }
+    }
+
+    function onBeUnicomUserIdValidation(e) {
+        if (e.isValid) {
+            if (e.value == "00000000-0000-0000-0000-000000000000") {
+                e.errorText = "请选择联通确认人";
+                e.isValid = false;
+            }
+        }
+    }
+
+    function onCellClick(e) {
+        if (e.column.field == "PlaceName") {
+            var el = dgRemodeling.getEl();
+            mini.mask({
+                el: el,
+                cls: 'mini-mask-loading',
+                html: '加载中...'
+            });
+            setTimeout(function () {
+                mini.unmask(el);
+                mini.open({
+                    url: "@Url.RouteUrl(new { controller = "BaseData", action = "PlaceInfo" })" + "/" + e.record.PlaceId,
+                    title: "站点信息",
+                    //iconCls: "icon-editor",
+                    width: 670,
+                    height: 580,
+                });
+            }, 50);
+        }
+    }
+
+    function onImportClick() {
+        beFile.setValue("00000000-0000-0000-0000-000000000000");
+        beFile.setText("请上传");
+        beFile.setIsValid(true);
+        winImport.show();
+    }
+
+    function onImportOKClick() {
+        beFile.validate();
+        if (beFile.isValid() == false) return;
+        var el = winImport.getEl();
+        mini.mask({
+            el: el,
+            cls: 'mini-mask-loading',
+            html: '数据导入中...'
+        });
+        setTimeout(function () {
+            $.ajax({
+                url: "@Url.RouteUrl(new { controller = "DataImport", action = "ImportNewRemodelingBS" })",
+                type: "post",
+                data: AddAntiForgeryToken({ FileId: beFile.getValue() }),
+                success: function (result, textStatus) {
+                    mini.unmask(el);
+                    if (!result.Code || result.Code == null) {
+                        if (result.length == 0) {
+                            ShowSucessMessage("数据导入成功");
+                            winImport.hide();
+                            BindDgRemodeling();
+                        }
+                        else {
+                            dgImportError.setData(result);
+                            winImportError.show();
+                            beFile.setValue("00000000-0000-0000-0000-000000000000");
+                            beFile.setText("请上传");
+                        }
+                    }
+                    else {
+                        beFile.setValue("00000000-0000-0000-0000-000000000000");
+                        beFile.setText("请上传");
+                    }
+                },
+                error: function (xmlHttpRequest, textStatus, errorThrown) {
+                    mini.unmask(el);
+                    beFile.setValue("00000000-0000-0000-0000-000000000000");
+                    beFile.setText("请上传");
+                }
+            });
+        }, 50);
+    }
+
+    function onFileSelectButtonClick() {
+        var beSelect = this;
+        mini.open({
+            url: "@Url.RouteUrl(new { controller = "File", action = "FileManager" })",
+            title: "上传Excel文件",
+            iconCls: "icon-file",
+            width: 620,
+            height: 200,
+            allowResize: false,
+            onload: function () {
+                var iframe = this.getIFrameEl();
+                iframe.contentWindow.SetDataExcel();
+            },
+            ondestroy: function (action) {
+                if (action == "ok") {
+                    var iframe = this.getIFrameEl();
+                    var data = iframe.contentWindow.GetData();
+                    data = mini.clone(data);
+                    beSelect.setValue(data.id);
+                    beSelect.setText(data.text);
+                    beSelect.validate();
+                }
+            }
+        });
+    }
+
+    function onFileSelectButtonCloseClick() {
+        this.setValue("00000000-0000-0000-0000-000000000000");
+        this.setText("请上传");
+        this.validate();
+    }
+
+    function onBeFileValidation(e) {
+        if (e.isValid) {
+            if (e.value == "00000000-0000-0000-0000-000000000000") {
+                e.errorText = "请上传一个Excel文件";
+                e.isValid = false;
+            }
+        }
+    }
+
+    function onDgImportErrorDrawCell(e) {
+        if (e.field == "ErrorMessage") {
+            e.cellStyle = "color:red;";
+        }
+    }
+</script>

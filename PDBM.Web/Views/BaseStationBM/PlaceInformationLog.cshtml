@@ -1,0 +1,626 @@
+﻿<div id="frmInfo" class="form">
+    <div id="tabContent" class="mini-tabs" activeindex="0" style="width: 780px; height: 480px;" plain="true">
+        <div title="基站信息历史记录" style="height:100%">
+            <table style="width: 100%;">
+                <tr>
+                    <td>
+                        <fieldset>
+                            <legend><b>铁塔</b></legend>
+                            <table style="width: 100%;height:200px">
+                                <tr>
+                                    <td>
+                                        <div class="mini-fit">
+                                            <div id="dgTower" class="mini-datagrid" style="width: 100%; height: 100%;" idfield="Id" allowmovecolumn="false"
+                                                 showpager="false" fitcolumns="false" url="@Url.RouteUrl(new { controller = "BaseStationBM", action = "GetTowerLog" })" ondrawcell="onDrawCellTower">
+                                                <div property="columns">
+                                                    <div type="indexcolumn"></div>
+                                                    <div field="IsFile"></div>
+                                                    <div type="comboboxcolumn" field="OperationType" header="操作类型" width="60">
+                                                        <input property="editor" class="mini-combobox" style="width: 100%;" data=@Html.Raw(ViewData["OperationType"]) />
+                                                    </div>
+                                                    <div type="comboboxcolumn" field="TowerType" header="铁塔类型" width="100">
+                                                        <input property="editor" class="mini-combobox" style="width: 100%;" data=@Html.Raw(ViewData["TowerType"]) />
+                                                    </div>
+                                                    <div field="TowerHeight" header="铁塔高度(米)" width="80"></div>
+                                                    <div field="PlatFormNumber" header="平台数量(层)" width="80"></div>
+                                                    <div field="PoleNumber" header="抱杆数量(根)" width="80"></div>
+                                                    <div field="File" header="铁塔图纸" width="60"></div>
+                                                    <div field="CreateDate" header="操作日期" width="80" dateformat="yyyy-MM-dd"></div>
+                                                    <div field="FullName" header="操作人员" width="80"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </fieldset>
+                        <fieldset>
+                            <legend><b>铁塔基础</b></legend>
+                            <table style="width: 100%;height:200px">
+                                <tr>
+                                    <td>
+                                        <div class="mini-fit">
+                                            <div id="dgTowerBase" class="mini-datagrid" style="width: 100%; height: 100%;" idfield="Id" allowmovecolumn="false"
+                                                 showpager="false" fitcolumns="false" url="@Url.RouteUrl(new { controller = "BaseStationBM", action = "GetTowerBaseLog" })" ondrawcell="onDrawCellTowerBase">
+                                                <div property="columns">
+                                                    <div type="indexcolumn"></div>
+                                                    <div field="IsFile"></div>
+                                                    <div type="comboboxcolumn" field="OperationType" header="操作类型" width="60">
+                                                        <input property="editor" class="mini-combobox" style="width: 100%;" data=@Html.Raw(ViewData["OperationType"]) />
+                                                    </div>
+                                                    <div type="comboboxcolumn" field="TowerBaseType" header="基础类型" width="100">
+                                                        <input property="editor" class="mini-combobox" style="width: 100%;" data=@Html.Raw(ViewData["TowerBaseType"]) />
+                                                    </div>
+                                                    <div field="File" header="塔基图纸" width="60"></div>
+                                                    <div field="CreateDate" header="操作日期" width="80" dateformat="yyyy-MM-dd"></div>
+                                                    <div field="FullName" header="操作人员" width="80"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </fieldset>
+                        <fieldset>
+                            <legend><b>机房</b></legend>
+                            <table style="width: 100%;height:200px">
+                                <tr>
+                                    <td>
+                                        <div class="mini-fit">
+                                            <div id="dgMachineRoom" class="mini-datagrid" style="width: 100%; height: 100%;" idfield="Id" allowmovecolumn="false"
+                                                 showpager="false" fitcolumns="false" url="@Url.RouteUrl(new { controller = "BaseStationBM", action = "GetMachineRoomLog" })"
+                                                 ondrawcell="onDrawCellMachineRoom">
+                                                <div property="columns">
+                                                    <div type="indexcolumn"></div>
+                                                    <div field="IsFile"></div>
+                                                    <div type="comboboxcolumn" field="OperationType" header="操作类型" width="60">
+                                                        <input property="editor" class="mini-combobox" style="width: 100%;" data=@Html.Raw(ViewData["OperationType"]) />
+                                                    </div>
+                                                    <div type="comboboxcolumn" field="MachineRoomType" header="机房类型" width="100">
+                                                        <input property="editor" class="mini-combobox" style="width: 100%;" data=@Html.Raw(ViewData["MachineRoomType"]) />
+                                                    </div>
+                                                    <div field="MachineRoomArea" header="机房面积(m²)" width="80"></div>
+                                                    <div field="File" header="机房图纸" width="60"></div>
+                                                    <div field="CreateDate" header="操作日期" width="80" dateformat="yyyy-MM-dd"></div>
+                                                    <div field="FullName" header="操作人员" width="80"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </fieldset>
+                        <fieldset>
+                            <legend><b>外电引入</b></legend>
+                            <table style="width: 100%;height:200px">
+                                <tr>
+                                    <td>
+                                        <div class="mini-fit">
+                                            <div id="dgExternal" class="mini-datagrid" style="width: 100%; height: 100%;" idfield="Id" allowmovecolumn="false"
+                                                 showpager="false" fitcolumns="false" url="@Url.RouteUrl(new { controller = "BaseStationBM", action = "GetExternalElectricPowerLog" })"
+                                                 ondrawcell="onDrawCellExternal">
+                                                <div property="columns">
+                                                    <div type="indexcolumn"></div>
+                                                    <div field="IsFile"></div>
+                                                    <div type="comboboxcolumn" field="OperationType" header="操作类型" width="60">
+                                                        <input property="editor" class="mini-combobox" style="width: 100%;" data=@Html.Raw(ViewData["OperationType"]) />
+                                                    </div>
+                                                    <div type="comboboxcolumn" field="ExternalElectric" header="引入类型" width="100">
+                                                        <input property="editor" class="mini-combobox" style="width: 100%;" data=@Html.Raw(ViewData["ExternalElectric"]) />
+                                                    </div>
+                                                    <div field="File" header="路由图" width="60"></div>
+                                                    <div field="CreateDate" header="操作日期" width="80" dateformat="yyyy-MM-dd"></div>
+                                                    <div field="FullName" header="操作人员" width="80"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </fieldset>
+                        <fieldset>
+                            <legend><b>设备安装</b></legend>
+                            <table style="width: 100%;height:200px">
+                                <tr>
+                                    <td>
+                                        <div class="mini-fit">
+                                            <div id="dgEquipment" class="mini-datagrid" style="width: 100%; height: 100%;" idfield="Id" allowmovecolumn="false"
+                                                 showpager="false" fitcolumns="false" url="@Url.RouteUrl(new { controller = "BaseStationBM", action = "GetEquipmentInstallLog" })"
+                                                 ondrawcell="onDrawCellEquipment">
+                                                <div property="columns">
+                                                    <div type="indexcolumn"></div>
+                                                    <div field="IsFile"></div>
+                                                    <div type="comboboxcolumn" field="OperationType" header="操作类型" width="60">
+                                                        <input property="editor" class="mini-combobox" style="width: 100%;" data=@Html.Raw(ViewData["OperationType"]) />
+                                                    </div>
+                                                    <div field="SwitchPower" header="开关电源(A)" width="80"></div>
+                                                    <div field="Battery" header="蓄电池(AH)" width="80"></div>
+                                                    <div field="CabinetNumber" header="机柜数量(个)" width="80"></div>
+                                                    <div field="File" header="安装图纸" width="60"></div>
+                                                    <div field="CreateDate" header="操作日期" width="80" dateformat="yyyy-MM-dd"></div>
+                                                    <div field="FullName" header="操作人员" width="80"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </fieldset>
+                        <fieldset>
+                            <legend><b>地质勘探</b></legend>
+                            <table style="width: 100%;height:200px">
+                                <tr>
+                                    <td>
+                                        <div class="mini-fit">
+                                            <div id="dgAddress" class="mini-datagrid" style="width: 100%; height: 100%;" idfield="Id" allowmovecolumn="false"
+                                                 showpager="false" fitcolumns="false" url="@Url.RouteUrl(new { controller = "BaseStationBM", action = "GetAddressExplorLog" })"
+                                                 ondrawcell="onDrawCellAddress">
+                                                <div property="columns">
+                                                    <div type="indexcolumn"></div>
+                                                    <div field="IsFile"></div>
+                                                    <div type="comboboxcolumn" field="OperationType" header="操作类型" width="60">
+                                                        <input property="editor" class="mini-combobox" style="width: 100%;" data=@Html.Raw(ViewData["OperationType"]) />
+                                                    </div>
+                                                    <div field="File" header="地勘报告" width="60"></div>
+                                                    <div field="CreateDate" header="操作日期" width="80" dateformat="yyyy-MM-dd"></div>
+                                                    <div field="FullName" header="操作人员" width="80"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </fieldset>
+                        <fieldset>
+                            <legend><b>桩基动测</b></legend>
+                            <table style="width: 100%;height:200px">
+                                <tr>
+                                    <td>
+                                        <div class="mini-fit">
+                                            <div id="dgFoundation" class="mini-datagrid" style="width: 100%; height: 100%;" idfield="Id" allowmovecolumn="false"
+                                                 showpager="false" fitcolumns="false" url="@Url.RouteUrl(new { controller = "BaseStationBM", action = "GetFoundationTestLog" })"
+                                                 ondrawcell="onDrawCellFoundation">
+                                                <div property="columns">
+                                                    <div type="indexcolumn"></div>
+                                                    <div field="IsFile"></div>
+                                                    <div type="comboboxcolumn" field="OperationType" header="操作类型" width="60">
+                                                        <input property="editor" class="mini-combobox" style="width: 100%;" data=@Html.Raw(ViewData["OperationType"]) />
+                                                    </div>
+                                                    <div field="File" header="动测报告" width="60"></div>
+                                                    <div field="CreateDate" header="操作日期" width="80" dateformat="yyyy-MM-dd"></div>
+                                                    <div field="FullName" header="操作人员" width="80"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </fieldset>
+                        <fieldset>
+                            <legend><b>移动</b></legend>
+                            <table style="width: 100%;height:200px">
+                                <tr>
+                                    <td>
+                                        <div class="mini-fit">
+                                            <div id="dgMobile" class="mini-datagrid" style="width: 100%; height: 100%;" idfield="Id" allowmovecolumn="false"
+                                                 showpager="false" fitcolumns="false" url="@Url.RouteUrl(new { controller = "BaseStationBM", action = "GetPlacePropertyLog" })">
+                                                <div property="columns">
+                                                    <div type="indexcolumn"></div>
+                                                    <div type="comboboxcolumn" field="MobileShare" header="移动共享" width="60">
+                                                        <input property="editor" class="mini-combobox" style="width: 100%;" data=@Html.Raw(ViewData["Bool"]) />
+                                                    </div>
+                                                    <div field="MobilePoleNumber" header="抱杆数量(根)" width="80"></div>
+                                                    <div field="MobileCabinetNumber" header="机柜数量(个)" width="80"></div>
+                                                    <div field="MobilePowerUsed" header="用电量(KW)" width="80"></div>
+                                                    <div field="CreateDate" header="操作日期" width="80" dateformat="yyyy-MM-dd"></div>
+                                                    <div field="FullName" header="操作人员" width="80"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </fieldset>
+                        <fieldset>
+                            <legend><b>电信</b></legend>
+                            <table style="width: 100%;height:200px">
+                                <tr>
+                                    <td>
+                                        <div class="mini-fit">
+                                            <div id="dgTelecom" class="mini-datagrid" style="width: 100%; height: 100%;" idfield="Id" allowmovecolumn="false"
+                                                 showpager="false" fitcolumns="false" url="@Url.RouteUrl(new { controller = "BaseStationBM", action = "GetPlacePropertyLog" })">
+                                                <div property="columns">
+                                                    <div type="indexcolumn"></div>
+                                                    <div type="comboboxcolumn" field="TelecomShare" header="电信共享" width="60">
+                                                        <input property="editor" class="mini-combobox" style="width: 100%;" data=@Html.Raw(ViewData["Bool"]) />
+                                                    </div>
+                                                    <div field="TelecomPoleNumber" header="抱杆数量(根)" width="80"></div>
+                                                    <div field="TelecomCabinetNumber" header="机柜数量(个)" width="80"></div>
+                                                    <div field="TelecomPowerUsed" header="用电量(KW)" width="80"></div>
+                                                    <div field="CreateDate" header="操作日期" width="80" dateformat="yyyy-MM-dd"></div>
+                                                    <div field="FullName" header="操作人员" width="80"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </fieldset>
+                        <fieldset>
+                            <legend><b>联通</b></legend>
+                            <table style="width: 100%;height:200px">
+                                <tr>
+                                    <td>
+                                        <div class="mini-fit">
+                                            <div id="dgUnicom" class="mini-datagrid" style="width: 100%; height: 100%;" idfield="Id" allowmovecolumn="false"
+                                                 showpager="false" fitcolumns="false" url="@Url.RouteUrl(new { controller = "BaseStationBM", action = "GetPlacePropertyLog" })">
+                                                <div property="columns">
+                                                    <div type="indexcolumn"></div>
+                                                    <div type="comboboxcolumn" field="UnicomShare" header="联通共享" width="60">
+                                                        <input property="editor" class="mini-combobox" style="width: 100%;" data=@Html.Raw(ViewData["Bool"]) />
+                                                    </div>
+                                                    <div field="UnicomPoleNumber" header="抱杆数量(根)" width="80"></div>
+                                                    <div field="UnicomCabinetNumber" header="机柜数量(个)" width="80"></div>
+                                                    <div field="UnicomPowerUsed" header="用电量(KW)" width="80"></div>
+                                                    <div field="CreateDate" header="操作日期" width="80" dateformat="yyyy-MM-dd"></div>
+                                                    <div field="FullName" header="操作人员" width="80"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </fieldset>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    mini.parse();
+    var dgTower = mini.get("dgTower");
+    var dgTowerBase = mini.get("dgTowerBase");
+    var dgMachineRoom = mini.get("dgMachineRoom");
+    var dgExternal = mini.get("dgExternal");
+    var dgEquipment = mini.get("dgEquipment");
+    var dgAddress = mini.get("dgAddress");
+    var dgFoundation = mini.get("dgFoundation");
+    var dgMobile = mini.get("dgMobile");
+    var dgTelecom = mini.get("dgTelecom");
+    var dgUnicom = mini.get("dgUnicom");
+
+    var propertyType = 4;
+
+    init();
+
+    function init() {
+        dgTower.hideColumn(1);
+        dgTowerBase.hideColumn(1);
+        dgMachineRoom.hideColumn(1);
+        dgExternal.hideColumn(1);
+        dgEquipment.hideColumn(1);
+        dgAddress.hideColumn(1);
+        dgFoundation.hideColumn(1);
+        dgTower.load({ PropertyType: propertyType, ParentId: "@ViewData["ParentId"]" });
+        dgTowerBase.load({ PropertyType: propertyType, ParentId: "@ViewData["ParentId"]" });
+        dgMachineRoom.load({ PropertyType: propertyType, ParentId: "@ViewData["ParentId"]" });
+        dgExternal.load({ PropertyType: propertyType, ParentId: "@ViewData["ParentId"]" });
+        dgEquipment.load({ PropertyType: propertyType, ParentId: "@ViewData["ParentId"]" });
+        dgAddress.load({ PropertyType: propertyType, ParentId: "@ViewData["ParentId"]" });
+        dgFoundation.load({ PropertyType: propertyType, ParentId: "@ViewData["ParentId"]" });
+
+        dgMobile.load({ PropertyType: propertyType, ParentId: "@ViewData["ParentId"]", CompanyNameId: 1 });
+        dgTelecom.load({ PropertyType: propertyType, ParentId: "@ViewData["ParentId"]", CompanyNameId: 2 });
+        dgUnicom.load({ PropertyType: propertyType, ParentId: "@ViewData["ParentId"]", CompanyNameId: 3 });
+    }
+
+
+    function onDrawCellTower(e) {
+        if (e.field == "File" && e.record.IsFile != "") {
+            e.cellHtml = "<a class='file' onclick='onFileTowerLogClick(\"" + e.record.Id + "\");'></a>";
+        }
+    }
+
+    function onDrawCellTowerBase(e) {
+        if (e.field == "File" && e.record.IsFile != "") {
+            e.cellHtml = "<a class='file' onclick='onFileTowerBaseLogClick(\"" + e.record.Id + "\");'></a>";
+        }
+    }
+
+    function onDrawCellMachineRoom(e) {
+        if (e.field == "File" && e.record.IsFile != "") {
+            e.cellHtml = "<a class='file' onclick='onFileMachineRoomLogClick(\"" + e.record.Id + "\");'></a>";
+        }
+    }
+
+    function onDrawCellExternal(e) {
+        if (e.field == "File" && e.record.IsFile != "") {
+            e.cellHtml = "<a class='file' onclick='onFileExternalElectricPowerLogClick(\"" + e.record.Id + "\");'></a>";
+        }
+    }
+
+    function onDrawCellEquipment(e) {
+        if (e.field == "File" && e.record.IsFile != "") {
+            e.cellHtml = "<a class='file' onclick='onFileEquipmentInstallLogClick(\"" + e.record.Id + "\");'></a>";
+        }
+    }
+
+    function onDrawCellAddress(e) {
+        if (e.field == "File" && e.record.IsFile != "") {
+            e.cellHtml = "<a class='file' onclick='onFileAddressExplorLogClick(\"" + e.record.Id + "\");'></a>";
+        }
+    }
+
+    function onDrawCellFoundation(e) {
+        if (e.field == "File" && e.record.IsFile != "") {
+            e.cellHtml = "<a class='file' onclick='onFileFoundationTestLogClick(\"" + e.record.Id + "\");'></a>";
+        }
+    }
+
+    function onFileTowerLogClick(id) {
+        var el = document.body;
+        mini.mask({
+            el: el,
+            cls: 'mini-mask-loading',
+            html: '加载中...'
+        });
+        setTimeout(function () {
+            $.ajax({
+                url: "@Url.RouteUrl(new { controller = "File", action = "GetTowerLogFiles" })",
+                data: { TowerLogId: id, FileIdList: "" },
+                type: "get",
+                async: false,
+                success: function (result, textStatus) {
+                    mini.unmask(el);
+                    if (result.Code == null || !result.Code) {
+                        mini.open({
+                            url: "@Url.RouteUrl(new { controller = "File", action = "FileManager" })",
+                            title: "铁塔图纸",
+                            iconCls: "icon-file",
+                            width: 620,
+                            height: 250,
+                            allowResize: false,
+                            onload: function () {
+                                var iframe = this.getIFrameEl();
+                                var data = result;
+                                iframe.contentWindow.SetData(data);
+                            }
+                        });
+                    }
+                },
+                error: function (xmlHttpRequest, textStatus, errorThrown) {
+                    mini.unmask(el);
+                }
+            });
+        }, 50);
+    }
+
+    function onFileTowerBaseLogClick(id) {
+        var el = document.body;
+        mini.mask({
+            el: el,
+            cls: 'mini-mask-loading',
+            html: '加载中...'
+        });
+        setTimeout(function () {
+            $.ajax({
+                url: "@Url.RouteUrl(new { controller = "File", action = "GetTowerBaseLogFiles" })",
+                data: { TowerBaseLogId: id, FileIdList: "" },
+                type: "get",
+                async: false,
+                success: function (result, textStatus) {
+                    mini.unmask(el);
+                    if (result.Code == null || !result.Code) {
+                        mini.open({
+                            url: "@Url.RouteUrl(new { controller = "File", action = "FileManager" })",
+                            title: "铁塔图纸",
+                            iconCls: "icon-file",
+                            width: 620,
+                            height: 250,
+                            allowResize: false,
+                            onload: function () {
+                                var iframe = this.getIFrameEl();
+                                var data = result;
+                                iframe.contentWindow.SetData(data);
+                            }
+                        });
+                    }
+                },
+                error: function (xmlHttpRequest, textStatus, errorThrown) {
+                    mini.unmask(el);
+                }
+            });
+        }, 50);
+    }
+
+    function onFileMachineRoomLogClick(id) {
+        var el = document.body;
+        mini.mask({
+            el: el,
+            cls: 'mini-mask-loading',
+            html: '加载中...'
+        });
+        setTimeout(function () {
+            $.ajax({
+                url: "@Url.RouteUrl(new { controller = "File", action = "GetMachineRoomLogFiles" })",
+                data: { MachineRoomLogId: id, FileIdList: "" },
+                type: "get",
+                async: false,
+                success: function (result, textStatus) {
+                    mini.unmask(el);
+                    if (result.Code == null || !result.Code) {
+                        mini.open({
+                            url: "@Url.RouteUrl(new { controller = "File", action = "FileManager" })",
+                            title: "机房图纸",
+                            iconCls: "icon-file",
+                            width: 620,
+                            height: 250,
+                            allowResize: false,
+                            onload: function () {
+                                var iframe = this.getIFrameEl();
+                                var data = result;
+                                iframe.contentWindow.SetData(data);
+                            }
+                        });
+                    }
+                },
+                error: function (xmlHttpRequest, textStatus, errorThrown) {
+                    mini.unmask(el);
+                }
+            });
+        }, 50);
+    }
+
+    function onFileExternalElectricPowerLogClick(id) {
+        var el = document.body;
+        mini.mask({
+            el: el,
+            cls: 'mini-mask-loading',
+            html: '加载中...'
+        });
+        setTimeout(function () {
+            $.ajax({
+                url: "@Url.RouteUrl(new { controller = "File", action = "GetExternalElectricPowerLogFiles" })",
+                data: { ExternalElectricPowerLogId: id, FileIdList: "" },
+                type: "get",
+                async: false,
+                success: function (result, textStatus) {
+                    mini.unmask(el);
+                    if (result.Code == null || !result.Code) {
+                        mini.open({
+                            url: "@Url.RouteUrl(new { controller = "File", action = "FileManager" })",
+                            title: "路由图",
+                            iconCls: "icon-file",
+                            width: 620,
+                            height: 250,
+                            allowResize: false,
+                            onload: function () {
+                                var iframe = this.getIFrameEl();
+                                var data = result;
+                                iframe.contentWindow.SetData(data);
+                            }
+                        });
+                    }
+                },
+                error: function (xmlHttpRequest, textStatus, errorThrown) {
+                    mini.unmask(el);
+                }
+            });
+        }, 50);
+    }
+
+    function onFileEquipmentInstallLogClick(id) {
+        var el = document.body;
+        mini.mask({
+            el: el,
+            cls: 'mini-mask-loading',
+            html: '加载中...'
+        });
+        setTimeout(function () {
+            $.ajax({
+                url: "@Url.RouteUrl(new { controller = "File", action = "GetEquipmentInstallLogFiles" })",
+                data: { EquipmentInstallLogId: id, FileIdList: "" },
+                type: "get",
+                async: false,
+                success: function (result, textStatus) {
+                    mini.unmask(el);
+                    if (result.Code == null || !result.Code) {
+                        mini.open({
+                            url: "@Url.RouteUrl(new { controller = "File", action = "FileManager" })",
+                            title: "安装图纸",
+                            iconCls: "icon-file",
+                            width: 620,
+                            height: 250,
+                            allowResize: false,
+                            onload: function () {
+                                var iframe = this.getIFrameEl();
+                                var data = result;
+                                iframe.contentWindow.SetData(data);
+                            }
+                        });
+                    }
+                },
+                error: function (xmlHttpRequest, textStatus, errorThrown) {
+                    mini.unmask(el);
+                }
+            });
+        }, 50);
+    }
+
+    function onFileAddressExplorLogClick(id) {
+        var el = document.body;
+        mini.mask({
+            el: el,
+            cls: 'mini-mask-loading',
+            html: '加载中...'
+        });
+        setTimeout(function () {
+            $.ajax({
+                url: "@Url.RouteUrl(new { controller = "File", action = "GetAddressExplorLogFiles" })",
+                data: { AddressExplorLogId: id, FileIdList: "" },
+                type: "get",
+                async: false,
+                success: function (result, textStatus) {
+                    mini.unmask(el);
+                    if (result.Code == null || !result.Code) {
+                        mini.open({
+                            url: "@Url.RouteUrl(new { controller = "File", action = "FileManager" })",
+                            title: "地勘报告",
+                            iconCls: "icon-file",
+                            width: 620,
+                            height: 250,
+                            allowResize: false,
+                            onload: function () {
+                                var iframe = this.getIFrameEl();
+                                var data = result;
+                                iframe.contentWindow.SetData(data);
+                            }
+                        });
+                    }
+                },
+                error: function (xmlHttpRequest, textStatus, errorThrown) {
+                    mini.unmask(el);
+                }
+            });
+        }, 50);
+    }
+
+    function onFileFoundationTestLogClick(id) {
+        var el = document.body;
+        mini.mask({
+            el: el,
+            cls: 'mini-mask-loading',
+            html: '加载中...'
+        });
+        setTimeout(function () {
+            $.ajax({
+                url: "@Url.RouteUrl(new { controller = "File", action = "GetFoundationTestLogFiles" })",
+                data: { FoundationTestLogId: id, FileIdList: "" },
+                type: "get",
+                async: false,
+                success: function (result, textStatus) {
+                    mini.unmask(el);
+                    if (result.Code == null || !result.Code) {
+                        mini.open({
+                            url: "@Url.RouteUrl(new { controller = "File", action = "FileManager" })",
+                            title: "动测报告",
+                            iconCls: "icon-file",
+                            width: 620,
+                            height: 250,
+                            allowResize: false,
+                            onload: function () {
+                                var iframe = this.getIFrameEl();
+                                var data = result;
+                                iframe.contentWindow.SetData(data);
+                            }
+                        });
+                    }
+                },
+                error: function (xmlHttpRequest, textStatus, errorThrown) {
+                    mini.unmask(el);
+                }
+            });
+        }, 50);
+    }
+</script>

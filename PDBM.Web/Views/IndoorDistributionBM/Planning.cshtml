@@ -1,0 +1,1051 @@
+﻿<div id="myToolbar" class="mini-toolbar" style="border-bottom: 0px; padding: 0px;">
+    <table style="width: 100%;" cellpadding="0" cellspacing="0">
+        <tr>
+            <td style="width: 100%;">
+                <a class="mini-button" iconcls="icon-help" plain="true" href="@Url.RouteUrl(new { controller = "File", action = "DownloadHelpFiles" })?FileName=Planning" target="_blank"></a>当前位置：室分建维>规划寻址>室分规划
+            </td>
+            <td style="white-space: nowrap;">
+                <a id="btnSearch" class="mini-button" iconcls="icon-search" plain="true" onclick="onSearchClick">查询</a>
+                <a class="mini-button" iconcls="icon-add" plain="true" onclick="onAddClick">新增</a>
+                <a class="mini-button" iconcls="icon-add" plain="true" onclick="onImportClick">批量导入</a>
+                <a class="mini-button" iconcls="icon-edit" plain="true" onclick="onEditClick">修改</a>
+                <a class="mini-button" iconcls="icon-remove" plain="true" onclick="onRemoveClick">删除</a>
+                <a class="mini-button" iconcls="icon-ok" plain="true" onclick="onIssueClick">规划下达</a>
+                <a class="mini-button" iconcls="icon-remove" plain="true" onclick="onCancelIssueClick">取消下达</a>
+                <a id="btnShowMap" class="mini-button" iconcls="icon-map" plain="true" onclick="onShowMapClick">地图导航</a>
+            </td>
+        </tr>
+    </table>
+</div>
+<div class="mini-fit">
+    <div id="dgPlanning" class="mini-datagrid" style="width: 100%; height: 100%;" idfield="Id" allowmovecolumn="false"
+         multiselect="true" fitcolumns="false" onlycheckselection="true" showreloadbutton="false" pagesize="15" sizelist="[15,30,50,100,300]"
+         virtualscroll="false" frozenstartcolumn="0" frozenendcolumn="3" onload="onDgPlanningLoad" ondrawcell="onDrawCell">
+        <div property="columns">
+            <div type="indexcolumn"></div>
+            <div type="checkcolumn"></div>
+            <div field="PlaceId" header=""></div>
+            <div field="IsFile" header=""></div>
+            <div field="PlanningCode" header="规划编码" width="80"></div>
+            <div field="PlanningName" header="规划名称" width="150"></div>
+            <div field="AreaName" header="区域" width="80"></div>
+            <div field="ReseauName" header="网格" width="80"></div>
+            <div field="PlaceCategoryName" header="室分类型" width="80"></div>
+            <div field="Lng" header="经度" width="80"></div>
+            <div field="Lat" header="纬度" width="80"></div>
+            <div field="Map" header="导航图" width="50"></div>
+            <div field="File" header="附件" width="50"></div>
+            <div field="DetailedAddress" header="详细地址" width="150"></div>
+            <div field="Remarks" header="建设理由" width="150"></div>
+            <div field="ProposedNetwork" header="拟建网络" width="60"></div>
+            <div type="comboboxcolumn" field="Importance" header="重要性程度" width="80">
+                <input property="editor" class="mini-combobox" style="width: 100%;" data=@Html.Raw(ViewData["Importance"]) />
+            </div>
+            <div field="PlaceOwnerName" header="产权" width="50"></div>
+            <div field="FullName" header="规划人" width="80"></div>
+            <div field="CreateDate" header="规划日期" width="80" dateformat="yyyy-MM-dd"></div>
+            <div field="AddressingUserFullName" header="租赁人" width="80"></div>
+            <div field="AddressingDays" header="租赁时长" width="60"></div>
+            <div type="comboboxcolumn" field="Issued" header="是否下达" width="60">
+                <input property="editor" class="mini-combobox" style="width: 100%;" data=@Html.Raw(ViewData["Bool"]) />
+            </div>
+            <div type="comboboxcolumn" field="AddressingState" header="寻址状态" width="80">
+                <input property="editor" class="mini-combobox" style="width: 100%;" data=@Html.Raw(ViewData["AddressingState"]) />
+            </div>
+        </div>
+    </div>
+</div>
+<div id="winQuery" class="mini-window" style="width: 615px; height: 215px;"
+     showmodal="true" allowresize="false" title="查询条件">
+    <table style="width: 100%;">
+        <tr>
+            <td style="width: 80px; text-align: right;">规划日期</td>
+            <td>
+                <table border="0" cellpadding="0" cellspacing="0">
+                    <tr>
+                        <td><input id="dpBeginDate" class="mini-datepicker" style="width:98px;" value="new Date()" showclearbutton="false" allowinput="false" /></td>
+                        <td>至</td>
+                        <td><input id="dpEndDate" class="mini-datepicker" style="width:98px;" value="new Date()" showclearbutton="false" allowinput="false" /></td>
+                    </tr>
+                </table>
+            </td>
+            <td style="width: 80px; text-align: right;">规划编码</td>
+            <td>
+                <input id="txtPlanningCode" class="mini-textbox" style="width:208px;" />
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 80px; text-align: right;">规划名称</td>
+            <td>
+                <input id="txtPlanningName" class="mini-textbox" style="width:208px;" />
+            </td>
+            <td style="width: 80px; text-align: right;">室分类型</td>
+            <td>
+                <input id="cbPlaceCategoryId" class="mini-combobox" value="00000000-0000-0000-0000-000000000000" style="width:208px;" textfield="PlaceCategoryName" valuefield="Id" data=@Html.Raw(ViewData["PlaceCategorysByAll"]) />
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 80px; text-align: right;">区域</td>
+            <td>
+                <input id="cbAreaId" class="mini-combobox" value="00000000-0000-0000-0000-000000000000" style="width:208px;" textfield="AreaName" valuefield="Id" data=@Html.Raw(ViewData["AreasByAll"])
+                       onvaluechanged="onCbAreaIdValueChanged" />
+            </td>
+            <td style="width: 80px; text-align: right;">网格</td>
+            <td>
+                <input id="cbReseauId" class="mini-combobox" value="00000000-0000-0000-0000-000000000000" style="width:208px;" textfield="ReseauName" valuefield="Id" data="[{Id:'00000000-0000-0000-0000-000000000000',ReseauName:'全部'}]"
+                       onload="onCbReseauIdLoad" />
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 80px; text-align: right;">重要性程度</td>
+            <td>
+                <input id="cbImportance" class="mini-combobox" value="0" style="width:208px;" data=@Html.Raw(ViewData["ImportanceByAll"]) />
+            </td>
+            <td style="width: 80px; text-align: right;">是否下达</td>
+            <td>
+                <input id="cbIssued" class="mini-combobox" value="2" style="width:208px;" data=@Html.Raw(ViewData["BoolByAll"]) />
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 80px; text-align: right;">寻址状态</td>
+            <td>
+                <input id="cbAddressingState" class="mini-combobox" value="1" style="width:208px;" data=@Html.Raw(ViewData["AddressingStateByAll"]) />
+            </td>
+            <td style="width: 80px; text-align: right;">规划人</td>
+            <td>
+                <input id="beCreateUserId" style="width:208px;" allowinput="false" class="mini-buttonedit searchbox" showclose="true" text="全部" value="00000000-0000-0000-0000-000000000000"
+                       onbuttonclick="onCreateUserSelectButtonClick" oncloseclick="onCreateUserSelectButtonCloseClick" />
+            </td>
+        </tr>
+    </table>
+    <div style="text-align: center; padding: 10px;">
+        <a class="mini-button" iconcls="icon-ok" onclick="onOKClick">确定</a>
+    </div>
+</div>
+<div id="winPlanning" class="mini-window" style="width: 600px; height: 325px;"
+     showmodal="true" allowresize="false">
+    <div id="frmPlanning" class="form">
+        <input class="mini-hidden" id="Id" name="Id" />
+        <input class="mini-hidden" id="PlaceId" name="PlaceId" />
+        <input class="mini-hidden" id="FileIdList" name="FileIdList" />
+        <table style="width: 100%;">
+            <tr>
+                <td style="width: 80px; text-align: right;">规划日期</td>
+                <td>
+                    <input id="CreateDate" name="CreateDate" class="mini-datepicker" style="width:100px;" enabled="false" value="new Date()" showclearbutton="false" allowinput="false" />
+                </td>
+                <td style="width: 80px; text-align: right;">规划编码</td>
+                <td>
+                    <input id="PlanningCode" name="PlanningCode" class="mini-textbox" style="width: 200px;" enabled="false" />
+                </td>
+            </tr>
+            <tr>
+                <td style="width: 80px; text-align: right;">规划名称</td>
+                <td>
+                    <input id="PlanningName" name="PlanningName" class="mini-textbox" requirederrortext="请输入规划名称" required="true" style="width: 200px;" />
+                </td>
+                <td style="width: 80px; text-align: right;">室分类型</td>
+                <td>
+                    <input id="PlaceCategoryId" name="PlaceCategoryId" class="mini-combobox" value="00000000-0000-0000-0000-000000000000" style="width:200px;" textfield="PlaceCategoryName" valuefield="Id" data=@Html.Raw(ViewData["PlaceCategorysBySelect"])
+                           required="true" onvalidation="onPlaceCategoryIdValidation" />
+                </td>
+            </tr>
+            <tr>
+                <td style="width: 80px; text-align: right;">区域</td>
+                <td>
+                    <input id="AreaId" name="AreaId" class="mini-combobox" value="00000000-0000-0000-0000-000000000000" style="width:200px;" textfield="AreaName" valuefield="Id" data=@Html.Raw(ViewData["AreasBySelect"])
+                           required="true" onvalidation="onAreaIdValidation" onvaluechanged="onAreaIdValueChanged" />
+                </td>
+                <td style="width: 80px; text-align: right;">网格</td>
+                <td>
+                    <input id="ReseauId" name="ReseauId" class="mini-combobox" value="00000000-0000-0000-0000-000000000000" style="width:200px;" textfield="ReseauName" valuefield="Id" data="[{Id:'00000000-0000-0000-0000-000000000000',ReseauName:'请选择'}]"
+                           required="true" onvalidation="onReseauIdValidation" onload="onReseauIdLoad" />
+                </td>
+            </tr>
+            <tr>
+                <td style="width: 80px; text-align: right;">经度</td>
+                <td>
+                    <input id="Lng" name="Lng" class="mini-textbox" vtype='float' requirederrortext="请输入经度" required="true" style="width: 200px;" />
+                </td>
+                <td style="width: 80px; text-align: right;">纬度</td>
+                <td>
+                    <input id="Lat" name="Lat" class="mini-textbox" vtype='float' requirederrortext="请输入纬度" required="true" style="width: 200px;" />
+                </td>
+            </tr>
+            <tr>
+                <td style="width: 80px; text-align: right;">导航图</td>
+                <td>
+                    <a class="navigationmapedit" onclick="onMapEditClick();"></a>
+                </td>
+                <td style="width: 80px; text-align: right;">附件</td>
+                <td>
+                    <table>
+                        <tr>
+                            <td style="width:16px">
+                                <a class="fileedit" onclick="onFileEditClick();"></a>
+                            </td>
+                            <td>
+                                附件数量：<input id="Count" name="Count" class="mini-textbox" data=@Html.Raw(ViewData["Count"]) />
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td style="width: 80px; text-align: right;">重要性程度</td>
+                <td>
+                    <input id="Importance" name="Importance" class="mini-combobox" value="1" style="width:200px;" data=@Html.Raw(ViewData["Importance"]) />
+                </td>
+                <td style="width: 80px; text-align: right;">产权</td>
+                <td>
+                    <input id="PlaceOwner" name="PlaceOwner" class="mini-combobox" value="00000000-0000-0000-0000-000000000000" style="width:200px;" textfield="PlaceOwnerName" valuefield="Id" data=@Html.Raw(ViewData["PlaceOwnersBySelect"]) />
+                </td>
+            </tr>
+            <tr>
+                <td style="width: 80px; text-align: right;">详细地址</td>
+                <td>
+                    <input id="DetailedAddress" name="DetailedAddress" class="mini-textarea" style="width: 200px; height: 40px;" />
+                </td>
+                <td style="width: 80px; text-align: right;">建设理由</td>
+                <td>
+                    <input id="Remarks" name="Remarks" class="mini-textarea" style="width: 200px; height: 40px;" />
+                </td>
+            </tr>
+            <tr>
+                <td style="width: 80px; text-align: right;">拟建网络</td>
+                <td colspan="3">
+                    <input id="ProposedNetwork" name="ProposedNetwork" class="mini-textbox" style="width: 200px;" requirederrortext="请输入拟建网络" required="true" value="@ViewData["ProposedNetwork"]" />
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div style="text-align: center; padding: 10px;">
+        <a class="mini-button" iconcls="icon-save" onclick="onSaveClick" style="margin-right: 10px;">保存</a>
+        <a class="mini-button" iconcls="icon-cancel" onclick="onClearClick">清空</a>
+    </div>
+</div>
+<div id="winImport" class="mini-window" style="width: 330px; height: 150px;"
+     showmodal="true" allowresize="false" title="批量导入规划室分">
+    <table style="width: 100%;">
+        <tr>
+            <td style="width: 80px; text-align: right;">示例及模板</td>
+            <td>
+                <a href="@Url.RouteUrl(new { controller = "File", action = "DownloadTemplatesAndSamples" })?FileType=15" target="_blank">模板下载</a>&nbsp;&nbsp;<a href="@Url.RouteUrl(new { controller = "File", action = "DownloadTemplatesAndSamples" })?FileType=16" target="_blank">示例下载</a>
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 80px; text-align: right;">导入文件</td>
+            <td>
+                <input id="beFile" style="width:200px;" allowinput="false" class="mini-buttonedit searchbox" showclose="true" text="请上传" value="00000000-0000-0000-0000-000000000000" required="true"
+                       onbuttonclick="onFileSelectButtonClick" oncloseclick="onFileSelectButtonCloseClick" onvalidation="onBeFileValidation" />
+            </td>
+        </tr>
+    </table>
+    <div style="text-align: center; padding: 10px;">
+        <a class="mini-button" iconcls="icon-ok" onclick="onImportOKClick">确定导入</a>
+    </div>
+</div>
+<div id="winImportError" class="mini-window" style="width: 600px; height: 320px;"
+     showmodal="true" allowresize="false" title="批量导入错误提示">
+    <div class="mini-fit">
+        <div id="dgImportError" class="mini-datagrid" style="width: 100%; height: 100%;" allowmovecolumn="false"
+             multiselect="true" fitcolumns="false" onlycheckselection="true" showpager="false"
+             virtualscroll="true" ondrawcell="onDgImportErrorDrawCell">
+            <div property="columns">
+                <div type="indexcolumn"></div>
+                <div field="ObjectName" header="对象名称" width="100"></div>
+                <div field="PropertyName" header="属性名称" width="100"></div>
+                <div field="ErrorMessage" header="错误信息" width="320"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    mini.parse();
+
+    var btnSearch = mini.get("btnSearch");
+    var dgPlanning = mini.get("dgPlanning");
+    var winQuery = mini.get("winQuery");
+    var dpBeginDate = mini.get("dpBeginDate");
+    var dpEndDate = mini.get("dpEndDate");
+    var txtPlanningCode = mini.get("txtPlanningCode");
+    var txtPlanningName = mini.get("txtPlanningName");
+    var cbPlaceCategoryId = mini.get("cbPlaceCategoryId");
+    var cbAreaId = mini.get("cbAreaId");
+    var cbReseauId = mini.get("cbReseauId");
+    var cbImportance = mini.get("cbImportance");
+    var cbIssued = mini.get("cbIssued");
+    var cbAddressingState = mini.get("cbAddressingState");
+    var beCreateUserId = mini.get("beCreateUserId");
+
+    var winPlanning = mini.get("winPlanning");
+    var frmPlanning = new mini.Form("#frmPlanning");
+    var txtPlanningId = mini.get("Id");
+    var txtPlaceId = mini.get("PlaceId");
+    var txtFileIdList = mini.get("FileIdList");
+    var dp_CreateDate = mini.get("CreateDate");
+    var txt_PlanningCode = mini.get("PlanningCode");
+    var txt_PlanningName = mini.get("PlanningName");
+    var cb_PlaceCategoryId = mini.get("PlaceCategoryId");
+    var cb_AreaId = mini.get("AreaId");
+    var cb_ReseauId = mini.get("ReseauId");
+    var txt_Lng = mini.get("Lng");
+    var txt_Lat = mini.get("Lat");
+    var cb_Importance = mini.get("Importance");
+    var cb_PlaceOwner = mini.get("PlaceOwner");
+    var txt_DetailedAddress = mini.get("DetailedAddress");
+    var txt_Remarks = mini.get("Remarks");
+    var txt_ProposedNetwork = mini.get("ProposedNetwork");
+
+    var winAppointPlace = mini.get("winAppointPlace");
+    var bePlaceId = mini.get("bePlaceId");
+    var winImport = mini.get("winImport");
+    var beFile = mini.get("beFile");
+    var winImportError = mini.get("winImportError");
+    var dgImportError = mini.get("dgImportError");
+    var openType = 0;
+    var lng = 0;
+    var lat = 0;
+
+    var count = mini.get("Count");
+    count.setWidth("10px");
+    if (count.setReadOnly) count.setReadOnly(true);     //只读
+    if (count.setIsValid) count.setIsValid(true);      //去除错误提示
+    if (count.addCls) count.addCls("asLabel");          //增加asLabel外观
+
+    Init();
+
+    function Init() {
+        dgPlanning.hideColumn(2);
+        dgPlanning.hideColumn(3);
+        dpBeginDate.setValue(new Date().DateAdd("y", -1));
+        beCreateUserId.setValue("@ViewData["UserId"]");
+        beCreateUserId.setText("@ViewData["FullName"]");
+        BindDgPlanning();
+    }
+
+    function BindDgPlanning() {
+        btnSearch.setEnabled(false);
+        var query_BeginDate = dpBeginDate.getFormValue();
+        var query_EndDate = dpEndDate.getFormValue();
+        var query_PlanningCode = txtPlanningCode.getValue();
+        var query_PlanningName = txtPlanningName.getValue();
+        var query_PlaceCategoryId = cbPlaceCategoryId.getValue();
+        var query_AreaId = cbAreaId.getValue();
+        var query_ReseauId = cbReseauId.getValue();
+        var query_Importance = cbImportance.getValue();
+        var query_Issued = cbIssued.getValue();
+        var query_AddressingState = cbAddressingState.getValue();
+        var query_CreateUserId = beCreateUserId.getValue();
+        if (dgPlanning.getUrl() == "") {
+            dgPlanning.setUrl("@Url.RouteUrl(new { controller = "IndoorDistributionBM", action = "GetPlanningsPage" })");
+        }
+        dgPlanning.clearSelect(false);
+        dgPlanning.load({
+            BeginDate: query_BeginDate, EndDate: query_EndDate, PlanningCode: query_PlanningCode, PlanningName: query_PlanningName,
+            PlaceCategoryId: query_PlaceCategoryId, AreaId: query_AreaId, ReseauId: query_ReseauId, Importance: query_Importance,
+            Issued: query_Issued, AddressingState: query_AddressingState, CreateUserId: query_CreateUserId
+        });
+    }
+
+    function onDgPlanningLoad() {
+        btnSearch.setEnabled(true);
+    }
+
+    function onDrawCell(e) {
+        if (e.record.Issued == 1) {
+            e.rowCls = "rowIssued";
+        }
+        if (e.field == "Map") {
+            e.cellHtml = "<a class='navigationmap' onclick='onMapClick(\"" + e.record.Id + "\",\"" + e.record.PlaceId + "\");'></a>";
+        }
+        if (e.field == "File" && e.record.Id != "00000000-0000-0000-0000-000000000000" && e.record.IsFile != '') {
+            e.cellHtml = "<a class='file' onclick='onFileClick(\"" + e.record.Id + "\");'></a>";
+        }
+    }
+
+    function onMapClick(id, placeId) {
+        var el = dgPlanning.getEl();
+        mini.mask({
+            el: el,
+            cls: 'mini-mask-loading',
+            html: '加载中...'
+        });
+        setTimeout(function () {
+            var url, data, getId;
+            if (placeId == "00000000-0000-0000-0000-000000000000") {
+                url = "@Url.RouteUrl(new { controller = "Map", action = "GetPlanningPointFromPlanning" })";
+                data = { PlanningId: id, AreaId: "00000000-0000-0000-0000-000000000000", PlanningName: "", Lng: 0, Lat: 0, Profession: 2 };
+                getId = id;
+            }
+            else {
+                url = "@Url.RouteUrl(new { controller = "Map", action = "GetPlacePoint" })";
+                data = { PlaceId: placeId, AreaId: "00000000-0000-0000-0000-000000000000", PlaceName: "", Lng: 0, Lat: 0, Profession: 2 };
+                getId = placeId;
+            }
+            $.ajax({
+                url: url,
+                data: data,
+                type: "get",
+                async: false,
+                success: function (result, textStatus) {
+                    mini.unmask(el);
+                    if (result.Id != null && result.Id == getId) {
+                        var title;
+                        if (placeId == "00000000-0000-0000-0000-000000000000") {
+                            title = result.PlanningName;
+                        }
+                        else {
+                            title = result.PlaceName;
+                        }
+                        mini.open({
+                            url: "@Url.RouteUrl(new { controller = "Map", action = "NavigationMap" })",
+                            title: title,
+                            iconCls: "icon-map",
+                            width: 800,
+                            height: 550,
+                            showMaxButton: true,
+                            onload: function () {
+                                var iframe = this.getIFrameEl();
+                                var data = result;
+                                iframe.contentWindow.SetData(data);
+                            }
+                        });
+                    }
+                },
+                error: function (xmlHttpRequest, textStatus, errorThrown) {
+                    mini.unmask(el);
+                }
+            });
+        }, 50);
+    }
+
+    function BindCbReseauId(areaId) {
+        cbReseauId.setUrl("@Url.RouteUrl(new { controller = "BaseData", action = "GetUsedReseaus" })" + "/" + areaId + "?getType=2");
+    }
+
+    function onCbAreaIdValueChanged(e) {
+        BindCbReseauId(e.sender.getValue());
+    }
+
+    function onCbReseauIdLoad() {
+        cbReseauId.setValue("00000000-0000-0000-0000-000000000000");
+    }
+
+    function BindReseauId(areaId) {
+        cb_ReseauId.setUrl("@Url.RouteUrl(new { controller = "BaseData", action = "GetUsedReseaus" })" + "/" + areaId + "?getType=1");
+    }
+
+    function onAreaIdValueChanged(e) {
+        BindReseauId(e.sender.getValue());
+        cb_ReseauId.validate();
+    }
+
+    function onReseauIdLoad() {
+        cb_ReseauId.setValue("00000000-0000-0000-0000-000000000000");
+    }
+
+    function onPlaceCategoryIdValidation(e) {
+        if (e.isValid) {
+            if (e.value == "00000000-0000-0000-0000-000000000000") {
+                e.errorText = "请选择室分类型";
+                e.isValid = false;
+            }
+        }
+    }
+
+    function onAreaIdValidation(e) {
+        if (e.isValid) {
+            if (e.value == "00000000-0000-0000-0000-000000000000") {
+                e.errorText = "请选择区域";
+                e.isValid = false;
+            }
+        }
+    }
+
+    function onReseauIdValidation(e) {
+        if (e.isValid) {
+            if (e.value == "00000000-0000-0000-0000-000000000000") {
+                e.errorText = "请选择网格";
+                e.isValid = false;
+            }
+        }
+    }
+
+    function ClearFrmPlanning() {
+        var idValue = txtPlanningId.getValue();
+        var placeIdValue = txtPlaceId.getValue();
+        var createDateValue = dp_CreateDate.getFormValue();
+        var planningCodeValue = txt_PlanningCode.getValue();
+
+        frmPlanning.clear();
+        txtPlanningId.setValue(idValue);
+        txtPlaceId.setValue(placeIdValue);
+        dp_CreateDate.setValue(createDateValue);
+        txt_PlanningCode.setValue(planningCodeValue);
+        cb_AreaId.setValue("00000000-0000-0000-0000-000000000000");
+        cb_ReseauId.setData("[{Id:'00000000-0000-0000-0000-000000000000',ReseauName:'请选择'}]");
+        cb_ReseauId.setValue("00000000-0000-0000-0000-000000000000");
+        cb_PlaceCategoryId.setValue("00000000-0000-0000-0000-000000000000");
+        cb_PlaceOwner.setValue("00000000-0000-0000-0000-000000000000");
+        cb_Importance.setValue(3);
+        count.setValue(0);
+    }
+
+    function onCreateUserSelectButtonClick() {
+        var beSelect = this;
+        mini.open({
+            url: "@Url.RouteUrl(new { controller = "CustomControl", action = "UserSelection" })",
+            title: "选择用户",
+            width: 620,
+            height: 350,
+            allowResize: false,
+            ondestroy: function (action) {
+                if (action == "ok") {
+                    var iframe = this.getIFrameEl();
+                    var data = iframe.contentWindow.GetData();
+                    data = mini.clone(data);
+                    beSelect.setValue(data.id);
+                    beSelect.setText(data.text);
+                    beSelect.validate();
+                }
+                else if (action == "cancel") {
+                    beSelect.setValue("00000000-0000-0000-0000-000000000000");
+                    beSelect.setText("全部");
+                    beSelect.validate();
+                }
+            }
+        });
+    }
+
+    function onCreateUserSelectButtonCloseClick() {
+        this.setValue("00000000-0000-0000-0000-000000000000");
+        this.setText("全部");
+        this.validate();
+    }
+
+    function onUserSelectButtonClick() {
+        var beSelect = this;
+        mini.open({
+            url: "@Url.RouteUrl(new { controller = "CustomControl", action = "UserSelection" })",
+            title: "选择用户",
+            width: 620,
+            height: 350,
+            allowResize: false,
+            ondestroy: function (action) {
+                if (action == "ok") {
+                    var iframe = this.getIFrameEl();
+                    var data = iframe.contentWindow.GetData();
+                    data = mini.clone(data);
+                    beSelect.setValue(data.id);
+                    beSelect.setText(data.text);
+                    beSelect.validate();
+                }
+                else if (action == "cancel") {
+                    beSelect.setValue("00000000-0000-0000-0000-000000000000");
+                    beSelect.setText("请选择");
+                    beSelect.validate();
+                }
+            }
+        });
+    }
+
+    function onUserSelectButtonCloseClick() {
+        this.setValue("00000000-0000-0000-0000-000000000000");
+        this.setText("请选择");
+        this.validate();
+    }
+
+    function onBeAddressingUserIdValidation(e) {
+        if (e.isValid) {
+            if (e.value == "00000000-0000-0000-0000-000000000000") {
+                e.errorText = "请选择租赁人";
+                e.isValid = false;
+            }
+        }
+    }
+
+    function onSearchClick() {
+        winQuery.show();
+    }
+
+    function onOKClick() {
+        BindDgPlanning();
+        winQuery.hide();
+    }
+
+    function onAddClick() {
+        txtPlanningId.setValue("00000000-0000-0000-0000-000000000000");
+        txtPlaceId.setValue("00000000-0000-0000-0000-000000000000");
+        dp_CreateDate.setValue(new Date());
+        txt_PlanningCode.setValue("");
+        cb_Importance.setValue(3);
+        ClearFrmPlanning();
+        winPlanning.setTitle("新增室分规划");
+        winPlanning.show();
+        txt_PlanningName.focus();
+    }
+
+    function onEditClick() {
+        var rows = dgPlanning.getSelecteds();
+        if (rows.length == 0) {
+            mini.alert("请选择一条要修改的数据");
+        }
+        else {
+            ClearFrmPlanning();
+            winPlanning.setTitle("修改室分规划");
+            winPlanning.show();
+            var el = winPlanning.getEl();
+            mini.mask({
+                el: el,
+                cls: 'mini-mask-loading',
+                html: '加载中...'
+            });
+            setTimeout(function () {
+                $.ajax({
+                    url: "@Url.RouteUrl(new { controller = "IndoorDistributionBM", action = "GetPlanningById" })" + "/" + rows[0].Id,
+                    type: "get",
+                    async: false,
+                    success: function (result, textStatus) {
+                        if (result.Id != null && result.Id == rows[0].Id) {
+                            cb_ReseauId.setUrl("@Url.RouteUrl(new { controller = "BaseData", action = "GetUsedReseaus" })" + "/" + result.AreaId + "?getType=1");
+                            frmPlanning.setData(result);
+                            dp_CreateDate.setValue(result.CreateDateText);
+                            txt_PlanningName.focus();
+                        }
+                        else {
+                            winPlanning.hide();
+                        }
+                    },
+                    error: function (xmlHttpRequest, textStatus, errorThrown) {
+                        winPlanning.hide();
+                    }
+                });
+            }, 50);
+            setTimeout(function () {
+                mini.unmask(el);
+            }, 300);
+        }
+    }
+
+    function onMapEditClick() {
+        var el = winPlanning.getEl();
+        mini.mask({
+            el: el,
+            cls: 'mini-mask-loading',
+            html: '加载中...'
+        });
+        setTimeout(function () {
+            var url, data, getId;
+            if (txtPlaceId.getValue() == "00000000-0000-0000-0000-000000000000") {
+                url = "@Url.RouteUrl(new { controller = "Map", action = "GetPlanningPoint" })";
+                data = { PlanningId: txtPlanningId.getValue(), AreaId: cb_AreaId.getValue(), PlanningName: txt_PlanningName.getValue(), Lng: txt_Lng.getValue(), Lat: txt_Lat.getValue(), Profession: 2 };
+                getId = txtPlanningId.getValue();
+            }
+            else {
+                url = "@Url.RouteUrl(new { controller = "Map", action = "GetPlacePoint" })";
+                data = { PlaceId: txtPlaceId.getValue(), AreaId: "00000000-0000-0000-0000-000000000000", PlaceName: "", Lng: 0, Lat: 0, Profession: 2 };
+                getId = txtPlaceId.getValue();
+            }
+            $.ajax({
+                url: url,
+                data: data,
+                type: "get",
+                async: false,
+                success: function (result, textStatus) {
+                    mini.unmask(el);
+                    if (result.Id != null && result.Id == getId) {
+                        var title;
+                        if (txtPlaceId.getValue() == "00000000-0000-0000-0000-000000000000") {
+                            title = result.PlanningName;
+                        }
+                        else {
+                            title = result.PlaceName;
+                        }
+                        mini.open({
+                            url: "@Url.RouteUrl(new { controller = "Map", action = "NavigationMap" })",
+                            title: title,
+                            iconCls: "icon-map",
+                            width: 800,
+                            height: 550,
+                            showMaxButton: true,
+                            onload: function () {
+                                var iframe = this.getIFrameEl();
+                                var data = result;
+                                iframe.contentWindow.SetDataEdit(data);
+                            },
+                            ondestroy: function (action) {
+                                if (action == "ok") {
+                                    var iframe = this.getIFrameEl();
+                                    var data = iframe.contentWindow.GetData();
+                                    data = mini.clone(data);
+                                    txt_Lng.setValue(data.Lng);
+                                    txt_Lat.setValue(data.Lat);
+                                }
+                            }
+                        });
+                    }
+                },
+                error: function (xmlHttpRequest, textStatus, errorThrown) {
+                    mini.unmask(el);
+                }
+            });
+        }, 50);
+    }
+
+    function onFileClick(id) {
+        var el = dgPlanning.getEl();
+        mini.mask({
+            el: el,
+            cls: 'mini-mask-loading',
+            html: '加载中...'
+        });
+        setTimeout(function () {
+            $.ajax({
+                url: "@Url.RouteUrl(new { controller = "File", action = "GetPlanningFiles" })",
+                data: { PlanningId: id, FileIdList: "" },
+                type: "get",
+                async: false,
+                success: function (result, textStatus) {
+                    mini.unmask(el);
+                    if (result.Code == null || !result.Code) {
+                        mini.open({
+                            url: "@Url.RouteUrl(new { controller = "File", action = "FileManager" })",
+                            title: "附件",
+                            iconCls: "icon-file",
+                            width: 620,
+                            height: 250,
+                            allowResize: false,
+                            onload: function () {
+                                var iframe = this.getIFrameEl();
+                                var data = result;
+                                iframe.contentWindow.SetData(data);
+                            }
+                        });
+                    }
+                },
+                error: function (xmlHttpRequest, textStatus, errorThrown) {
+                    mini.unmask(el);
+                }
+            });
+        }, 50);
+    }
+
+    function onFileEditClick() {
+        var el = winPlanning.getEl();
+        mini.mask({
+            el: el,
+            cls: 'mini-mask-loading',
+            html: '加载中...'
+        });
+        setTimeout(function () {
+            $.ajax({
+                url: "@Url.RouteUrl(new { controller = "File", action = "GetPlanningFiles" })",
+                data: { PlanningId: txtPlanningId.getValue(), FileIdList: txtFileIdList.getValue() },
+                type: "get",
+                async: false,
+                success: function (result, textStatus) {
+                    mini.unmask(el);
+                    if (result.Code == null || !result.Code) {
+                        mini.open({
+                            url: "@Url.RouteUrl(new { controller = "File", action = "FileManager" })",
+                            title: "附件",
+                            iconCls: "icon-file",
+                            width: 620,
+                            height: 250,
+                            allowResize: false,
+                            onload: function () {
+                                var iframe = this.getIFrameEl();
+                                var data = result;
+                                iframe.contentWindow.SetDataEdit(data);
+                            },
+                            ondestroy: function (action) {
+                                if (action == "ok") {
+                                    var iframe = this.getIFrameEl();
+                                    var data = iframe.contentWindow.GetData();
+                                    data = mini.clone(data);
+                                    txtFileIdList.setValue(data.FileIdList);
+                                }
+                            }
+                        });
+                    }
+                },
+                error: function (xmlHttpRequest, textStatus, errorThrown) {
+                    mini.unmask(el);
+                }
+            });
+        }, 50);
+    }
+
+    function onRemoveClick() {
+        var rows = dgPlanning.getSelecteds();
+        if (rows.length == 0) {
+            mini.alert("请选择要删除的数据");
+        }
+        else {
+            mini.confirm("确定要删除选中的数据？", "删除室分规划",
+            function (action) {
+                if (action == "ok") {
+                    var loading = mini.loading("处理中,请稍后...", "删除数据");
+                    var jsonData = mini.encode(rows);
+                    $.ajax({
+                        url: "@Url.RouteUrl(new { controller = "IndoorDistributionBM", action = "RemovePlannings" })",
+                        data: AddAntiForgeryToken({ data: jsonData }),
+                        type: "post",
+                        success: function (result, textStatus) {
+                            mini.hideMessageBox(loading);
+                            if (result.Code != null && result.Code == 0) {
+                                ShowSucessMessage(result.Message);
+                                BindDgPlanning();
+                            }
+                        },
+                        error: function (xmlHttpRequest, textStatus, errorThrown) {
+                            mini.hideMessageBox(loading);
+                        }
+                    });
+                }
+            });
+        }
+    }
+
+    function onClearClick() {
+        ClearFrmPlanning();
+        txt_PlanningName.focus();
+    }
+
+    function onSaveClick() {
+        frmPlanning.validate();
+        if (frmPlanning.isValid() == false) return;
+        var loading = mini.loading("处理中,请稍后...", "保存数据");
+        var jsonData = mini.encode(frmPlanning.getData());
+        $.ajax({
+            url: "@Url.RouteUrl(new { controller = "IndoorDistributionBM", action = "SavePlanning" })",
+            data: AddAntiForgeryToken({ data: jsonData }),
+            type: "post",
+            success: function (result, textStatus) {
+                mini.hideMessageBox(loading);
+                if (result.Code != null && result.Code == 0) {
+                    winPlanning.hide();
+                    ShowSucessMessage(result.Message);
+                    BindDgPlanning();
+                }
+            },
+            error: function (xmlHttpRequest, textStatus, errorThrown) {
+                mini.hideMessageBox(loading);
+            }
+        });
+    }
+
+    function onIssueClick() {
+        var rows = dgPlanning.getSelecteds();
+        if (rows.length == 0) {
+            mini.alert("请选择要操作的数据");
+        }
+        else {
+            mini.confirm("确定要下达选中的规划？", "规划下达",
+            function (action) {
+                if (action == "ok") {
+                    var loading = mini.loading("处理中,请稍后...", "规划下达");
+                    var jsonData = mini.encode(rows);
+                    $.ajax({
+                        url: "@Url.RouteUrl(new { controller = "IndoorDistributionBM", action = "Issue" })",
+                        data: AddAntiForgeryToken({ data: jsonData }),
+                        type: "post",
+                        success: function (result, textStatus) {
+                            mini.hideMessageBox(loading);
+                            if (result.Code != null && result.Code == 0) {
+                                ShowSucessMessage(result.Message);
+                                BindDgPlanning();
+                            }
+                        },
+                        error: function (xmlHttpRequest, textStatus, errorThrown) {
+                            mini.hideMessageBox(loading);
+                        }
+                    });
+                }
+            });
+        }
+    }
+
+    function onCancelIssueClick() {
+        var rows = dgPlanning.getSelecteds();
+        if (rows.length == 0) {
+            mini.alert("请选择要操作的数据");
+        }
+        else {
+            mini.confirm("确定要取消下达选中的规划？", "取消规划下达",
+            function (action) {
+                if (action == "ok") {
+                    var loading = mini.loading("处理中,请稍后...", "取消规划下达");
+                    var jsonData = mini.encode(rows);
+                    $.ajax({
+                        url: "@Url.RouteUrl(new { controller = "IndoorDistributionBM", action = "CancelIssue" })",
+                        data: AddAntiForgeryToken({ data: jsonData }),
+                        type: "post",
+                        success: function (result, textStatus) {
+                            mini.hideMessageBox(loading);
+                            if (result.Code != null && result.Code == 0) {
+                                ShowSucessMessage(result.Message);
+                                BindDgPlanning();
+                            }
+                        },
+                        error: function (xmlHttpRequest, textStatus, errorThrown) {
+                            mini.hideMessageBox(loading);
+                        }
+                    });
+                }
+            });
+        }
+    }
+
+    function onImportClick() {
+        beFile.setValue("00000000-0000-0000-0000-000000000000");
+        beFile.setText("请上传");
+        beFile.setIsValid(true);
+        winImport.show();
+    }
+
+    function onImportOKClick() {
+        beFile.validate();
+        if (beFile.isValid() == false) return;
+        var el = winImport.getEl();
+        mini.mask({
+            el: el,
+            cls: 'mini-mask-loading',
+            html: '数据导入中...'
+        });
+        setTimeout(function () {
+            $.ajax({
+                url: "@Url.RouteUrl(new { controller = "DataImport", action = "ImportPlanningID" })",
+                type: "post",
+                data: AddAntiForgeryToken({ FileId: beFile.getValue() }),
+                success: function (result, textStatus) {
+                    mini.unmask(el);
+                    if (!result.Code || result.Code == null) {
+                        if (result.length == 0) {
+                            ShowSucessMessage("数据导入成功");
+                            winImport.hide();
+                            BindDgPlanning();
+                        }
+                        else {
+                            dgImportError.setData(result);
+                            winImportError.show();
+                            beFile.setValue("00000000-0000-0000-0000-000000000000");
+                            beFile.setText("请上传");
+                        }
+                    }
+                    else {
+                        beFile.setValue("00000000-0000-0000-0000-000000000000");
+                        beFile.setText("请上传");
+                    }
+                },
+                error: function (xmlHttpRequest, textStatus, errorThrown) {
+                    mini.unmask(el);
+                    beFile.setValue("00000000-0000-0000-0000-000000000000");
+                    beFile.setText("请上传");
+                }
+            });
+        }, 50);
+    }
+
+    function onFileSelectButtonClick() {
+        var beSelect = this;
+        mini.open({
+            url: "@Url.RouteUrl(new { controller = "File", action = "FileManager" })",
+            title: "上传Excel文件",
+            iconCls: "icon-file",
+            width: 620,
+            height: 200,
+            allowResize: false,
+            onload: function () {
+                var iframe = this.getIFrameEl();
+                iframe.contentWindow.SetDataExcel();
+            },
+            ondestroy: function (action) {
+                if (action == "ok") {
+                    var iframe = this.getIFrameEl();
+                    var data = iframe.contentWindow.GetData();
+                    data = mini.clone(data);
+                    beSelect.setValue(data.id);
+                    beSelect.setText(data.text);
+                    beSelect.validate();
+                }
+            }
+        });
+    }
+
+    function onFileSelectButtonCloseClick() {
+        this.setValue("00000000-0000-0000-0000-000000000000");
+        this.setText("请上传");
+        this.validate();
+    }
+
+    function onBeFileValidation(e) {
+        if (e.isValid) {
+            if (e.value == "00000000-0000-0000-0000-000000000000") {
+                e.errorText = "请上传一个Excel文件";
+                e.isValid = false;
+            }
+        }
+    }
+
+    function onDgImportErrorDrawCell(e) {
+        if (e.field == "ErrorMessage") {
+            e.cellStyle = "color:red;";
+        }
+    }
+
+    function onShowMapClick() {
+        var planningIdList = "";
+        var rows = dgPlanning.getData();
+        if (rows.length != 0) {
+            for (var i = 0; i < rows.length; i++) {
+                planningIdList = planningIdList + rows[i].Id;
+                if (i != rows.length - 1) {
+                    planningIdList = planningIdList + ",";
+                }
+            }
+        }
+        else {
+            mini.alert("请先查询数据");
+            return;
+        }
+        setTimeout(function () {
+            var url, data;
+            url = "@Url.RouteUrl(new { controller = "Map", action = "GetPlanningPoints" })";
+            data = { PlanningIdList: planningIdList };
+            $.ajax({
+                url: url,
+                data: data,
+                type: "post",
+                async: false,
+                success: function (result, textStatus) {
+                    var title;
+                    title = "地图导航";
+                    mini.open({
+                        url: "@Url.RouteUrl(new { controller = "Map", action = "NavigationMap" })",
+                        title: title,
+                        iconCls: "icon-map",
+                        width: 800,
+                        height: 550,
+                        showMaxButton: true,
+                        onload: function () {
+                            var iframe = this.getIFrameEl();
+                            var data = result;
+                            iframe.contentWindow.SetData(data);
+                        },
+                        ondestroy: function (action) {
+                            if (action == "ok") {
+                                var iframe = this.getIFrameEl();
+                                var data = iframe.contentWindow.GetData();
+                                data = mini.clone(data);
+                            }
+                        }
+                    });
+                },
+                error: function (xmlHttpRequest, textStatus, errorThrown) {
+                }
+            });
+        }, 50);
+    }
+</script>

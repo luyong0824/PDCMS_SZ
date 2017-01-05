@@ -1,0 +1,1742 @@
+﻿<div id="frmAddressing" class="form">
+    <input class="mini-hidden" id="Id" name="Id" />
+    <input class="mini-hidden" id="WFActivityInstanceId" name="WFActivityInstanceId" />
+    <input class="mini-hidden" id="FileIdListTower" name="FileIdListTower" />
+    <input class="mini-hidden" id="FileIdListTowerBase" name="FileIdListTowerBase" />
+    <input class="mini-hidden" id="FileIdListMachineRoom" name="FileIdListMachineRoom" />
+    <input class="mini-hidden" id="FileIdListExternal" name="FileIdListExternal" />
+    <input class="mini-hidden" id="FileIdListEquipmentInstall" name="FileIdListEquipmentInstall" />
+    <input class="mini-hidden" id="FileIdListAddress" name="FileIdListAddress" />
+    <input class="mini-hidden" id="FileIdListFoundation" name="FileIdListFoundation" />
+    <input class="mini-hidden" id="TowerId" name="TowerId" />
+    <input class="mini-hidden" id="TowerBaseId" name="TowerBaseId" />
+    <input class="mini-hidden" id="MachineRoomId" name="MachineRoomId" />
+    <input class="mini-hidden" id="ExternalElectricPowerId" name="ExternalElectricPowerId" />
+    <input class="mini-hidden" id="EquipmentInstallId" name="EquipmentInstallId" />
+    <input class="mini-hidden" id="AddressExplorId" name="AddressExplorId" />
+    <input class="mini-hidden" id="FoundationTestId" name="FoundationTestId" />
+    <input class="mini-hidden" id="TowerMark" name="TowerMark" />
+    <input class="mini-hidden" id="TowerBaseMark" name="TowerBaseMark" />
+    <input class="mini-hidden" id="MachineRoomMark" name="MachineRoomMark" />
+    <input class="mini-hidden" id="ExternalElectricPowerMark" name="ExternalElectricPowerMark" />
+    <input class="mini-hidden" id="EquipmentInstallMark" name="EquipmentInstallMark" />
+    <input class="mini-hidden" id="AddressExplorMark" name="AddressExplorMark" />
+    <input class="mini-hidden" id="FoundationTestMark" name="FoundationTestMark" />
+    <div id="tabContent" class="mini-tabs" activeindex="0" style="width: 1000px; height: 560px;" plain="true">
+        <div title="施工设计" style="height:100%">
+            @*<fieldset>
+                <legend><b>站点信息</b></legend>*@
+            <table style="width: 100%;">
+                <tr>
+                    <td style="width: 80px; text-align: right;">规划名称</td>
+                    <td style="width:150px">
+                        <input id="PlanningName" name="PlanningName" class="mini-textbox" style="width: 130px;" readonly="true" value="@ViewData["PlanningName"]" />
+                    </td>
+                    <td style="width: 80px; text-align: right;">基站类型</td>
+                    <td style="width:150px">
+                        <input id="PlaceCategoryName" name="PlaceCategoryName" class="mini-textbox" style="width: 130px;" readonly="true" value="@ViewData["PlaceCategoryName"]" />
+                    </td>
+                    <td style="width: 80px; text-align: right;">导航图</td>
+                    <td style="width:150px">
+                        <a class="navigationmapedit" onclick="onMapClick()"></a>
+                    </td>
+                    <td style="width: 80px; text-align: right;">示意图</td>
+                    <td style="width:150px">
+                        <table>
+                            <tr>
+                                <td style="width:16px">
+                                    <a class="fileedit" onclick="onFileClick()"></a>
+                                </td>
+                                <td style="width:134px">
+                                    附件数量：<input id="Count" name="Count" class="mini-textbox" value="@ViewData["Count"]" />
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+            @*</fieldset>*@
+            <div id="div_Tower">
+                <fieldset>
+                    <legend><b><div id="ck_Tower" name="product" class="mini-checkbox" readonly="true" text="铁塔" onvaluechanged="onValueChangedTower"></div></b></legend>
+                    <table style="width: 100%;">
+                        <tr>
+                            <td style="width: 80px; text-align: right;">铁塔类型</td>
+                            <td style="width:150px">
+                                <input id="TowerType" name="TowerType" class="mini-combobox" value="0" style="width:130px;" data=@Html.Raw(ViewData["TowerTypeList"]) readonly="true" />
+                            </td>
+                            <td style="width: 80px; text-align: right;">铁塔高度(米)</td>
+                            <td style="width:150px">
+                                <input id="TowerHeight" name="TowerHeight" class="mini-textbox" vtype='float' value="0.00" readonly="true" style="width: 130px;" />
+                            </td>
+                            <td style="width: 80px; text-align: right;">平台数量(层)</td>
+                            <td style="width:150px">
+                                <input id="PlatFormNumber" name="PlatFormNumber" class="mini-textbox" vtype='int' value="0" readonly="true" style="width: 130px;" />
+                            </td>
+                            <td style="width: 80px; text-align: right;">抱杆数量(根)</td>
+                            <td style="width:150px">
+                                <input id="PoleNumber" name="PoleNumber" class="mini-textbox" vtype='int' value="0" readonly="true" style="width: 130px;" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="width: 80px; text-align: right;">铁塔图纸</td>
+                            <td style="width:150px">
+                                <table>
+                                    <tr>
+                                        <td style="width:16px">
+                                            <a class="fileedit" onclick="onFileEditTowerClick();"></a>
+                                        </td>
+                                        <td>
+                                            附件数量：<input id="TowerCount" name="TowerCount" class="mini-textbox" value="@ViewData["TowerCount"]" />
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                            <td style="width: 80px; text-align: right;">完成时限(天)</td>
+                            <td>
+                                <input id="TowerTimeLimit" name="TowerTimeLimit" class="mini-spinner" style="width:45px;" minvalue="0" maxvalue="99" readonly="true" value="@ViewData["TowerTimeLimit"]" />
+                            </td>
+                            <td style="width: 80px; text-align: right;">预算价格(元)</td>
+                            <td style="width:150px">
+                                <input id="TowerBudget" name="TowerBudget" class="mini-textbox" vtype='float' value="0.00" readonly="true" style="width: 130px;" />
+                            </td>
+                            <td style="width: 80px; text-align: right;">
+                                施工单位
+                            </td>
+                            <td>
+                                <input id="TowerCustomerId" name="TowerCustomerId" style="width:130px;" allowinput="false" class="mini-buttonedit searchbox" showclose="true" text="请选择" value="00000000-0000-0000-0000-000000000000" required="true"
+                                       onbuttonclick="onTowerCustomerSelectButtonClick" oncloseclick="onTowerCustomerSelectButtonCloseClick" onvalidation="onBeTowerCustomerIdValidation" />
+                            </td>
+                        </tr>
+                    </table>
+                </fieldset>
+            </div>
+            <div id="div_TowerBase">
+                <fieldset>
+                    <legend><b><div id="ck_TowerBase" name="product" class="mini-checkbox" readonly="true" text="铁塔基础" onvaluechanged="onValueChangedTowerBase"></div></b></legend>
+                    <table style="width: 100%;">
+                        <tr>
+                            <td style="width: 80px; text-align: right;">基础类型</td>
+                            <td style="width:150px">
+                                <input id="TowerBaseType" name="TowerBaseType" class="mini-combobox" value="0" style="width:130px;" data=@Html.Raw(ViewData["TowerBaseTypeList"]) readonly="true" />
+                            </td>
+                            <td style="width: 80px; text-align: right;">塔基图纸</td>
+                            <td style="width:150px">
+                                <table>
+                                    <tr>
+                                        <td style="width:16px">
+                                            <a class="fileedit" onclick="onFileEditTowerBaseClick();"></a>
+                                        </td>
+                                        <td>
+                                            附件数量：<input id="TowerBaseCount" name="TowerBaseCount" class="mini-textbox" value="@ViewData["TowerBaseCount"]" />
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                            <td style="width: 80px; text-align: right;">完成时限(天)</td>
+                            <td style="width:150px">
+                                <input id="TowerBaseTimeLimit" name="TowerBaseTimeLimit" class="mini-spinner" style="width:45px;" minvalue="0" maxvalue="99" readonly="true" value="@ViewData["TowerBaseTimeLimit"]" />
+                            </td>
+                            <td style="width: 80px; text-align: right;">预算价格(元)</td>
+                            <td style="width:150px">
+                                <input id="TowerBaseBudget" name="TowerBaseBudget" class="mini-textbox" vtype='float' value="0.00" readonly="true" style="width: 130px;" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="width: 80px; text-align: right;">
+                                施工单位
+                            </td>
+                            <td colspan="7">
+                                <input id="TowerBaseCustomerId" name="TowerBaseCustomerId" style="width:130px;" allowinput="false" class="mini-buttonedit searchbox" showclose="true" text="请选择" value="00000000-0000-0000-0000-000000000000" required="true"
+                                       onbuttonclick="onTowerBaseCustomerSelectButtonClick" oncloseclick="onTowerBaseCustomerSelectButtonCloseClick" onvalidation="onBeTowerBaseCustomerIdValidation" />
+                            </td>
+                        </tr>
+                    </table>
+                </fieldset>
+            </div>
+            <div id="div_MachineRoom">
+                <fieldset>
+                    <legend><b><div id="ck_MachineRoom" name="product" class="mini-checkbox" readonly="true" text="机房" onvaluechanged="onValueChangedMachineRoom"></div></b></legend>
+                    <table style="width: 100%;">
+                        <tr>
+                            <td style="width: 80px; text-align: right;">机房类型</td>
+                            <td style="width:150px">
+                                <input id="MachineRoomType" name="MachineRoomType" class="mini-combobox" value="0" style="width:130px;" data=@Html.Raw(ViewData["MachineRoomTypeList"]) readonly="true" />
+                            </td>
+                            <td style="width: 80px; text-align: right;">机房面积(m²)</td>
+                            <td style="width:150px">
+                                <input id="MachineRoomArea" name="MachineRoomArea" class="mini-textbox" vtype='float' value="0.00" readonly="true" style="width: 130px;" />
+                            </td>
+                            <td style="width: 80px; text-align: right;">机房图纸</td>
+                            <td style="width:150px">
+                                <table>
+                                    <tr>
+                                        <td style="width:16px">
+                                            <a class="fileedit" onclick="onFileEditMachineRoomClick();"></a>
+                                        </td>
+                                        <td>
+                                            附件数量：<input id="MachineRoomCount" name="MachineRoomCount" class="mini-textbox" value="@ViewData["MachineRoomCount"]" />
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                            <td style="width: 80px; text-align: right;">完成时限(天)</td>
+                            <td style="width:150px">
+                                <input id="MachineRoomTimeLimit" name="MachineRoomTimeLimit" class="mini-spinner" style="width:45px;" minvalue="0" maxvalue="99" readonly="true" value="@ViewData["MachineRoomTimeLimit"]" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="width: 80px; text-align: right;">预算价格(元)</td>
+                            <td style="width:150px">
+                                <input id="MachineRoomBudget" name="MachineRoomBudget" class="mini-textbox" vtype='float' value="0.00" readonly="true" style="width: 130px;" />
+                            </td>
+                            <td style="width: 80px; text-align: right;">
+                                施工单位
+                            </td>
+                            <td colspan="5">
+                                <input id="MachineRoomCustomerId" name="MachineRoomCustomerId" style="width:130px;" allowinput="false" class="mini-buttonedit searchbox" showclose="true" text="请选择" value="00000000-0000-0000-0000-000000000000" required="true"
+                                       onbuttonclick="onMachineRoomCustomerSelectButtonClick" oncloseclick="onMachineRoomCustomerSelectButtonCloseClick" onvalidation="onBeMachineRoomCustomerIdValidation" />
+                            </td>
+                        </tr>
+                    </table>
+                </fieldset>
+            </div>
+            <div id="div_External">
+                <fieldset>
+                    <legend><b><div id="ck_External" name="product" class="mini-checkbox" readonly="true" text="外电引入" onvaluechanged="onValueChangedExternal"></div></b></legend>
+                    <table style="width: 100%;">
+                        <tr>
+                            <td style="width: 80px; text-align: right;">引入方式</td>
+                            <td style="width:150px">
+                                <input id="ExternalElectric" name="ExternalElectric" class="mini-combobox" value="0" style="width:130px;" data=@Html.Raw(ViewData["ExternalElectricList"]) readonly="true" />
+                            </td>
+                            <td style="width: 80px; text-align: right;">路由图</td>
+                            <td style="width:150px">
+                                <table>
+                                    <tr>
+                                        <td style="width:16px">
+                                            <a class="fileedit" onclick="onFileEditExternalClick();"></a>
+                                        </td>
+                                        <td>
+                                            附件数量：<input id="ExternalCount" name="ExternalCount" class="mini-textbox" value="@ViewData["ExternalCount"]" />
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                            <td style="width: 80px; text-align: right;">完成时限(天)</td>
+                            <td style="width:150px">
+                                <input id="ExternalTimeLimit" name="ExternalTimeLimit" class="mini-spinner" style="width:45px;" minvalue="0" maxvalue="99" readonly="true" value="@ViewData["ExternalTimeLimit"]" />
+                            </td>
+                            <td style="width: 80px; text-align: right;">预算价格(元)</td>
+                            <td style="width:150px">
+                                <input id="ExternalBudget" name="ExternalBudget" class="mini-textbox" vtype='float' value="0.00" readonly="true" style="width: 130px;" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="width: 80px; text-align: right;">
+                                施工单位
+                            </td>
+                            <td colspan="7">
+                                <input id="ExternalCustomerId" name="ExternalCustomerId" style="width:130px;" allowinput="false" class="mini-buttonedit searchbox" showclose="true" text="请选择" value="00000000-0000-0000-0000-000000000000" required="true"
+                                       onbuttonclick="onExternalCustomerSelectButtonClick" oncloseclick="onExternalCustomerSelectButtonCloseClick" onvalidation="onBeExternalCustomerIdValidation" />
+                            </td>
+                        </tr>
+                    </table>
+                </fieldset>
+            </div>
+            <div id="div_Equipment">
+                <fieldset>
+                    <legend><b><div id="ck_Equipment" name="product" class="mini-checkbox" readonly="true" text="设备安装" onvaluechanged="onValueChangedEquipment"></div></b></legend>
+                    <table style="width: 100%;">
+                        <tr>
+                            <td style="width: 80px; text-align: right;">开关电源(A)</td>
+                            <td style="width:150px">
+                                <input id="SwitchPower" name="SwitchPower" class="mini-textbox" vtype='float' value="0.00" readonly="true" style="width: 130px;" />
+                            </td>
+                            <td style="width: 80px; text-align: right;">蓄电池(AH)</td>
+                            <td style="width:150px">
+                                <input id="Battery" name="Battery" class="mini-textbox" vtype='float' value="0.00" readonly="true" style="width: 130px;" />
+                            </td>
+                            <td style="width: 80px; text-align: right;">机柜数量(个)</td>
+                            <td style="width:150px">
+                                <input id="CabinetNumber" name="CabinetNumber" class="mini-textbox" vtype='int' value="0" readonly="true" style="width: 130px;" />
+                            </td>
+                            <td style="width: 80px; text-align: right;">安装图纸</td>
+                            <td style="width:150px">
+                                <table>
+                                    <tr>
+                                        <td style="width:16px">
+                                            <a class="fileedit" onclick="onFileEditEquipmentInstallClick();"></a>
+                                        </td>
+                                        <td>
+                                            附件数量：<input id="EquipmentInstallCount" name="EquipmentInstallCount" class="mini-textbox" value="@ViewData["EquipmentInstallCount"]" />
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="width: 80px; text-align: right;">完成时限(天)</td>
+                            <td style="width:150px">
+                                <input id="EquipmentTimeLimit" name="EquipmentTimeLimit" class="mini-spinner" style="width:45px;" minvalue="0" maxvalue="99" readonly="true" value="@ViewData["EquipmentTimeLimit"]" />
+                            </td>
+                            <td style="width: 80px; text-align: right;">预算价格(元)</td>
+                            <td style="width:150px">
+                                <input id="EquipmentBudget" name="EquipmentBudget" class="mini-textbox" vtype='float' readonly="true" value="0.00" style="width: 130px;" />
+                            </td>
+                            <td style="width: 80px; text-align: right;">
+                                施工单位
+                            </td>
+                            <td colspan="3">
+                                <input id="EquipmentCustomerId" name="EquipmentCustomerId" style="width:130px;" allowinput="false" class="mini-buttonedit searchbox" showclose="true" text="请选择" value="00000000-0000-0000-0000-000000000000" required="true"
+                                       onbuttonclick="onEquipmentCustomerSelectButtonClick" oncloseclick="onEquipmentCustomerSelectButtonCloseClick" onvalidation="onBeEquipmentCustomerIdValidation" />
+                            </td>
+                        </tr>
+                    </table>
+                </fieldset>
+            </div>
+            <div id="div_Address">
+                <fieldset>
+                    <legend><b><div id="ck_Address" name="product" class="mini-checkbox" readonly="true" text="地质勘探" onvaluechanged="onValueChangedAddress"></div></b></legend>
+                    <table style="width: 100%;">
+                        <tr>
+                            <td style="width: 80px; text-align: right;">地勘报告</td>
+                            <td style="width:150px">
+                                <table>
+                                    <tr>
+                                        <td style="width:16px">
+                                            <a class="fileedit" onclick="onFileEditAddressClick();"></a>
+                                        </td>
+                                        <td>
+                                            附件数量：<input id="AddressCount" name="AddressCount" class="mini-textbox" value="@ViewData["AddressCount"]" />
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                            <td style="width: 80px; text-align: right;">完成时限(天)</td>
+                            <td style="width:150px">
+                                <input id="AddressTimeLimit" name="AddressTimeLimit" class="mini-spinner" style="width:45px;" minvalue="0" maxvalue="99" readonly="true" value="@ViewData["AddressTimeLimit"]" />
+                            </td>
+                            <td style="width: 80px; text-align: right;">预算价格(元)</td>
+                            <td style="width:150px">
+                                <input id="AddressBudget" name="AddressBudget" class="mini-textbox" vtype='float' readonly="true" style="width: 130px;" />
+                            </td>
+                            <td style="width: 80px; text-align: right;">
+                                施工单位
+                            </td>
+                            <td>
+                                <input id="AddressCustomerId" name="AddressCustomerId" style="width:130px;" allowinput="false" class="mini-buttonedit searchbox" showclose="true" text="请选择" value="00000000-0000-0000-0000-000000000000" required="true"
+                                       onbuttonclick="onAddressCustomerSelectButtonClick" oncloseclick="onAddressCustomerSelectButtonCloseClick" onvalidation="onBeAddressCustomerIdValidation" />
+                            </td>
+                        </tr>
+                    </table>
+                </fieldset>
+            </div>
+            <div id="div_Foundation">
+                <fieldset>
+                    <legend><b><div id="ck_Foundation" name="product" class="mini-checkbox" readonly="true" text="桩基动测" onvaluechanged="onValueChangedFoundation"></div></b></legend>
+                    <table style="width: 100%;">
+                        <tr>
+                            <td style="width: 80px; text-align: right;">动测报告</td>
+                            <td style="width:150px">
+                                <table>
+                                    <tr>
+                                        <td style="width:16px">
+                                            <a class="fileedit" onclick="onFileEditFoundationClick();"></a>
+                                        </td>
+                                        <td>
+                                            附件数量：<input id="FoundationCount" name="FoundationCount" class="mini-textbox" value="@ViewData["FoundationCount"]" />
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                            <td style="width: 80px; text-align: right;">完成时限(天)</td>
+                            <td style="width:150px">
+                                <input id="FoundationTimeLimit" name="FoundationTimeLimit" class="mini-spinner" style="width:45px;" minvalue="0" maxvalue="99" readonly="true" value="@ViewData["FoundationTimeLimit"]" />
+                            </td>
+                            <td style="width: 80px; text-align: right;">预算价格(元)</td>
+                            <td style="width:150px">
+                                <input id="FoundationBudget" name="FoundationBudget" class="mini-textbox" vtype='float' readonly="true" style="width: 130px;" />
+                            </td>
+                            <td style="width: 80px; text-align: right;">
+                                施工单位
+                            </td>
+                            <td>
+                                <input id="FoundationCustomerId" name="FoundationCustomerId" style="width:130px;" allowinput="false" class="mini-buttonedit searchbox" showclose="true" text="请选择" value="00000000-0000-0000-0000-000000000000" required="true"
+                                       onbuttonclick="onFoundationCustomerSelectButtonClick" oncloseclick="onFoundationCustomerSelectButtonCloseClick" onvalidation="onBeFoundationCustomerIdValidation" />
+                            </td>
+                        </tr>
+                    </table>
+                </fieldset>
+            </div>
+            <table style="width: 100%;">
+                <tr>
+                    <td align="center">
+                        <a class="mini-button" iconcls="icon-save" onclick="onSaveClick">保存</a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div title="物资清单">
+            <div id="myToolbar" class="mini-toolbar" style="border-bottom: 0px; padding: 0px;">
+                <table style="width: 100%;" cellpadding="0" cellspacing="0">
+                    <tr>
+                        <td style="white-space: nowrap;" align="right">
+                            <a class="mini-button" iconcls="icon-edit" plain="true" style="display:none" onclick="onEditClick">修改</a>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="mini-fit">
+                <div id="dgMaterialList" class="mini-datagrid" style="width: 100%; height: 90%;" idfield="MaterialListId" allowmovecolumn="false"
+                     multiselect="true" fitcolumns="false" onlycheckselection="true" showreloadbutton="false" showpager="false">
+                    <div property="columns">
+                        <div type="indexcolumn"></div>
+                        <div type="checkcolumn"></div>
+                        <div field="MaterialCategoryName" header="物资类别" width="100"></div>
+                        <div field="MaterialName" header="物资名称" width="150"></div>
+                        <div field="MaterialSpecName" header="设计规格" width="150"></div>
+                        @*<div field="CustomerName" header="供应商" width="150"></div>*@
+                        <div field="SpecNumber" header="数量" width="50"></div>
+                        <div field="Price" header="参考单价" width="90"></div>
+                        <div field="TotalPrice" header="参考总价" width="90"></div>
+                        <div field="Memos" header="备注" width="200"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="winMaterialList" class="mini-window" style="width: 350px; height: 270px;"
+         showmodal="true" allowresize="false">
+        <div id="frmMaterialList" class="form">
+            <input class="mini-hidden" id="MaterialListId" name="MaterialListId" />
+            <input class="mini-hidden" id="ParentId" name="ParentId" />
+            <table style="width: 100%;">
+                <tr>
+                    <td style="width: 80px; text-align: right;">物资类别</td>
+                    <td>
+                        <input id="MaterialCategoryId" name="MaterialCategoryId" class="mini-combobox" value="00000000-0000-0000-0000-000000000000" style="width:200px;" textfield="MaterialCategoryName" valuefield="Id"
+                               data=@Html.Raw(ViewData["MaterialCategoryIdsBySelect"]) readonly="true" onvalidation="onMaterialCategoryIdValidation" onvaluechanged="onMaterialCategoryIdValueChanged" />
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 80px; text-align: right;">物资名称</td>
+                    <td>
+                        <input id="MaterialId" name="MaterialId" class="mini-combobox" value="00000000-0000-0000-0000-000000000000" style="width:200px;" textfield="MaterialName" valuefield="Id"
+                               data="[{Id:'00000000-0000-0000-0000-000000000000',MaterialName:'请选择'}]" readonly="true" onvalidation="onMaterialIdValidation" onload="onMaterialIdLoad" onvaluechanged="onMaterialIdValueChanged" />
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 80px; text-align: right;">设计规格</td>
+                    <td>
+                        <input id="MaterialSpecId" name="MaterialSpecId" class="mini-combobox" value="00000000-0000-0000-0000-000000000000" style="width:200px;" textfield="MaterialSpecName" valuefield="Id"
+                               data="[{Id:'00000000-0000-0000-0000-000000000000',MaterialSpecName:'请选择'}]" required="true" onvalidation="onMaterialSpecIdValidation" />
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 80px; text-align: right;">数量</td>
+                    <td>
+                        <input id="SpecNumber" name="SpecNumber" class="mini-textbox" vtype='float' readonly="true" style="width: 200px;" />
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 80px; text-align: right;">预算价格</td>
+                    <td>
+                        <input id="BudgetPrice" name="BudgetPrice" class="mini-textbox" vtype='float' readonly="true" style="width: 200px;" />
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 80px; text-align: right;">备注</td>
+                    <td>
+                        <input id="Memos" name="Memos" class="mini-textarea" style="width: 200px; height: 45px;" readonly="true" />
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div style="text-align: center; padding: 10px;">
+            <a class="mini-button" iconcls="icon-save" onclick="onMaterialSaveClick" style="margin-right: 10px;">保存</a>
+        </div>
+    </div>
+    <script type="text/javascript">
+        mini.parse();
+        var frmAddressing = new mini.Form("#frmAddressing");
+        var txtAddressingId = mini.get("Id");
+        var txtWFActivityInstanceId = mini.get("WFActivityInstanceId");
+        var txtFileIdListTower = mini.get("FileIdListTower");
+        var txtFileIdListTowerBase = mini.get("FileIdListTowerBase");
+        var txtFileIdListMachineRoom = mini.get("FileIdListMachineRoom");
+        var txtFileIdListExternal = mini.get("FileIdListExternal");
+        var txtFileIdListEquipmentInstall = mini.get("FileIdListEquipmentInstall");
+        var txtFileIdListAddress = mini.get("FileIdListAddress");
+        var txtFileIdListFoundation = mini.get("FileIdListFoundation");
+        var cbTowerType = mini.get("TowerType");
+        var txtTowerHeight = mini.get("TowerHeight");
+        var txtPlatFormNumber = mini.get("PlatFormNumber");
+        var txtPoleNumber = mini.get("PoleNumber");
+        var txtTowerBudget = mini.get("TowerBudget");
+        var cbTowerBaseType = mini.get("TowerBaseType");
+        var txtTowerBaseBudget = mini.get("TowerBaseBudget");
+        var cbMachineRoomType = mini.get("MachineRoomType");
+        var txtMachineRoomArea = mini.get("MachineRoomArea");
+        var txtMachineRoomBudget = mini.get("MachineRoomBudget");
+        var cbExternalElectric = mini.get("ExternalElectric");
+        var txtExternalBudget = mini.get("ExternalBudget");
+        var txtSwitchPower = mini.get("SwitchPower");
+        var txtBattery = mini.get("Battery");
+        var txtCabinetNumber = mini.get("CabinetNumber");
+        var txtEquipmentBudget = mini.get("EquipmentBudget");
+        var txtAddressBudget = mini.get("AddressBudget");
+        var txtFoundationBudget = mini.get("FoundationBudget");
+        var txtTowerId = mini.get("TowerId");
+        var txtTowerBaseId = mini.get("TowerBaseId");
+        var txtMachineRoomId = mini.get("MachineRoomId");
+        var txtExternalElectricPowerId = mini.get("ExternalElectricPowerId");
+        var txtEquipmentInstallId = mini.get("EquipmentInstallId");
+        var txtAddressExplorId = mini.get("AddressExplorId");
+        var txtFoundationTestId = mini.get("FoundationTestId");
+        var ck_Tower = mini.get("ck_Tower");
+        var ck_TowerBase = mini.get("ck_TowerBase");
+        var ck_MachineRoom = mini.get("ck_MachineRoom");
+        var ck_External = mini.get("ck_External");
+        var ck_Equipment = mini.get("ck_Equipment");
+        var ck_Address = mini.get("ck_Address");
+        var ck_Foundation = mini.get("ck_Foundation");
+        var txtTowerMark = mini.get("TowerMark");
+        var txtTowerBaseMark = mini.get("TowerBaseMark");
+        var txtMachineRoomMark = mini.get("MachineRoomMark");
+        var txtExternalElectricPowerMark = mini.get("ExternalElectricPowerMark");
+        var txtEquipmentInstallMark = mini.get("EquipmentInstallMark");
+        var txtAddressExplorMark = mini.get("AddressExplorMark");
+        var txtFoundationTestMark = mini.get("FoundationTestMark");
+        var winMaterialList = mini.get("winMaterialList");
+        var dgMaterialList = mini.get("dgMaterialList");
+        var frmMaterialList = new mini.Form("#frmMaterialList");
+        var txtMaterialListId = mini.get("MaterialListId");
+        var txtParentId = mini.get("ParentId");
+        var cbMaterialCategoryId = mini.get("MaterialCategoryId");
+        var cbMaterialId = mini.get("MaterialId");
+        var beTowerCustomerId = mini.get("TowerCustomerId");
+        var beTowerBaseCustomerId = mini.get("TowerBaseCustomerId");
+        var beMachineRoomCustomerId = mini.get("MachineRoomCustomerId");
+        var beExternalCustomerId = mini.get("ExternalCustomerId");
+        var beEquipmentCustomerId = mini.get("EquipmentCustomerId");
+        var beAddressCustomerId = mini.get("AddressCustomerId");
+        var beFoundationCustomerId = mini.get("FoundationCustomerId");
+        var cbMaterialSpecId = mini.get("MaterialSpecId");
+
+        var count = mini.get("Count");
+        count.setWidth("10px");
+        if (count.setReadOnly) count.setReadOnly(true);     //只读
+        if (count.setIsValid) count.setIsValid(true);      //去除错误提示
+        if (count.addCls) count.addCls("asLabel");          //增加asLabel外观
+
+        var towerCount = mini.get("TowerCount");
+        towerCount.setWidth("10px");
+        if (towerCount.setReadOnly) towerCount.setReadOnly(true);     //只读
+        if (towerCount.setIsValid) towerCount.setIsValid(true);      //去除错误提示
+        if (towerCount.addCls) towerCount.addCls("asLabel");          //增加asLabel外观
+
+        var towerBaseCount = mini.get("TowerBaseCount");
+        towerBaseCount.setWidth("10px");
+        if (towerBaseCount.setReadOnly) towerBaseCount.setReadOnly(true);     //只读
+        if (towerBaseCount.setIsValid) towerBaseCount.setIsValid(true);      //去除错误提示
+        if (towerBaseCount.addCls) towerBaseCount.addCls("asLabel");          //增加asLabel外观
+
+        var machineRoomCount = mini.get("MachineRoomCount");
+        machineRoomCount.setWidth("10px");
+        if (machineRoomCount.setReadOnly) machineRoomCount.setReadOnly(true);     //只读
+        if (machineRoomCount.setIsValid) machineRoomCount.setIsValid(true);      //去除错误提示
+        if (machineRoomCount.addCls) machineRoomCount.addCls("asLabel");          //增加asLabel外观
+
+        var externalCount = mini.get("ExternalCount");
+        externalCount.setWidth("10px");
+        if (externalCount.setReadOnly) externalCount.setReadOnly(true);     //只读
+        if (externalCount.setIsValid) externalCount.setIsValid(true);      //去除错误提示
+        if (externalCount.addCls) externalCount.addCls("asLabel");          //增加asLabel外观
+
+        var equipmentInstallCount = mini.get("EquipmentInstallCount");
+        equipmentInstallCount.setWidth("10px");
+        if (equipmentInstallCount.setReadOnly) equipmentInstallCount.setReadOnly(true);     //只读
+        if (equipmentInstallCount.setIsValid) equipmentInstallCount.setIsValid(true);      //去除错误提示
+        if (equipmentInstallCount.addCls) equipmentInstallCount.addCls("asLabel");          //增加asLabel外观
+
+        var addressCount = mini.get("AddressCount");
+        addressCount.setWidth("10px");
+        if (addressCount.setReadOnly) addressCount.setReadOnly(true);     //只读
+        if (addressCount.setIsValid) addressCount.setIsValid(true);      //去除错误提示
+        if (addressCount.addCls) addressCount.addCls("asLabel");          //增加asLabel外观
+
+        var foundationCount = mini.get("FoundationCount");
+        foundationCount.setWidth("10px");
+        if (foundationCount.setReadOnly) foundationCount.setReadOnly(true);     //只读
+        if (foundationCount.setIsValid) foundationCount.setIsValid(true);      //去除错误提示
+        if (foundationCount.addCls) foundationCount.addCls("asLabel");          //增加asLabel外观
+
+        init();
+
+        function init() {
+            txtAddressingId.setValue("@ViewData["Id"]");
+            txtWFActivityInstanceId.setValue("@ViewData["WFActivityInstanceId"]");
+            txtTowerId.setValue("@ViewData["TowerId"]");
+            txtTowerBaseId.setValue("@ViewData["TowerBaseId"]");
+            txtMachineRoomId.setValue("@ViewData["MachineRoomId"]");
+            txtExternalElectricPowerId.setValue("@ViewData["ExternalElectricPowerId"]");
+            txtEquipmentInstallId.setValue("@ViewData["EquipmentInstallId"]");
+            txtAddressExplorId.setValue("@ViewData["AddressExplorId"]");
+            txtFoundationTestId.setValue("@ViewData["FoundationTestId"]");
+            txtTowerMark.setValue("@ViewData["TowerMark"]");
+            txtTowerBaseMark.setValue("@ViewData["TowerBaseMark"]");
+            txtMachineRoomMark.setValue("@ViewData["MachineRoomMark"]");
+            txtExternalElectricPowerMark.setValue("@ViewData["ExternalElectricPowerMark"]");
+            txtEquipmentInstallMark.setValue("@ViewData["EquipmentInstallMark"]");
+            txtAddressExplorMark.setValue("@ViewData["AddressExplorMark"]");
+            txtFoundationTestMark.setValue("@ViewData["FoundationTestMark"]");
+            cbTowerType.setValue("@ViewData["TowerType"]");
+            txtTowerHeight.setValue("@ViewData["TowerHeight"]");
+            txtPlatFormNumber.setValue("@ViewData["PlatFormNumber"]");
+            txtPoleNumber.setValue("@ViewData["PoleNumber"]");
+            txtTowerBudget.setValue("@ViewData["TowerBudget"]");
+            cbTowerBaseType.setValue("@ViewData["TowerBaseType"]");
+            txtTowerBaseBudget.setValue("@ViewData["TowerBaseBudget"]");
+            cbMachineRoomType.setValue("@ViewData["MachineRoomType"]");
+            txtMachineRoomArea.setValue("@ViewData["MachineRoomArea"]");
+            txtMachineRoomBudget.setValue("@ViewData["MachineRoomBudget"]");
+            cbExternalElectric.setValue("@ViewData["ExternalElectric"]");
+            txtExternalBudget.setValue("@ViewData["ExternalBudget"]");
+            txtSwitchPower.setValue("@ViewData["SwitchPower"]");
+            txtBattery.setValue("@ViewData["Battery"]");
+            txtCabinetNumber.setValue("@ViewData["CabinetNumber"]");
+            txtEquipmentBudget.setValue("@ViewData["EquipmentBudget"]");
+            txtAddressBudget.setValue("@ViewData["AddressBudget"]");
+            txtFoundationBudget.setValue("@ViewData["FoundationBudget"]");
+            beTowerCustomerId.setValue("@ViewData["TowerCustomerId"]");
+            beTowerCustomerId.setText("@ViewData["TowerCustomerName"]");
+            beTowerBaseCustomerId.setValue("@ViewData["TowerBaseCustomerId"]");
+            beTowerBaseCustomerId.setText("@ViewData["TowerBaseCustomerName"]");
+            beMachineRoomCustomerId.setValue("@ViewData["MachineRoomCustomerId"]");
+            beMachineRoomCustomerId.setText("@ViewData["MachineRoomCustomerName"]");
+            beExternalCustomerId.setValue("@ViewData["ExternalCustomerId"]");
+            beExternalCustomerId.setText("@ViewData["ExternalCustomerName"]");
+            beEquipmentCustomerId.setValue("@ViewData["EquipmentCustomerId"]");
+            beEquipmentCustomerId.setText("@ViewData["EquipmentCustomerName"]");
+            beAddressCustomerId.setValue("@ViewData["AddressCustomerId"]");
+            beAddressCustomerId.setText("@ViewData["AddressCustomerName"]");
+            beFoundationCustomerId.setValue("@ViewData["FoundationCustomerId"]");
+            beFoundationCustomerId.setText("@ViewData["FoundationCustomerName"]");
+
+            if ("@ViewData["TowerMark"]" == "1") {
+                ck_Tower.setValue(true);
+                SetEnabledTower(true);
+                beTowerCustomerId.enabled = true;
+                document.getElementById("div_Tower").style.display = "";
+            }
+            else {
+                ck_Tower.setValue(false);
+                SetEnabledTower(false);
+                beTowerCustomerId.enabled = false;
+                document.getElementById("div_Tower").style.display = "none";
+            }
+            if ("@ViewData["TowerBaseMark"]" == "1") {
+                ck_TowerBase.setValue(true);
+                SetEnabledTowerBase(true);
+                beTowerBaseCustomerId.enabled = true;
+                document.getElementById("div_TowerBase").style.display = "";
+            }
+            else {
+                ck_TowerBase.setValue(false);
+                SetEnabledTowerBase(false);
+                beTowerBaseCustomerId.enabled = false;
+                document.getElementById("div_TowerBase").style.display = "none";
+            }
+            if ("@ViewData["MachineRoomMark"]" == "1") {
+                ck_MachineRoom.setValue(true);
+                SetEnabledMachineRoom(true);
+                beMachineRoomCustomerId.enabled = true;
+                document.getElementById("div_MachineRoom").style.display = "";
+            }
+            else {
+                ck_MachineRoom.setValue(false);
+                SetEnabledMachineRoom(false);
+                beMachineRoomCustomerId.enabled = false;
+                document.getElementById("div_MachineRoom").style.display = "none";
+            }
+            if ("@ViewData["ExternalElectricPowerMark"]" == "1") {
+                ck_External.setValue(true);
+                SetEnabledExternal(true);
+                beExternalCustomerId.enabled = true;
+                document.getElementById("div_External").style.display = "";
+            }
+            else {
+                ck_External.setValue(false);
+                SetEnabledExternal(false);
+                beExternalCustomerId.enabled = false;
+                document.getElementById("div_External").style.display = "none";
+            }
+            if ("@ViewData["EquipmentInstallMark"]" == "1") {
+                ck_Equipment.setValue(true);
+                SetEnabledEquipment(true);
+                beEquipmentCustomerId.enabled = true;
+                document.getElementById("div_Equipment").style.display = "";
+            }
+            else {
+                ck_Equipment.setValue(false);
+                SetEnabledEquipment(false);
+                beEquipmentCustomerId.enabled = false;
+                document.getElementById("div_Equipment").style.display = "none";
+            }
+            if ("@ViewData["AddressExplorMark"]" == "1") {
+                ck_Address.setValue(true);
+                SetEnabledAddress(true);
+                beAddressCustomerId.enabled = true;
+                document.getElementById("div_Address").style.display = "";
+            }
+            else {
+                ck_Address.setValue(false);
+                SetEnabledAddress(false);
+                beAddressCustomerId.enabled = false;
+                document.getElementById("div_Address").style.display = "none";
+            }
+            if ("@ViewData["FoundationTestMark"]" == "1") {
+                ck_Foundation.setValue(true);
+                SetEnabledFoundation(true);
+                beFoundationCustomerId.enabled = true;
+                document.getElementById("div_Foundation").style.display = "";
+            }
+            else {
+                ck_Foundation.setValue(false);
+                SetEnabledFoundation(false);
+                beFoundationCustomerId.enabled = false;
+                document.getElementById("div_Foundation").style.display = "none";
+            }
+
+            BindDgMaterialList();
+        }
+
+        function BindDgMaterialList() {
+            if (dgMaterialList.getUrl() == "") {
+                dgMaterialList.setUrl("@Url.RouteUrl(new { controller = "BaseStationBM", action = "GetMaterialList" })");
+            }
+            dgMaterialList.clearSelect(false);
+            dgMaterialList.load({ ParentId: txtAddressingId.getValue() });
+        }
+
+        function onMapClick() {
+            var placeId = "@ViewData["PlaceId"]";
+            var planningId = "@ViewData["PlanningId"]";
+            var el = document.body;
+            mini.mask({
+                el: el,
+                cls: 'mini-mask-loading',
+                html: '加载中...'
+            });
+            setTimeout(function () {
+                var url, data, getId;
+                if (placeId == "00000000-0000-0000-0000-000000000000") {
+                    url = "@Url.RouteUrl(new { controller = "Map", action = "GetPlanningPoint" })";
+                    data = { PlanningId: planningId, AreaId: "00000000-0000-0000-0000-000000000000", PlanningName: "", Lng: 0, Lat: 0, Profession: 1 };
+                    getId = planningId;
+                }
+                else {
+                    url = "@Url.RouteUrl(new { controller = "Map", action = "GetPlacePoint" })";
+                    data = { PlaceId: placeId, AreaId: "00000000-0000-0000-0000-000000000000", PlaceName: "", Lng: 0, Lat: 0, Profession: 1 };
+                    getId = placeId;
+                }
+                $.ajax({
+                    url: url,
+                    data: data,
+                    type: "get",
+                    async: false,
+                    success: function (result, textStatus) {
+                        mini.unmask(el);
+                        if (result.Id != null && result.Id == getId) {
+                            var title;
+                            if (placeId == "00000000-0000-0000-0000-000000000000") {
+                                title = result.PlanningName;
+                            }
+                            else {
+                                title = result.PlaceName;
+                            }
+                            mini.open({
+                                url: "@Url.RouteUrl(new { controller = "Map", action = "NavigationMap" })",
+                                title: title,
+                                iconCls: "icon-map",
+                                width: 800,
+                                height: 550,
+                                showMaxButton: true,
+                                onload: function () {
+                                    var iframe = this.getIFrameEl();
+                                    var data = result;
+                                    iframe.contentWindow.SetData(data);
+                                },
+                                ondestroy: function (action) {
+                                    if (action == "ok") {
+                                        var iframe = this.getIFrameEl();
+                                        var data = iframe.contentWindow.GetData();
+                                        data = mini.clone(data);
+                                        //txtLng.setValue(data.Lng);
+                                        //txtLat.setValue(data.Lat);
+                                    }
+                                }
+                            });
+                        }
+                    },
+                    error: function (xmlHttpRequest, textStatus, errorThrown) {
+                        mini.unmask(el);
+                    }
+                });
+            }, 50);
+        }
+
+        function onFileClick() {
+            var id = "@ViewData["Id"]";
+            var el = document.body;
+            mini.mask({
+                el: el,
+                cls: 'mini-mask-loading',
+                html: '加载中...'
+            });
+            setTimeout(function () {
+                $.ajax({
+                    url: "@Url.RouteUrl(new { controller = "File", action = "GetAddressingFiles" })",
+                    data: { AddressingId: id, FileIdList: "" },
+                    type: "get",
+                    async: false,
+                    success: function (result, textStatus) {
+                        mini.unmask(el);
+                        if (result.Code == null || !result.Code) {
+                            mini.open({
+                                url: "@Url.RouteUrl(new { controller = "File", action = "FileManager" })",
+                                title: "示意图",
+                                iconCls: "icon-file",
+                                width: 620,
+                                height: 250,
+                                allowResize: false,
+                                onload: function () {
+                                    var iframe = this.getIFrameEl();
+                                    var data = result;
+                                    iframe.contentWindow.SetData(data);
+                                }
+                            });
+                        }
+                    },
+                    error: function (xmlHttpRequest, textStatus, errorThrown) {
+                        mini.unmask(el);
+                    }
+                });
+            }, 50);
+        }
+
+        function onValueChangedTower(e) {
+            var checked = this.getChecked();
+            SetEnabledTower(checked);
+            if (checked == true) {
+                txtTowerMark.setValue(1);
+            }
+            else {
+                txtTowerMark.setValue(0);
+            }
+        }
+
+        function onValueChangedTowerBase(e) {
+            var checked = this.getChecked();
+            SetEnabledTowerBase(checked);
+            if (checked == true) {
+                txtTowerBaseMark.setValue(1);
+            }
+            else {
+                txtTowerBaseMark.setValue(0);
+            }
+        }
+
+        function onValueChangedMachineRoom(e) {
+            var checked = this.getChecked();
+            SetEnabledMachineRoom(checked);
+            if (checked == true) {
+                txtMachineRoomMark.setValue(1);
+            }
+            else {
+                txtMachineRoomMark.setValue(0);
+            }
+        }
+
+        function onValueChangedExternal(e) {
+            var checked = this.getChecked();
+            SetEnabledExternal(checked);
+            if (checked == true) {
+                txtExternalElectricPowerMark.setValue(1);
+            }
+            else {
+                txtExternalElectricPowerMark.setValue(0);
+            }
+        }
+
+        function onValueChangedEquipment(e) {
+            var checked = this.getChecked();
+            SetEnabledEquipment(checked);
+            if (checked == true) {
+                txtEquipmentInstallMark.setValue(1);
+            }
+            else {
+                txtEquipmentInstallMark.setValue(0);
+            }
+        }
+
+        function onValueChangedAddress(e) {
+            var checked = this.getChecked();
+            SetEnabledAddress(checked);
+            if (checked == true) {
+                txtAddressExplorMark.setValue(1);
+            }
+            else {
+                txtAddressExplorMark.setValue(0);
+            }
+        }
+
+        function onValueChangedFoundation(e) {
+            var checked = this.getChecked();
+            SetEnabledFoundation(checked);
+            if (checked == true) {
+                txtFoundationTestMark.setValue(1);
+            }
+            else {
+                txtFoundationTestMark.setValue(0);
+            }
+        }
+
+        function SetEnabledTower(checked) {
+            cbTowerType.enabled = checked;
+            txtTowerHeight.setEnabled(checked);
+            txtPlatFormNumber.setEnabled(checked);
+            txtPoleNumber.setEnabled(checked);
+            txtTowerBudget.setEnabled(checked);
+
+            if (checked == false) {
+                cbTowerType.setValue(0);
+                txtTowerHeight.setValue("0.00");
+                txtPlatFormNumber.setValue(0);
+                txtPoleNumber.setValue(0);
+                txtTowerBudget.setValue("0.00");
+            }
+        }
+
+        function SetEnabledTowerBase(checked) {
+            cbTowerBaseType.enabled = checked;
+            txtTowerBaseBudget.setEnabled(checked);
+
+            if (checked == false) {
+                cbTowerBaseType.setValue(0);
+                txtTowerBaseBudget.setValue("0.00");
+            }
+        }
+
+        function SetEnabledMachineRoom(checked) {
+            cbMachineRoomType.enabled = checked;
+            txtMachineRoomArea.setEnabled(checked);
+            txtMachineRoomBudget.setEnabled(checked);
+
+            if (checked == false) {
+                cbMachineRoomType.setValue(0);
+                txtMachineRoomArea.setValue("0.00");
+                txtMachineRoomBudget.setValue("0.00");
+            }
+        }
+
+        function SetEnabledExternal(checked) {
+            cbExternalElectric.enabled = checked;
+            txtExternalBudget.setEnabled(checked);
+
+            if (checked == false) {
+                cbExternalElectric.setValue(0);
+                txtExternalBudget.setValue("0.00");
+            }
+        }
+
+        function SetEnabledEquipment(checked) {
+            txtSwitchPower.setEnabled(checked);
+            txtBattery.setEnabled(checked);
+            txtCabinetNumber.setEnabled(checked);
+            txtEquipmentBudget.setEnabled(checked);
+
+            if (checked == false) {
+                txtSwitchPower.setValue("0.00");
+                txtBattery.setValue("0.00");
+                txtCabinetNumber.setValue(0);
+                txtEquipmentBudget.setValue("0.00");
+            }
+        }
+
+        function SetEnabledAddress(checked) {
+            txtAddressBudget.setEnabled(checked);
+
+            if (checked == false) {
+                txtAddressBudget.setValue("0.00");
+            }
+        }
+
+        function SetEnabledFoundation(checked) {
+            txtFoundationBudget.setEnabled(checked);
+
+            if (checked == false) {
+                txtFoundationBudget.setValue("0.00");
+            }
+        }
+
+        function onTowerTypeValidation(e) {
+            if (e.isValid) {
+                if (e.value == "0") {
+                    e.errorText = "请选择铁塔类型";
+                    e.isValid = false;
+                }
+            }
+        }
+
+        function onTowerBaseTypeValidation(e) {
+            if (e.isValid) {
+                if (e.value == "0") {
+                    e.errorText = "请选择塔基类型";
+                    e.isValid = false;
+                }
+            }
+        }
+
+        function onMachineRoomTypeValidation(e) {
+            if (e.isValid) {
+                if (e.value == "0") {
+                    e.errorText = "请选择机房类型";
+                    e.isValid = false;
+                }
+            }
+        }
+
+        function onExternalElectricValidation(e) {
+            if (e.isValid) {
+                if (e.value == "0") {
+                    e.errorText = "请选择引入方式";
+                    e.isValid = false;
+                }
+            }
+        }
+
+        function onFileEditTowerClick() {
+            if (ck_Tower.getChecked() == false) {
+                mini.alert("请先选择铁塔");
+                return;
+            }
+            var el = document.body;
+            mini.mask({
+                el: el,
+                cls: 'mini-mask-loading',
+                html: '加载中...'
+            });
+            setTimeout(function () {
+                $.ajax({
+                    url: "@Url.RouteUrl(new { controller = "File", action = "GetTowerFiles" })",
+                    data: { TowerId: "@ViewData["TowerId"]", FileIdList: txtFileIdListTower.getValue() },
+                    type: "get",
+                    async: false,
+                    success: function (result, textStatus) {
+                        mini.unmask(el);
+                        if (result.Code == null || !result.Code) {
+                            mini.open({
+                                url: "@Url.RouteUrl(new { controller = "File", action = "FileManager" })",
+                                title: "铁塔图纸",
+                                iconCls: "icon-file",
+                                width: 620,
+                                height: 250,
+                                allowResize: false,
+                                onload: function () {
+                                    var iframe = this.getIFrameEl();
+                                    var data = result;
+                                    iframe.contentWindow.SetData(data);
+                                }
+                            });
+                        }
+                    },
+                    error: function (xmlHttpRequest, textStatus, errorThrown) {
+                        mini.unmask(el);
+                    }
+                });
+            }, 50);
+        }
+
+        function onFileEditTowerBaseClick() {
+            if (ck_TowerBase.getChecked() == false) {
+                mini.alert("请先选择铁塔基础");
+                return;
+            }
+            var el = document.body;
+            mini.mask({
+                el: el,
+                cls: 'mini-mask-loading',
+                html: '加载中...'
+            });
+            setTimeout(function () {
+                $.ajax({
+                    url: "@Url.RouteUrl(new { controller = "File", action = "GetTowerBaseFiles" })",
+                    data: { TowerBaseId: "@ViewData["TowerBaseId"]", FileIdList: txtFileIdListTowerBase.getValue() },
+                    type: "get",
+                    async: false,
+                    success: function (result, textStatus) {
+                        mini.unmask(el);
+                        if (result.Code == null || !result.Code) {
+                            mini.open({
+                                url: "@Url.RouteUrl(new { controller = "File", action = "FileManager" })",
+                                title: "塔基图纸",
+                                iconCls: "icon-file",
+                                width: 620,
+                                height: 250,
+                                allowResize: false,
+                                onload: function () {
+                                    var iframe = this.getIFrameEl();
+                                    var data = result;
+                                    iframe.contentWindow.SetData(data);
+                                }
+                            });
+                        }
+                    },
+                    error: function (xmlHttpRequest, textStatus, errorThrown) {
+                        mini.unmask(el);
+                    }
+                });
+            }, 50);
+        }
+
+        function onFileEditMachineRoomClick() {
+            if (ck_MachineRoom.getChecked() == false) {
+                mini.alert("请先选择机房");
+                return;
+            }
+            var el = document.body;
+            mini.mask({
+                el: el,
+                cls: 'mini-mask-loading',
+                html: '加载中...'
+            });
+            setTimeout(function () {
+                $.ajax({
+                    url: "@Url.RouteUrl(new { controller = "File", action = "GetMachineRoomFiles" })",
+                    data: { MachineRoomId: "@ViewData["MachineRoomId"]", FileIdList: txtFileIdListMachineRoom.getValue() },
+                    type: "get",
+                    async: false,
+                    success: function (result, textStatus) {
+                        mini.unmask(el);
+                        if (result.Code == null || !result.Code) {
+                            mini.open({
+                                url: "@Url.RouteUrl(new { controller = "File", action = "FileManager" })",
+                                title: "机房图纸",
+                                iconCls: "icon-file",
+                                width: 620,
+                                height: 250,
+                                allowResize: false,
+                                onload: function () {
+                                    var iframe = this.getIFrameEl();
+                                    var data = result;
+                                    iframe.contentWindow.SetData(data);
+                                }
+                            });
+                        }
+                    },
+                    error: function (xmlHttpRequest, textStatus, errorThrown) {
+                        mini.unmask(el);
+                    }
+                });
+            }, 50);
+        }
+
+        function onFileEditExternalClick() {
+            if (ck_External.getChecked() == false) {
+                mini.alert("请先选择外电引入");
+                return;
+            }
+            var el = document.body;
+            mini.mask({
+                el: el,
+                cls: 'mini-mask-loading',
+                html: '加载中...'
+            });
+            setTimeout(function () {
+                $.ajax({
+                    url: "@Url.RouteUrl(new { controller = "File", action = "GetExternalElectricPowerFiles" })",
+                    data: { ExternalElectricPowerId: "@ViewData["ExternalElectricPowerId"]", FileIdList: txtFileIdListExternal.getValue() },
+                    type: "get",
+                    async: false,
+                    success: function (result, textStatus) {
+                        mini.unmask(el);
+                        if (result.Code == null || !result.Code) {
+                            mini.open({
+                                url: "@Url.RouteUrl(new { controller = "File", action = "FileManager" })",
+                                title: "路由图",
+                                iconCls: "icon-file",
+                                width: 620,
+                                height: 250,
+                                allowResize: false,
+                                onload: function () {
+                                    var iframe = this.getIFrameEl();
+                                    var data = result;
+                                    iframe.contentWindow.SetData(data);
+                                }
+                            });
+                        }
+                    },
+                    error: function (xmlHttpRequest, textStatus, errorThrown) {
+                        mini.unmask(el);
+                    }
+                });
+            }, 50);
+        }
+
+        function onFileEditEquipmentInstallClick() {
+            if (ck_Equipment.getChecked() == false) {
+                mini.alert("请先选择设备安装");
+                return;
+            }
+            var el = document.body;
+            mini.mask({
+                el: el,
+                cls: 'mini-mask-loading',
+                html: '加载中...'
+            });
+            setTimeout(function () {
+                $.ajax({
+                    url: "@Url.RouteUrl(new { controller = "File", action = "GetEquipmentInstallFiles" })",
+                    data: { EquipmentInstallId: "@ViewData["EquipmentInstallId"]", FileIdList: txtFileIdListEquipmentInstall.getValue() },
+                    type: "get",
+                    async: false,
+                    success: function (result, textStatus) {
+                        mini.unmask(el);
+                        if (result.Code == null || !result.Code) {
+                            mini.open({
+                                url: "@Url.RouteUrl(new { controller = "File", action = "FileManager" })",
+                                title: "安装图纸",
+                                iconCls: "icon-file",
+                                width: 620,
+                                height: 250,
+                                allowResize: false,
+                                onload: function () {
+                                    var iframe = this.getIFrameEl();
+                                    var data = result;
+                                    iframe.contentWindow.SetData(data);
+                                }
+                            });
+                        }
+                    },
+                    error: function (xmlHttpRequest, textStatus, errorThrown) {
+                        mini.unmask(el);
+                    }
+                });
+            }, 50);
+        }
+
+        function onFileEditAddressClick() {
+            if (ck_Address.getChecked() == false) {
+                mini.alert("请先选择地质勘探");
+                return;
+            }
+            var el = document.body;
+            mini.mask({
+                el: el,
+                cls: 'mini-mask-loading',
+                html: '加载中...'
+            });
+            setTimeout(function () {
+                $.ajax({
+                    url: "@Url.RouteUrl(new { controller = "File", action = "GetAddressExplorFiles" })",
+                    data: { AddressExplorId: "@ViewData["AddressExplorId"]", FileIdList: txtFileIdListAddress.getValue() },
+                    type: "get",
+                    async: false,
+                    success: function (result, textStatus) {
+                        mini.unmask(el);
+                        if (result.Code == null || !result.Code) {
+                            mini.open({
+                                url: "@Url.RouteUrl(new { controller = "File", action = "FileManager" })",
+                                title: "地勘报告",
+                                iconCls: "icon-file",
+                                width: 620,
+                                height: 250,
+                                allowResize: false,
+                                onload: function () {
+                                    var iframe = this.getIFrameEl();
+                                    var data = result;
+                                    iframe.contentWindow.SetData(data);
+                                }
+                            });
+                        }
+                    },
+                    error: function (xmlHttpRequest, textStatus, errorThrown) {
+                        mini.unmask(el);
+                    }
+                });
+            }, 50);
+        }
+
+        function onFileEditFoundationClick() {
+            if (ck_Foundation.getChecked() == false) {
+                mini.alert("请先选择桩基动测");
+                return;
+            }
+            var el = document.body;
+            mini.mask({
+                el: el,
+                cls: 'mini-mask-loading',
+                html: '加载中...'
+            });
+            setTimeout(function () {
+                $.ajax({
+                    url: "@Url.RouteUrl(new { controller = "File", action = "GetFoundationTestFiles" })",
+                    data: { FoundationTestId: "@ViewData["FoundationTestId"]", FileIdList: txtFileIdListFoundation.getValue() },
+                    type: "get",
+                    async: false,
+                    success: function (result, textStatus) {
+                        mini.unmask(el);
+                        if (result.Code == null || !result.Code) {
+                            mini.open({
+                                url: "@Url.RouteUrl(new { controller = "File", action = "FileManager" })",
+                                title: "动测报告",
+                                iconCls: "icon-file",
+                                width: 620,
+                                height: 250,
+                                allowResize: false,
+                                onload: function () {
+                                    var iframe = this.getIFrameEl();
+                                    var data = result;
+                                    iframe.contentWindow.SetData(data);
+                                }
+                            });
+                        }
+                    },
+                    error: function (xmlHttpRequest, textStatus, errorThrown) {
+                        mini.unmask(el);
+                    }
+                });
+            }, 50);
+        }
+
+        function onTowerCustomerSelectButtonClick() {
+            var beSelect = this;
+            mini.open({
+                url: "@Url.RouteUrl(new { controller = "CustomControl", action = "CustomerSelection" })",
+                title: "选择施工单位",
+                width: 685,
+                height: 410,
+                allowResize: false,
+                ondestroy: function (action) {
+                    if (action == "ok") {
+                        var iframe = this.getIFrameEl();
+                        var data = iframe.contentWindow.GetData();
+                        data = mini.clone(data);
+                        beSelect.setValue(data.id);
+                        beSelect.setText(data.text);
+                    }
+                    else if (action == "cancel") {
+                        beSelect.setValue("00000000-0000-0000-0000-000000000000");
+                        beSelect.setText("请选择");
+                    }
+                    beSelect.validate();
+                }
+            });
+        }
+
+        function onTowerCustomerSelectButtonCloseClick() {
+            this.setValue("00000000-0000-0000-0000-000000000000");
+            this.setText("请选择");
+            this.validate();
+        }
+
+        function onBeTowerCustomerIdValidation(e) {
+            if (e.isValid) {
+                if (e.value == "00000000-0000-0000-0000-000000000000") {
+                    e.errorText = "请选择铁塔施工单位";
+                    e.isValid = false;
+                }
+            }
+        }
+
+        function onTowerBaseCustomerSelectButtonClick() {
+            var beSelect = this;
+            mini.open({
+                url: "@Url.RouteUrl(new { controller = "CustomControl", action = "CustomerSelection" })",
+                title: "选择施工单位",
+                width: 685,
+                height: 410,
+                allowResize: false,
+                ondestroy: function (action) {
+                    if (action == "ok") {
+                        var iframe = this.getIFrameEl();
+                        var data = iframe.contentWindow.GetData();
+                        data = mini.clone(data);
+                        beSelect.setValue(data.id);
+                        beSelect.setText(data.text);
+                    }
+                    else if (action == "cancel") {
+                        beSelect.setValue("00000000-0000-0000-0000-000000000000");
+                        beSelect.setText("请选择");
+                    }
+                    beSelect.validate();
+                }
+            });
+        }
+
+        function onTowerBaseCustomerSelectButtonCloseClick() {
+            this.setValue("00000000-0000-0000-0000-000000000000");
+            this.setText("请选择");
+            this.validate();
+        }
+
+        function onBeTowerBaseCustomerIdValidation(e) {
+            if (e.isValid) {
+                if (e.value == "00000000-0000-0000-0000-000000000000") {
+                    e.errorText = "请选择铁塔基础施工单位";
+                    e.isValid = false;
+                }
+            }
+        }
+
+        function onMachineRoomCustomerSelectButtonClick() {
+            var beSelect = this;
+            mini.open({
+                url: "@Url.RouteUrl(new { controller = "CustomControl", action = "CustomerSelection" })",
+                title: "选择施工单位",
+                width: 685,
+                height: 410,
+                allowResize: false,
+                ondestroy: function (action) {
+                    if (action == "ok") {
+                        var iframe = this.getIFrameEl();
+                        var data = iframe.contentWindow.GetData();
+                        data = mini.clone(data);
+                        beSelect.setValue(data.id);
+                        beSelect.setText(data.text);
+                    }
+                    else if (action == "cancel") {
+                        beSelect.setValue("00000000-0000-0000-0000-000000000000");
+                        beSelect.setText("请选择");
+                    }
+                    beSelect.validate();
+                }
+            });
+        }
+
+        function onMachineRoomCustomerSelectButtonCloseClick() {
+            this.setValue("00000000-0000-0000-0000-000000000000");
+            this.setText("请选择");
+            this.validate();
+        }
+
+        function onBeMachineRoomCustomerIdValidation(e) {
+            if (e.isValid) {
+                if (e.value == "00000000-0000-0000-0000-000000000000") {
+                    e.errorText = "请选择机房施工单位";
+                    e.isValid = false;
+                }
+            }
+        }
+
+        function onExternalCustomerSelectButtonClick() {
+            var beSelect = this;
+            mini.open({
+                url: "@Url.RouteUrl(new { controller = "CustomControl", action = "CustomerSelection" })",
+                title: "选择施工单位",
+                width: 685,
+                height: 410,
+                allowResize: false,
+                ondestroy: function (action) {
+                    if (action == "ok") {
+                        var iframe = this.getIFrameEl();
+                        var data = iframe.contentWindow.GetData();
+                        data = mini.clone(data);
+                        beSelect.setValue(data.id);
+                        beSelect.setText(data.text);
+                    }
+                    else if (action == "cancel") {
+                        beSelect.setValue("00000000-0000-0000-0000-000000000000");
+                        beSelect.setText("请选择");
+                    }
+                    beSelect.validate();
+                }
+            });
+        }
+
+        function onExternalCustomerSelectButtonCloseClick() {
+            this.setValue("00000000-0000-0000-0000-000000000000");
+            this.setText("请选择");
+            this.validate();
+        }
+
+        function onBeExternalCustomerIdValidation(e) {
+            if (e.isValid) {
+                if (e.value == "00000000-0000-0000-0000-000000000000") {
+                    e.errorText = "请选择外电引入施工单位";
+                    e.isValid = false;
+                }
+            }
+        }
+
+        function onEquipmentCustomerSelectButtonClick() {
+            var beSelect = this;
+            mini.open({
+                url: "@Url.RouteUrl(new { controller = "CustomControl", action = "CustomerSelection" })",
+                title: "选择施工单位",
+                width: 685,
+                height: 410,
+                allowResize: false,
+                ondestroy: function (action) {
+                    if (action == "ok") {
+                        var iframe = this.getIFrameEl();
+                        var data = iframe.contentWindow.GetData();
+                        data = mini.clone(data);
+                        beSelect.setValue(data.id);
+                        beSelect.setText(data.text);
+                    }
+                    else if (action == "cancel") {
+                        beSelect.setValue("00000000-0000-0000-0000-000000000000");
+                        beSelect.setText("请选择");
+                    }
+                    beSelect.validate();
+                }
+            });
+        }
+
+        function onEquipmentCustomerSelectButtonCloseClick() {
+            this.setValue("00000000-0000-0000-0000-000000000000");
+            this.setText("请选择");
+            this.validate();
+        }
+
+        function onBeEquipmentCustomerIdValidation(e) {
+            if (e.isValid) {
+                if (e.value == "00000000-0000-0000-0000-000000000000") {
+                    e.errorText = "请选择设备安装施工单位";
+                    e.isValid = false;
+                }
+            }
+        }
+
+        function onAddressCustomerSelectButtonClick() {
+            var beSelect = this;
+            mini.open({
+                url: "@Url.RouteUrl(new { controller = "CustomControl", action = "CustomerSelection" })",
+                title: "选择施工单位",
+                width: 685,
+                height: 410,
+                allowResize: false,
+                ondestroy: function (action) {
+                    if (action == "ok") {
+                        var iframe = this.getIFrameEl();
+                        var data = iframe.contentWindow.GetData();
+                        data = mini.clone(data);
+                        beSelect.setValue(data.id);
+                        beSelect.setText(data.text);
+                    }
+                    else if (action == "cancel") {
+                        beSelect.setValue("00000000-0000-0000-0000-000000000000");
+                        beSelect.setText("请选择");
+                    }
+                    beSelect.validate();
+                }
+            });
+        }
+
+        function onAddressCustomerSelectButtonCloseClick() {
+            this.setValue("00000000-0000-0000-0000-000000000000");
+            this.setText("请选择");
+            this.validate();
+        }
+
+        function onBeAddressCustomerIdValidation(e) {
+            if (e.isValid) {
+                if (e.value == "00000000-0000-0000-0000-000000000000") {
+                    e.errorText = "请选择地质勘探施工单位";
+                    e.isValid = false;
+                }
+            }
+        }
+
+        function onFoundationCustomerSelectButtonClick() {
+            var beSelect = this;
+            mini.open({
+                url: "@Url.RouteUrl(new { controller = "CustomControl", action = "CustomerSelection" })",
+                title: "选择施工单位",
+                width: 685,
+                height: 410,
+                allowResize: false,
+                ondestroy: function (action) {
+                    if (action == "ok") {
+                        var iframe = this.getIFrameEl();
+                        var data = iframe.contentWindow.GetData();
+                        data = mini.clone(data);
+                        beSelect.setValue(data.id);
+                        beSelect.setText(data.text);
+                    }
+                    else if (action == "cancel") {
+                        beSelect.setValue("00000000-0000-0000-0000-000000000000");
+                        beSelect.setText("请选择");
+                    }
+                    beSelect.validate();
+                }
+            });
+        }
+
+        function onFoundationCustomerSelectButtonCloseClick() {
+            this.setValue("00000000-0000-0000-0000-000000000000");
+            this.setText("请选择");
+            this.validate();
+        }
+
+        function onBeFoundationCustomerIdValidation(e) {
+            if (e.isValid) {
+                if (e.value == "00000000-0000-0000-0000-000000000000") {
+                    e.errorText = "请选择桩基动测施工单位";
+                    e.isValid = false;
+                }
+            }
+        }
+
+        function onSaveClick() {
+            frmAddressing.validate();
+            if (frmAddressing.isValid() == false) return;
+            var loading = mini.loading("处理中,请稍后...", "保存数据");
+            var jsonData = mini.encode(frmAddressing.getData());
+            $.ajax({
+                url: "@Url.RouteUrl(new { controller = "BaseStationBM", action = "SaveCustomer" })",
+                data: AddAntiForgeryToken({ data: jsonData }),
+                type: "post",
+                success: function (result, textStatus) {
+                    mini.hideMessageBox(loading);
+                    if (result.Code != null && result.Code == 0) {
+                        ShowSucessMessage(result.Message);
+                        //CloseWindow("ok");
+                    }
+                },
+                error: function (xmlHttpRequest, textStatus, errorThrown) {
+                    mini.hideMessageBox(loading);
+                }
+            });
+        }
+
+        function onMaterialCategoryIdValueChanged(e) {
+            BindMaterialId(e.sender.getValue());
+            cbMaterialId.validate();
+        }
+
+        function BindMaterialId(materialCategoryId) {
+            cbMaterialId.setUrl("@Url.RouteUrl(new { controller = "BaseData", action = "GetUsedMaterials" })" + "/" + materialCategoryId + "?getType=1");
+        }
+
+        function onMaterialIdLoad() {
+            cbMaterialId.setValue("00000000-0000-0000-0000-000000000000");
+        }
+
+        function BindMaterialSpecId(materialId) {
+            cbMaterialSpecId.setUrl("@Url.RouteUrl(new { controller = "BaseData", action = "GetUsedMaterialSpecs" })" + "/" + materialId + "?getType=1");
+        }
+
+        function onMaterialIdValueChanged(e) {
+            BindMaterialSpecId(e.sender.getValue());
+            cbMaterialSpecId.validate();
+        }
+
+        function onMaterialSpecIdLoad() {
+            cbMaterialSpecId.setValue("00000000-0000-0000-0000-000000000000");
+        }
+
+        function onMaterialCategoryIdValidation(e) {
+            if (e.isValid) {
+                if (e.value == "00000000-0000-0000-0000-000000000000") {
+                    e.errorText = "请选择物资类别";
+                    e.isValid = false;
+                }
+            }
+        }
+
+        function onMaterialIdValidation(e) {
+            if (e.isValid) {
+                if (e.value == "00000000-0000-0000-0000-000000000000") {
+                    e.errorText = "请选择物资名称";
+                    e.isValid = false;
+                }
+            }
+        }
+
+        function onMaterialSpecIdValidation(e) {
+            if (e.isValid) {
+                if (e.value == "00000000-0000-0000-0000-000000000000") {
+                    e.errorText = "请选择设计规格";
+                    e.isValid = false;
+                }
+            }
+        }
+
+        function ClearFrmMaterial() {
+            var idValue = txtMaterialListId.getValue();
+            frmMaterialList.clear();
+            txtMaterialListId.setValue(idValue);
+            txtParentId.setValue("@ViewData["Id"]");
+            cbMaterialSpecId.setData("[{Id:'00000000-0000-0000-0000-000000000000',MaterialSpecName:'请选择'}]");
+            cbMaterialSpecId.setValue("00000000-0000-0000-0000-000000000000");
+        }
+
+        function onEditClick() {
+            var rows = dgMaterialList.getSelecteds();
+            if (rows.length == 0) {
+                mini.alert("请选择一条要修改的数据");
+            }
+            else {
+                ClearFrmMaterial();
+                winMaterialList.setTitle("指定设计规格");
+                winMaterialList.show();
+                var el = winMaterialList.getEl();
+                mini.mask({
+                    el: el,
+                    cls: 'mini-mask-loading',
+                    html: '加载中...'
+                });
+                setTimeout(function () {
+                    $.ajax({
+                        url: "@Url.RouteUrl(new { controller = "BaseStationBM", action = "GetMaterialListByIdCustomer" })" + "/" + rows[0].MaterialListId,
+                        type: "get",
+                        async: false,
+                        success: function (result, textStatus) {
+                            if (result.Id != null && result.Id == rows[0].MaterialListId) {
+                                cbMaterialId.setUrl("@Url.RouteUrl(new { controller = "BaseData", action = "GetUsedMaterials" })" + "/" + result.MaterialCategoryId + "?getType=1");
+                                cbMaterialSpecId.setUrl("@Url.RouteUrl(new { controller = "BaseData", action = "GetUsedMaterialSpecs" })" + "/" + result.MaterialId + "?getType=1");
+                                frmMaterialList.setData(result);
+                            }
+                            else {
+                                winMaterialList.hide();
+                            }
+                        },
+                        error: function (xmlHttpRequest, textStatus, errorThrown) {
+                            winMaterialList.hide();
+                        }
+                    });
+                }, 50);
+                setTimeout(function () {
+                    mini.unmask(el);
+                }, 300);
+            }
+        }
+
+        function onMaterialSaveClick() {
+            frmMaterialList.validate();
+            if (frmMaterialList.isValid() == false) return;
+            var loading = mini.loading("处理中,请稍后...", "保存数据");
+            var jsonData = mini.encode(frmMaterialList.getData());
+            $.ajax({
+                url: "@Url.RouteUrl(new { controller = "BaseStationBM", action = "SaveMaterialListCustomer" })",
+                data: AddAntiForgeryToken({ data: jsonData }),
+                type: "post",
+                success: function (result, textStatus) {
+                    mini.hideMessageBox(loading);
+                    if (result.Code != null && result.Code == 0) {
+                        winMaterialList.hide();
+                        ShowSucessMessage(result.Message);
+                        BindDgMaterialList();
+                    }
+                },
+                error: function (xmlHttpRequest, textStatus, errorThrown) {
+                    mini.hideMessageBox(loading);
+                }
+            });
+        }
+
+    </script>

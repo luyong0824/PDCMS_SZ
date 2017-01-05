@@ -1,0 +1,206 @@
+﻿<div id="myToolbar" class="mini-toolbar" style="border-bottom: 0px; padding: 0px;">
+    <table style="width: 100%;" cellpadding="0" cellspacing="0">
+        <tr>
+            <td style="width: 100%;">
+                <a class="mini-button" iconcls="icon-help" plain="true" href="@Url.RouteUrl(new { controller = "File", action = "DownloadHelpFiles" })?FileName=MaterialSpecList" target="_blank"></a>当前位置：物资管理>物资管理>导出清单
+            </td>
+            <td style="white-space: nowrap;">
+                <a id="btnSearch" class="mini-button" iconcls="icon-search" plain="true" onclick="onSearchClick">查询</a>
+                <a class="mini-button" iconcls="icon-excel" plain="true" onclick="ExportExcel">导出Excel</a>
+            </td>
+        </tr>
+    </table>
+</div>
+<div class="mini-fit">
+    <div id="dgMaterialSpecList" class="mini-datagrid" style="width: 100%; height: 100%;" idfield="Id" allowmovecolumn="false"
+         multiselect="true" fitcolumns="false" onlycheckselection="true" showreloadbutton="false" pagesize="15" sizelist="[15,30,50,100]"
+         onload="onDgMaterialSpecListLoad">
+        <div property="columns">
+            <div type="indexcolumn"></div>
+            <div type="checkcolumn"></div>
+            <div field="ProjectCode" header="立项编号" width="100"></div>
+            <div type="comboboxcolumn" field="ProjectType" header="建设方式" width="80">
+                <input property="editor" class="mini-combobox" style="width: 100%;" data=@Html.Raw(ViewData["ProjectType"]) />
+            </div>
+            <div field="ProjectDate" header="立项时间" width="80" dateformat="yyyy-MM-dd"></div>
+            <div field="PlaceName" header="站点名称" width="100"></div>
+            <div field="AreaName" header="区域" width="60"></div>
+            <div field="ReseauName" header="网格" width="60"></div>
+            <div field="FullName" header="工程经理" width="60"></div>
+            <div field="CustomerName" header="供应商" width="100"></div>
+            <div type="comboboxcolumn" field="MaterialSpecType" header="型号类别" width="80">
+                <input property="editor" class="mini-combobox" style="width: 100%;" data=@Html.Raw(ViewData["MaterialSpecType"]) />
+            </div>
+            <div field="MaterialSpecName" header="规格型号" width="100"></div>
+            <div field="UnitPrice" header="单价" width="60"></div>
+            <div field="SpecNumber" header="数量" width="60"></div>
+            <div field="TotalPrice" header="金额" width="60"></div>
+            <div field="OrderCode" header="订单编号" width="100"></div>
+        </div>
+    </div>
+</div>
+<div id="winQuery" class="mini-window" style="width: 350px; height: 360px;"
+     showmodal="true" allowresize="false" title="查询条件">
+    <table style="width: 100%;">
+        <tr>
+            <td style="width: 80px; text-align: right;">立项时间</td>
+            <td>
+                <table border="0" cellpadding="0" cellspacing="0">
+                    <tr>
+                        <td><input id="dpBeginDate" class="mini-datepicker" style="width:98px;" value="new Date()" showclearbutton="false" allowinput="false" /></td>
+                        <td>至</td>
+                        <td><input id="dpEndDate" class="mini-datepicker" style="width:98px;" value="new Date()" showclearbutton="false" allowinput="false" /></td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 80px; text-align: right;">立项编号</td>
+            <td>
+                <input id="txtProjectCode" class="mini-textbox" style="width:208px;" />
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 80px; text-align: right;">建设方式</td>
+            <td>
+                <input id="cbProjectType" class="mini-combobox" value="0" style="width:208px;" data=@Html.Raw(ViewData["ProjectTypeByAll"]) />
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 80px; text-align: right;">站点名称</td>
+            <td>
+                <input id="txtPlaceName" class="mini-textbox" style="width:208px;" />
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 80px; text-align: right;">网格</td>
+            <td>
+                <input id="cbReseauId" class="mini-combobox" value="00000000-0000-0000-0000-000000000000" style="width:208px;" textfield="ReseauName" valuefield="Id" data=@Html.Raw(ViewData["ReseauByAll"]) />
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 80px; text-align: right;">工程经理</td>
+            <td>
+                <input id="beProjectManagerId" style="width:208px;" allowinput="false" class="mini-buttonedit searchbox" showclose="true" text="全部" value="00000000-0000-0000-0000-000000000000"
+                       onbuttonclick="onUserSelectButtonClick" oncloseclick="onUserSelectButtonCloseClick" />
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 80px; text-align: right;">供应商</td>
+            <td>
+                <input id="txtCustomerName" class="mini-textbox" style="width:208px;" />
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 80px; text-align: right;">型号类别</td>
+            <td>
+                <input id="cbMaterialSpecType" class="mini-combobox" value="0" style="width:208px;" data=@Html.Raw(ViewData["MaterialSpecTypeByAll"]) />
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 80px; text-align: right;">规格型号</td>
+            <td>
+                <input id="txtMaterialSpecName" class="mini-textbox" style="width:208px;" />
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 80px; text-align: right;">订单编号</td>
+            <td>
+                <input id="txtOrderCode" class="mini-textbox" style="width:208px;" />
+            </td>
+        </tr>
+    </table>
+    <div style="text-align: center; padding: 10px;">
+        <a class="mini-button" iconcls="icon-ok" onclick="onOKClick">确定</a>
+    </div>
+</div>
+<iframe id="exportIFrame" style="display:none;"></iframe>
+<!--导出Excel相关HTML-->
+<form id="excelForm" action="export.aspx?type=excel" method="post" target="excelIFrame">
+    <input type="hidden" name="columns" id="excelData" />
+</form>
+<iframe id="excelIFrame" name="excelIFrame" style="display:none;"></iframe>
+<script type="text/javascript">
+    mini.parse();
+
+    var btnSearch = mini.get("btnSearch");
+    var dgMaterialSpecList = mini.get("dgMaterialSpecList");
+    var winQuery = mini.get("winQuery"); var dpBeginDate = mini.get("dpBeginDate");
+    var dpEndDate = mini.get("dpEndDate");
+    var txtProjectCode = mini.get("txtProjectCode");
+    var cbProjectType = mini.get("cbProjectType");
+    var txtPlaceName = mini.get("txtPlaceName");
+    var cbReseauId = mini.get("cbReseauId");
+    var beProjectManagerId = mini.get("beProjectManagerId");
+    var txtCustomerName = mini.get("txtCustomerName");
+    var cbMaterialSpecType = mini.get("cbMaterialSpecType");
+    var txtMaterialSpecName = mini.get("txtMaterialSpecName");
+    var txtOrderCode = mini.get("txtOrderCode");
+
+    Init();
+
+    function Init() {
+        dpBeginDate.setValue(new Date().DateAdd("m", -1));
+        BindDgMaterialSpecList();
+    }
+
+    function BindDgMaterialSpecList() {
+        btnSearch.setEnabled(false);
+        var query_BeginDate = dpBeginDate.getFormValue();
+        var query_EndDate = dpEndDate.getFormValue();
+        var query_ProjectCode = txtProjectCode.getValue();
+        var query_ProjectType = cbProjectType.getValue();
+        var query_PlaceName = txtPlaceName.getValue();
+        var query_ReseauId = cbReseauId.getValue();
+        var query_ProjectManagerId = beProjectManagerId.getValue();
+        var query_CustomerName = txtCustomerName.getValue();
+        var query_MaterialSpecType = cbMaterialSpecType.getValue();
+        var query_MaterialSpecName = txtMaterialSpecName.getValue();
+        var query_OrderCode = txtOrderCode.getValue();
+
+        if (dgMaterialSpecList.getUrl() == "") {
+            dgMaterialSpecList.setUrl("@Url.RouteUrl(new { controller = "BaseStationBM", action = "GetProjectCodeListAndMaterialSpecListPage" })");
+        }
+        dgMaterialSpecList.clearSelect(false);
+        dgMaterialSpecList.load({ BeginDate: query_BeginDate, EndDate: query_EndDate, ProjectCode: query_ProjectCode, ProjectType: query_ProjectType, PlaceName: query_PlaceName, ReseauId: query_ReseauId, ProjectManagerId: query_ProjectManagerId, CustomerName: query_CustomerName, MaterialSpecType: query_MaterialSpecType, MaterialSpecName: query_MaterialSpecName, OrderCode: query_OrderCode });
+    }
+
+    function onDgMaterialSpecListLoad() {
+        btnSearch.setEnabled(true);
+    }
+
+    function onSearchClick() {
+        winQuery.show();
+    }
+
+    function onOKClick() {
+        BindDgMaterialSpecList();
+        winQuery.hide();
+    }
+
+    function ExportExcel() {
+        var columns = dgMaterialSpecList.getBottomColumns();
+        function getColumns(columns) {
+            columns = columns.clone();
+            for (var i = columns.length - 1; i >= 0; i--) {
+                var column = columns[i];
+                if (!column.field) {
+                    columns.removeAt(i);
+                } else {
+                    var c = { header: column.header, field: column.field };
+                    columns[i] = c;
+                }
+            }
+            return columns;
+        }
+
+        var columns = getColumns(columns);
+        var json = mini.encode(columns);
+        document.getElementById("excelData").value = json;
+        var excelForm = document.getElementById("excelForm");
+        dpEndDate.setValue(new Date().DateAdd("d", 1));
+        excelForm.action = "@Url.RouteUrl(new { controller = "DataOutput", action = "ExportProjectMaterial" })" + "?BeginDate=" + dpBeginDate.getFormValue() + "&EndDate=" + dpEndDate.getFormValue() + "&ProjectCode=" + txtProjectCode.getValue() + "&ProjectType=" + cbProjectType.getValue() + "&PlaceName=" + txtPlaceName.getValue() + "&ReseauId=" + cbReseauId.getValue() + "&ProjectManagerId=" + beProjectManagerId.getValue() + "&CustomerName=" + txtCustomerName.getValue() + "&MaterialSpecType=" + cbMaterialSpecType.getValue() + "&MaterialSpecName=" + txtMaterialSpecName.getValue() + "&OrderCode=" + txtOrderCode.getValue();
+        excelForm.submit();
+        dpEndDate.setValue(new Date());
+    }
+</script>

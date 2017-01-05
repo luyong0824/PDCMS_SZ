@@ -1,0 +1,109 @@
+﻿<div id="frmInfo" class="form">
+    <input class="mini-hidden" id="Id" name="Id" />
+    <table class="table" cellpadding="0" cellspacing="0" style="margin: auto; width: 100%">
+        <tr>
+            <td colspan="4" align="center" style="font-size:11pt;">
+                <b>
+                    隐患上报单
+                </b>
+            </td>
+        </tr>
+        <tr>
+            <td style="width:90px;" align="right">申请部门</td>
+            <td style="width:200px;" align="left"><input id="DepartmentName" class="mini-textbox" style="width: 200px;" readonly="true" value="@ViewData["DepartmentName"]" /></td>
+            <td style="width:90px;" align="right">申请人</td>
+            <td style="width:200px;" align="left"><input id="DepartmentName" class="mini-textbox" style="width: 200px;" readonly="true" value="@ViewData["CreateFullName"]" /></td>
+        </tr>
+        <tr>
+            <td style="width:90px;" align="right">派单人</td>
+            <td style="width:200px;" align="left"><input id="DepartmentName" class="mini-textbox" style="width: 200px;" readonly="true" value="@ViewData["SendFullName"]" /></td>
+            <td style="width:90px;" align="right">申请日期</td>
+            <td style="width:200px;" align="left"><input id="DepartmentName" class="mini-textbox" style="width: 200px;" readonly="true" value="@ViewData["CreateDate"]" /></td>
+        </tr>
+        <tr>
+            <td align="right" style="width:90px;">标题</td>
+            <td align="left" style="width:490px" colspan="3"><input id="DepartmentName" class="mini-textbox" style="width: 89%;" readonly="true" value="@ViewData["Title"]" /></td>
+        </tr>
+        <tr>
+            <td align="right">申请事由</td>
+            <td align="left" colspan="3"><input id="DepartmentName" class="mini-textarea" style="width: 89%;height:150px" readonly="true" value="@ViewData["ApplyReason"]" /></td>
+        </tr>
+        <tr>
+            <td style="width:90px;" align="right">现场联系人</td>
+            <td style="width:200px;" align="left"><input id="SceneContactMan" class="mini-textbox" style="width: 200px;" readonly="true" value="@ViewData["SceneContactMan"]" /></td>
+            <td style="width:90px;" align="right">现场联系电话</td>
+            <td style="width:200px;" align="left"><input id="SceneContactTel" class="mini-textbox" style="width: 200px;" readonly="true" value="@ViewData["SceneContactTel"]" /></td>
+        </tr>
+        <tr>
+            <td style="width:90px;" align="right">网格</td>
+            <td style="width:200px;" align="left"><input id="DepartmentName" class="mini-textbox" style="width: 200px;" readonly="true" value="@ViewData["ReseauName"]" /></td>
+            <td style="width:90px;" align="right">申请单位</td>
+            <td style="width:200px;" align="left"><input id="DepartmentName" class="mini-textbox" style="width: 200px;" readonly="true" value="@ViewData["CustomerName"]" /></td>
+        </tr>
+        <tr>
+            <td style="width:90px;" align="right">项目编码</td>
+            <td style="width:200px;" align="left"><input id="ProjectCode" class="mini-textbox" style="width: 200px;" readonly="true" value="@ViewData["ProjectCode"]" /></td>
+            <td style="width: 90px; text-align: right;">附件</td>
+            <td>
+                <table>
+                    <tr>
+                        <td style="width:16px">
+                            <a class="fileedit" onclick="onFileClick();"></a>
+                        </td>
+                        <td>
+                            附件数量：<input id="Count" name="Count" class="mini-textbox" value="@ViewData["Count"]" />
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+
+</div>
+<script type="text/javascript">
+    mini.parse();
+
+    var count = mini.get("Count");
+    count.setWidth("10px");
+    if (count.setReadOnly) count.setReadOnly(true);     //只读
+    if (count.setIsValid) count.setIsValid(true);      //去除错误提示
+    if (count.addCls) count.addCls("asLabel");          //增加asLabel外观
+
+    function onFileClick() {
+        var el = document.body;
+        mini.mask({
+            el: el,
+            cls: 'mini-mask-loading',
+            html: '加载中...'
+        });
+        setTimeout(function () {
+            $.ajax({
+                url: "@Url.RouteUrl(new { controller = "File", action = "GetWorkApplyFiles" })",
+                data: { Id: "@ViewData["Id"]", FileIdList: "" },
+                type: "get",
+                async: false,
+                success: function (result, textStatus) {
+                    mini.unmask(el);
+                    if (result.Code == null || !result.Code) {
+                        mini.open({
+                            url: "@Url.RouteUrl(new { controller = "File", action = "FileManager" })",
+                            title: "附件",
+                            iconCls: "icon-file",
+                            width: 620,
+                            height: 250,
+                            allowResize: false,
+                            onload: function () {
+                                var iframe = this.getIFrameEl();
+                                var data = result;
+                                iframe.contentWindow.SetData(data);
+                            }
+                        });
+                    }
+                },
+                error: function (xmlHttpRequest, textStatus, errorThrown) {
+                    mini.unmask(el);
+                }
+            });
+        }, 50);
+    }
+</script>

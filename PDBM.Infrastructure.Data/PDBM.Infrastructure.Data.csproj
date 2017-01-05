@@ -1,0 +1,169 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{8EEB4560-1AB7-43FF-B64A-5357E4A493DB}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>PDBM.Infrastructure.Data</RootNamespace>
+    <AssemblyName>PDBM.Infrastructure.Data</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="EntityFramework\ModelConfigurations\BaseData\AccountingEntityConfiguration.cs" />
+    <Compile Include="EntityFramework\ModelConfigurations\BaseData\AreaConfiguration.cs" />
+    <Compile Include="EntityFramework\ModelConfigurations\BaseData\CodeSeedConfiguration.cs" />
+    <Compile Include="EntityFramework\ModelConfigurations\BaseData\CompanyConfiguration.cs" />
+    <Compile Include="EntityFramework\ModelConfigurations\BaseData\CustomerConfiguration.cs" />
+    <Compile Include="EntityFramework\ModelConfigurations\BaseData\CustomerUserConfiguration.cs" />
+    <Compile Include="EntityFramework\ModelConfigurations\BaseData\DepartmentConfiguration.cs" />
+    <Compile Include="EntityFramework\ModelConfigurations\BaseData\DutyUserConfiguration.cs" />
+    <Compile Include="EntityFramework\ModelConfigurations\BaseData\MaterialCategoryConfiguration.cs" />
+    <Compile Include="EntityFramework\ModelConfigurations\BaseData\MaterialConfiguration.cs" />
+    <Compile Include="EntityFramework\ModelConfigurations\BaseData\MaterialSpecConfiguration.cs" />
+    <Compile Include="EntityFramework\ModelConfigurations\BaseData\MenuConfiguration.cs" />
+    <Compile Include="EntityFramework\ModelConfigurations\BaseData\MenuItemConfiguration.cs" />
+    <Compile Include="EntityFramework\ModelConfigurations\BaseData\MenuSubConfiguration.cs" />
+    <Compile Include="EntityFramework\ModelConfigurations\BaseData\OrderCodeSeedConfiguration.cs" />
+    <Compile Include="EntityFramework\ModelConfigurations\BaseData\PlaceCategoryConfiguration.cs" />
+    <Compile Include="EntityFramework\ModelConfigurations\BaseData\PlaceConfiguration.cs" />
+    <Compile Include="EntityFramework\ModelConfigurations\BaseData\PlaceOwnerConfiguration.cs" />
+    <Compile Include="EntityFramework\ModelConfigurations\BaseData\PlacePropertyConfiguration.cs" />
+    <Compile Include="EntityFramework\ModelConfigurations\BaseData\PlacePropertyLogConfiguration.cs" />
+    <Compile Include="EntityFramework\ModelConfigurations\BaseData\PostConfiguration.cs" />
+    <Compile Include="EntityFramework\ModelConfigurations\BaseData\PostUserConfiguration.cs" />
+    <Compile Include="EntityFramework\ModelConfigurations\BaseData\ProjectConfiguration.cs" />
+    <Compile Include="EntityFramework\ModelConfigurations\BaseData\ProjectProfessionConfiguration.cs" />
+    <Compile Include="EntityFramework\ModelConfigurations\BaseData\ReseauConfiguration.cs" />
+    <Compile Include="EntityFramework\ModelConfigurations\BaseData\RoleConfiguration.cs" />
+    <Compile Include="EntityFramework\ModelConfigurations\BaseData\RoleMenuItemConfiguration.cs" />
+    <Compile Include="EntityFramework\ModelConfigurations\BaseData\RoleUserConfiguration.cs" />
+    <Compile Include="EntityFramework\ModelConfigurations\BaseData\SceneConfiguration.cs" />
+    <Compile Include="EntityFramework\ModelConfigurations\BaseData\UnitConfiguration.cs" />
+    <Compile Include="EntityFramework\ModelConfigurations\BaseData\UserConfiguration.cs" />
+    <Compile Include="EntityFramework\ModelConfigurations\BaseData\WorkBigClassConfiguration.cs" />
+    <Compile Include="EntityFramework\ModelConfigurations\BaseData\WorkSmallClassConfiguration.cs" />
+    <Compile Include="EntityFramework\ModelConfigurations\BMMgmt\AddressExplorConfiguration.cs" />
+    <Compile Include="EntityFramework\ModelConfigurations\BMMgmt\AddressExplorLogConfiguration.cs" />
+    <Compile Include="EntityFramework\ModelConfigurations\BMMgmt\AddressingConfiguration.cs" />
+    <Compile Include="EntityFramework\ModelConfigurations\BMMgmt\BlindSpotFeedBackConfiguration.cs" />
+    <Compile Include="EntityFramework\ModelConfigurations\BMMgmt\BusinessVolumeConfiguration.cs" />
+    <Compile Include="EntityFramework\ModelConfigurations\BMMgmt\ConstructionTaskConfiguration.cs" />
+    <Compile Include="EntityFramework\ModelConfigurations\BMMgmt\DelayApplyConfiguration.cs" />
+    <Compile Include="EntityFramework\ModelConfigurations\BMMgmt\EngineeringTaskConfiguration.cs" />
+    <Compile Include="EntityFramework\ModelConfigurations\BMMgmt\EquipmentInstallConfiguration.cs" />
+    <Compile Include="EntityFramework\ModelConfigurations\BMMgmt\EquipmentInstallLogConfiguration.cs" />
+    <Compile Include="EntityFramework\ModelConfigurations\BMMgmt\ExternalElectricPowerConfiguration.cs" />
+    <Compile Include="EntityFramework\ModelConfigurations\BMMgmt\ExternalElectricPowerLogConfiguration.cs" />
+    <Compile Include="EntityFramework\ModelConfigurations\BMMgmt\FoundationTestConfiguration.cs" />
+    <Compile Include="EntityFramework\ModelConfigurations\BMMgmt\FoundationTestLogConfiguration.cs" />
+    <Compile Include="EntityFramework\ModelConfigurations\BMMgmt\MachineRoomConfiguration.cs" />
+    <Compile Include="EntityFramework\ModelConfigurations\BMMgmt\MachineRoomLogConfiguration.cs" />
+    <Compile Include="EntityFramework\ModelConfigurations\BMMgmt\MaterialListConfiguration.cs" />
+    <Compile Include="EntityFramework\ModelConfigurations\BMMgmt\MaterialSpecListConfiguration.cs" />
+    <Compile Include="EntityFramework\ModelConfigurations\BMMgmt\NoticeConfiguration.cs" />
+    <Compile Include="EntityFramework\ModelConfigurations\BMMgmt\OperatorsConfirmConfiguration.cs" />
+    <Compile Include="EntityFramework\ModelConfigurations\BMMgmt\OperatorsConfirmDetailConfiguration.cs" />
+    <Compile Include="EntityFramework\ModelConfigurations\BMMgmt\OperatorsPlanningConfiguration.cs" />
+    <Compile Include="EntityFramework\ModelConfigurations\BMMgmt\OperatorsPlanningDemandConfiguration.cs" />
+    <Compile Include="EntityFramework\ModelConfigurations\BMMgmt\OperatorsSharingConfiguration.cs" />
+    <Compile Include="EntityFramework\ModelConfigurations\BMMgmt\PlaceBusinessVolumeConfiguration.cs" />
+    <Compile Include="EntityFramework\ModelConfigurations\BMMgmt\PlaceDesignConfiguration.cs" />
+    <Compile Include="EntityFramework\ModelConfigurations\BMMgmt\PlanningApplyConfiguration.cs" />
+    <Compile Include="EntityFramework\ModelConfigurations\BMMgmt\PlanningApplyHeaderConfiguration.cs" />
+    <Compile Include="EntityFramework\ModelConfigurations\BMMgmt\PlanningConfiguration.cs" />
+    <Compile Include="EntityFramework\ModelConfigurations\BMMgmt\ProjectCodeListConfiguration.cs" />
+    <Compile Include="EntityFramework\ModelConfigurations\BMMgmt\ProjectTaskConfiguration.cs" />
+    <Compile Include="EntityFramework\ModelConfigurations\BMMgmt\PurchaseConfiguration.cs" />
+    <Compile Include="EntityFramework\ModelConfigurations\BMMgmt\RemodelingConfiguration.cs" />
+    <Compile Include="EntityFramework\ModelConfigurations\BMMgmt\TaskPropertyConfiguration.cs" />
+    <Compile Include="EntityFramework\ModelConfigurations\BMMgmt\TaskPropertyLogConfiguration.cs" />
+    <Compile Include="EntityFramework\ModelConfigurations\BMMgmt\TowerBaseConfiguration.cs" />
+    <Compile Include="EntityFramework\ModelConfigurations\BMMgmt\TowerBaseLogConfiguration.cs" />
+    <Compile Include="EntityFramework\ModelConfigurations\BMMgmt\TowerConfiguration.cs" />
+    <Compile Include="EntityFramework\ModelConfigurations\BMMgmt\TowerLogConfiguration.cs" />
+    <Compile Include="EntityFramework\ModelConfigurations\BMMgmt\WorkApplyConfiguration.cs" />
+    <Compile Include="EntityFramework\ModelConfigurations\BMMgmt\WorkOrderConfiguration.cs" />
+    <Compile Include="EntityFramework\ModelConfigurations\BMMgmt\WorkOrderDetailConfiguration.cs" />
+    <Compile Include="EntityFramework\ModelConfigurations\FileMgmt\FileAssociationConfiguration.cs" />
+    <Compile Include="EntityFramework\ModelConfigurations\FileMgmt\FileConfiguration.cs" />
+    <Compile Include="EntityFramework\ModelConfigurations\WorkFlow\WFActivityConfiguration.cs" />
+    <Compile Include="EntityFramework\ModelConfigurations\WorkFlow\WFActivityEditorConfiguration.cs" />
+    <Compile Include="EntityFramework\ModelConfigurations\WorkFlow\WFActivityInstanceConfiguration.cs" />
+    <Compile Include="EntityFramework\ModelConfigurations\WorkFlow\WFActivityInstanceEditorConfiguration.cs" />
+    <Compile Include="EntityFramework\ModelConfigurations\WorkFlow\WFCategoryConfiguration.cs" />
+    <Compile Include="EntityFramework\ModelConfigurations\WorkFlow\WFProcessConfiguration.cs" />
+    <Compile Include="EntityFramework\ModelConfigurations\WorkFlow\WFProcessInstanceConfiguration.cs" />
+    <Compile Include="EntityFramework\PDBMDbContext.cs" />
+    <Compile Include="EntityFramework\PDBMDbContextInitializer.cs" />
+    <Compile Include="EntityFramework\Repositories\BaseData\CodeSeedRepository.cs" />
+    <Compile Include="EntityFramework\Repositories\BaseData\OrderCodeSeedRepository.cs" />
+    <Compile Include="EntityFramework\Repositories\EntityFrameworkRepository.cs" />
+    <Compile Include="EntityFramework\Repositories\EntityFrameworkRepositoryContext.cs" />
+    <Compile Include="EntityFramework\Repositories\IEntityFrameworkRepositoryContext.cs" />
+    <Compile Include="EntityFramework\Repositories\OrderExtension.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\PDBM.Domain\PDBM.Domain.csproj">
+      <Project>{861e3b9f-f2e2-4ced-a55a-54f68b23e707}</Project>
+      <Name>PDBM.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PDBM.Infrastructure\PDBM.Infrastructure.csproj">
+      <Project>{722f4e02-8228-46e4-8f30-1f6c905b9f6f}</Project>
+      <Name>PDBM.Infrastructure</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

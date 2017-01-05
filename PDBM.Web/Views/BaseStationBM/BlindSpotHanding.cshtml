@@ -1,0 +1,546 @@
+﻿<div id="myToolbar" class="mini-toolbar" style="border-bottom: 0px; padding: 0px;">
+    <table style="width: 100%;" cellpadding="0" cellspacing="0">
+        <tr>
+            <td style="width: 100%;">
+                <a class="mini-button" iconcls="icon-help" plain="true" href="@Url.RouteUrl(new { controller = "File", action = "DownloadHelpFiles" })?FileName=BlindSpotFeedBack" target="_blank"></a>当前位置：基站建维>规划寻址>盲点处理
+            </td>
+            <td style="white-space: nowrap;">
+                <a id="btnSearch" class="mini-button" iconcls="icon-search" plain="true" onclick="onSearchClick">查询</a>
+                <a class="mini-button" iconcls="icon-edit" plain="true" onclick="onEditClick">盲点处理</a>
+            </td>
+        </tr>
+    </table>
+</div>
+<div class="mini-fit">
+    <div id="dgBlindSpotFeedBack" class="mini-datagrid" style="width: 100%; height: 100%;" idfield="Id" allowmovecolumn="false"
+         multiselect="true" fitcolumns="false" onlycheckselection="true" showreloadbutton="false" pagesize="15" sizelist="[15,30,50,100]"
+         virtualscroll="false" onload="onDgBlindSpotFeedBackLoad" ondrawcell="onDrawCell">
+        <div property="columns">
+            <div type="indexcolumn"></div>
+            <div type="checkcolumn"></div>
+            <div field="PlaceName" header="盲点地名" width="100"></div>
+            <div field="AreaName" header="区域" width="60"></div>
+            <div field="Lng" header="经度" width="80"></div>
+            <div field="Lat" header="纬度" width="80"></div>
+            <div field="Map" header="导航图" width="50"></div>
+            <div field="File" header="附件" width="50"></div>
+            <div field="FeedBackContent" header="反馈内容" width="200"></div>
+            <div field="DoFullName" header="处理人" width="60"></div>
+            <div type="comboboxcolumn" field="DoState" header="处理状态" width="80">
+                <input property="editor" class="mini-combobox" style="width: 100%;" data=@Html.Raw(ViewData["DoState"]) />
+            </div>
+            <div field="FeedBackResult" header="反馈结果" width="200"></div>
+            <div field="FullName" header="申请人" width="60"></div>
+            <div field="DepartmentName" header="申请部门" width="100"></div>
+            <div field="CreateDate" header="申请日期" width="80" dateformat="yyyy-MM-dd"></div>
+        </div>
+    </div>
+</div>
+<div id="winQuery" class="mini-window" style="width: 350px; height: 220px;"
+     showmodal="true" allowresize="false" title="查询条件">
+    <table style="width: 100%;">
+        <tr>
+            <td style="width: 80px; text-align: right;">申请日期</td>
+            <td>
+                <table border="0" cellpadding="0" cellspacing="0">
+                    <tr>
+                        <td><input id="dpBeginDate" class="mini-datepicker" style="width:98px;" value="new Date()" showclearbutton="false" allowinput="false" /></td>
+                        <td>至</td>
+                        <td><input id="dpEndDate" class="mini-datepicker" style="width:98px;" value="new Date()" showclearbutton="false" allowinput="false" /></td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 80px; text-align: right;">区域</td>
+            <td>
+                <input id="cbAreaId" class="mini-combobox" value="00000000-0000-0000-0000-000000000000" style="width:208px;" textfield="AreaName" valuefield="Id" data=@Html.Raw(ViewData["AreasByAll"]) />
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 80px; text-align: right;">盲点地名</td>
+            <td>
+                <input id="txtPlaceName" class="mini-textbox" style="width:208px;" />
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 80px; text-align: right;">处理状态</td>
+            <td>
+                <input id="cbDoState" class="mini-combobox" value="0" style="width:208px;" data=@Html.Raw(ViewData["DoStateByAll"]) />
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 80px; text-align: right;">申请人</td>
+            <td>
+                <input id="beCreateUserId" style="width:208px;" allowinput="false" class="mini-buttonedit searchbox" showclose="true" text="全部" value="00000000-0000-0000-0000-000000000000"
+                       onbuttonclick="onCreateUserSelectButtonClick" oncloseclick="onCreateUserSelectButtonCloseClick" />
+            </td>
+        </tr>
+    </table>
+    <div style="text-align: center; padding: 10px;">
+        <a class="mini-button" iconcls="icon-ok" onclick="onOKClick">确定</a>
+    </div>
+</div>
+<div id="winBlindSpotFeedBack" class="mini-window" style="width: 350px; height: 340px;"
+     showmodal="true" allowresize="false">
+    <div id="frmBlindSpotFeedBack" class="form">
+        <input class="mini-hidden" id="Id" name="Id" />
+        <input class="mini-hidden" id="FileIdList" name="FileIdList" />
+        <div title="盲点反馈" style="height:100%">
+            <table style="width: 100%;">
+                <tr>
+                    <td style="width: 80px; text-align: right;">区域</td>
+                    <td>
+                        <input id="AreaId" name="AreaId" class="mini-combobox" value="00000000-0000-0000-0000-000000000000" style="width:200px;" textfield="AreaName" valuefield="Id" data=@Html.Raw(ViewData["AreasBySelect"])
+                               enabled="false" />
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 80px; text-align: right;">盲点地名</td>
+                    <td>
+                        <input id="PlaceName" name="PlaceName" class="mini-textbox" readonly="true" style="width: 200px;" />
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 80px; text-align: right;">经度</td>
+                    <td>
+                        <input id="Lng" name="Lng" class="mini-textbox" vtype='float' requirederrortext="请输入经度" required="true" style="width: 200px;" />
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 80px; text-align: right;">纬度</td>
+                    <td>
+                        <input id="Lat" name="Lat" class="mini-textbox" vtype='float' requirederrortext="请输入纬度" required="true" style="width: 200px;" />
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 80px; text-align: right;">导航图</td>
+                    <td>
+                        <a class="navigationmapedit" onclick="onMapEditClick();"></a>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 80px; text-align: right;">附件</td>
+                    <td>
+                        <table>
+                            <tr>
+                                <td style="width:16px">
+                                    <a class="fileedit" onclick="onFileEditClick();"></a>
+                                </td>
+                                <td>
+                                    附件数量：<input id="Count" name="Count" class="mini-textbox" data=@Html.Raw(ViewData["Count"]) />
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 80px; text-align: right;">反馈内容</td>
+                    <td>
+                        <input id="FeedBackContent" name="FeedBackContent" class="mini-textarea" readonly="true" style="width: 200px; height: 40px;" />
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 80px; text-align: right;">反馈结果</td>
+                    <td>
+                        <input id="FeedBackResult" name="FeedBackResult" class="mini-textarea" requirederrortext="请输入反馈结果" required="true" style="width: 200px; height: 40px;" />
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div style="text-align: center; padding: 10px;">
+            <a class="mini-button" iconcls="icon-save" onclick="onSaveClick" style="margin-right: 10px;">保存</a>
+            <a class="mini-button" iconcls="icon-cancel" onclick="onClearClick">清空</a>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    mini.parse();
+
+    var btnSearch = mini.get("btnSearch");
+    var dgBlindSpotFeedBack = mini.get("dgBlindSpotFeedBack");
+    var winQuery = mini.get("winQuery");
+    var dpBeginDate = mini.get("dpBeginDate");
+    var dpEndDate = mini.get("dpEndDate");
+    var cbAreaId = mini.get("cbAreaId");
+    var txtPlaceName = mini.get("txtPlaceName");
+    var cbDoState = mini.get("cbDoState");
+    var beCreateUserId = mini.get("beCreateUserId");
+
+    var winBlindSpotFeedBack = mini.get("winBlindSpotFeedBack");
+    var frmBlindSpotFeedBack = new mini.Form("#frmBlindSpotFeedBack");
+    var txtBlindSpotFeedBackId = mini.get("Id");
+    var cb_AreaId = mini.get("AreaId");
+    var txt_PlaceName = mini.get("PlaceName");
+    var txtLng = mini.get("Lng");
+    var txtLat = mini.get("Lat");
+    var txtFileIdList = mini.get("FileIdList");
+    var txtFeedBackContent = mini.get("FeedBackContent");
+    var txtFeedBackResult = mini.get("FeedBackResult");
+
+    var count = mini.get("Count");
+    count.setWidth("10px");
+    if (count.setReadOnly) count.setReadOnly(true);     //只读
+    if (count.setIsValid) count.setIsValid(true);      //去除错误提示
+    if (count.addCls) count.addCls("asLabel");          //增加asLabel外观
+
+    Init();
+
+    function Init() {
+        dpBeginDate.setValue(new Date().DateAdd("y", -1));
+        BindDgBlindSpotFeedBack();
+    }
+
+    function BindDgBlindSpotFeedBack() {
+        btnSearch.setEnabled(false);
+        var query_BeginDate = dpBeginDate.getFormValue();
+        var query_EndDate = dpEndDate.getFormValue();
+        var query_AreaId = cbAreaId.getValue();
+        var query_PlaceName = txtPlaceName.getValue();
+        var query_DoState = cbDoState.getValue();
+        var query_CreateUserId = beCreateUserId.getValue();
+        if (dgBlindSpotFeedBack.getUrl() == "") {
+            dgBlindSpotFeedBack.setUrl("@Url.RouteUrl(new { controller = "BaseStationBM", action = "GetBlindSpotFeedBacksPage" })");
+        }
+        dgBlindSpotFeedBack.clearSelect(false);
+        dgBlindSpotFeedBack.load({
+            BeginDate: query_BeginDate, EndDate: query_EndDate, AreaId: query_AreaId, PlaceName: query_PlaceName,
+            DoState: query_DoState, CreateUserId: query_CreateUserId
+        });
+    }
+
+    function onDgBlindSpotFeedBackLoad() {
+        btnSearch.setEnabled(true);
+    }
+
+    function onDrawCell(e) {
+        if (e.field == "Map") {
+            e.cellHtml = "<a class='navigationmap' onclick='onMapClick(\"" + e.record.Id + "\");'></a>";
+        }
+        if (e.field == "File" && e.record.Id != "00000000-0000-0000-0000-000000000000" && e.record.IsFile != '') {
+            e.cellHtml = "<a class='file' onclick='onFileClick(\"" + e.record.Id + "\");'></a>";
+        }
+    }
+
+    function onMapClick(id) {
+        var el = dgBlindSpotFeedBack.getEl();
+        mini.mask({
+            el: el,
+            cls: 'mini-mask-loading',
+            html: '加载中...'
+        });
+        setTimeout(function () {
+            var url, data, getId;
+
+            url = "@Url.RouteUrl(new { controller = "Map", action = "GetBlindSpotFeedBackPoint" })";
+            data = { BlindSpotFeedBackId: id, AreaId: "00000000-0000-0000-0000-000000000000", PlaceName: "", Lng: 0, Lat: 0, Profession: 1 };
+            getId = id;
+            $.ajax({
+                url: url,
+                data: data,
+                type: "get",
+                async: false,
+                success: function (result, textStatus) {
+                    mini.unmask(el);
+                    if (result.Id != null && result.Id == getId) {
+                        var title;
+                        title = result.PlaceName;
+                        mini.open({
+                            url: "@Url.RouteUrl(new { controller = "Map", action = "NavigationMap" })",
+                            title: title,
+                            iconCls: "icon-map",
+                            width: 800,
+                            height: 550,
+                            showMaxButton: true,
+                            onload: function () {
+                                var iframe = this.getIFrameEl();
+                                var data = result;
+                                iframe.contentWindow.SetData(data);
+                            }
+                        });
+                    }
+                },
+                error: function (xmlHttpRequest, textStatus, errorThrown) {
+                    mini.unmask(el);
+                }
+            });
+        }, 50);
+    }
+
+    function onCreateUserSelectButtonClick() {
+        var beSelect = this;
+        mini.open({
+            url: "@Url.RouteUrl(new { controller = "CustomControl", action = "UserSelection" })",
+            title: "选择用户",
+            width: 620,
+            height: 350,
+            allowResize: false,
+            ondestroy: function (action) {
+                if (action == "ok") {
+                    var iframe = this.getIFrameEl();
+                    var data = iframe.contentWindow.GetData();
+                    data = mini.clone(data);
+                    beSelect.setValue(data.id);
+                    beSelect.setText(data.text);
+                    beSelect.validate();
+                }
+                else if (action == "cancel") {
+                    beSelect.setValue("00000000-0000-0000-0000-000000000000");
+                    beSelect.setText("全部");
+                    beSelect.validate();
+                }
+            }
+        });
+    }
+
+    function onCreateUserSelectButtonCloseClick() {
+        this.setValue("00000000-0000-0000-0000-000000000000");
+        this.setText("全部");
+        this.validate();
+    }
+
+    function onAreaIdValidation(e) {
+        if (e.isValid) {
+            if (e.value == "00000000-0000-0000-0000-000000000000") {
+                e.errorText = "请选择区域";
+                e.isValid = false;
+            }
+        }
+    }
+
+    function onMapEditClick() {
+        var el = winBlindSpotFeedBack.getEl();
+        mini.mask({
+            el: el,
+            cls: 'mini-mask-loading',
+            html: '加载中...'
+        });
+        setTimeout(function () {
+            var url, data, getId;
+            url = "@Url.RouteUrl(new { controller = "Map", action = "GetBlindSpotFeedBackPoint" })";
+            data = { BlindSpotFeedBackId: txtBlindSpotFeedBackId.getValue(), AreaId: cb_AreaId.getValue(), PlaceName: txt_PlaceName.getValue(), Lng: txtLng.getValue(), Lat: txtLat.getValue(), Profession: 1 };
+            getId = txtBlindSpotFeedBackId.getValue();
+
+            $.ajax({
+                url: url,
+                data: data,
+                type: "get",
+                async: false,
+                success: function (result, textStatus) {
+                    mini.unmask(el);
+                    if (result.Id != null && result.Id == getId) {
+                        var title;
+                        title = result.PlanningName;
+                        mini.open({
+                            url: "@Url.RouteUrl(new { controller = "Map", action = "NavigationMap" })",
+                            title: title,
+                            iconCls: "icon-map",
+                            width: 800,
+                            height: 550,
+                            showMaxButton: true,
+                            onload: function () {
+                                var iframe = this.getIFrameEl();
+                                var data = result;
+                                iframe.contentWindow.SetDataEdit(data);
+                            },
+                            ondestroy: function (action) {
+                                if (action == "ok") {
+                                    var iframe = this.getIFrameEl();
+                                    var data = iframe.contentWindow.GetData();
+                                    data = mini.clone(data);
+                                    txtLng.setValue(data.Lng);
+                                    txtLat.setValue(data.Lat);
+                                }
+                            }
+                        });
+                    }
+                },
+                error: function (xmlHttpRequest, textStatus, errorThrown) {
+                    mini.unmask(el);
+                }
+            });
+        }, 50);
+    }
+
+    function onSearchClick() {
+        winQuery.show();
+    }
+
+    function onOKClick() {
+        BindDgBlindSpotFeedBack();
+        winQuery.hide();
+    }
+
+    function onEditClick() {
+        var rows = dgBlindSpotFeedBack.getSelecteds();
+        if (rows.length == 0) {
+            mini.alert("请选择一条要盲点处理的数据");
+        }
+        else {
+            ClearFrmBlindSpotFeedBack();
+            winBlindSpotFeedBack.setTitle("盲点处理");
+            winBlindSpotFeedBack.show();
+            var el = winBlindSpotFeedBack.getEl();
+            mini.mask({
+                el: el,
+                cls: 'mini-mask-loading',
+                html: '加载中...'
+            });
+            setTimeout(function () {
+                $.ajax({
+                    url: "@Url.RouteUrl(new { controller = "BaseStationBM", action = "GetBlindSpotFeedBackById" })" + "/" + rows[0].Id,
+                    type: "get",
+                    async: false,
+                    success: function (result, textStatus) {
+                        if (result.Id != null && result.Id == rows[0].Id) {
+                            frmBlindSpotFeedBack.setData(result);                            
+                            txtFeedBackResult.focus();
+                        }
+                        else {
+                            winBlindSpotFeedBack.hide();
+                        }
+                    },
+                    error: function (xmlHttpRequest, textStatus, errorThrown) {
+                        winBlindSpotFeedBack.hide();
+                    }
+                });
+            }, 50);
+            setTimeout(function () {
+                mini.unmask(el);
+            }, 300);
+        }
+    }
+
+    function onClearClick() {
+        ClearFrmBlindSpotFeedBack();
+        txtFeedBackResult.focus();
+    }
+
+    function onSaveClick() {
+        frmBlindSpotFeedBack.validate();
+        if (frmBlindSpotFeedBack.isValid() == false) return;
+        var loading = mini.loading("处理中,请稍后...", "保存数据");
+        var jsonData = mini.encode(frmBlindSpotFeedBack.getData());
+        $.ajax({
+            url: "@Url.RouteUrl(new { controller = "BaseStationBM", action = "SaveBlindSpotHanding" })",
+            data: AddAntiForgeryToken({ data: jsonData }),
+            type: "post",
+            success: function (result, textStatus) {
+                mini.hideMessageBox(loading);
+                if (result.Code != null && result.Code == 0) {
+                    winBlindSpotFeedBack.hide();
+                    ShowSucessMessage(result.Message);
+                    BindDgBlindSpotFeedBack();
+                }
+            },
+            error: function (xmlHttpRequest, textStatus, errorThrown) {
+                mini.hideMessageBox(loading);
+            }
+        });
+    }
+
+    function ClearFrmBlindSpotFeedBack() {
+        var idValue = txtBlindSpotFeedBackId.getValue();
+        var areaId = cb_AreaId.getValue();
+        var placeName = txt_PlaceName.getValue();
+        var lng = txtLng.getValue();
+        var lat = txtLat.getValue();
+        var feedBackContent = txtFeedBackContent.getValue();
+        var fileList = txtFileIdList.getValue();
+        var fileCount = count.getValue();
+        frmBlindSpotFeedBack.clear();
+        txtBlindSpotFeedBackId.setValue(idValue);
+        cb_AreaId.setValue(areaId);
+        txt_PlaceName.setValue(placeName);
+        txtLng.setValue(lng);
+        txtLat.setValue(lat);
+        txtFeedBackContent.setValue(feedBackContent);
+        txtFileIdList.setValue(fileList);
+        count.setValue(fileCount);
+    }
+
+    function onFileClick(id) {
+        var el = winBlindSpotFeedBack.getEl();
+        mini.mask({
+            el: el,
+            cls: 'mini-mask-loading',
+            html: '加载中...'
+        });
+        setTimeout(function () {
+            $.ajax({
+                url: "@Url.RouteUrl(new { controller = "File", action = "GetBlindSpotFeedBackFiles" })",
+                data: { BlindSpotFeedBackId: id, FileIdList: "" },
+                type: "get",
+                async: false,
+                success: function (result, textStatus) {
+                    mini.unmask(el);
+                    if (result.Code == null || !result.Code) {
+                        mini.open({
+                            url: "@Url.RouteUrl(new { controller = "File", action = "FileManager" })",
+                            title: "附件",
+                            iconCls: "icon-file",
+                            width: 620,
+                            height: 250,
+                            allowResize: false,
+                            onload: function () {
+                                var iframe = this.getIFrameEl();
+                                var data = result;
+                                iframe.contentWindow.SetData(data);
+                            }
+                        });
+                    }
+                },
+                error: function (xmlHttpRequest, textStatus, errorThrown) {
+                    mini.unmask(el);
+                }
+            });
+        }, 50);
+    }
+
+    function onFileEditClick() {
+        var el = winBlindSpotFeedBack.getEl();
+        mini.mask({
+            el: el,
+            cls: 'mini-mask-loading',
+            html: '加载中...'
+        });
+        setTimeout(function () {
+            $.ajax({
+                url: "@Url.RouteUrl(new { controller = "File", action = "GetBlindSpotFeedBackFiles" })",
+                data: { BlindSpotFeedBackId: txtBlindSpotFeedBackId.getValue(), FileIdList: txtFileIdList.getValue() },
+                type: "get",
+                async: false,
+                success: function (result, textStatus) {
+                    mini.unmask(el);
+                    if (result.Code == null || !result.Code) {
+                        mini.open({
+                            url: "@Url.RouteUrl(new { controller = "File", action = "FileManager" })",
+                            title: "附件",
+                            iconCls: "icon-file",
+                            width: 620,
+                            height: 250,
+                            allowResize: false,
+                            onload: function () {
+                                var iframe = this.getIFrameEl();
+                                var data = result;
+                                iframe.contentWindow.SetDataEdit(data);
+                            },
+                            ondestroy: function (action) {
+                                if (action == "ok") {
+                                    var iframe = this.getIFrameEl();
+                                    var data = iframe.contentWindow.GetData();
+                                    data = mini.clone(data);
+                                    txtFileIdList.setValue(data.FileIdList);
+                                }
+                            }
+                        });
+                    }
+                },
+                error: function (xmlHttpRequest, textStatus, errorThrown) {
+                    mini.unmask(el);
+                }
+            });
+        }, 50);
+    }
+</script>

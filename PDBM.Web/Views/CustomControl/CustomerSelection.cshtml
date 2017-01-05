@@ -1,0 +1,119 @@
+﻿<div id="myToolbar" class="mini-toolbar" style="border-left:0px; border-right:0px; border-top:0px; padding: 0px;">
+    <table style="width: 100%;" cellpadding="0" cellspacing="0">
+        <tr>
+            <td style="width: 100%;"></td>
+            <td style="white-space: nowrap;">
+                <a id="btnSearch" class="mini-button" iconcls="icon-search" plain="true" onclick="onSearchClick">查询</a>
+                <a class="mini-button" iconcls="icon-cancel" plain="true" onclick="onCancelClick">取消</a>
+            </td>
+        </tr>
+    </table>
+</div>
+<table style="width: 100%;">
+    <tr>
+        <td style="width: 80px; text-align: right;">单位编码</td>
+        <td>
+            <input id="txtCustomerCode" class="mini-textbox" onenter="onTextBoxEnter" />
+        </td>
+        <td style="width: 80px; text-align: right;">单位简称</td>
+        <td>
+            <input id="txtCustomerName" class="mini-textbox" onenter="onTextBoxEnter" />
+        </td>
+        <td style="width: 80px; text-align: right;">单位全称</td>
+        <td>
+            <input id="txtCustomerFullName" class="mini-textbox" onenter="onTextBoxEnter" />
+        </td>
+    </tr>
+</table>
+<div class="mini-fit">
+    <div id="dgCustomer" class="mini-datagrid" style="width: 100%; height: 100%;" idfield="Id" allowmovecolumn="false" borderstyle="border-left: 0px; border-right: 0px; border-bottom: 0px;"
+         multiselect="false" showreloadbutton="false" pagesize="10" sizelist="[10,25,50]" fitcolumns="false" onlycheckselection="true" onload="onDgCustomerLoad" onrowdblclick="onDgCustomerRowDblClick" ondrawcell="onDrawCell">
+        <div property="columns">
+            <div type="indexcolumn"></div>
+            <div type="comboboxcolumn" field="CustomerType" header="单位类型" width="80">
+                <input property="editor" class="mini-combobox" style="width: 100%;" data=@Html.Raw(ViewData["CustomerType"]) />
+            </div>
+            <div field="CustomerCode" header="单位编码" width="70"></div>
+            <div field="CustomerName" header="单位简称" width="180"></div>
+            <div field="CustomerFullName" header="单位全称" width="180"></div>
+            <div field="ContactMan" header="联系人" width="70"></div>
+            <div field="ContactTel" header="联系方式" width="100"></div>
+            <div field="ContactAddr" header="联系地址" width="100"></div>
+            <div type="comboboxcolumn" field="State" header="状态" width="70">
+                <input property="editor" class="mini-combobox" style="width: 100%;" data=@Html.Raw(ViewData["State"]) />
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    mini.parse();
+
+    var btnSearch = mini.get("btnSearch");
+    var txtCustomerCode = mini.get("txtCustomerCode");
+    var txtCustomerName = mini.get("txtCustomerName");
+    var txtCustomerFullName = mini.get("txtCustomerFullName");
+    var dgCustomer = mini.get("dgCustomer");
+    var data = {};
+
+    Init();
+
+    function Init() {
+        BindDgCustomer();
+        txtCustomerCode.focus();
+    }
+
+    function BindDgCustomer() {
+        btnSearch.setEnabled(false);
+        var query_CustomerCode = txtCustomerCode.getValue();
+        var query_CustomerName = txtCustomerName.getValue();
+        var query_CustomerFullName = txtCustomerFullName.getValue();
+        if (dgCustomer.getUrl() == "") {
+            dgCustomer.setUrl("@Url.RouteUrl(new { controller = "BaseData", action = "GetCustomersPageBySelect" })");
+        }
+        dgCustomer.clearSelect(false);
+        dgCustomer.load({ CustomerCode: query_CustomerCode, CustomerName: query_CustomerName, CustomerFullName: query_CustomerFullName,CustomerType: "@ViewData["TypeId"]"});
+    }
+
+    function onDgCustomerLoad() {
+        btnSearch.setEnabled(true);
+    }
+
+    function onDrawCell(e) {
+        if (e.field == "State" && e.value == 2) {
+            e.cellStyle = "color:red;";
+        }
+    }
+
+    function onDgCustomerRowDblClick(e) {
+        data = {};
+        data.id = e.record.Id;
+        data.text = e.record.CustomerName;
+        CloseWindow("ok");
+    }
+
+    function GetData() {
+        return data;
+    }
+
+    function CloseWindow(action) {
+        if (window.CloseOwnerWindow) {
+            return window.CloseOwnerWindow(action);
+        }
+        else {
+            window.close();
+        }
+    }
+
+    function onTextBoxEnter() {
+        BindDgCustomer();
+    }
+
+    function onSearchClick() {
+        BindDgCustomer();
+    }
+
+    function onCancelClick() {
+        data = {};
+        CloseWindow("cancel");
+    }
+</script>

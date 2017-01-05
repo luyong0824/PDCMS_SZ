@@ -1,0 +1,165 @@
+﻿<div id="myToolbar" class="mini-toolbar" style="border-bottom: 0px; padding: 0px;">
+    <table style="width: 100%;" cellpadding="0" cellspacing="0">
+        <tr>
+            <td style="width: 100%;">
+                <a class="mini-button" iconcls="icon-help" plain="true" href="@Url.RouteUrl(new { controller = "File", action = "DownloadHelpFiles" })?FileName=WFInstanceQuery" target="_blank"></a>当前位置：业务流程>公文管理>公文查询
+            </td>
+            <td style="white-space: nowrap;">
+                <a id="btnSearch" class="mini-button" iconcls="icon-search" plain="true" onclick="onSearchClick">查询</a>
+            </td>
+        </tr>
+    </table>
+</div>
+<div class="mini-fit">
+    <div id="dgWFProcessInstance" class="mini-datagrid" style="width: 100%; height: 100%;" idfield="Id" allowmovecolumn="false"
+         multiselect="true" fitcolumns="false" onlycheckselection="true" showreloadbutton="false" pagesize="15" sizelist="[15,30,50,100]"
+         onload="onDgWFProcessInstanceLoad" onrowclick="onDgWFProcessInstanceRowClick">
+        <div property="columns">
+            <div type="indexcolumn"></div>
+            <div field="WFProcessInstanceCode" header="公文编码" width="130"></div>
+            <div field="WFProcessInstanceName" header="标题" width="180"></div>
+            <div field="WFProcessName" header="流程名称" width="150"></div>
+            <div type="comboboxcolumn" field="WFProcessInstanceState" header="公文状态" width="80">
+                <input property="editor" class="mini-combobox" style="width: 100%;" data=@Html.Raw(ViewData["WFProcessInstanceState"]) />
+            </div>
+            <div field="FullName" header="发起人" width="80"></div>
+            <div field="CreateDate" header="发起日期" width="80" dateformat="yyyy-MM-dd"></div>
+        </div>
+    </div>
+</div>
+<div id="winQuery" class="mini-window" style="width: 350px; height: 240px;"
+     showmodal="true" allowresize="false" title="查询条件">
+    <table style="width: 100%;">
+        <tr>
+            <td style="width: 80px; text-align: right;">发起日期</td>
+            <td>
+                <table border="0" cellpadding="0" cellspacing="0">
+                    <tr>
+                        <td><input id="dpBeginDate" class="mini-datepicker" style="width:98px;" value="new Date()" showclearbutton="false" allowinput="false" /></td>
+                        <td>至</td>
+                        <td><input id="dpEndDate" class="mini-datepicker" style="width:98px;" value="new Date()" showclearbutton="false" allowinput="false" /></td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 80px; text-align: right;">公文编码</td>
+            <td>
+                <input id="txtWFProcessInstanceCode" class="mini-textbox" style="width:208px;" />
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 80px; text-align: right;">标题</td>
+            <td>
+                <input id="txtWFProcessInstanceName" class="mini-textbox" style="width:208px;" />
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 80px; text-align: right;">流程</td>
+            <td>
+                <input id="cbWFProcessId" class="mini-combobox" style="width:208px;" textfield="WFProcessName" valuefield="Id" value="00000000-0000-0000-0000-000000000000" data=@Html.Raw(ViewData["WFProcesses"]) />
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 80px; text-align: right;">公文状态</td>
+            <td>
+                <input id="cbWFProcessInstanceState" class="mini-combobox" value="0" style="width:208px;" data=@Html.Raw(ViewData["WFProcessInstanceStateByAll"]) />
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 80px; text-align: right;">发起人</td>
+            <td>
+                <input id="beCreateUserId" style="width:208px;" allowinput="false" class="mini-buttonedit searchbox" showclose="true" text="全部" value="00000000-0000-0000-0000-000000000000"
+                       onbuttonclick="onCreateUserSelectButtonClick" oncloseclick="onCreateUserSelectButtonCloseClick" />
+            </td>
+        </tr>
+    </table>
+    <div style="text-align: center; padding: 10px;">
+        <a class="mini-button" iconcls="icon-ok" onclick="onOKClick">确定</a>
+    </div>
+</div>
+<script type="text/javascript">
+    mini.parse();
+
+    var btnSearch = mini.get("btnSearch");
+    var dgWFProcessInstance = mini.get("dgWFProcessInstance");
+    var winQuery = mini.get("winQuery");
+    var dpBeginDate = mini.get("dpBeginDate");
+    var dpEndDate = mini.get("dpEndDate");
+    var txtWFProcessInstanceCode = mini.get("txtWFProcessInstanceCode");
+    var txtWFProcessInstanceName = mini.get("txtWFProcessInstanceName");
+    var cbWFProcessId = mini.get("cbWFProcessId");
+    var cbWFProcessInstanceState = mini.get("cbWFProcessInstanceState");
+    var beCreateUserId = mini.get("beCreateUserId");
+
+    Init();
+
+    function Init() {
+        dpBeginDate.setValue(new Date().DateAdd("m", -1));
+    }
+
+    function onCreateUserSelectButtonClick() {
+        var beSelect = this;
+        mini.open({
+            url: "@Url.RouteUrl(new { controller = "CustomControl", action = "UserSelection" })",
+            title: "选择用户",
+            width: 620,
+            height: 350,
+            allowResize: false,
+            ondestroy: function (action) {
+                if (action == "ok") {
+                    var iframe = this.getIFrameEl();
+                    var data = iframe.contentWindow.GetData();
+                    data = mini.clone(data);
+                    beSelect.setValue(data.id);
+                    beSelect.setText(data.text);
+                    beSelect.validate();
+                }
+                else if (action == "cancel") {
+                    beSelect.setValue("00000000-0000-0000-0000-000000000000");
+                    beSelect.setText("全部");
+                    beSelect.validate();
+                }
+            }
+        });
+    }
+
+    function onCreateUserSelectButtonCloseClick() {
+        this.setValue("00000000-0000-0000-0000-000000000000");
+        this.setText("全部");
+        this.validate();
+    }
+
+    function BindDgWFProcessInstance() {
+        btnSearch.setEnabled(false);
+        var query_BeginDate = dpBeginDate.getFormValue();
+        var query_EndDate = dpEndDate.getFormValue();
+        var query_WFProcessInstanceCode = txtWFProcessInstanceCode.getValue();
+        var query_WFProcessInstanceName = txtWFProcessInstanceName.getValue();
+        var query_WFProcessId = cbWFProcessId.getValue();
+        var query_WFProcessInstanceState = cbWFProcessInstanceState.getValue();
+        var query_CreateUserId = beCreateUserId.getValue();
+        if (dgWFProcessInstance.getUrl() == "") {
+            dgWFProcessInstance.setUrl("@Url.RouteUrl(new { controller = "WorkFlow", action = "GetWFProcessInstancesPage" })");
+        }
+        dgWFProcessInstance.clearSelect(false);
+        dgWFProcessInstance.load({ BeginDate: query_BeginDate, EndDate: query_EndDate, WFProcessInstanceCode: query_WFProcessInstanceCode, WFProcessInstanceName: query_WFProcessInstanceName, WFProcessId: query_WFProcessId, WFProcessInstanceState: query_WFProcessInstanceState, CreateUserId: query_CreateUserId });
+    }
+
+    function onDgWFProcessInstanceLoad() {
+        btnSearch.setEnabled(true);
+    }
+
+    function onDgWFProcessInstanceRowClick(e) {
+        OpenPrintWindow("@Url.RouteUrl(new { controller = "", action = "" })" + e.record.PrintUrl);
+    }
+
+    function onSearchClick() {
+        winQuery.show();
+    }
+
+    function onOKClick() {
+        BindDgWFProcessInstance();
+        winQuery.hide();
+    }
+</script>

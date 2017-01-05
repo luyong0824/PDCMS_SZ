@@ -1,0 +1,1038 @@
+﻿<table style="width: 100%;">
+    <tr>
+        <td style="width: 60px; text-align: right;">发送日期</td>
+        <td colspan="3" style="width: 200px;">
+            <input id="txtCreateDate" name="txtCreateDate" class="mini-textbox" style="width: 200px;" enabled="false" value="@ViewData["CreateDate"]" />
+        </td>
+        <td rowspan="8">
+            <div class="mini-fit">
+                <div class="mini-tabs" activeindex="0" style="width: 100%; height: 100%;" plain="true">
+                    <div title="流程步骤">
+                        <div class="mini-fit">
+                            <div id="dgWFActivityInstance" class="mini-datagrid" style="width: 100%; height: 100%;" idfield="Id" allowmovecolumn="false"
+                                 multiselect="true" showpager="false" fitcolumns="false" onlycheckselection="true" url="@Url.RouteUrl(new { controller = "WorkFlow", action = "GetWFActivityInstances" })"
+                                 ondrawcell="onDrawCell">
+                                <div property="columns">
+                                    <div field="IsFile" header=""></div>
+                                    <div field="SerialId" header="步骤顺序" width="60"></div>
+                                    <div field="WFActivityInstanceName" header="步骤名称" width="70"></div>
+                                    <div field="FullName" header="用户" width="80"></div>
+                                    <div type="comboboxcolumn" field="WFActivityOperate" header="操作类型" width="60">
+                                        <input property="editor" class="mini-combobox" style="width: 100%;" data=@Html.Raw(ViewData["WFActivityOperate"]) />
+                                    </div>
+                                    <div type="comboboxcolumn" field="WFActivityInstanceResult" header="操作结果" width="60">
+                                        <input property="editor" class="mini-combobox" style="width: 100%;" data=@Html.Raw(ViewData["WFActivityInstanceResult"]) />
+                                    </div>
+                                    <div field="Content" header="内容" width="160"></div>
+                                    <div field="File" header="附件" width="40"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td style="width: 60px; text-align: right;">发送人</td>
+        <td colspan="3" style="width: 200px;">
+            <input id="txtFullName" name="txtFullName" class="mini-textbox" style="width: 200px;" enabled="false" value="@ViewData["FullName"]" />
+        </td>
+    </tr>
+    <tr>
+        <td style="width: 60px; text-align: right;">标题</td>
+        <td colspan="3" style="width: 200px;">
+            <input id="txtWFProcessInstanceName" name="txtWFProcessInstanceName" class="mini-textbox" style="width: 200px;" enabled="false" value="@ViewData["WFProcessInstanceName"]" />
+        </td>
+    </tr>
+    <tr>
+        <td style="width: 60px; text-align: right;">流程</td>
+        <td colspan="3" style="width: 200px;">
+            <input id="txtWFProcessName" name="txtWFProcessName" class="mini-textbox" style="width: 200px;" enabled="false" value="@ViewData["WFProcessName"]" />
+        </td>
+    </tr>
+    <tr>
+        <td style="width: 60px; text-align: right;">单据编码</td>
+        <td colspan="3" style="width: 200px;">
+            <input id="txtWFProcessInstanceCode" name="txtWFProcessInstanceCode" class="mini-textbox" style="width: 200px;" enabled="false" value="@ViewData["WFProcessInstanceCode"]" />
+        </td>
+    </tr>
+    <tr>
+        <td style="width: 60px; text-align: right;">内容</td>
+        <td colspan="3" style="width: 200px;">
+            <input id="txtContent" name="txtContent" class="mini-textarea" style="width: 200px; height: 40px;" enabled="false" value="@ViewData["WFProcessInstanceContent"]" />
+        </td>
+    </tr>
+    <tr>
+        <td style="width: 60px; text-align: right;">单据查看</td>
+        <td style="width: 80px;">
+            <a class="showdocument" onclick="onShowDocumentClick();" />
+        </td>
+        <td style="width: 80px; text-align: right; display: none;">附件查看</td>
+        <td style="width: 40px; display: none;">
+            <a class="fileedit" onclick="onFileShowClick();" />
+        </td>
+    </tr>
+    <tr>
+        <td colspan="4" style="width:260px">
+            <div id="divEdit">
+                <table style="width:260px">
+                    <tr>
+                        <td style="width: 60px; text-align: right;">单据编辑</td>
+                        <td style="width: 80px;">
+                            <a class="showeditor" onclick="onShowEditClick();" />
+                        </td>
+                        <td colspan="2">
+                            &nbsp;
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </td>
+    </tr>
+</table>
+<fieldset style="width:824px; height:218px; border:solid 1px #aaa;margin-top:5px;position:relative;">
+    <legend><b>批阅处理</b></legend>
+    <table style="width: 100%;" border="0">
+        <tr>
+            <td align="center">
+                <table border="0" cellpadding="0" cellspacing="0">
+                    <tr>
+                        <td>附件上传</td>
+                        <td style="width:60px;">
+                            <a class="fileedit" onclick="onFileEditClick();" />
+                            <input class="mini-hidden" id="txtFileIdList" name="txtFileIdList" />
+                        </td>
+                        <td>
+                            <input id="cbWFActivityInstanceFlow" name="cbWFActivityInstanceFlow" class="mini-combobox" style="width: 115px;" value="1" data=@Html.Raw(ViewData["WFActivityInstanceFlow"]) visible="@ViewData["OKVisible"]" onvaluechanged="onWFActivityInstanceFlowValueChanged" />
+                        </td>
+                        <td>
+                            &nbsp;<a id="btnOK" class="mini-button" iconcls="icon-ok" plain="false" visible="@ViewData["OKVisible"]" onclick="onOKClick">确定</a>
+                            <a id="btnRead" class="mini-button" iconcls="icon-node" plain="false" visible="@ViewData["ReadVisible"]" onclick="onReadClick">已阅</a>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td align="center">
+                <div id="tabContent" class="mini-tabs" activeindex="0" style="width: 500px; height: 165px;" plain="true">
+                    <div title="内容">
+                        <input id="txtContent" name="txtContent" class="mini-textarea" style="width: 100%; height: 100%;" />
+                    </div>
+                    <div title="添加步骤" visible="false">
+                        <table cellpadding="0" cellspacing="0" style="width:100%;">
+                            <tr>
+                                <td style="height:100%;">
+                                    <div id="myToolbar" class="mini-toolbar" style="border-bottom: 0px; padding: 0px;">
+                                        <table style="width: 100%;" cellpadding="0" cellspacing="0">
+                                            <tr>
+                                                <td style="width: 100%;"></td>
+                                                <td style="white-space: nowrap;">
+                                                    <a id="btnAdd" class="mini-button" iconcls="icon-add" plain="true" onclick="onAddClick">添加</a>
+                                                    <a id="btnRemove" class="mini-button" iconcls="icon-remove" plain="true" onclick="onRemoveClick">删除</a>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                    <div id="dgWFActivity" class="mini-datagrid" style="width: 488px; height: 103px;" allowcelledit="true" allowcellselect="true" allowmovecolumn="false"
+                                         multiselect="true" showpager="false" fitcolumns="false" onlycheckselection="true" oncellbeginedit="onDgWFActivityCellBeginEdit" oncellcommitedit="onDgWFActivityCellCommitEdit" oncellendedit="onDgWFActivityCellEndEdit">
+                                        <div property="columns">
+                                            <div type="checkcolumn" width="25">&nbsp;</div>
+                                            <div field="WFActivityName" header="步骤名称" width="60">
+                                                <input property="editor" class="mini-textbox" style="width:100%;" />
+                                            </div>
+                                            <div type="comboboxcolumn" field="CompanyId" header="公司" width="70">
+                                                <input property="editor" class="mini-combobox" textfield="CompanyName" valuefield="Id" data=@Html.Raw(ViewData["Companys"]) />
+                                            </div>
+                                            <div field="DepartmentId" displayfield="DepartmentName" header="部门" width="90">
+                                                <input property="editor" class="mini-combobox" style="width:100%;" valuefield="Id" textfield="DepartmentName" />
+                                            </div>
+                                            <div field="UserId" displayfield="FullName" header="用户" width="75">
+                                                <input property="editor" class="mini-combobox" style="width:100%;" valuefield="Id" textfield="FullName" />
+                                            </div>
+                                            <div type="comboboxcolumn" field="WFActivityOperate" header="操作类型" width="65">
+                                                <input property="editor" class="mini-combobox" style="width:100%;" data=@Html.Raw(ViewData["WFActivityOperate"]) />
+                                            </div>
+                                            <div field="WFActivityEditorId" displayfield="WFActivityEditorName" header="编辑类型" width="90">
+                                                <input property="editor" class="mini-combobox" style="width:100%;" valuefield="Id" textfield="WFActivityEditorName" />
+                                            </div>
+                                            <div type="comboboxcolumn" field="IsMustEdit" displayfield="MustEditName" header="是否必须编辑" width="85">
+                                                <input property="editor" class="mini-combobox" style="width:100%;" data=@Html.Raw(ViewData["Bool"]) />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </td>
+        </tr>
+    </table>
+</fieldset>
+<script type="text/javascript">
+    mini.parse();
+
+    var dgWFActivityInstance = mini.get("dgWFActivityInstance");
+    var txtFileIdList = mini.get("txtFileIdList");
+    var cbWFActivityInstanceFlow = mini.get("cbWFActivityInstanceFlow");
+    var tabContent = mini.get("tabContent");
+    var txtContent = mini.get("txtContent");
+    var dgWFActivity = mini.get("dgWFActivity");
+    var returnData = {};
+    dgWFActivityInstance.hideColumn(0);
+    var companyId = "@ViewData["CompanyId"]";
+
+    Init();
+
+    function Init() {
+        if ("@ViewData["WFActivityInstanceState"]" == 2 && "@ViewData["WFActivityEditorId"]" != "") {
+            divEdit.style.display = "";
+        }
+        else {
+            divEdit.style.display = "none";
+        }
+        BindDgWFActivityInstance("@ViewData["WFProcessInstanceId"]");
+    }
+
+    function GetData() {
+        return returnData;
+    }
+
+    function CloseWindow(action) {
+        if (window.CloseOwnerWindow) {
+            return window.CloseOwnerWindow(action);
+        }
+        else {
+            window.close();
+        }
+    }
+
+    function BindDgWFActivityInstance(wfProcessInstanceId) {
+        dgWFActivityInstance.load({ WFProcessInstanceId: wfProcessInstanceId });
+    }
+
+    function onDrawCell(e) {
+        if (e.record.Id == "@ViewData["Id"]") {
+            e.rowCls = "rowIssued";
+        }
+        if (e.field == "File" && e.record.IsFile != "") {
+            e.cellHtml = "<a class='file' onclick='onFileClick(\"" + e.record.Id + "\");'></a>";
+        }
+    }
+
+    function onShowDocumentClick() {
+        @*OpenPrintWindow("@Url.RouteUrl(new { controller = "", action = "" })" + "@ViewData["PrintUrl"]");*@
+        var el = document.body;
+        mini.mask({
+            el: el,
+            cls: 'mini-mask-loading',
+            html: '加载中...'
+        });
+        setTimeout(function () {
+            mini.unmask(el);
+            mini.open({
+                url: "@Url.RouteUrl(new { controller = "", action = "" })" + "@ViewData["PrintUrl"]",
+                width: 1150,
+                height: 600,
+            });
+        }, 50);
+    }
+
+    function onShowEditClick() {
+        var el = document.body;
+        mini.mask({
+            el: el,
+            cls: 'mini-mask-loading',
+            html: '加载中...'
+        });
+        if ("@ViewData["EditorUrl"]" == "EditPage/BusinessAudit") {
+            setTimeout(function () {
+                mini.unmask(el);
+                mini.open({
+                    url: "@Url.RouteUrl(new { controller = "EditPage", action = "BusinessAudit" })" + "/" + "@ViewData["EntityId"]" + "?WFActivityInstanceId=" + "@ViewData["WFActivityInstanceId"]",
+                    title: "业务审核编辑",
+                    iconCls: "icon-editor",
+                    width: 600,
+                    height: 285,
+                });
+            }, 50);
+        }
+        else if ("@ViewData["EditorUrl"]" == "EditPage/TechnicalAudit") {
+            setTimeout(function () {
+                mini.unmask(el);
+                mini.open({
+                    url: "@Url.RouteUrl(new { controller = "EditPage", action = "TechnicalAudit" })" + "/" + "@ViewData["EntityId"]" + "?WFActivityInstanceId=" + "@ViewData["WFActivityInstanceId"]",
+                    title: "技术审核编辑",
+                    iconCls: "icon-editor",
+                    width: 600,
+                    height: 420,
+                });
+            }, 50);
+        }
+        else if ("@ViewData["EditorUrl"]" == "EditPage/AppointAreaAndDesignUser") {
+            setTimeout(function () {
+                mini.unmask(el);
+                mini.open({
+                    url: "@Url.RouteUrl(new { controller = "EditPage", action = "AppointAreaAndDesignUser" })" + "/" + "@ViewData["EntityId"]" + "?WFActivityInstanceId=" + "@ViewData["WFActivityInstanceId"]",
+                    title: "指定工程经理及总设单位",
+                    iconCls: "icon-editor",
+                    width: 600,
+                    height: 450,
+                });
+            }, 50);
+        }
+        else if ("@ViewData["EditorUrl"]" == "EditPage/ProjectDesign") {
+            setTimeout(function () {
+                mini.unmask(el);
+                mini.open({
+                    url: "@Url.RouteUrl(new { controller = "EditPage", action = "ProjectDesign" })" + "/" + "@ViewData["EntityId"]" + "?WFActivityInstanceId=" + "@ViewData["WFActivityInstanceId"]",
+                    title: "任务分配",
+                    iconCls: "icon-editor",
+                    width: 620,
+                    height: 570,
+                });
+            }, 50);
+        }
+        else if ("@ViewData["EditorUrl"]" == "EditPage/DesignDrawing") {
+            setTimeout(function () {
+                mini.unmask(el);
+                mini.open({
+                    url: "@Url.RouteUrl(new { controller = "EditPage", action = "DesignDrawing" })" + "/" + "@ViewData["EntityId"]" + "?WFActivityInstanceId=" + "@ViewData["WFActivityInstanceId"]",
+                    title: "项目设计",
+                    iconCls: "icon-editor",
+                    width: 600,
+                    height: 340,
+                });
+            }, 50);
+        }
+        else if ("@ViewData["EditorUrl"]" == "EditPage/LogicalNumber") {
+            setTimeout(function () {
+                mini.unmask(el);
+                mini.open({
+                    url: "@Url.RouteUrl(new { controller = "EditPage", action = "LogicalNumber" })" + "/" + "@ViewData["EntityId"]" + "?WFActivityInstanceId=" + "@ViewData["WFActivityInstanceId"]",
+                    title: "登记逻辑号",
+                    iconCls: "icon-editor",
+                    width: 600,
+                    height: 570,
+                });
+            }, 50);
+        }
+        else if ("@ViewData["EditorUrl"]" == "EditPage/ProjectOpening") {
+            setTimeout(function () {
+                mini.unmask(el);
+                mini.open({
+                    url: "@Url.RouteUrl(new { controller = "EditPage", action = "ProjectOpening" })" + "/" + "@ViewData["EntityId"]" + "?WFActivityInstanceId=" + "@ViewData["WFActivityInstanceId"]",
+                    title: "项目开通",
+                    iconCls: "icon-editor",
+                    width: 600,
+                    height: 390,
+                });
+            }, 50);
+        }
+        else if ("@ViewData["EditorUrl"]" == "EditPage/AppointAreaAndDesignUserR") {
+            setTimeout(function () {
+                mini.unmask(el);
+                mini.open({
+                    url: "@Url.RouteUrl(new { controller = "EditPage", action = "AppointAreaAndDesignUserR" })" + "/" + "@ViewData["EntityId"]" + "?WFActivityInstanceId=" + "@ViewData["WFActivityInstanceId"]",
+                    title: "指定工程经理及总设单位",
+                    iconCls: "icon-editor",
+                    width: 600,
+                    height: 430,
+                });
+            }, 50);
+        }
+        else if ("@ViewData["EditorUrl"]" == "EditPage/ProjectDesignR") {
+            setTimeout(function () {
+                mini.unmask(el);
+                mini.open({
+                    url: "@Url.RouteUrl(new { controller = "EditPage", action = "ProjectDesignR" })" + "/" + "@ViewData["EntityId"]" + "?WFActivityInstanceId=" + "@ViewData["WFActivityInstanceId"]",
+                    title: "任务分配",
+                    iconCls: "icon-editor",
+                    width: 620,
+                    height: 570,
+                });
+            }, 50);
+        }
+        else if ("@ViewData["EditorUrl"]" == "EditPage/DesignDrawingR") {
+            setTimeout(function () {
+                mini.unmask(el);
+                mini.open({
+                    url: "@Url.RouteUrl(new { controller = "EditPage", action = "DesignDrawingR" })" + "/" + "@ViewData["EntityId"]" + "?WFActivityInstanceId=" + "@ViewData["WFActivityInstanceId"]",
+                    title: "项目设计",
+                    iconCls: "icon-editor",
+                    width: 600,
+                    height: 340,
+                });
+            }, 50);
+        }
+        else if ("@ViewData["EditorUrl"]" == "EditPage/LogicalNumberR") {
+            setTimeout(function () {
+                mini.unmask(el);
+                mini.open({
+                    url: "@Url.RouteUrl(new { controller = "EditPage", action = "LogicalNumberR" })" + "/" + "@ViewData["EntityId"]" + "?WFActivityInstanceId=" + "@ViewData["WFActivityInstanceId"]",
+                    title: "登记逻辑号",
+                    iconCls: "icon-editor",
+                    width: 600,
+                    height: 570,
+                });
+            }, 50);
+        }
+        else if ("@ViewData["EditorUrl"]" == "EditPage/ProjectOpeningR") {
+            setTimeout(function () {
+                mini.unmask(el);
+                mini.open({
+                    url: "@Url.RouteUrl(new { controller = "EditPage", action = "ProjectOpeningR" })" + "/" + "@ViewData["EntityId"]" + "?WFActivityInstanceId=" + "@ViewData["WFActivityInstanceId"]",
+                    title: "项目开通",
+                    iconCls: "icon-editor",
+                    width: 600,
+                    height: 390,
+                });
+            }, 50);
+        }
+        else if ("@ViewData["EditorUrl"]" == "EditPage/PlaceState") {
+            setTimeout(function () {
+                mini.unmask(el);
+                mini.open({
+                    url: "@Url.RouteUrl(new { controller = "EditPage", action = "PlaceState" })" + "/" + "@ViewData["EntityId"]" + "?WFActivityInstanceId=" + "@ViewData["WFActivityInstanceId"]",
+                    title: "站点状态变更",
+                    iconCls: "icon-editor",
+                    width: 600,
+                    height: 390,
+                });
+            }, 50);
+        }
+        else if ("@ViewData["EditorUrl"]" == "EditPage/AppointAreaAndDesignUserAndProjectDesignR") {
+            setTimeout(function () {
+                mini.unmask(el);
+                mini.open({
+                    url: "@Url.RouteUrl(new { controller = "EditPage", action = "AppointAreaAndDesignUserAndProjectDesignR" })" + "/" + "@ViewData["EntityId"]" + "?WFActivityInstanceId=" + "@ViewData["WFActivityInstanceId"]",
+                    title: "指定责任人",
+                    iconCls: "icon-editor",
+                    width: 620,
+                    height: 570,
+                });
+            }, 50);
+        }
+        else if ("@ViewData["EditorUrl"]" == "EditPage/LogicalNumberAndProjectOpeningR") {
+            setTimeout(function () {
+                mini.unmask(el);
+                mini.open({
+                    url: "@Url.RouteUrl(new { controller = "EditPage", action = "LogicalNumberAndProjectOpeningR" })" + "/" + "@ViewData["EntityId"]" + "?WFActivityInstanceId=" + "@ViewData["WFActivityInstanceId"]",
+                    title: "资源调整",
+                    iconCls: "icon-editor",
+                    width: 600,
+                    height: 570,
+                });
+            }, 50);
+        }
+        else if ("@ViewData["EditorUrl"]" == "EditPage/LogicalNumberAndProjectOpeningAndPlaceStateR") {
+            setTimeout(function () {
+                mini.unmask(el);
+                mini.open({
+                    url: "@Url.RouteUrl(new { controller = "EditPage", action = "LogicalNumberAndProjectOpeningAndPlaceStateR" })" + "/" + "@ViewData["EntityId"]" + "?WFActivityInstanceId=" + "@ViewData["WFActivityInstanceId"]",
+                    title: "资源调整",
+                    iconCls: "icon-editor",
+                    width: 600,
+                    height: 570,
+                });
+            }, 50);
+        }
+        else if ("@ViewData["EditorUrl"]" == "BaseStationBM/AddressingEdit") {
+            setTimeout(function () {
+                mini.unmask(el);
+                mini.open({
+                    url: "@Url.RouteUrl(new { controller = "BaseStationBM", action = "AddressingEdit" })" + "/" + "@ViewData["EntityId"]" + "?WFActivityInstanceId=" + "@ViewData["WFActivityInstanceId"]",
+                    title: "寻址确认编辑",
+                    iconCls: "icon-editor",
+                    width: 600,
+                    height: 388,
+                });
+            }, 50);
+        }
+        else if ("@ViewData["EditorUrl"]" == "BaseStationBM/AppointDesign") {
+            setTimeout(function () {
+                mini.unmask(el);
+                mini.open({
+                    url: "@Url.RouteUrl(new { controller = "BaseStationBM", action = "AppointDesign" })" + "/" + "@ViewData["EntityId"]" + "?WFActivityInstanceId=" + "@ViewData["WFActivityInstanceId"]",
+                    title: "指定设计单位",
+                    iconCls: "icon-editor",
+                    width: 600,
+                    height: 388,
+                });
+            }, 50);
+        }
+        else if ("@ViewData["EditorUrl"]" == "BaseStationBM/AppointDesignUser") {
+            setTimeout(function () {
+                mini.unmask(el);
+                mini.open({
+                    url: "@Url.RouteUrl(new { controller = "BaseStationBM", action = "AppointDesignUser" })" + "/" + "@ViewData["EntityId"]" + "?WFActivityInstanceId=" + "@ViewData["WFActivityInstanceId"]",
+                    title: "指定设计人员",
+                    iconCls: "icon-editor",
+                    width: 600,
+                    height: 388,
+                });
+            }, 50);
+        }
+        else if ("@ViewData["EditorUrl"]" == "BaseStationBM/ConstructionDesign") {
+            setTimeout(function () {
+                mini.unmask(el);
+                mini.open({
+                    url: "@Url.RouteUrl(new { controller = "BaseStationBM", action = "ConstructionDesign" })" + "/" + "@ViewData["EntityId"]" + "?WFActivityInstanceId=" + "@ViewData["WFActivityInstanceId"]",
+                    title: "施工设计",
+                    iconCls: "icon-editor",
+                    width: 1000,
+                    height: 600,
+                });
+            }, 50);
+        }
+        else if ("@ViewData["EditorUrl"]" == "BaseStationBM/OperatorConfirm") {
+            setTimeout(function () {
+                mini.unmask(el);
+                mini.open({
+                    url: "@Url.RouteUrl(new { controller = "BaseStationBM", action = "OperatorConfirm" })" + "/" + "@ViewData["EntityId"]" + "?WFActivityInstanceId=" + "@ViewData["WFActivityInstanceId"]",
+                    title: "运营商确认",
+                    iconCls: "icon-editor",
+                    width: 620,
+                    height: 430,
+                });
+            }, 50);
+        }
+        else if ("@ViewData["EditorUrl"]" == "BaseStationBM/AppointProjectAndPlaceCode") {
+            setTimeout(function () {
+                mini.unmask(el);
+                mini.open({
+                    url: "@Url.RouteUrl(new { controller = "BaseStationBM", action = "AppointProjectAndPlaceCode" })" + "/" + "@ViewData["EntityId"]" + "?WFActivityInstanceId=" + "@ViewData["WFActivityInstanceId"]",
+                    title: "指定项目及站点编码",
+                    iconCls: "icon-editor",
+                    width: 600,
+                    height: 470,
+                });
+            }, 50);
+        }
+        else if ("@ViewData["EditorUrl"]" == "BaseStationBM/AppointCustomer") {
+            setTimeout(function () {
+                mini.unmask(el);
+                mini.open({
+                    url: "@Url.RouteUrl(new { controller = "BaseStationBM", action = "AppointCustomer" })" + "/" + "@ViewData["EntityId"]" + "?WFActivityInstanceId=" + "@ViewData["WFActivityInstanceId"]",
+                    title: "指定施工单位及设计规格",
+                    iconCls: "icon-editor",
+                    width: 1000,
+                    height: 600,
+                });
+            }, 50);
+        }
+        else if ("@ViewData["EditorUrl"]" == "BaseStationBM/AppointManagerAndSupervisor") {
+            setTimeout(function () {
+                mini.unmask(el);
+                mini.open({
+                    url: "@Url.RouteUrl(new { controller = "BaseStationBM", action = "AppointManagerAndSupervisor" })" + "/" + "@ViewData["EntityId"]" + "?WFActivityInstanceId=" + "@ViewData["WFActivityInstanceId"]",
+                    title: "指定工程经理及监理单位",
+                    iconCls: "icon-editor",
+                    width: 600,
+                    height: 388,
+                });
+            }, 50);
+        }
+        else if ("@ViewData["EditorUrl"]" == "BaseStationBM/AppointDesignR") {
+            setTimeout(function () {
+                mini.unmask(el);
+                mini.open({
+                    url: "@Url.RouteUrl(new { controller = "BaseStationBM", action = "AppointDesignR" })" + "/" + "@ViewData["EntityId"]" + "?WFActivityInstanceId=" + "@ViewData["WFActivityInstanceId"]",
+                    title: "指定设计单位",
+                    iconCls: "icon-editor",
+                    width: 600,
+                    height: 388,
+                });
+            }, 50);
+        }
+        else if ("@ViewData["EditorUrl"]" == "BaseStationBM/AppointDesignUserR") {
+            setTimeout(function () {
+                mini.unmask(el);
+                mini.open({
+                    url: "@Url.RouteUrl(new { controller = "BaseStationBM", action = "AppointDesignUserR" })" + "/" + "@ViewData["EntityId"]" + "?WFActivityInstanceId=" + "@ViewData["WFActivityInstanceId"]",
+                    title: "指定设计人员",
+                    iconCls: "icon-editor",
+                    width: 600,
+                    height: 388,
+                });
+            }, 50);
+        }
+        else if ("@ViewData["EditorUrl"]" == "BaseStationBM/ConstructionDesignR") {
+            setTimeout(function () {
+                mini.unmask(el);
+                mini.open({
+                    url: "@Url.RouteUrl(new { controller = "BaseStationBM", action = "ConstructionDesignR" })" + "/" + "@ViewData["EntityId"]" + "?WFActivityInstanceId=" + "@ViewData["WFActivityInstanceId"]",
+                    title: "施工设计",
+                    iconCls: "icon-editor",
+                    width: 1000,
+                    height: 600,
+                });
+            }, 50);
+        }
+        else if ("@ViewData["EditorUrl"]" == "BaseStationBM/AppointProjectR") {
+            setTimeout(function () {
+                mini.unmask(el);
+                mini.open({
+                    url: "@Url.RouteUrl(new { controller = "BaseStationBM", action = "AppointProjectR" })" + "/" + "@ViewData["EntityId"]" + "?WFActivityInstanceId=" + "@ViewData["WFActivityInstanceId"]",
+                    title: "指定项目",
+                    iconCls: "icon-editor",
+                    width: 600,
+                    height: 450,
+                });
+            }, 50);
+        }
+        else if ("@ViewData["EditorUrl"]" == "BaseStationBM/AppointCustomerR") {
+            setTimeout(function () {
+                mini.unmask(el);
+                mini.open({
+                    url: "@Url.RouteUrl(new { controller = "BaseStationBM", action = "AppointCustomerR" })" + "/" + "@ViewData["EntityId"]" + "?WFActivityInstanceId=" + "@ViewData["WFActivityInstanceId"]",
+                    title: "指定施工单位及设计规格",
+                    iconCls: "icon-editor",
+                    width: 1000,
+                    height: 600,
+                });
+            }, 50);
+        }
+        else if ("@ViewData["EditorUrl"]" == "BaseStationBM/AppointManagerAndSupervisorR") {
+            setTimeout(function () {
+                mini.unmask(el);
+                mini.open({
+                    url: "@Url.RouteUrl(new { controller = "BaseStationBM", action = "AppointManagerAndSupervisorR" })" + "/" + "@ViewData["EntityId"]" + "?WFActivityInstanceId=" + "@ViewData["WFActivityInstanceId"]",
+                    title: "指定工程经理及监理单位",
+                    iconCls: "icon-editor",
+                    width: 600,
+                    height: 388,
+                });
+            }, 50);
+        }
+        else if ("@ViewData["EditorUrl"]" == "EditPage/AppointAreaAndDesignUserID") {
+            setTimeout(function () {
+                mini.unmask(el);
+                mini.open({
+                    url: "@Url.RouteUrl(new { controller = "EditPage", action = "AppointAreaAndDesignUserID" })" + "/" + "@ViewData["EntityId"]" + "?WFActivityInstanceId=" + "@ViewData["WFActivityInstanceId"]",
+                    title: "指定工程经理及总设单位",
+                    iconCls: "icon-editor",
+                    width: 600,
+                    height: 450,
+                });
+            }, 50);
+        }
+        else if ("@ViewData["EditorUrl"]" == "EditPage/ProjectDesignID") {
+            setTimeout(function () {
+                mini.unmask(el);
+                mini.open({
+                    url: "@Url.RouteUrl(new { controller = "EditPage", action = "ProjectDesignID" })" + "/" + "@ViewData["EntityId"]" + "?WFActivityInstanceId=" + "@ViewData["WFActivityInstanceId"]",
+                    title: "任务分配",
+                    iconCls: "icon-editor",
+                    width: 620,
+                    height: 450,
+                });
+            }, 50);
+        }
+        else if ("@ViewData["EditorUrl"]" == "EditPage/DesignDrawingID") {
+            setTimeout(function () {
+                mini.unmask(el);
+                mini.open({
+                    url: "@Url.RouteUrl(new { controller = "EditPage", action = "DesignDrawingID" })" + "/" + "@ViewData["EntityId"]" + "?WFActivityInstanceId=" + "@ViewData["WFActivityInstanceId"]",
+                    title: "项目设计",
+                    iconCls: "icon-editor",
+                    width: 600,
+                    height: 340,
+                });
+            }, 50);
+        }
+        else if ("@ViewData["EditorUrl"]" == "EditPage/LogicalNumberID") {
+            setTimeout(function () {
+                mini.unmask(el);
+                mini.open({
+                    url: "@Url.RouteUrl(new { controller = "EditPage", action = "LogicalNumberID" })" + "/" + "@ViewData["EntityId"]" + "?WFActivityInstanceId=" + "@ViewData["WFActivityInstanceId"]",
+                    title: "登记逻辑号",
+                    iconCls: "icon-editor",
+                    width: 600,
+                    height: 540,
+                });
+            }, 50);
+        }
+        else if ("@ViewData["EditorUrl"]" == "EditPage/ProjectOpeningID") {
+            setTimeout(function () {
+                mini.unmask(el);
+                mini.open({
+                    url: "@Url.RouteUrl(new { controller = "EditPage", action = "ProjectOpeningID" })" + "/" + "@ViewData["EntityId"]" + "?WFActivityInstanceId=" + "@ViewData["WFActivityInstanceId"]",
+                    title: "项目开通",
+                    iconCls: "icon-editor",
+                    width: 600,
+                    height: 390,
+                });
+            }, 50);
+        }
+        else if ("@ViewData["EditorUrl"]" == "EditPage/AppointAreaAndDesignUserIDR") {
+            setTimeout(function () {
+                mini.unmask(el);
+                mini.open({
+                    url: "@Url.RouteUrl(new { controller = "EditPage", action = "AppointAreaAndDesignUserIDR" })" + "/" + "@ViewData["EntityId"]" + "?WFActivityInstanceId=" + "@ViewData["WFActivityInstanceId"]",
+                    title: "指定工程经理及总设单位",
+                    iconCls: "icon-editor",
+                    width: 600,
+                    height: 430,
+                });
+            }, 50);
+        }
+        else if ("@ViewData["EditorUrl"]" == "EditPage/ProjectDesignIDR") {
+            setTimeout(function () {
+                mini.unmask(el);
+                mini.open({
+                    url: "@Url.RouteUrl(new { controller = "EditPage", action = "ProjectDesignIDR" })" + "/" + "@ViewData["EntityId"]" + "?WFActivityInstanceId=" + "@ViewData["WFActivityInstanceId"]",
+                    title: "任务分配",
+                    iconCls: "icon-editor",
+                    width: 620,
+                    height: 450,
+                });
+            }, 50);
+        }
+        else if ("@ViewData["EditorUrl"]" == "EditPage/DesignDrawingIDR") {
+            setTimeout(function () {
+                mini.unmask(el);
+                mini.open({
+                    url: "@Url.RouteUrl(new { controller = "EditPage", action = "DesignDrawingIDR" })" + "/" + "@ViewData["EntityId"]" + "?WFActivityInstanceId=" + "@ViewData["WFActivityInstanceId"]",
+                    title: "项目设计",
+                    iconCls: "icon-editor",
+                    width: 600,
+                    height: 340,
+                });
+            }, 50);
+        }
+        else if ("@ViewData["EditorUrl"]" == "EditPage/LogicalNumberIDR") {
+            setTimeout(function () {
+                mini.unmask(el);
+                mini.open({
+                    url: "@Url.RouteUrl(new { controller = "EditPage", action = "LogicalNumberIDR" })" + "/" + "@ViewData["EntityId"]" + "?WFActivityInstanceId=" + "@ViewData["WFActivityInstanceId"]",
+                    title: "登记逻辑号",
+                    iconCls: "icon-editor",
+                    width: 600,
+                    height: 540,
+                });
+            }, 50);
+        }
+        else if ("@ViewData["EditorUrl"]" == "EditPage/ProjectOpeningIDR") {
+            setTimeout(function () {
+                mini.unmask(el);
+                mini.open({
+                    url: "@Url.RouteUrl(new { controller = "EditPage", action = "ProjectOpeningIDR" })" + "/" + "@ViewData["EntityId"]" + "?WFActivityInstanceId=" + "@ViewData["WFActivityInstanceId"]",
+                    title: "项目开通",
+                    iconCls: "icon-editor",
+                    width: 600,
+                    height: 390,
+                });
+            }, 50);
+        }
+        else if ("@ViewData["EditorUrl"]" == "EditPage/PlaceStateID") {
+            setTimeout(function () {
+                mini.unmask(el);
+                mini.open({
+                    url: "@Url.RouteUrl(new { controller = "EditPage", action = "PlaceStateID" })" + "/" + "@ViewData["EntityId"]" + "?WFActivityInstanceId=" + "@ViewData["WFActivityInstanceId"]",
+                    title: "站点状态变更",
+                    iconCls: "icon-editor",
+                    width: 600,
+                    height: 390,
+                });
+            }, 50);
+        }
+        else if ("@ViewData["EditorUrl"]" == "EditPage/AppointAreaAndDesignUserAndProjectDesignIDR") {
+            setTimeout(function () {
+                mini.unmask(el);
+                mini.open({
+                    url: "@Url.RouteUrl(new { controller = "EditPage", action = "AppointAreaAndDesignUserAndProjectDesignIDR" })" + "/" + "@ViewData["EntityId"]" + "?WFActivityInstanceId=" + "@ViewData["WFActivityInstanceId"]",
+                    title: "指定责任人",
+                    iconCls: "icon-editor",
+                    width: 620,
+                    height: 500,
+                });
+            }, 50);
+        }
+        else if ("@ViewData["EditorUrl"]" == "EditPage/LogicalNumberAndProjectOpeningIDR") {
+            setTimeout(function () {
+                mini.unmask(el);
+                mini.open({
+                    url: "@Url.RouteUrl(new { controller = "EditPage", action = "LogicalNumberAndProjectOpeningIDR" })" + "/" + "@ViewData["EntityId"]" + "?WFActivityInstanceId=" + "@ViewData["WFActivityInstanceId"]",
+                    title: "资源调整",
+                    iconCls: "icon-editor",
+                    width: 600,
+                    height: 570,
+                });
+            }, 50);
+        }
+        else if ("@ViewData["EditorUrl"]" == "EditPage/LogicalNumberAndProjectOpeningAndPlaceStateIDR") {
+            setTimeout(function () {
+                mini.unmask(el);
+                mini.open({
+                    url: "@Url.RouteUrl(new { controller = "EditPage", action = "LogicalNumberAndProjectOpeningAndPlaceStateIDR" })" + "/" + "@ViewData["EntityId"]" + "?WFActivityInstanceId=" + "@ViewData["WFActivityInstanceId"]",
+                    title: "资源调整",
+                    iconCls: "icon-editor",
+                    width: 600,
+                    height: 570,
+                });
+            }, 50);
+        }
+    }
+
+    function onFileClick(id) {
+        var el = document.body;
+        mini.mask({
+            el: el,
+            cls: 'mini-mask-loading',
+            html: '加载中...'
+        });
+        setTimeout(function () {
+            $.ajax({
+                url: "@Url.RouteUrl(new { controller = "File", action = "GetWFActivityInstanceFiles" })",
+                data: { WFActivityInstanceId: id },
+                type: "get",
+                async: false,
+                success: function (result, textStatus) {
+                    mini.unmask(el);
+                    if (result.Code == null || !result.Code) {
+                        mini.open({
+                            url: "@Url.RouteUrl(new { controller = "File", action = "FileManager" })",
+                            title: "附件",
+                            iconCls: "icon-file",
+                            width: 620,
+                            height: 250,
+                            allowResize: false,
+                            onload: function () {
+                                var iframe = this.getIFrameEl();
+                                var data = result;
+                                iframe.contentWindow.SetData(data);
+                            }
+                        });
+                    }
+                },
+                error: function (xmlHttpRequest, textStatus, errorThrown) {
+                    mini.unmask(el);
+                }
+            });
+        }, 50);
+    }
+
+    function onFileShowClick() {
+        var el = document.body;
+        mini.mask({
+            el: el,
+            cls: 'mini-mask-loading',
+            html: '加载中...'
+        });
+        setTimeout(function () {
+            $.ajax({
+                url: "@Url.RouteUrl(new { controller = "File", action = "GetWFProcessInstanceFiles" })",
+                data: { WFProcessInstanceId: "@ViewData["WFProcessInstanceId"]" },
+                type: "get",
+                async: false,
+                success: function (result, textStatus) {
+                    mini.unmask(el);
+                    if (result.Code == null || !result.Code) {
+                        mini.open({
+                            url: "@Url.RouteUrl(new { controller = "File", action = "FileManager" })",
+                            title: "附件",
+                            iconCls: "icon-file",
+                            width: 620,
+                            height: 250,
+                            allowResize: false,
+                            onload: function () {
+                                var iframe = this.getIFrameEl();
+                                var data = result;
+                                iframe.contentWindow.SetData(data);
+                            },
+                            ondestroy: function (action) {
+                            }
+                        });
+                    }
+                },
+                error: function (xmlHttpRequest, textStatus, errorThrown) {
+                    mini.unmask(el);
+                }
+            });
+        }, 50);
+    }
+
+    function onFileEditClick() {
+        var el = document.body;
+        mini.mask({
+            el: el,
+            cls: 'mini-mask-loading',
+            html: '加载中...'
+        });
+        setTimeout(function () {
+            $.ajax({
+                url: "@Url.RouteUrl(new { controller = "File", action = "GetFiles" })",
+                data: { FileIdList: txtFileIdList.getValue() },
+                type: "get",
+                async: false,
+                success: function (result, textStatus) {
+                    mini.unmask(el);
+                    if (result.Code == null || !result.Code) {
+                        mini.open({
+                            url: "@Url.RouteUrl(new { controller = "File", action = "FileManager" })",
+                            title: "附件",
+                            iconCls: "icon-file",
+                            width: 620,
+                            height: 250,
+                            allowResize: false,
+                            onload: function () {
+                                var iframe = this.getIFrameEl();
+                                var data = result;
+                                iframe.contentWindow.SetDataEdit(data);
+                            },
+                            ondestroy: function (action) {
+                                if (action == "ok") {
+                                    var iframe = this.getIFrameEl();
+                                    var data = iframe.contentWindow.GetData();
+                                    data = mini.clone(data);
+                                    txtFileIdList.setValue(data.FileIdList);
+                                }
+                            }
+                        });
+                    }
+                },
+                error: function (xmlHttpRequest, textStatus, errorThrown) {
+                    mini.unmask(el);
+                }
+            });
+        }, 50);
+    }
+
+    function onWFActivityInstanceFlowValueChanged(e) {
+        dgWFActivity.clearRows();
+        if (e.sender.getValue() == 2) {
+            tabContent.updateTab(tabContent.getTab(1), { visible: true });
+            tabContent.setActiveIndex(1);
+        }
+        else {
+            tabContent.setActiveIndex(0);
+            tabContent.updateTab(tabContent.getTab(1), { visible: false });
+        }
+    }
+
+    function onDgWFActivityCellBeginEdit(e) {
+        if (e.field == "DepartmentId") {
+            e.editor.setUrl("@Url.RouteUrl(new { controller = "BaseData", action = "GetUsedDepartments" })" + "/" + e.record.CompanyId + "?getType=1");
+        }
+        else if (e.field == "UserId") {
+            e.editor.setUrl("@Url.RouteUrl(new { controller = "BaseData", action = "GetUsedUsers" })" + "/" + e.record.DepartmentId + "?getType=1");
+        }
+        else if (e.field == "WFActivityEditorId") {
+            if (e.record.WFActivityOperate == 3) {
+                e.editor.setUrl("@Url.RouteUrl(new { controller = "WorkFlow", action = "GetWFActivityEditors" })" + "?WFCategoryId=" + "@ViewData["WFCategoryId"]");
+            }
+            else {
+                e.editor.setData([{ Id: '00000000-0000-0000-0000-000000000000', WFActivityEditorName: '无' }]);
+            }
+        }
+    }
+
+    function onDgWFActivityCellCommitEdit(e) {
+        var grid = e.sender;
+        var record = e.record;
+        if (e.field == "CompanyId") {
+            grid.updateRow(record, { DepartmentId: "00000000-0000-0000-0000-000000000000", DepartmentName: "请选择", UserId: "00000000-0000-0000-0000-000000000000", FullName: "请选择" });
+        }
+        else if (e.field == "DepartmentId") {
+            grid.updateRow(record, { UserId: "00000000-0000-0000-0000-000000000000", FullName: "请选择" });
+        }
+    }
+
+    function onDgWFActivityCellEndEdit(e) {
+        var grid = e.sender;
+        var record = e.record;
+        if (e.field == "WFActivityOperate") {
+            if (record.WFActivityOperate == 3) {
+                grid.updateRow(record, { WFActivityEditorId: '00000000-0000-0000-0000-000000000000', WFActivityEditorName: '请选择' });
+                grid.updateRow(record, { IsMustEdit: '1', MustEditName: '是' });
+            }
+            else {
+                grid.updateRow(record, { WFActivityEditorId: '00000000-0000-0000-0000-000000000000', WFActivityEditorName: '无' });
+                grid.updateRow(record, { IsMustEdit: '2', MustEditName: '否' });
+            }
+        }
+    }
+
+    function Doing() {
+        if (cbWFActivityInstanceFlow.getValue() == 2) {
+            if (dgWFActivity.getData().length == 0) {
+                mini.alert("请添加转发步骤");
+                return;
+            }
+            var errorUserRows = dgWFActivity.findRows(function (row) {
+                if (row.UserId == "00000000-0000-0000-0000-000000000000") {
+                    return true;
+                }
+            });
+            if (errorUserRows.length > 0) {
+                mini.alert("第" + (dgWFActivity.indexOf(errorUserRows[0]) + 1) + "行：请选择一个用户");
+                return;
+            }
+
+            var errorEditorRows = dgWFActivity.findRows(function (row) {
+                if (row.WFActivityOperate == 3 && row.WFActivityEditorId == "00000000-0000-0000-0000-000000000000") {
+                    return true;
+                }
+            });
+            if (errorEditorRows.length > 0) {
+                mini.alert("第" + (dgWFActivity.indexOf(errorEditorRows[0]) + 1) + "行：请选择一个编辑类型");
+                return;
+            }
+        }
+
+        var loading = mini.loading("处理中,请稍后...", "处理公文");
+        var data = dgWFActivity.getData();
+        var jsonData = mini.encode(data);
+        $.ajax({
+            url: "@Url.RouteUrl(new { controller = "WorkFlow", action = "WFInstanceDoing" })",
+            data: AddAntiForgeryToken({ Id: "@ViewData["Id"]", WFActivityInstanceFlow: cbWFActivityInstanceFlow.getValue(), FileIdList: txtFileIdList.getValue(), Content: txtContent.getValue(), data: jsonData }),
+            type: "post",
+            success: function (result, textStatus) {
+                mini.hideMessageBox(loading);
+                if (result.Code != null && result.Code == 0) {
+                    CloseWindow("ok");
+                }
+            },
+            error: function (xmlHttpRequest, textStatus, errorThrown) {
+                mini.hideMessageBox(loading);
+            }
+        });
+    }
+
+    function onOKClick() {
+        Doing();
+    }
+
+    function onReadClick() {
+        Doing();
+    }
+
+    function onAddClick() {
+        var newRow = {
+            WFActivityName: "转发", CompanyId: companyId, DepartmentId: "00000000-0000-0000-0000-000000000000", DepartmentName: "请选择", UserId: "00000000-0000-0000-0000-000000000000", FullName: "请选择",
+            WFActivityOperate: 1, WFActivityEditorId: "00000000-0000-0000-0000-000000000000", WFActivityEditorName: "无", IsMustEdit: 2, MustEditName: '否'
+        };
+        dgWFActivity.addRow(newRow);
+    }
+
+    function onRemoveClick() {
+        var rows = dgWFActivity.getSelecteds();
+        if (rows.length == 0) {
+            mini.alert("请选择要删除的数据");
+        }
+        else {
+            mini.confirm("确定要删除选中的数据？", "删除步骤",
+            function (action) {
+                if (action == "ok") {
+                    for (var i = 0; i < rows.length; i++) {
+                        dgWFActivity.removeRow(rows[i]);
+                    }
+                    dgWFActivity.clearSelect();
+                }
+            });
+        }
+    }
+</script>

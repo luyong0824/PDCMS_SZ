@@ -1,0 +1,136 @@
+﻿<div id="myToolbar" class="mini-toolbar" style="border-left:0px; border-right:0px; border-top:0px; padding: 0px;">
+    <table style="width: 100%;" cellpadding="0" cellspacing="0">
+        <tr>
+            <td style="width: 100%;"></td>
+            <td style="white-space: nowrap;">
+                <a id="btnSearch" class="mini-button" iconcls="icon-search" plain="true" onclick="onSearchClick">查询</a>
+                <a class="mini-button" iconcls="icon-cancel" plain="true" onclick="onCancelClick">取消</a>
+            </td>
+        </tr>
+    </table>
+</div>
+<table style="width: 100%;">
+    <tr>
+        <td style="width: 80px; text-align: right;">项目编码</td>
+        <td>
+            <input id="txtProjectCode" class="mini-textbox" onenter="onTextBoxEnter" />
+        </td>
+        <td style="width: 80px; text-align: right;">项目简称</td>
+        <td>
+            <input id="txtProjectName" class="mini-textbox" onenter="onTextBoxEnter" />
+        </td>
+        <td style="width: 80px; text-align: right;">项目全称</td>
+        <td>
+            <input id="txtProjectFullName" class="mini-textbox" onenter="onTextBoxEnter" />
+        </td>
+    </tr>
+    <tr>
+        <td style="width: 80px; text-align: right;">会计主体</td>
+        <td>
+            <input id="cbAccountingEntityId" class="mini-combobox" textfield="AccountingEntityName" valuefield="Id" value="00000000-0000-0000-0000-000000000000" data=@Html.Raw(ViewData["AccountingEntitys"]) />
+        </td>
+        <td colspan="4" align="center">
+            <input id="chkProjectProgress1" class="mini-checkbox" checked="true" text="在建中" />&nbsp;<input id="chkProjectProgress2" class="mini-checkbox" text="已完工" />&nbsp;&nbsp;&nbsp;&nbsp;<input id="chkState1" class="mini-checkbox" checked="true" text="使用" />&nbsp;<input id="chkState2" class="mini-checkbox" text="停用" />
+        </td>
+    </tr>
+</table>
+<div class="mini-fit">
+    <div id="dgProject" class="mini-datagrid" style="width: 100%; height: 100%;" idfield="Id" allowmovecolumn="false" borderstyle="border-left: 0px; border-right: 0px; border-bottom: 0px;"
+         multiselect="false" showreloadbutton="false" pagesize="10" sizelist="[10,25,50]" fitcolumns="false" onlycheckselection="true" onload="onDgProjectLoad" onrowdblclick="onDgProjectRowDblClick" ondrawcell="onDrawCell">
+        <div property="columns">
+            <div type="indexcolumn"></div>
+            <div field="ProjectCode" header="项目编码" width="80"></div>
+            <div field="ProjectName" header="项目简称" width="120"></div>
+            <div field="ProjectFullName" header="项目全称" width="140"></div>
+            <div field="AccountingEntityName" header="会计主体" width="100"></div>
+            <div type="comboboxcolumn" field="ProjectProgress" header="项目进度" width="80">
+                <input property="editor" class="mini-combobox" style="width: 100%;" data=@Html.Raw(ViewData["ProjectProgress"]) />
+            </div>
+            <div type="comboboxcolumn" field="State" header="状态" width="80">
+                <input property="editor" class="mini-combobox" style="width: 100%;" data=@Html.Raw(ViewData["State"]) />
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    mini.parse();
+
+    var btnSearch = mini.get("btnSearch");
+    var txtProjectCode = mini.get("txtProjectCode");
+    var txtProjectName = mini.get("txtProjectName");
+    var txtProjectFullName = mini.get("txtProjectFullName");
+    var cbAccountingEntityId = mini.get("cbAccountingEntityId");
+    var chkProjectProgress1 = mini.get("chkProjectProgress1");
+    var chkProjectProgress2 = mini.get("chkProjectProgress2");
+    var chkState1 = mini.get("chkState1");
+    var chkState2 = mini.get("chkState2");
+    var dgProject = mini.get("dgProject");
+    var data = {};
+
+    Init();
+
+    function Init() {
+        BindDgProject();
+        txtProjectCode.focus();
+    }
+
+    function BindDgProject() {
+        btnSearch.setEnabled(false);
+        var query_ProjectCode = txtProjectCode.getValue();
+        var query_ProjectName = txtProjectName.getValue();
+        var query_ProjectFullName = txtProjectFullName.getValue();
+        var query_AccountingEntityId = cbAccountingEntityId.getValue();
+        var query_ProjectProgress1 = chkProjectProgress1.getValue();
+        var query_ProjectProgress2 = chkProjectProgress2.getValue();
+        var query_State1 = chkState1.getValue();
+        var query_State2 = chkState2.getValue();
+        if (dgProject.getUrl() == "") {
+            dgProject.setUrl("@Url.RouteUrl(new { controller = "BaseData", action = "GetProjectsPageBySelect" })");
+        }
+        dgProject.clearSelect(false);
+        dgProject.load({ ProjectCode: query_ProjectCode, ProjectName: query_ProjectName, ProjectFullName: query_ProjectFullName, AccountingEntityId: query_AccountingEntityId, IsCheckedProjectProgress1: query_ProjectProgress1, IsCheckedProjectProgress2: query_ProjectProgress2, IsCheckedState1: query_State1, IsCheckedState2: query_State2 });
+    }
+
+    function onDgProjectLoad() {
+        btnSearch.setEnabled(true);
+    }
+
+    function onDrawCell(e) {
+        if (e.field == "State" && e.value == 2) {
+            e.cellStyle = "color:red;";
+        }
+    }
+
+    function onDgProjectRowDblClick(e) {
+        data = {};
+        data.id = e.record.Id;
+        data.text = e.record.ProjectName;
+        CloseWindow("ok");
+    }
+
+    function GetData() {
+        return data;
+    }
+
+    function CloseWindow(action) {
+        if (window.CloseOwnerWindow) {
+            return window.CloseOwnerWindow(action);
+        }
+        else {
+            window.close();
+        }
+    }
+
+    function onTextBoxEnter() {
+        BindDgProject();
+    }
+
+    function onSearchClick() {
+        BindDgProject();
+    }
+
+    function onCancelClick() {
+        data = {};
+        CloseWindow("cancel");
+    }
+</script>

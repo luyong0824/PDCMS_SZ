@@ -1,0 +1,316 @@
+﻿@{Layout = null;}
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+    <title>苏州联通建维营价值管理协同系统</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/default/miniui.css?v=3.5")" />
+    @Styles.Render("~/Content/bootstrap/skin")
+    @Styles.Render("~/Content/pdbmwithwebuploader_css")
+    <style type="text/css">
+        .progressbar {
+            position: relative;
+            background: #E5E5E5;
+            width: 100%;
+            height: 16px;
+            overflow: hidden;
+        }
+
+        .progressbar-percent {
+            position: absolute;
+            height: 18px;
+            background: #0099FF;
+            left: 0;
+            top: 0px;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .progressbar-label {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            font-size: 13px;
+            color: White;
+            z-index: 10;
+            text-align: center;
+            height: 16px;
+            line-height: 16px;
+        }
+    </style>
+    @Scripts.Render("~/Scripts/pdbmwithwebuploader_js")
+</head>
+<body>
+    <div id="myToolbar" class="mini-toolbar" style="border-left:0px; border-right:0px; border-top:0px; padding: 0px;">
+        <table style="width: 100%;" cellpadding="0" cellspacing="0">
+            <tr>
+                <td style="width: 100%;">
+                    <div id="divTip" style="display:none;">提示：单个文件大小不能超过15MB</div>
+                </td>
+                <td style="white-space: nowrap;">
+                    &nbsp;
+                    <div id="picker" class="mini-fileupload">浏览</div>
+                    <a id="btnUpload" class="mini-button" iconcls="icon-upload" plain="true" enabled="false" visible="false" onclick="onUploadClick">开始上传</a>
+                    <a id="btnRemove" class="mini-button" iconcls="icon-remove" plain="true" visible="false" onclick="onRemoveClick">删除</a>
+                    <a id="btnReturn" class="mini-button" iconcls="icon-ok" plain="true" visible="false" onclick="onReturnClick">确定</a>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="mini-fit">
+        <div id="dgFiles" class="mini-datagrid" style="width: 100%; height: 100%;" idfield="Id" allowmovecolumn="false" borderstyle="border-left: 0px; border-right: 0px; border-top: 0px; border-bottom: 0px;"
+             multiselect="true" showpager="false" fitcolumns="false" onlycheckselection="true" ondrawcell="onDrawCell">
+            <div property="columns">
+                <div type="indexcolumn"></div>
+                <div type="checkcolumn" visible="false"></div>
+                <div field="WebUploaderFileId" width="100px" visible="false"></div>
+                <div field="FileStatus" width="100px" visible="false"></div>
+                <div field="FileName" header="文件名称" width="100px"></div>
+                <div field="FileSize" header="文件大小" width="100px"></div>
+                <div field="UploadProgress" header="上传进度" width="100px"></div>
+                <div field="UploadStatus" header="上传状态" width="100px"></div>
+                <div field="UploadDate" header="上传日期" width="100px" dateformat="yyyy-MM-dd"></div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        mini.parse();
+
+        var picker = mini.get("picker");
+        var btnUpload = mini.get("btnUpload");
+        var btnRemove = mini.get("btnRemove");
+        var btnReturn = mini.get("btnReturn");
+        var dgFiles = mini.get("dgFiles");
+        var divTip = $("#divTip");
+        var data = {};
+        var uploader = null;
+        var uploaderType = "all";
+
+        function SetData(data) {
+            picker.setVisible(false);
+            var files = mini.clone(data);
+            if (files.length > 0) {
+                dgFiles.setData(files);
+            }
+        }
+
+        function SetDataEdit(data) {
+            divTip.show();
+            btnUpload.setVisible(true);
+            btnRemove.setVisible(true);
+            btnReturn.setVisible(true);
+            dgFiles.showColumn(1);
+
+            var files = mini.clone(data);
+            if (files.length > 0) {
+                dgFiles.setData(files);
+            }
+
+            uploader = WebUploader.create({
+                swf: "@Url.Content("~/Scripts/webuploader/Uploader.swf")",
+                server: "@Url.RouteUrl(new { controller = "File", action = "UploadFile" })",
+                pick: "#picker",
+                resize: false,
+                fileSingleSizeLimit: 15728640
+            });
+
+            InitWebUploader(uploader);
+        }
+
+        function SetDataExcel() {
+            uploaderType = "excel";
+            divTip.show();
+            btnUpload.setVisible(true);
+            btnRemove.setVisible(true);
+            btnReturn.setVisible(true);
+            dgFiles.showColumn(1);
+
+            uploader = WebUploader.create({
+                swf: "@Url.Content("~/Scripts/webuploader/Uploader.swf")",
+                server: "@Url.RouteUrl(new { controller = "File", action = "UploadFile" })",
+                pick: "#picker",
+                resize: false,
+                fileSingleSizeLimit: 15728640,
+                fileNumLimit: 1,
+                accept: {
+                    title: 'Excel文件',
+                    extensions: 'xls,xlsx',
+                    mimeTypes: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel'
+                }
+            });
+
+            InitWebUploader(uploader);
+        }
+
+        function InitWebUploader(uploader) {
+            uploader.on("fileQueued", function (file) {
+                var fileSize = file.size;
+                if (fileSize >= 1024000) {
+                    fileSize = (fileSize / 1024000).toFixed(0) + "MB";
+                }
+                else {
+                    fileSize = (fileSize / 1024).toFixed(0) + "KB";
+                }
+                dgFiles.addRow({ "Id": "", "WebUploaderFileId": file.id, "FileStatus": "0", "FileName": file.name, "FileSize": fileSize, "UploadProgress": "0", "UploadStatus": "准备上传", "UploadDate": new Date() }, -1);
+            });
+
+            uploader.on("filesQueued", function (files) {
+                btnUpload.setEnabled(true);
+            });
+
+            uploader.on("uploadProgress", function (file, percentage) {
+                var row = dgFiles.findRow(function (row) {
+                    if (row.WebUploaderFileId == file.id) return true;
+                });
+                if (row) {
+                    if (percentage == 1 || (row.UploadProgress == 0 && (percentage * 100).toFixed(0) >= 1) || (percentage * 100).toFixed(0) - row.UploadProgress >= 5) {
+                        dgFiles.updateRow(row, { "FileStatus": "1", "UploadStatus": "正在上传...", "UploadProgress": (percentage * 100).toFixed(0) });
+                    }
+                }
+            });
+
+            uploader.on('uploadAccept', function (obj, response) {
+                if (response.Code == 0) {
+                    var row = dgFiles.findRow(function (row) {
+                        if (row.WebUploaderFileId == obj.file.id) return true;
+                    });
+                    if (row) {
+                        dgFiles.updateRow(row, { "Id": response.Message });
+                        return true;
+                    }
+                }
+                else {
+                    return false;
+                }
+            });
+
+            uploader.on("uploadSuccess", function (file) {
+                var row = dgFiles.findRow(function (row) {
+                    if (row.WebUploaderFileId == file.id) return true;
+                });
+
+                if (row) {
+                    dgFiles.updateRow(row, { "FileStatus": "2", "UploadStatus": "上传完成" });
+                }
+            });
+
+            uploader.on("uploadError", function (file) {
+                var row = dgFiles.findRow(function (row) {
+                    if (row.WebUploaderFileId == file.id) return true;
+                });
+                if (row) {
+                    dgFiles.updateRow(row, { "FileStatus": "3", "UploadStatus": "<font color='red'>上传出错</font>", "UploadProgress": 0 });
+                }
+            });
+
+            uploader.on("uploadComplete", function (file) {
+                if (uploaderType == "all") {
+                    uploader.removeFile(file, true);
+                }
+            });
+
+            uploader.on("uploadFinished", function () {
+                btnRemove.setEnabled(true);
+            });
+        }
+
+        function GetData() {
+            return data;
+        }
+
+        function CloseWindow(action) {
+            if (window.CloseOwnerWindow) {
+                return window.CloseOwnerWindow(action);
+            }
+            else {
+                window.close();
+            }
+        }
+
+        function onUploadClick() {
+            btnRemove.setEnabled(false);
+            uploader.upload();
+        }
+
+        function onRemoveClick() {
+            var rows = dgFiles.getSelecteds();
+            if (rows.length == 0) {
+                mini.alert("请选择要删除的数据");
+            }
+            else {
+                mini.confirm("确定要删除选中的数据？", "删除文件",
+                function (action) {
+                    if (action == "ok") {
+                        for (var i = 0; i < rows.length; i++) {
+                            if (rows[i].FileStatus == 0 || uploaderType == "excel") {
+                                uploader.removeFile(rows[i].WebUploaderFileId, true);
+                            }
+                        }
+                        dgFiles.removeRows(rows, false);
+                    }
+                });
+            }
+        }
+
+        function onReturnClick() {
+            var rows = dgFiles.findRows(function (row) {
+                if (row.FileStatus == 0 || row.FileStatus == 1) return true;
+            });
+            if (rows.length > 0) {
+                mini.alert("部分文件未上传或者正在上传中");
+            }
+            else {
+                if (uploaderType == "all") {
+                    var fileIdList = "";
+                    rows = dgFiles.findRows(function (row) {
+                        if (row.FileStatus == 2) return true;
+                    });
+                    for (var i = 0; i < rows.length; i++) {
+                        fileIdList = fileIdList + rows[i].Id;
+                        if (i != rows.length - 1) {
+                            fileIdList = fileIdList + ",";
+                        }
+                    }
+                    data = {};
+                    data.FileIdList = fileIdList;
+                }
+                else if (uploaderType == "excel") {
+                    if (dgFiles.getData().length == 0) {
+                        mini.alert("请上传一个Excel文件");
+                        return;
+                    }
+                    else {
+                        rows = dgFiles.findRows(function (row) {
+                            if (row.FileStatus == 2) return true;
+                        });
+                        if (rows.length == 0) {
+                            mini.alert("请上传一个Excel文件");
+                            return;
+                        }
+                        else {
+                            data = {};
+                            data.id = rows[0].Id;
+                            data.text = rows[0].FileName;
+                        }
+                    }
+                }
+                CloseWindow("ok");
+            }
+        }
+
+        function onDrawCell(e) {
+            if (e.field == "FileName") {
+                if (e.row.FileStatus == "2") {
+                    e.cellHtml = "<a href='@Url.RouteUrl(new { controller = "File", action = "DownloadFile" })" + "/" + e.row.Id + "' target='_blank'>" + e.value + "</a>";
+                }
+            }
+            else if (e.field == "UploadProgress") {
+                e.cellHtml = "<div class='progressbar'>"
+                    + "<div class='progressbar-percent' style='width:" + e.value + "%;'></div>"
+                    + "<div class='progressbar-label'>" + e.value + "%</div></div>";
+            }
+        }
+    </script>
+</body>
+</html>

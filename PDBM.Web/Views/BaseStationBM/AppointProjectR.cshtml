@@ -1,0 +1,351 @@
+﻿<div id="frmRemodeling" class="form">
+    <input class="mini-hidden" id="Id" name="Id" />
+    <input class="mini-hidden" id="ProjectIsApply" name="ProjectIsApply" />
+    <input class="mini-hidden" id="ProjectIsDoApply" name="ProjectIsDoApply" />
+    <input class="mini-hidden" id="WFActivityInstanceId" name="WFActivityInstanceId" />
+    <table style="width: 100%;">
+        <tr>
+            <td style="width: 80px; text-align: right;">站点编码</td>
+            <td>
+                <input id="GroupPlaceCode" name="GroupPlaceCode" class="mini-textbox" style="width: 200px;" readonly="true" value="@ViewData["GroupPlaceCode"]" />
+            </td>
+            <td style="width: 80px; text-align: right;">基站名称</td>
+            <td>
+                <input id="PlaceName" name="PlaceName" class="mini-textbox" style="width: 200px;" readonly="true" value="@ViewData["PlaceName"]" />
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 80px; text-align: right;">区域</td>
+            <td>
+                <input id="AreaName" name="AreaName" class="mini-textbox" style="width: 200px;" readonly="true" value="@ViewData["AreaName"]" />
+            </td>
+            <td style="width: 80px; text-align: right;">网格</td>
+            <td>
+                <input id="ReseauName" name="ReseauName" class="mini-textbox" style="width: 200px;" readonly="true" value="@ViewData["ReseauName"]" />
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 80px; text-align: right;">基站类型</td>
+            <td>
+                <input id="PlaceCategoryName" name="PlaceCategoryName" class="mini-textbox" style="width: 200px;" readonly="true" value="@ViewData["PlaceCategoryName"]" />
+            </td>
+            <td style="width: 80px; text-align: right;">紧要程度</td>
+            <td>
+                <input id="UrgencyName" name="UrgencyName" class="mini-textbox" style="width: 200px;" readonly="true" value="@ViewData["UrgencyName"]" />
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 80px; text-align: right;">经度</td>
+            <td>
+                <input id="Lng" name="Lng" class="mini-textbox" vtype='float' style="width: 200px;" readonly="true" value="@ViewData["Lng"]" />
+            </td>
+            <td style="width: 80px; text-align: right;">纬度</td>
+            <td>
+                <input id="Lat" name="Lat" class="mini-textbox" vtype='float' style="width: 200px;" readonly="true" value="@ViewData["Lat"]" />
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 80px; text-align: right;">导航图</td>
+            <td>
+                <a class="navigationmapedit" onclick="onMapClick()"></a>
+            </td>
+            <td style="width: 80px; text-align: right;">示意图</td>
+            <td>
+                <table>
+                    <tr>
+                        <td style="width:16px">
+                            <a class="fileedit" onclick="onFileClick()"></a>
+                        </td>
+                        <td>
+                            附件数量：<input id="Count" name="Count" class="mini-textbox" value="@ViewData["Count"]" />
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 80px; text-align: right;">周边场景</td>
+            <td>
+                <input id="SceneName" name="SceneName" class="mini-textbox" style="width: 200px;" readonly="true" value="@ViewData["SceneName"]" />
+            </td>
+            <td style="width: 80px; text-align: right;">改造状态</td>
+            <td>
+                <input id="OrderStateName" name="OrderStateName" class="mini-textbox" style="width: 200px;" readonly="true" value="@ViewData["OrderStateName"]" />
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 80px; text-align: right;">业主名称</td>
+            <td>
+                <input id="OwnerName" name="OwnerName" class="mini-textbox" style="width:200px;" readonly="true" value="@ViewData["OwnerName"]" />
+            </td>
+            <td style="width: 80px; text-align: right;">移动共享</td>
+            <td>
+                <input id="MobileShareName" name="MobileShareName" class="mini-textbox" style="width:200px;" readonly="true" value="@ViewData["MobileShareName"]" />
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 80px; text-align: right;">联系人</td>
+            <td>
+                <input id="OwnerContact" name="OwnerContact" class="mini-textbox" style="width:200px;" readonly="true" value="@ViewData["OwnerContact"]" />
+            </td>
+            <td style="width: 80px; text-align: right;">电信共享</td>
+            <td>
+                <input id="TelecomShareName" name="TelecomShareName" class="mini-textbox" style="width:200px;" readonly="true" value="@ViewData["TelecomShareName"]" />
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 80px; text-align: right;">联系方式</td>
+            <td>
+                <input id="OwnerPhoneNumber" name="OwnerPhoneNumber" class="mini-textbox" style="width:200px;" readonly="true" value="@ViewData["OwnerPhoneNumber"]" />
+            </td>
+            <td style="width: 80px; text-align: right;">联通共享</td>
+            <td>
+                <input id="UnicomShareName" name="UnicomShareName" class="mini-textbox" style="width:200px;" readonly="true" value="@ViewData["UnicomShareName"]" />
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 80px; text-align: right;">详细地址</td>
+            <td>
+                <input id="DetailedAddress" name="DetailedAddress" class="mini-textarea" style="width: 200px; height: 40px;" readonly="true" value="@ViewData["DetailedAddress"]" />
+            </td>
+            <td style="width: 80px; text-align: right;">备注</td>
+            <td>
+                <input id="Remarks" name="Remarks" class="mini-textarea" style="width: 200px; height: 40px;" readonly="true" value="@ViewData["Remarks"]" />
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 80px; text-align: right;">申请立项</td>
+            <td>
+                <div id="ckProjectIsApply" name="product" class="mini-checkbox" readonly="false" onvaluechanged="onValueChangedProjectIsApply"></div>
+            </td>
+            <td style="width: 80px; text-align: right;">立项完成</td>
+            <td>
+                <div id="ckProjectIsDoApply" name="product" class="mini-checkbox" readonly="false" onvaluechanged="onValueChangedProjectIsDoApply"></div>
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 80px; text-align: right;">申请时间</td>
+            <td>
+                <input id="ProjectApplyDate" name="ProjectApplyDate" class="mini-textbox" style="width:200px;" readonly="true" value="@ViewData["ProjectApplyDate"]" />
+            </td>
+            <td style="width: 80px; text-align: right;">完成时间</td>
+            <td>
+                <input id="ProjectDoApplyDate" name="ProjectDoApplyDate" class="mini-textbox" style="width:200px;" readonly="true" value="@ViewData["ProjectDoApplyDate"]" />
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 80px; text-align: right;">项目编码</td>
+            <td>
+                <input id="ProjectCode" name="ProjectCode" class="mini-textbox" style="width:200px;" requirederrortext="请输入项目编码" required="true" value="@ViewData["ProjectCode"]" />
+            </td>
+            <td style="width: 80px; text-align: right;">项目名称</td>
+            <td>
+                <input id="ProjectName" name="ProjectName" class="mini-textbox" style="width:200px;" requirederrortext="请输入项目名称" required="true" value="@ViewData["ProjectName"]" />
+            </td>
+        </tr>
+        <tr>
+            <td align="center" colspan="4">
+                <a class="mini-button" iconcls="icon-save" onclick="onSaveClick">保存</a>
+            </td>
+        </tr>
+    </table>
+</div>
+<script type="text/javascript">
+    mini.parse();
+
+    var frmRemodeling = new mini.Form("#frmRemodeling");
+    var txtRemodelingId = mini.get("Id");
+    var txtProjectIsApply = mini.get("ProjectIsApply");
+    var txtProjectIsDoApply = mini.get("ProjectIsDoApply");
+    var txtWFActivityInstanceId = mini.get("WFActivityInstanceId");
+    var ckProjectIsApply = mini.get("ckProjectIsApply");
+    var ckProjectIsDoApply = mini.get("ckProjectIsDoApply");
+
+    var count = mini.get("Count");
+    count.setWidth("10px");
+    if (count.setReadOnly) count.setReadOnly(true);     //只读
+    if (count.setIsValid) count.setIsValid(true);      //去除错误提示
+    if (count.addCls) count.addCls("asLabel");          //增加asLabel外观
+
+    init();
+
+    function init() {
+        txtRemodelingId.setValue("@ViewData["Id"]");
+        txtProjectIsApply.setValue("@ViewData["ProjectIsApply"]");
+        txtProjectIsDoApply.setValue("@ViewData["ProjectIsDoApply"]");
+        txtWFActivityInstanceId.setValue("@ViewData["WFActivityInstanceId"]");
+        if ("@ViewData["ProjectIsApply"]" == "1") {
+            ckProjectIsApply.setValue(true);
+            ckProjectIsApply.disable();
+        }
+        else {
+            ckProjectIsApply.setValue(false);
+            ckProjectIsApply.enable();
+        }
+        if ("@ViewData["ProjectIsDoApply"]" == "1") {
+            ckProjectIsDoApply.setValue(true);
+            ckProjectIsDoApply.disable();
+        }
+        else {
+            ckProjectIsDoApply.setValue(false);
+            ckProjectIsDoApply.enable();
+        }
+    }
+
+    function onMapClick() {
+        var placeId = "@ViewData["PlaceId"]";
+        var el = document.body;
+        mini.mask({
+            el: el,
+            cls: 'mini-mask-loading',
+            html: '加载中...'
+        });
+        setTimeout(function () {
+            $.ajax({
+                url: "@Url.RouteUrl(new { controller = "Map", action = "GetPlacePoint" })",
+                data: { PlaceId: placeId, AreaId: "00000000-0000-0000-0000-000000000000", PlaceName: "", Lng: 0, Lat: 0, Profession: 1 },
+                type: "get",
+                async: false,
+                success: function (result, textStatus) {
+                    mini.unmask(el);
+                    if (result.Id != null && result.Id == placeId) {
+                        var title = result.PlaceName;
+                        mini.open({
+                            url: "@Url.RouteUrl(new { controller = "Map", action = "NavigationMap" })",
+                            title: title,
+                            iconCls: "icon-map",
+                            width: 800,
+                            height: 550,
+                            showMaxButton: true,
+                            onload: function () {
+                                var iframe = this.getIFrameEl();
+                                var data = result;
+                                iframe.contentWindow.SetData(data);
+                            },
+                            ondestroy: function (action) {
+                                if (action == "ok") {
+                                    var iframe = this.getIFrameEl();
+                                    var data = iframe.contentWindow.GetData();
+                                    data = mini.clone(data);
+                                    txtLng.setValue(data.Lng);
+                                    txtLat.setValue(data.Lat);
+                                }
+                            }
+                        });
+                    }
+                },
+                error: function (xmlHttpRequest, textStatus, errorThrown) {
+                    mini.unmask(el);
+                }
+            });
+        }, 50);
+    }
+
+    function onFileClick() {
+        var id = "@ViewData["PlaceId"]";
+        var el = document.body;
+        mini.mask({
+            el: el,
+            cls: 'mini-mask-loading',
+            html: '加载中...'
+        });
+        setTimeout(function () {
+            $.ajax({
+                url: "@Url.RouteUrl(new { controller = "File", action = "GetPlaceFiles" })",
+                data: { PlaceId: id, FileIdList: "" },
+                type: "get",
+                async: false,
+                success: function (result, textStatus) {
+                    mini.unmask(el);
+                    if (result.Code == null || !result.Code) {
+                        mini.open({
+                            url: "@Url.RouteUrl(new { controller = "File", action = "FileManager" })",
+                            title: "示意图",
+                            iconCls: "icon-file",
+                            width: 620,
+                            height: 250,
+                            allowResize: false,
+                            onload: function () {
+                                var iframe = this.getIFrameEl();
+                                var data = result;
+                                iframe.contentWindow.SetData(data);
+                            }
+                        });
+                    }
+                },
+                error: function (xmlHttpRequest, textStatus, errorThrown) {
+                    mini.unmask(el);
+                }
+            });
+        }, 50);
+    }
+
+    function onSaveClick() {
+        frmRemodeling.validate();
+        if (frmRemodeling.isValid() == false) return;
+        var loading = mini.loading("处理中,请稍后...", "保存数据");
+        var jsonData = mini.encode(frmRemodeling.getData());
+        $.ajax({
+            url: "@Url.RouteUrl(new { controller = "BaseStationBM", action = "SaveProject" })",
+            data: AddAntiForgeryToken({ data: jsonData }),
+            type: "post",
+            success: function (result, textStatus) {
+                mini.hideMessageBox(loading);
+                if (result.Code != null && result.Code == 0) {
+                    ShowSucessMessage(result.Message);
+                }
+            },
+            error: function (xmlHttpRequest, textStatus, errorThrown) {
+                mini.hideMessageBox(loading);
+            }
+        });
+    }
+
+    function onValueChangedProjectIsApply(e) {
+        var checked = this.getChecked();
+        if (checked == true) {
+            var loading = mini.loading("处理中,请稍后...", "申请立项");
+            var jsonData = mini.encode(frmRemodeling.getData());
+            $.ajax({
+                url: "@Url.RouteUrl(new { controller = "BaseStationBM", action = "SaveApplyProjectR" })",
+                data: AddAntiForgeryToken({ data: jsonData }),
+                type: "post",
+                success: function (result, textStatus) {
+                    mini.hideMessageBox(loading);
+                    if (result.Code != null && result.Code == 0) {
+                        ShowSucessMessage(result.Message);
+                        ckProjectIsApply.setValue(true);
+                        ckProjectIsApply.disable();
+                    }
+                },
+                error: function (xmlHttpRequest, textStatus, errorThrown) {
+                    mini.hideMessageBox(loading);
+                }
+            });
+        }
+    }
+
+    function onValueChangedProjectIsDoApply(e) {
+        var checked = this.getChecked();
+        if (checked == true) {
+            var loading = mini.loading("处理中,请稍后...", "完成立项");
+            var jsonData = mini.encode(frmRemodeling.getData());
+            $.ajax({
+                url: "@Url.RouteUrl(new { controller = "BaseStationBM", action = "SaveDoApplyProjectR" })",
+                data: AddAntiForgeryToken({ data: jsonData }),
+                type: "post",
+                success: function (result, textStatus) {
+                    mini.hideMessageBox(loading);
+                    if (result.Code != null && result.Code == 0) {
+                        ShowSucessMessage(result.Message);
+                        ckProjectIsDoApply.setValue(true);
+                        ckProjectIsDoApply.disable();
+                    }
+                },
+                error: function (xmlHttpRequest, textStatus, errorThrown) {
+                    mini.hideMessageBox(loading);
+                }
+            });
+        }
+    }
+</script>

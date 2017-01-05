@@ -1,0 +1,52 @@
+﻿<div id="myToolbar" class="mini-toolbar" style="border-bottom: 0px; padding: 0px;">
+    <table style="width: 100%;" cellpadding="0" cellspacing="0">
+        <tr>
+            <td style="width: 100%;">
+                <a class="mini-button" iconcls="icon-help" plain="true" href="@Url.RouteUrl(new { controller = "File", action = "DownloadHelpFiles" })?FileName=Company" target="_blank"></a>当前位置：基础数据>组织机构>公司
+            </td>
+            <td style="white-space: nowrap;">
+                <a id="btnSearch" class="mini-button" iconcls="icon-search" plain="true" onclick="onSearchClick">查询</a>
+            </td>
+        </tr>
+    </table>
+</div>
+<div class="mini-fit">
+    <div id="dgCompany" class="mini-datagrid" style="width: 100%; height: 100%;" idfield="Id" allowmovecolumn="false"
+         showpager="false" fitcolumns="false" url="@Url.RouteUrl(new { controller = "BaseData", action = "GetCompanys" })"
+         onload="onDgCompanyLoad">
+        <div property="columns">
+            <div type="indexcolumn"></div>
+            <div field="CompanyCode" header="公司编码" width="120"></div>
+            <div field="CompanyName" header="公司简称" width="120"></div>
+            <div field="CompanyFullName" header="公司全称" width="180"></div>
+            <div type="comboboxcolumn" field="CompanyNature" header="公司性质" width="70">
+                <input property="editor" class="mini-combobox" style="width: 100%;" data=@Html.Raw(ViewData["CompanyNature"]) />
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    mini.parse();
+
+    var btnSearch = mini.get("btnSearch");
+    var dgCompany = mini.get("dgCompany");
+
+    Init();
+
+    function Init() {
+        BindDgCompany();
+    }
+
+    function BindDgCompany() {
+        btnSearch.setEnabled(false);
+        dgCompany.load();
+    }
+
+    function onDgCompanyLoad() {
+        btnSearch.setEnabled(true);
+    }
+
+    function onSearchClick() {
+        BindDgCompany();
+    }
+</script>

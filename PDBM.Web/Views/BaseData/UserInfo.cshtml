@@ -1,0 +1,164 @@
+﻿<div id="myToolbar" class="mini-toolbar" style="padding: 0px;">
+    <table style="width: 100%;" cellpadding="0" cellspacing="0">
+        <tr>
+            <td style="width: 100%;">
+                <a class="mini-button" iconcls="icon-help" plain="true" href="@Url.RouteUrl(new { controller = "File", action = "DownloadHelpFiles" })?FileName=UserInfo" target="_blank"></a>当前位置：基础数据>用户管理>用户信息
+            </td>
+            <td style="white-space: nowrap;">
+                <a class="mini-button" iconcls="icon-save" plain="true" onclick="onSaveClick">保存</a>
+            </td>
+        </tr>
+    </table>
+</div>
+<div class="mini-fit">
+    <table style="width: 100%; margin-top:10px;" cellpadding="0" cellspacing="0">
+        <tr>
+            <td align="center">
+                <div id="plUserInfo" class="mini-panel" title="用户信息" iconcls="icon-user" maskonload="false" style="width:340px;">
+                    <div id="frmUserInfo" class="form">
+                        <input class="mini-hidden" name="Id" />
+                        <table style="width:100%;">
+                            <tr>
+                                <td style="width: 80px; text-align: right;">用户名</td>
+                                <td><input id="UserName" name="UserName" class="mini-textbox" style="width: 200px;" enabled="false" /></td>
+                            </tr>
+                            <tr>
+                                <td style="width: 80px; text-align: right;">姓名</td>
+                                <td><input id="FullName" name="FullName" class="mini-textbox" style="width: 200px;" requirederrortext="请输入姓名" required="true" /></td>
+                            </tr>
+                            <tr>
+                                <td style="width: 80px; text-align: right;">邮箱</td>
+                                <td><input id="Email" name="Email" class="mini-textbox" style="width: 200px;" /></td>
+                            </tr>
+                            <tr>
+                                <td style="width: 80px; text-align: right;">手机号码</td>
+                                <td><input id="PhoneNumber" name="PhoneNumber" class="mini-textbox" style="width: 200px;" /></td>
+                            </tr>
+                            <tr>
+                                <td style="width: 80px; text-align: right;">公司</td>
+                                <td><input id="CompanyName" name="CompanyName" class="mini-textbox" style="width: 200px;" enabled="false" /></td>
+                            </tr>
+                            <tr>
+                                <td style="width: 80px; text-align: right;">部门</td>
+                                <td><input id="DepartmentName" name="DepartmentName" class="mini-textbox" style="width: 200px;" enabled="false" /></td>
+                            </tr>
+                            <tr>
+                                <td style="width: 80px; text-align: right;">角色</td>
+                                <td><input id="RoleNameList" class="mini-textboxlist" style="width: 200px;" readonly="true" valuefield="Id" textfield="RoleName" /></td>
+                            </tr>
+                            <tr>
+                                <td style="width: 80px; text-align: right;">岗位</td>
+                                <td><input id="PostNameList" class="mini-textboxlist" style="width: 200px;" readonly="true" valuefield="Id" textfield="PostName" /></td>
+                            </tr>
+                            <tr>
+                                <td style="width: 80px; text-align: right;">当前密码</td>
+                                <td><input id="OldUserPassword" name="OldUserPassword" class="mini-password" style="width: 200px;" onvalidation="onOldUserPasswordValidation" /></td>
+                            </tr>
+                            <tr>
+                                <td style="width: 80px; text-align: right;">新密码</td>
+                                <td><input id="NewUserPassword" name="NewUserPassword" class="mini-password" style="width: 200px;" /></td>
+                            </tr>
+                            <tr>
+                                <td style="width: 80px; text-align: right;">确认密码</td>
+                                <td><input id="ConfirmNewUserPassword" name="ConfirmNewUserPassword" class="mini-password" onvalidation="onConfirmNewUserPasswordValidation" style="width: 200px;" /></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </td>
+        </tr>
+    </table>
+</div>
+<script type="text/javascript">
+    mini.parse();
+
+    mini.mask({
+        el: document.getElementById("plUserInfo"),
+        cls: 'mini-mask-loading',
+        html: '加载中...'
+    });
+
+    var frmUserInfo = new mini.Form("#frmUserInfo");
+    var txtRoleNameList = mini.get("RoleNameList");
+    var txtPostNameList = mini.get("PostNameList");
+    var txtOldUserPassword = mini.get("OldUserPassword");
+    var txtNewUserPassword = mini.get("NewUserPassword");
+    var txtConfirmNewUserPassword = mini.get("ConfirmNewUserPassword");
+
+    Init();
+
+    function Init() {
+        BindUserInfo();
+    }
+
+    function BindUserInfo() {
+        $.ajax({
+            url: "@Url.RouteUrl(new { controller = "BaseData", action = "GetUserInfo" })",
+            type: "post",
+            success: function (result, textStatus) {
+                if (result != null) {
+                    frmUserInfo.setData(result);
+                    txtRoleNameList.setValue(result.RoleNameList);
+                    txtRoleNameList.setText(result.RoleNameList);
+                    txtPostNameList.setValue(result.PostNameList);
+                    txtPostNameList.setText(result.PostNameList);
+                    mini.unmask(document.getElementById("plUserInfo"))
+                }
+            },
+            error: function (xmlHttpRequest, textStatus, errorThrown) {
+            }
+        });
+    }
+
+    function onSaveClick() {
+        frmUserInfo.validate();
+        if (frmUserInfo.isValid() == false) return;
+        var loading = mini.loading("处理中,请稍后...", "保存数据");
+        var jsonData = mini.encode(frmUserInfo.getData());
+        $.ajax({
+            url: "@Url.RouteUrl(new { controller = "BaseData", action = "SaveUserInfo" })",
+            data: AddAntiForgeryToken({ data: jsonData }),
+            type: "post",
+            success: function (result, textStatus) {
+                mini.hideMessageBox(loading);
+                if (result.Code != null && result.Code == 0) {
+                    ShowSucessMessage(result.Message);
+                }
+            },
+            error: function (xmlHttpRequest, textStatus, errorThrown) {
+                mini.hideMessageBox(loading);
+            }
+        });
+        txtOldUserPassword.setValue("");
+        txtNewUserPassword.setValue("");
+        txtConfirmNewUserPassword.setValue("");
+    }
+
+    function onOldUserPasswordValidation(e) {
+        if (e.isValid) {
+            if (txtNewUserPassword.getValue().trim() != "") {
+                if (e.value.trim() == "") {
+                    e.errorText = "请输入当前密码";
+                    e.isValid = false;
+                }
+            }
+        }
+    }
+
+    function onConfirmNewUserPasswordValidation(e) {
+        if (e.isValid) {
+            if (txtNewUserPassword.getValue().trim() != "") {
+                if (e.value.trim() == "") {
+                    e.errorText = "请输入确认密码";
+                    e.isValid = false;
+                }
+                else {
+                    if (e.value.trim() != txtNewUserPassword.getValue().trim()) {
+                        e.errorText = "两次输入的密码不匹配";
+                        e.isValid = false;
+                    }
+                }
+            }
+        }
+    }
+</script>

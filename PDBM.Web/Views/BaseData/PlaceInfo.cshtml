@@ -1,0 +1,321 @@
+﻿<div id="frmPlace" class="form">
+    <div id="tabContent" class="mini-tabs" activeindex="0" style="width: 660px; height: 470px;" plain="true">
+        <div title="站点信息" style="height:100%">
+            <table style="width: 100%;">
+                <tr>
+                    <td style="width: 80px; text-align: right;">站点编码</td>
+                    <td>
+                        <input id="PlaceCode" name="PlaceCode" class="mini-textbox" style="width: 200px;" readonly="true" value="@ViewData["PlaceCode"]" />
+                    </td>
+                    <td style="width: 80px; text-align: right;">站点名称</td>
+                    <td>
+                        <input id="PlaceName" name="PlaceName" class="mini-textbox" style="width: 200px;" readonly="true" value="@ViewData["PlaceName"]" />
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 80px; text-align: right;">区域</td>
+                    <td>
+                        <input id="AreaName" name="AreaName" class="mini-textbox" style="width: 200px;" readonly="true" value="@ViewData["AreaName"]" />
+                    </td>
+                    <td style="width: 80px; text-align: right;">网格</td>
+                    <td>
+                        <input id="ReseauName" name="ReseauName" class="mini-textbox" style="width: 200px;" readonly="true" value="@ViewData["ReseauName"]" />
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 80px; text-align: right;">站点类型</td>
+                    <td>
+                        <input id="PlaceCategoryName" name="PlaceCategoryName" class="mini-textbox" style="width: 200px;" readonly="true" value="@ViewData["PlaceCategoryName"]" />
+                    </td>
+                    <td style="width: 80px; text-align: right;">重要性程度</td>
+                    <td>
+                        <input id="ImportanceName" name="ImportanceName" class="mini-textbox" style="width: 200px;" readonly="true" value="@ViewData["ImportanceName"]" />
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 80px; text-align: right;">经度</td>
+                    <td>
+                        <input id="Lng" name="Lng" class="mini-textbox" vtype='float' style="width: 200px;" readonly="true" value="@ViewData["Lng"]" />
+                    </td>
+                    <td style="width: 80px; text-align: right;">纬度</td>
+                    <td>
+                        <input id="Lat" name="Lat" class="mini-textbox" vtype='float' style="width: 200px;" readonly="true" value="@ViewData["Lat"]" />
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 80px; text-align: right;">导航图</td>
+                    <td>
+                        <a class="navigationmapedit" onclick="onMapClick()"></a>
+                    </td>
+                    <td style="width: 80px; text-align: right;">附件</td>
+                    <td>
+                        <table>
+                            <tr>
+                                <td style="width:16px">
+                                    <a class="fileedit" onclick="onFileClick()"></a>
+                                </td>
+                                <td>
+                                    附件数量：<input id="Count" name="Count" class="mini-textbox" value="@ViewData["Count"]" />
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 80px; text-align: right;">租赁部门</td>
+                    <td>
+                        <input id="AddressingDepartmentName" name="AddressingDepartmentName" class="mini-textbox" readonly="true" style="width: 200px;" value="@ViewData["AddressingDepartmentName"]" />
+                    </td>
+                    <td style="width: 80px; text-align: right;">租赁人</td>
+                    <td>
+                        <input id="AddressingRealName" name="AddressingRealName" readonly="true" class="mini-textbox" style="width:200px;" value="@ViewData["AddressingRealName"]" />
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 80px; text-align: right;">产权</td>
+                    <td>
+                        <input id="PlaceOwnerName" name="PlaceOwnerName" class="mini-textbox" style="width: 200px;" readonly="true" value="@ViewData["PlaceOwnerName"]" />
+                    </td>
+                    <td style="width: 80px; text-align: right;">业主名称</td>
+                    <td>
+                        <input id="OwnerName" name="OwnerName" class="mini-textbox" style="width:200px;" readonly="true" value="@ViewData["OwnerName"]" />
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 80px; text-align: right;">联系人</td>
+                    <td>
+                        <input id="OwnerContact" name="OwnerContact" class="mini-textbox" style="width:200px;" readonly="true" value="@ViewData["OwnerContact"]" />
+                    </td>
+                    <td style="width: 80px; text-align: right;">联系方式</td>
+                    <td>
+                        <input id="OwnerPhoneNumber" name="OwnerPhoneNumber" class="mini-textbox" style="width:200px;" readonly="true" value="@ViewData["OwnerPhoneNumber"]" />
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 80px; text-align: right;">详细地址</td>
+                    <td>
+                        <input id="DetailedAddress" name="DetailedAddress" class="mini-textarea" style="width: 200px; height: 40px;" readonly="true" value="@ViewData["DetailedAddress"]" />
+                    </td>
+                    <td style="width: 80px; text-align: right;">备注</td>
+                    <td>
+                        <input id="Remarks" name="Remarks" class="mini-textarea" style="width: 200px; height: 40px;" readonly="true" value="@ViewData["Remarks"]" />
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 80px; text-align: right;">2G逻辑号</td>
+                    <td>
+                        <input id="G2Number" name="G2Number" class="mini-textbox" style="width: 200px;" readonly="true" value="@ViewData["G2Number"]" />
+                    </td>
+                    <td style="width: 80px; text-align: right;">2D逻辑号</td>
+                    <td>
+                        <input id="D2Number" name="D2Number" class="mini-textbox" style="width:200px;" readonly="true" value="@ViewData["D2Number"]" />
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 80px; text-align: right;">3G逻辑号</td>
+                    <td>
+                        <input id="G3Number" name="G3Number" class="mini-textbox" style="width: 200px;" readonly="true" value="@ViewData["G3Number"]" />
+                    </td>
+                    <td style="width: 80px; text-align: right;">4G逻辑号</td>
+                    <td>
+                        <input id="G4Number" name="G4Number" class="mini-textbox" style="width:200px;" readonly="true" value="@ViewData["G4Number"]" />
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 80px; text-align: right;">5G逻辑号</td>
+                    <td>
+                        <input id="G5Number" name="G5Number" class="mini-textbox" style="width: 200px;" readonly="true" value="@ViewData["G5Number"]" />
+                    </td>
+                    <td style="width: 80px; text-align: right;">使用状态</td>
+                    <td>
+                        <input id="StateName" name="StateName" class="mini-textbox" style="width: 200px;" readonly="true" value="@ViewData["StateName"]" />
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 80px; text-align: right;">登记人</td>
+                    <td>
+                        <input id="CreateUserName" name="CreateUserName" class="mini-textbox" style="width: 200px;" readonly="true" value="@ViewData["CreateUserName"]" />
+                    </td>
+                    <td style="width: 80px; text-align: right;">登记日期</td>
+                    <td>
+                        <input id="CreateDate" name="CreateDate" class="mini-textbox" style="width: 200px;" readonly="true" value="@ViewData["CreateDate"]" />
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div title="建设记录" style="height:100%">
+            <table style="width: 100%;height:200px">
+                <tr>
+                    <td>
+                        <div class="mini-fit">
+                            <div id="dgProjectTask" class="mini-datagrid" style="width: 100%; height: 100%;" idfield="Id" allowmovecolumn="false"
+                                 showpager="false" fitcolumns="false" url="@Url.RouteUrl(new { controller = "BaseData", action = "GetProjectTaskHistory" })"
+                                 ondrawcell="onDrawCell" oncellclick="onCellClick">
+                                <div property="columns">
+                                    <div type="indexcolumn"></div>
+                                    <div field="PlaceId"></div>
+                                    <div type="comboboxcolumn" field="ProjectType" header="建设类型" width="60">
+                                        <input property="editor" class="mini-combobox" style="width: 100%;" data=@Html.Raw(ViewData["ProjectType"]) />
+                                    </div>
+                                    <div field="ProjectCode" header="项目编码" width="100"></div>
+                                    <div type="comboboxcolumn" field="ProjectProgress" header="项目进度" width="60">
+                                        <input property="editor" class="mini-combobox" style="width: 100%;" data=@Html.Raw(ViewData["ProjectProgress"]) />
+                                    </div>
+                                    <div field="AreaManagerName" header="项目经理" width="80"></div>
+                                    <div field="GeneralDesignName" header="总设单位" width="80"></div>
+                                    <div field="ProjectBeginDate" header="启动日期" width="80" dateformat="yyyy-MM-dd"></div>
+                                    <div field="ProjectDate" header="开通日期" width="80" dateformat="yyyy-MM-dd"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    mini.parse();
+    var frmPlace = new mini.Form("#frmPlace");
+    var tabContent = mini.get("tabContent");
+
+    var count = mini.get("Count");
+    count.setWidth("10px");
+    if (count.setReadOnly) count.setReadOnly(true);     //只读
+    if (count.setIsValid) count.setIsValid(true);      //去除错误提示
+    if (count.addCls) count.addCls("asLabel");          //增加asLabel外观
+
+    var dgProjectTask = mini.get("dgProjectTask");
+
+    init();
+
+    function init() {
+        dgProjectTask.hideColumn(1);
+        dgProjectTask.load({ PlaceId: "@ViewData["Id"]" });
+    }
+
+    function onMapClick() {
+        var placeId = "@ViewData["Id"]";
+        var el = document.body;
+        mini.mask({
+            el: el,
+            cls: 'mini-mask-loading',
+            html: '加载中...'
+        });
+        setTimeout(function () {
+            var url, data, getId;
+            url = "@Url.RouteUrl(new { controller = "Map", action = "GetPlacePoint" })";
+            data = { PlaceId: placeId, AreaId: "00000000-0000-0000-0000-000000000000", PlaceName: "", Lng: 0, Lat: 0, Profession: 1 };
+            getId = placeId;
+            $.ajax({
+                url: url,
+                data: data,
+                type: "get",
+                async: false,
+                success: function (result, textStatus) {
+                    mini.unmask(el);
+                    if (result.Id != null && result.Id == getId) {
+                        var title;
+                        if (placeId == "00000000-0000-0000-0000-000000000000") {
+                            title = result.PlanningName;
+                        }
+                        else {
+                            title = result.PlaceName;
+                        }
+                        mini.open({
+                            url: "@Url.RouteUrl(new { controller = "Map", action = "NavigationMap" })",
+                            title: title,
+                            iconCls: "icon-map",
+                            width: 800,
+                            height: 550,
+                            showMaxButton: true,
+                            onload: function () {
+                                var iframe = this.getIFrameEl();
+                                var data = result;
+                                iframe.contentWindow.SetData(data);
+                            },
+                            ondestroy: function (action) {
+                                if (action == "ok") {
+                                    var iframe = this.getIFrameEl();
+                                    var data = iframe.contentWindow.GetData();
+                                    data = mini.clone(data);
+                                    txtLng.setValue(data.Lng);
+                                    txtLat.setValue(data.Lat);
+                                }
+                            }
+                        });
+                    }
+                },
+                error: function (xmlHttpRequest, textStatus, errorThrown) {
+                    mini.unmask(el);
+                }
+            });
+        }, 50);
+    }
+
+    function onFileClick() {
+        var id = "@ViewData["Id"]";
+        var el = document.body;
+        mini.mask({
+            el: el,
+            cls: 'mini-mask-loading',
+            html: '加载中...'
+        });
+        setTimeout(function () {
+            $.ajax({
+                url: "@Url.RouteUrl(new { controller = "File", action = "GetPlaceFiles" })",
+                data: { PlaceId: id, FileIdList: "" },
+                type: "get",
+                async: false,
+                success: function (result, textStatus) {
+                    mini.unmask(el);
+                    if (result.Code == null || !result.Code) {
+                        mini.open({
+                            url: "@Url.RouteUrl(new { controller = "File", action = "FileManager" })",
+                            title: "附件",
+                            iconCls: "icon-file",
+                            width: 620,
+                            height: 250,
+                            allowResize: false,
+                            onload: function () {
+                                var iframe = this.getIFrameEl();
+                                var data = result;
+                                iframe.contentWindow.SetData(data);
+                            }
+                        });
+                    }
+                },
+                error: function (xmlHttpRequest, textStatus, errorThrown) {
+                    mini.unmask(el);
+                }
+            });
+        }, 50);
+    }
+
+    function onDrawCell(e) {
+        if (e.field == "ProjectCode") {
+            e.cellStyle = "color:blue";
+        }
+    }
+
+    function onCellClick(e) {
+        if (e.column.field == "ProjectCode") {
+            var el = dgProjectTask.getEl();
+            mini.mask({
+                el: el,
+                cls: 'mini-mask-loading',
+                html: '加载中...'
+            });
+            setTimeout(function () {
+                mini.unmask(el);
+                mini.open({
+                    url: "@Url.RouteUrl(new { controller = "BaseStationBM", action = "TaskCard" })" + "?Id=" + e.record.Id + "&PlaceId=" + e.record.PlaceId,
+                    title: "项目信息",
+                    //iconCls: "icon-editor",
+                    width: 670,
+                    height: 280,
+                });
+            }, 50);
+        }
+    }
+</script>

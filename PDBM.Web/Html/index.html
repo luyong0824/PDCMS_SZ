@@ -1,0 +1,28 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title></title>
+    
+</head>
+<body>
+    <script src="../Scripts/jquery-1.11.2.min.js"></script>
+    <script>
+        $.ajax({
+            url: "http://211.149.154.229/PDBM.Web/Map/GetPlacePoint",
+            data: { PlaceId: 'D6D5DA0F-9493-4DF1-8E37-2D793A553E30', AreaId: "00000000-0000-0000-0000-000000000000", PlaceName: "", Lng: 0, Lat: 0, Profession: 1 },
+            type: "get",
+            dataType:"json",
+        success: function (data11) {
+            console.log(data11)
+        },
+        error: function (xmlHttpRequest, textStatus, errorThrown) {
+            //alert(xmlHttpRequest, textStatus, errorThrown)
+            console.log(JSON.stringify(xmlHttpRequest));
+            console.log(JSON.stringify(errorThrown));
+            console.log(JSON.stringify(textStatus));
+        }
+        });
+    </script>
+</body>
+</html>

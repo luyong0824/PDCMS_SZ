@@ -1,0 +1,144 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{11359556-D66E-48D9-9FC2-550D9D830EDA}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>PDBM.ServiceContracts</RootNamespace>
+    <AssemblyName>PDBM.ServiceContracts</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BaseData\IAccountingEntityService.cs" />
+    <Compile Include="BaseData\IAreaService.cs" />
+    <Compile Include="BaseData\ICompanyService.cs" />
+    <Compile Include="BaseData\ICustomerService.cs" />
+    <Compile Include="BaseData\ICustomerUserService.cs" />
+    <Compile Include="BaseData\IDepartmentService.cs" />
+    <Compile Include="BaseData\IDutyUserService.cs" />
+    <Compile Include="BaseData\IMaterialCategoryService.cs" />
+    <Compile Include="BaseData\IMaterialService.cs" />
+    <Compile Include="BaseData\IMaterialSpecService.cs" />
+    <Compile Include="BaseData\IMenuService.cs" />
+    <Compile Include="BaseData\IPlaceCategoryService.cs" />
+    <Compile Include="BaseData\IPlaceOwnerService.cs" />
+    <Compile Include="BaseData\IPlacePropertyLogService.cs" />
+    <Compile Include="BaseData\IPlacePropertyService.cs" />
+    <Compile Include="BaseData\IPlaceService.cs" />
+    <Compile Include="BaseData\IPostService.cs" />
+    <Compile Include="BaseData\IPostUserService.cs" />
+    <Compile Include="BaseData\IProjectService.cs" />
+    <Compile Include="BaseData\IReseauService.cs" />
+    <Compile Include="BaseData\IRoleMenuItemService.cs" />
+    <Compile Include="BaseData\IRoleService.cs" />
+    <Compile Include="BaseData\IRoleUserService.cs" />
+    <Compile Include="BaseData\ISceneService.cs" />
+    <Compile Include="BaseData\IUnitService.cs" />
+    <Compile Include="BaseData\IUserService.cs" />
+    <Compile Include="BaseData\IWorkBigClassService.cs" />
+    <Compile Include="BaseData\IWorkSmallClassService.cs" />
+    <Compile Include="BMMgmt\IAddressExplorLogService.cs" />
+    <Compile Include="BMMgmt\IAddressExplorService.cs" />
+    <Compile Include="BMMgmt\IAddressingService.cs" />
+    <Compile Include="BMMgmt\IBlindSpotFeedBackService.cs" />
+    <Compile Include="BMMgmt\IBusinessVolumeService.cs" />
+    <Compile Include="BMMgmt\IConstructionTaskService.cs" />
+    <Compile Include="BMMgmt\IDelayApplyService.cs" />
+    <Compile Include="BMMgmt\IEngineeringTaskService.cs" />
+    <Compile Include="BMMgmt\IEquipmentInstallLogService.cs" />
+    <Compile Include="BMMgmt\IEquipmentInstallService.cs" />
+    <Compile Include="BMMgmt\IExternalElectricPowerLogService.cs" />
+    <Compile Include="BMMgmt\IExternalElectricPowerService.cs" />
+    <Compile Include="BMMgmt\IFoundationTestLogService.cs" />
+    <Compile Include="BMMgmt\IFoundationTestService.cs" />
+    <Compile Include="BMMgmt\IMachineRoomLogService.cs" />
+    <Compile Include="BMMgmt\IMachineRoomService.cs" />
+    <Compile Include="BMMgmt\IMaterialListService.cs" />
+    <Compile Include="BMMgmt\IMaterialSpecListService.cs" />
+    <Compile Include="BMMgmt\INoticeService.cs" />
+    <Compile Include="BMMgmt\IOperatorsConfirmService.cs" />
+    <Compile Include="BMMgmt\IOperatorsPlanningDemandService.cs" />
+    <Compile Include="BMMgmt\IOperatorsPlanningService.cs" />
+    <Compile Include="BMMgmt\IOperatorsSharingService.cs" />
+    <Compile Include="BMMgmt\IPlaceBusinessVolumeService.cs" />
+    <Compile Include="BMMgmt\IPlaceDesignService.cs" />
+    <Compile Include="BMMgmt\IPlanningApplyHeaderService.cs" />
+    <Compile Include="BMMgmt\IPlanningApplyService.cs" />
+    <Compile Include="BMMgmt\IPlanningService.cs" />
+    <Compile Include="BMMgmt\IProjectCodeListService.cs" />
+    <Compile Include="BMMgmt\IProjectTaskService.cs" />
+    <Compile Include="BMMgmt\IPurchaseService.cs" />
+    <Compile Include="BMMgmt\IRemodelingService.cs" />
+    <Compile Include="BMMgmt\ITaskPropertyLogService.cs" />
+    <Compile Include="BMMgmt\ITaskPropertyService.cs" />
+    <Compile Include="BMMgmt\ITowerBaseLogService.cs" />
+    <Compile Include="BMMgmt\ITowerBaseService.cs" />
+    <Compile Include="BMMgmt\ITowerLogService.cs" />
+    <Compile Include="BMMgmt\ITowerService.cs" />
+    <Compile Include="BMMgmt\IWorkApplyService.cs" />
+    <Compile Include="BMMgmt\IWorkOrderDetailService.cs" />
+    <Compile Include="BMMgmt\IWorkOrderService.cs" />
+    <Compile Include="DataOutput\IDataOutputService.cs" />
+    <Compile Include="Enum\IEnumService.cs" />
+    <Compile Include="FileMgmt\IFileService.cs" />
+    <Compile Include="DataImport\IDataImportService.cs" />
+    <Compile Include="Map\IMapService.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="WorkFlow\IWFActivityEditorService.cs" />
+    <Compile Include="WorkFlow\IWFActivityInstanceEditorService.cs" />
+    <Compile Include="WorkFlow\IWFActivityService.cs" />
+    <Compile Include="WorkFlow\IWFCategoryService.cs" />
+    <Compile Include="WorkFlow\IWFProcessService.cs" />
+    <Compile Include="WorkFlow\IWFInstanceService.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\PDBM.DataTransferObjects\PDBM.DataTransferObjects.csproj">
+      <Project>{5ad91431-e1ea-4cc7-bf12-8dd845717b5f}</Project>
+      <Name>PDBM.DataTransferObjects</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PDBM.Infrastructure\PDBM.Infrastructure.csproj">
+      <Project>{722f4e02-8228-46e4-8f30-1f6c905b9f6f}</Project>
+      <Name>PDBM.Infrastructure</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

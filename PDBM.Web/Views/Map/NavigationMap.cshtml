@@ -1,0 +1,739 @@
+﻿@{Layout = null;}
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+    <title>苏州联通建维营价值管理协同系统</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/default/miniui.css?v=3.5")" />
+    @Styles.Render("~/Content/bootstrap/skin")
+    @Styles.Render("~/Content/pdbm_css")
+    @Scripts.Render("~/Scripts/pdbm_js")
+    <style type="text/css">
+        html {
+            height: 100%;
+        }
+
+        body {
+            height: 100%;
+            margin: 0px;
+            padding: 0px;
+        }
+    </style>
+    <script type="text/javascript" src="http://api.map.baidu.com/library/DistanceTool/1.2/src/DistanceTool_min.js"></script>
+</head>
+<body>
+    <table style="width: 100%; height:100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+            <td>
+                <div id="myToolbar" class="mini-toolbar" style="border-top: 0px;border-left: 0px;border-right: 0px;padding: 0px;">
+                    <table style="width: 100%;" cellpadding="0" cellspacing="0">
+                        <tr>
+                            <td style="width: 100%;" align="center">经度<input id="spLng" class="mini-spinner" style="width:95px;" value="0" minvalue="0" maxvalue="150" increment="0.00001" format="n5" onvaluechanged="onSPValueChanged" />&nbsp;&nbsp;&nbsp;&nbsp;纬度<input id="spLat" class="mini-spinner" style="width:95px;" value="0" minvalue="0" maxvalue="150" increment="0.00001" format="n5" onvaluechanged="onSPValueChanged" /></td>
+                            <td style="white-space: nowrap;">
+                                <a id="btnReturn" class="mini-button" iconcls="icon-ok" plain="true" onclick="onReturnClick" visible="false">确定</a>
+                                <a id="btnLabel" class="mini-button" iconcls="icon-node" plain="true" onclick="onLabelClick" visible="false">隐藏标签</a>
+                                <a id="btnDistance" class="mini-button" iconcls="icon-distance" plain="true" onclick="onDistanceClick">测距</a>
+                                <a id="btnScreening" class="mini-button" iconcls="icon-filter" plain="true" onclick="onFilterClick">筛选面板</a>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </td>
+        </tr>
+        <tr style="height:100%;">
+            <td style="height:100%;">
+                <div id="container" style="width:100%; height :100%;">
+                </div>
+            </td>
+        </tr>
+    </table>
+    <div id="winScreening" class="mini-window" style="width: 350px; height: 240px;"
+         showmodal="true" allowresize="false" title="筛选周边2公里范围内的站点">
+        <fieldset style="border:solid 1px #aaa;padding:3px;">
+            <div>
+                <table style="width: 100%;">
+                    <tr>
+                        <td>
+                            <input id="ckbShowLabel" class="mini-checkbox" checked="true" text="显示标签" />
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </fieldset>
+        <fieldset style="border:solid 1px #aaa;padding:3px;">
+            <legend>规划站</legend>
+            <div>
+                <table style="width: 100%;">
+                    <tr>
+                        <td>
+                            <input id="ckbBSPlanningProfession" class="mini-checkbox" checked="true" text="基站" />
+                            <input id="ckbIDPlanningProfession" class="mini-checkbox" checked="true" text="室分" />
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </fieldset>
+        <fieldset style="border:solid 1px #aaa;padding:3px;">
+            <legend>已有站</legend>
+            <div>
+                <table style="width: 100%;">
+                    <tr>
+                        <td>
+
+                            <input id="ckbBSPlaceProfession" class="mini-checkbox" checked="true" text="基站" />
+                            <input id="ckbIDPlaceProfession" class="mini-checkbox" checked="true" text="室分" />
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </fieldset>
+        <div style="text-align: center; padding: 10px;">
+            <a class="mini-button" iconcls="icon-ok" onclick="onOKClick">确定</a>
+        </div>
+    </div>
+    <script type="text/javascript">
+        mini.parse();
+
+        var spLng = mini.get("spLng");
+        var spLat = mini.get("spLat");
+        var btnReturn = mini.get("btnReturn");
+        var btnLabel = mini.get("btnLabel");
+        var btnScreening = mini.get("btnScreening");
+        var winScreening = mini.get("winScreening");
+        var ckbShowLabel = mini.get("ckbShowLabel");
+        var ckbBSPlanningProfession = mini.get("ckbBSPlanningProfession");
+        var ckbIDPlanningProfession = mini.get("ckbIDPlanningProfession");
+        var ckbBSPlaceProfession = mini.get("ckbBSPlaceProfession");
+        var ckbIDPlaceProfession = mini.get("ckbIDPlaceProfession");
+        var showLabel = "true";
+        var canEdit = true;
+        var editMarker = null;
+        var editPoint = null;
+        var data = {};
+        var map, bsPlanningNotIssuedIcon, bsAddressingIcon, bsPlanningIcon, bsIcon, idPlanningNotIssuedIcon, idAddressingIcon, idPlanningIcon, idIcon;
+
+        function Init() {
+            map = new BMap.Map("container", { enableMapClick: false });
+            map.addControl(new BMap.NavigationControl());
+            map.addControl(new BMap.MapTypeControl({ mapTypes: [BMAP_NORMAL_MAP, BMAP_HYBRID_MAP, BMAP_SATELLITE_MAP] }));
+            map.enableScrollWheelZoom();
+            map.enableContinuousZoom();
+            map.enableInertialDragging();
+            //map.centerAndZoom("苏州市", 11);
+
+            //基站图标BaseStation
+            bsPlanningNotIssuedIcon = new BMap.Icon("@Url.Content("~/Content/images/bsplanningnotissued.png")", new BMap.Size(15, 15), {
+                anchor: new BMap.Size(7.5, 7.5),
+                imageOffset: new BMap.Size(0, 0)
+            });
+
+            bsAddressingIcon = new BMap.Icon("@Url.Content("~/Content/images/bsaddressing.png")", new BMap.Size(15, 15), {
+                anchor: new BMap.Size(7.5, 7.5),
+                imageOffset: new BMap.Size(0, 0)
+            });
+
+            bsPlanningIcon = new BMap.Icon("@Url.Content("~/Content/images/bsplanning.png")", new BMap.Size(15, 15), {
+                anchor: new BMap.Size(7.5, 7.5),
+                imageOffset: new BMap.Size(0, 0)
+            });
+
+            bsIcon = new BMap.Icon("@Url.Content("~/Content/images/bs.png")", new BMap.Size(15, 15), {
+                anchor: new BMap.Size(7.5, 7.5),
+                imageOffset: new BMap.Size(0, 0)
+            });
+
+            //室分图标IndoorDistribution
+            idPlanningNotIssuedIcon = new BMap.Icon("@Url.Content("~/Content/images/idplanningnotissued.png")", new BMap.Size(15, 15), {
+                anchor: new BMap.Size(7.5, 7.5),
+                imageOffset: new BMap.Size(0, 0)
+            });
+
+            idAddressingIcon = new BMap.Icon("@Url.Content("~/Content/images/idaddressing.png")", new BMap.Size(15, 15), {
+                anchor: new BMap.Size(7.5, 7.5),
+                imageOffset: new BMap.Size(0, 0)
+            });
+
+            idPlanningIcon = new BMap.Icon("@Url.Content("~/Content/images/idplanning.png")", new BMap.Size(15, 15), {
+                anchor: new BMap.Size(7.5, 7.5),
+                imageOffset: new BMap.Size(0, 0)
+            });
+
+            idIcon = new BMap.Icon("@Url.Content("~/Content/images/id.png")", new BMap.Size(15, 15), {
+                anchor: new BMap.Size(7.5, 7.5),
+                imageOffset: new BMap.Size(0, 0)
+            });
+
+            if (editPoint.Places && editPoint.Places != null && editPoint.Places != "") {
+                var json = jQuery.parseJSON(editPoint.Places);
+                map.centerAndZoom("苏州市", 11);
+                callShowMarkers(json, false);
+            }
+            else if (editPoint.Operators && editPoint.Operators != null && editPoint.Operators != "") {
+                var json = jQuery.parseJSON(editPoint.Operators);
+                map.centerAndZoom("苏州市", 11);
+                callShowMarkers(json, false);
+            }
+            else if (editPoint.Plannings && editPoint.Plannings != null && editPoint.Plannings != "") {
+                var json = jQuery.parseJSON(editPoint.Plannings);
+                map.centerAndZoom("苏州市", 11);
+                callShowMarkers(json, false);
+            }
+            else if (editPoint.OperatorsPlanningsAndPlaces && editPoint.OperatorsPlanningsAndPlaces != null && editPoint.OperatorsPlanningsAndPlaces != "") {
+                showMarker(editPoint, true);
+                var json = jQuery.parseJSON(editPoint.OperatorsPlanningsAndPlaces);
+                callShowMarkers(json, false);
+                ckblBSPlaceCategoryList.selectAll();
+                onOKClick();
+            }
+            else {
+                showMarker(editPoint, true);
+
+                if (editPoint.IsFromPlanning && editPoint.IsFromPlanning != null && editPoint.IsFromPlanning == 1) {
+                    onOKClick2();
+                }
+                if (editPoint.OperatorsPlannings && editPoint.OperatorsPlannings != null && editPoint.OperatorsPlannings != "") {
+                    var json = jQuery.parseJSON(editPoint.OperatorsPlannings);
+                    callShowMarkers(json, false);
+                }
+            }
+        }
+
+        function LoadJScript() {
+            var script = document.createElement("script");
+            script.type = "text/javascript";
+            script.src = "http://api.map.baidu.com/api?v=2.0&ak=LLVuDqCSP9Mx1ACp8bqNsrRe&callback=Init";
+            document.body.appendChild(script);
+        }
+
+        function SetData(data) {
+            editPoint = mini.clone(data);
+            spLng.setValue(editPoint.Lng);
+            spLat.setValue(editPoint.Lat);
+            spLng.setEnabled(false);
+            spLat.setEnabled(false);
+            canEdit = false;
+            LoadJScript();
+        }
+
+        function SetDataEdit(data) {
+            editPoint = mini.clone(data);
+            spLng.setValue(editPoint.Lng);
+            spLat.setValue(editPoint.Lat);
+            spLng.setEnabled(true);
+            spLat.setEnabled(true);
+            btnReturn.setVisible(true);
+            canEdit = true;
+            LoadJScript();
+        }
+
+        function showMarker(point, isInit) {
+            var ajaxUrl = buildUrlBySingle(point);
+            if (ajaxUrl != null && ajaxUrl != -1) {
+                $.ajax({
+                    url: ajaxUrl,
+                    type: "get",
+                    async: true,
+                    dataType: 'jsonp',
+                    success: function (data, textStatus) {
+                        var p = new BMap.Point(data.x, data.y);
+                        if (editMarker != null) {
+                            map.removeOverlay(editMarker);
+                        }
+                        if (point.DataType == 1) {
+                            if (point.Profession == 1) {
+                                //if (point.CompanyId.toUpperCase() == "6365F3DE-0FC5-4930-A321-2350EE6269BB") {
+                                //    editMarker = new BMap.Marker(p, { icon: bsPlanningMobileIcon });
+                                //}
+                                //else if (point.CompanyId.toUpperCase() == "2E0FFE5F-C03A-4767-9915-9683F0DB0B53") {
+                                //    editMarker = new BMap.Marker(p, { icon: bsPlanningTelecomIcon });
+                                //}
+                                //else if (point.CompanyId.toUpperCase() == "0B2A7F2D-B623-4EF2-A89D-FF4EAB0A1600") {
+                                //    editMarker = new BMap.Marker(p, { icon: bsPlanningUnicomIcon });
+                                //}
+                                //else {
+                                //    editMarker = new BMap.Marker(p, { icon: bsPlanningIcon });
+                                //}
+                                if (point.Issued == 1) {
+                                    editMarker = new BMap.Marker(p, { icon: bsPlanningIcon });
+                                }
+                                else {
+                                    editMarker = new BMap.Marker(p, { icon: bsPlanningNotIssuedIcon });
+                                }
+                                editMarker.addEventListener("click", function () { this.openInfoWindow(new BMap.InfoWindow(bsPlanningContent(point), { enableMessage: false })) });
+                            }
+                            else if (point.Profession == 2) {
+                                if (point.Issued == 1) {
+                                    editMarker = new BMap.Marker(p, { icon: idPlanningIcon });
+                                }
+                                else {
+                                    editMarker = new BMap.Marker(p, { icon: idPlanningNotIssuedIcon });
+                                }
+                                editMarker.addEventListener("click", function () { this.openInfoWindow(new BMap.InfoWindow(idPlanningContent(point), { enableMessage: false })) });
+                            }
+                        }
+                        else {
+                            if (point.Profession == 1) {
+                                if (point.PlaceMapState == 1) {
+                                    editMarker = new BMap.Marker(p, { icon: bsAddressingIcon });
+                                }
+                                else {
+                                    editMarker = new BMap.Marker(p, { icon: bsIcon });
+                                }
+                                editMarker.addEventListener("click", function () { this.openInfoWindow(new BMap.InfoWindow(bsContent(point), { enableMessage: false })) });
+                            }
+                            else if (point.Profession == 2) {
+                                if (point.PlaceMapState == 1) {
+                                    editMarker = new BMap.Marker(p, { icon: idAddressingIcon });
+                                }
+                                else {
+                                    editMarker = new BMap.Marker(p, { icon: idIcon });
+                                }
+                                editMarker.addEventListener("click", function () { this.openInfoWindow(new BMap.InfoWindow(idContent(point), { enableMessage: false })) });
+                            }
+                        }
+                        editMarker.disableMassClear();
+                        map.addOverlay(editMarker);
+                        var label = null;
+                        if (point.DataType == 1) {
+                            label = new BMap.Label(point.PlanningName, { offset: new BMap.Size(15, -15) });
+                            if (point.CompanyId.toUpperCase() == "6365F3DE-0FC5-4930-A321-2350EE6269BB") {
+                                label.setStyle({ borderColor: "#0386d2" });
+                            }
+                            else if (point.CompanyId.toUpperCase() == "2E0FFE5F-C03A-4767-9915-9683F0DB0B53") {
+                                label.setStyle({ borderColor: "#ff65cc" });
+                            }
+                            else if (point.CompanyId.toUpperCase() == "0B2A7F2D-B623-4EF2-A89D-FF4EAB0A1600") {
+                                label.setStyle({ borderColor: "#ef8a31" });
+                            }
+                            else {
+                                label.setStyle({ borderColor: "green" });
+                            }
+                        }
+                        else {
+                            label = new BMap.Label(point.PlaceName, { offset: new BMap.Size(15, -15) });
+                            label.setStyle({ borderColor: "red" });
+                        }
+                        editMarker.setLabel(label);
+                        if (canEdit == true) {
+                            editMarker.enableDragging(true);
+                            editMarker.addEventListener("dragend", onDragend);
+                        }
+                        if (isInit == true) {
+                            map.centerAndZoom(p, 14);
+                        }
+                    },
+                    error: function (xmlHttpRequest, textStatus, errorThrown) {
+                    }
+                });
+            }
+        }
+
+        function onDragend(e) {
+            editPoint.Lng = e.point.lng;
+            editPoint.Lat = e.point.lat;
+            var ajaxUrl = buildUrlBySingle(editPoint);
+            if (ajaxUrl != null && ajaxUrl != -1) {
+                $.ajax({
+                    url: ajaxUrl,
+                    type: "get",
+                    async: true,
+                    dataType: 'jsonp',
+                    success: function (data, textStatus) {
+                        var p = new BMap.Point(data.x, data.y);
+                        var x = 2 * editPoint.Lng - p.lng;
+                        var y = 2 * editPoint.Lat - p.lat;
+                        editPoint.Lng = x.toFixed(5);
+                        editPoint.Lat = y.toFixed(5);
+                        spLng.setValue(editPoint.Lng);
+                        spLat.setValue(editPoint.Lat);
+                        showMarker(editPoint, false);
+                    },
+                    error: function (xmlHttpRequest, textStatus, errorThrown) {
+                    }
+                });
+            }
+        }
+
+        function showMarkers(points, canClear) {
+            var ajaxUrl = buildUrl(points);
+            if (ajaxUrl != null && ajaxUrl != -1) {
+                $.ajax({
+                    url: ajaxUrl,
+                    type: "get",
+                    async: true,
+                    dataType: 'jsonp',
+                    success: function (data, textStatus) {
+                        for (var i = 0; i < data.result.length; i++) {
+                            var p = new BMap.Point(data.result[i].x, data.result[i].y);
+                            var marker = null;
+                            if (points[i].DataType == 1) {
+                                //if (points[i].Profession == 1) {
+                                //    if (points[i].CompanyId.toUpperCase() == "6365F3DE-0FC5-4930-A321-2350EE6269BB") {
+                                //        marker = new BMap.Marker(p, { icon: bsPlanningMobileIcon });
+                                //    }
+                                //    else if (points[i].CompanyId.toUpperCase() == "2E0FFE5F-C03A-4767-9915-9683F0DB0B53") {
+                                //        marker = new BMap.Marker(p, { icon: bsPlanningTelecomIcon });
+                                //    }
+                                //    else if (points[i].CompanyId.toUpperCase() == "0B2A7F2D-B623-4EF2-A89D-FF4EAB0A1600") {
+                                //        marker = new BMap.Marker(p, { icon: bsPlanningUnicomIcon });
+                                //    }
+                                //    else {
+                                //        marker = new BMap.Marker(p, { icon: bsPlanningIcon });
+                                //    }
+                                //}
+                                if (points[i].Profession == 1) {
+                                    if (points[i].Issued == 1) {
+                                        marker = new BMap.Marker(p, { icon: bsPlanningIcon });
+                                    }
+                                    else {
+                                        marker = new BMap.Marker(p, { icon: bsPlanningNotIssuedIcon });
+                                    }
+                                }
+                                else if (points[i].Profession == 2) {
+                                    if (points[i].Issued == 1) {
+                                        marker = new BMap.Marker(p, { icon: idPlanningIcon });
+                                    }
+                                    else {
+                                        marker = new BMap.Marker(p, { icon: idPlanningNotIssuedIcon });
+                                    }
+                                }
+                            }
+                            else {
+                                if (points[i].Profession == 1) {
+                                    if (points[i].PlaceMapState == 1) {
+                                        marker = new BMap.Marker(p, { icon: bsAddressingIcon });
+                                    }
+                                    else {
+                                        marker = new BMap.Marker(p, { icon: bsIcon });
+                                    }
+                                }
+                                else if (points[i].Profession == 2) {
+                                    if (points[i].PlaceMapState == 1) {
+                                        marker = new BMap.Marker(p, { icon: idAddressingIcon });
+                                    }
+                                    else {
+                                        marker = new BMap.Marker(p, { icon: idIcon });
+                                    }
+                                }
+                            }
+                            if (canClear == false) {
+                                marker.disableMassClear();
+                            }
+                            map.addOverlay(marker);
+                            (function () {
+                                var index = i;
+                                if (points[i].DataType == 1) {
+                                    if (points[i].Profession == 1) {
+                                        marker.addEventListener("click", function () { this.openInfoWindow(new BMap.InfoWindow(bsPlanningContent(points[index]), { enableMessage: false })) });
+                                    }
+                                    else if (points[i].Profession == 2) {
+                                        marker.addEventListener("click", function () { this.openInfoWindow(new BMap.InfoWindow(idPlanningContent(points[index]), { enableMessage: false })) });
+                                    }
+                                }
+                                else {
+                                    if (points[i].Profession == 1) {
+                                        marker.addEventListener("click", function () { this.openInfoWindow(new BMap.InfoWindow(bsContent(points[index]), { enableMessage: false })) });
+                                    }
+                                    else if (points[i].Profession == 2) {
+                                        marker.addEventListener("click", function () { this.openInfoWindow(new BMap.InfoWindow(idContent(points[index]), { enableMessage: false })) });
+                                    }
+                                }
+                            })();
+                            if (showLabel == "true") {
+                                var label = null;
+                                if (points[i].DataType == 1) {
+                                    label = new BMap.Label(points[i].PlanningName, { offset: new BMap.Size(15, -15) });
+                                    if (points[i].CompanyId.toUpperCase() == "6365F3DE-0FC5-4930-A321-2350EE6269BB") {
+                                        label.setStyle({ borderColor: "#0386d2" });
+                                    }
+                                    else if (points[i].CompanyId.toUpperCase() == "2E0FFE5F-C03A-4767-9915-9683F0DB0B53") {
+                                        label.setStyle({ borderColor: "#ff65cc" });
+                                    }
+                                    else if (points[i].CompanyId.toUpperCase() == "0B2A7F2D-B623-4EF2-A89D-FF4EAB0A1600") {
+                                        label.setStyle({ borderColor: "#ef8a31" });
+                                    }
+                                    else {
+                                        label.setStyle({ borderColor: "green" });
+                                    }
+                                }
+                                else {
+                                    label = new BMap.Label(points[i].PlaceName, { offset: new BMap.Size(15, -15) });
+                                    label.setStyle({ borderColor: "red" });
+                                }
+                                marker.setLabel(label);
+                            }
+                        }
+                    },
+                    error: function (xmlHttpRequest, textStatus, errorThrown) {
+                    }
+                });
+            }
+        }
+
+        function callShowMarkers(allPoints, canClear) {
+            if (allPoints.length <= 100) {
+                showMarkers(allPoints, canClear);
+            }
+            else {
+                var count = Math.ceil(allPoints.length / 100);
+                var pointsArray = [];
+                for (var i = 0; i < count; i++) {
+                    pointsArray = [];
+                    for (var j = i * 100; j < i * 100 + 100 && j < allPoints.length; j++) {
+                        pointsArray.push(allPoints[j]);
+                    }
+                    showMarkers(pointsArray, canClear);
+                }
+            }
+        }
+
+        function buildUrlBySingle(point) {
+            if (point != null) {
+                return "http://api.map.baidu.com/ag/coord/convert?from=0&to=4&x=" + point.Lng + "&y=" + point.Lat;
+            }
+            else {
+                return "-1";
+            }
+        }
+
+        function buildUrl(points) {
+            if (points.length > 0 && points.length <= 100) {
+                var coords = "";
+                var length = points.length;
+                for (var i = 0; i < length ; i++) {
+                    coords += points[i].Lng + "," + points[i].Lat;
+                    if (i != length - 1) {
+                        coords += ";";
+                    }
+                }
+                return "http://api.map.baidu.com/geoconv/v1/?coords=" + coords + "&from=1&to=5&ak=dywuWrCdVNtmoEIp9W563MCu";
+            }
+            else {
+                return "-1";
+            }
+        }
+
+        function bsPlanningContent(point) {
+            return "<table border='0' cellpadding='0' cellspacing='0' width='330px'>" +
+                "<tr>" +
+                "<td align='right' width='70px'><b>规划名称：</b></td>" +
+                "<td colspan='3' width='260px'>" + point.PlanningName + "</td>" +
+                "</tr>" +
+                "<tr>" +
+                "<td align='right' width='70px'><b>基站类型：</b></td>" +
+                "<td width='95px'>" + point.PlaceCategoryName + "</td>" +
+                "<td align='right' width='70px'><b>寻址状态：</b></td>" +
+                "<td width='95px'>" + point.AddressingStateName + "</td>" +
+                "</tr>" +
+                "<tr>" +
+                "<td align='right'><b>区域：</b></td>" +
+                "<td>" + point.AreaName + "</td>" +
+                "<td align='right'><b>网格：</b></td>" +
+                "<td>" + point.ReseauName + "</td>" +
+                "</tr>" +
+                "<tr>" +
+                "<td align='right'><b>经度：</b></td>" +
+                "<td>" + point.Lng + "</td>" +
+                "<td align='right'><b>纬度：</b></td>" +
+                "<td>" + point.Lat + "</td>" +
+                "</tr>" +
+                "</table>";
+        }
+
+        function bsContent(point) {
+            return "<table border='0' cellpadding='0' cellspacing='0' width='330px'>" +
+                "<tr>" +
+                "<td align='right' width='70px'><b>基站名称：</b></td>" +
+                "<td colspan='3' width='260px'>" + point.PlaceName + "</td>" +
+                "</tr>" +
+                "<tr>" +
+                "<td align='right' width='70px'><b>基站类型：</b></td>" +
+                "<td width='95px'>" + point.PlaceCategoryName + "</td>" +
+                "<td align='right' width='70px'><b>产权：</b></td>" +
+                "<td width='95px'>" + point.PlaceOwnerName + "</td>" +
+                "</tr>" +
+                "<tr>" +
+                "<td align='right'><b>网格：</b></td>" +
+                "<td>" + point.ReseauName + "</td>" +
+                "<td align='right'><b>已有网络：</b></td>" +
+                "<td>" + point.NetWorks + "</td>" +
+                "</tr>" +
+                "<tr>" +
+                "<td align='right'><b>经度：</b></td>" +
+                "<td>" + point.Lng + "</td>" +
+                "<td align='right'><b>纬度：</b></td>" +
+                "<td>" + point.Lat + "</td>" +
+                "</tr>" +
+                "</table>";
+        }
+
+        function idPlanningContent(point) {
+            return "<table border='0' cellpadding='0' cellspacing='0' width='330px'>" +
+                "<tr>" +
+                "<td align='right' width='70px'><b>规划名称：</b></td>" +
+                "<td colspan='3' width='260px'>" + point.PlanningName + "</td>" +
+                "</tr>" +
+                "<tr>" +
+                "<td align='right' width='70px'><b>室分类型：</b></td>" +
+                "<td width='95px'>" + point.PlaceCategoryName + "</td>" +
+                "<td align='right' width='70px'><b>寻址状态：</b></td>" +
+                "<td width='95px'>" + point.AddressingStateName + "</td>" +
+                "</tr>" +
+                "<tr>" +
+                "<td align='right'><b>区域：</b></td>" +
+                "<td>" + point.AreaName + "</td>" +
+                "<td align='right'><b>网格：</b></td>" +
+                "<td>" + point.ReseauName + "</td>" +
+                "</tr>" +
+                "<tr>" +
+                "<td align='right'><b>经度：</b></td>" +
+                "<td>" + point.Lng + "</td>" +
+                "<td align='right'><b>纬度：</b></td>" +
+                "<td>" + point.Lat + "</td>" +
+                "</tr>" +
+                "</table>";
+        }
+
+        function idContent(point) {
+            return "<table border='0' cellpadding='0' cellspacing='0' width='330px'>" +
+                "<tr>" +
+                "<td align='right' width='70px'><b>室分名称：</b></td>" +
+                "<td colspan='3' width='260px'>" + point.PlaceName + "</td>" +
+                "</tr>" +
+                "<tr>" +
+                "<td align='right' width='70px'><b>室分类型：</b></td>" +
+                "<td width='95px'>" + point.PlaceCategoryName + "</td>" +
+                "<td align='right' width='70px'><b>产权：</b></td>" +
+                "<td width='95px'>" + point.PlaceOwnerName + "</td>" +
+                "</tr>" +
+                "<tr>" +
+                "<td align='right'><b>网格：</b></td>" +
+                "<td>" + point.ReseauName + "</td>" +
+                "<td align='right'><b>已有网络：</b></td>" +
+                "<td>" + point.NetWorks + "</td>" +
+                "</tr>" +
+                "<tr>" +
+                "<td align='right'><b>经度：</b></td>" +
+                "<td>" + point.Lng + "</td>" +
+                "<td align='right'><b>纬度：</b></td>" +
+                "<td>" + point.Lat + "</td>" +
+                "</tr>" +
+                "</table>";
+        }
+
+        function GetData() {
+            return data;
+        }
+
+        function CloseWindow(action) {
+            if (window.CloseOwnerWindow) {
+                return window.CloseOwnerWindow(action);
+            }
+            else {
+                window.close();
+            }
+        }
+
+        function onSPValueChanged() {
+            editPoint.Lng = spLng.getValue();
+            editPoint.Lat = spLat.getValue();
+            showMarker(editPoint, false);
+        }
+
+        function onReturnClick() {
+            data = {};
+            data.Lng = spLng.getValue();
+            data.Lat = spLat.getValue();
+            CloseWindow("ok");
+        }
+
+        function onLabelClick() {
+            if (showLabel == true) {
+                btnLabel.setText("显示标签");
+                showLabel = false;
+            }
+            else {
+                btnLabel.setText("隐藏标签");
+                showLabel = true;
+            }
+        }
+
+        function onFilterClick() {
+            winScreening.show();
+        }
+
+        function onOKClick() {
+            showLabel = ckbShowLabel.getValue();
+            var planningId, placeId;
+            if (editPoint.DataType == 1) {
+                planningId = editPoint.Id;
+                placeId = "00000000-0000-0000-0000-000000000000";
+            }
+            else {
+                planningId = "00000000-0000-0000-0000-000000000000";
+                placeId = editPoint.Id;
+            }
+            var query_BSPlanningProfession = ckbBSPlanningProfession.getChecked() == true ? 1 : 0;
+            var query_IDPlanningProfession = ckbIDPlanningProfession.getChecked() == true ? 2 : 0;
+            var query_BSPlaceProfession = ckbBSPlaceProfession.getChecked() == true ? 1 : 0;
+            var query_IDPlaceProfession = ckbIDPlaceProfession.getChecked() == true ? 2 : 0;
+
+            $.ajax({
+                url: "@Url.RouteUrl(new { controller = "Map", action = "GetNearbyPlanningsAndPlacesAll" })",
+                data: { Lng: spLng.getValue(), Lat: spLat.getValue(), PlanningId: planningId, PlaceId: placeId, BSPlanningProfession: query_BSPlanningProfession, IDPlanningProfession: query_IDPlanningProfession, BSPlaceProfession: query_BSPlaceProfession, IDPlaceProfession: query_IDPlaceProfession },
+                type: "get",
+                async: true,
+                success: function (result, textStatus) {
+                    map.clearOverlays();
+                    var datas = mini.decode(result);
+                    if (datas.plannings && datas.plannings != null && datas.places && datas.places != null) {
+                        callShowMarkers(datas.plannings, true);
+                        callShowMarkers(datas.places, true);
+                    }
+                },
+                error: function (xmlHttpRequest, textStatus, errorThrown) {
+                }
+            });
+            winScreening.hide();
+        }
+
+        function onDistanceClick() {
+            var myDis = new BMapLib.DistanceTool(map);
+            myDis.open();
+        }
+
+        function onOKClick2() {
+            showLabel = ckbShowLabel.getValue();
+            var planningId, placeId;
+            if (editPoint.DataType == 1) {
+                planningId = editPoint.Id;
+                placeId = "00000000-0000-0000-0000-000000000000";
+            }
+            else {
+                planningId = "00000000-0000-0000-0000-000000000000";
+                placeId = editPoint.Id;
+            }
+            var query_BSPlanningProfession = ckbBSPlanningProfession.getChecked() == true ? 1 : 0;
+            var query_IDPlanningProfession = ckbIDPlanningProfession.getChecked() == true ? 2 : 0;
+            var query_BSPlaceProfession = ckbBSPlaceProfession.getChecked() == true ? 1 : 0;
+            var query_IDPlaceProfession = ckbIDPlaceProfession.getChecked() == true ? 2 : 0;
+
+            $.ajax({
+                url: "@Url.RouteUrl(new { controller = "Map", action = "GetNearbyPlanningsAndPlacesAll" })",
+                data: { Lng: spLng.getValue(), Lat: spLat.getValue(), PlanningId: planningId, PlaceId: placeId, BSPlanningProfession: query_BSPlanningProfession, IDPlanningProfession: query_IDPlanningProfession, BSPlaceProfession: query_BSPlaceProfession, IDPlaceProfession: query_IDPlaceProfession },
+                type: "get",
+                async: true,
+                success: function (result, textStatus) {
+                    var datas = mini.decode(result);
+                    if (datas.bsPlannings && datas.bsPlannings != null && datas.bsPlaces && datas.bsPlaces != null) {
+                        callShowMarkers(datas.bsPlannings, true);
+                        callShowMarkers(datas.bsPlaces, true);
+                    }
+                },
+                error: function (xmlHttpRequest, textStatus, errorThrown) {
+                }
+            });
+        }
+    </script>
+</body>
+</html>

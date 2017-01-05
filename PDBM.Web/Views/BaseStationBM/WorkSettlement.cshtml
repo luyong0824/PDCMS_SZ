@@ -1,0 +1,415 @@
+﻿<div id="frmWorkOrder" class="form">
+    <input class="mini-hidden" id="Id" name="Id" value="@ViewData["Id"]" />
+    <input class="mini-hidden" id="WFActivityInstanceId" name="WFActivityInstanceId" value="@ViewData["WFActivityInstanceId"]" />
+    <input class="mini-hidden" id="WFFileIdList" name="WFFileIdList" value="@ViewData["WFFileIdList"]" />
+    <div id="tabContent" class="mini-tabs" activeindex="0" style="width: 745px; height: 409px;" plain="true">
+        <div title="执行情况">
+            <table style="width: 100%;">
+                <tr>
+                    <td style="width: 80px; text-align: right;">
+                        工作起始时间
+                    </td>
+                    <td>
+                        <input id="WorkBeginDate" name="WorkBeginDate" class="mini-datepicker" style="width:98px;" value="new Date()" showclearbutton="false" allowinput="false" />&nbsp;日&nbsp;<input id="BeginHour" name="BeginHour" class="mini-spinner" style="width:42px;" minvalue="0" maxvalue="23" value="@ViewData["BeginHour"]" />时<input id="BeginMinute" name="BeginMinute" class="mini-spinner" style="width:42px;" minvalue="0" maxvalue="59" value="@ViewData["BeginMinute"]" />&nbsp;分
+                    </td>
+                    <td style="width: 80px; text-align: right;">
+                        工作结束时间
+                    </td>
+                    <td>
+                        <input id="WorkEndDate" name="WorkEndDate" class="mini-datepicker" style="width:98px;" value="new Date()" showclearbutton="false" allowinput="false" />&nbsp;日&nbsp;<input id="EndHour" name="EndHour" class="mini-spinner" style="width:42px;" minvalue="0" maxvalue="23" value="@ViewData["EndHour"]" />时<input id="EndMinute" name="EndMinute" class="mini-spinner" style="width:42px;" minvalue="0" maxvalue="59" value="@ViewData["EndMinute"]" />&nbsp;分
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 80px; text-align: right;">执行情况</td>
+                    <td colspan="3">
+                        <input id="ExecuteSituation" name="ExecuteSituation" class="mini-textarea" requirederrortext="请输入执行情况" required="true" style="width: 94%; height: 60px;" value="@ViewData["ExecuteSituation"]" />
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 80px; text-align: right;">消耗材料</td>
+                    <td colspan="3">
+                        <input id="MaterialConsumption" name="MaterialConsumption" class="mini-textarea" style="width: 94%; height: 60px;" value="@ViewData["MaterialConsumption"]" />
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 80px; text-align: right;">人员数量</td>
+                    <td colspan="3">
+                        <input id="PersonnelNumber" name="PersonnelNumber" class="mini-textarea" style="width: 94%; height: 60px;" value="@ViewData["PersonnelNumber"]" />
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 80px; text-align: right;">车辆类型</td>
+                    <td colspan="3">
+                        <input id="CarType" name="CarType" class="mini-textarea" style="width: 94%; height: 60px;" value="@ViewData["CarType"]" />
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 80px; text-align: right;">是否完成</td>
+                    <td>
+                        <input id="IsFinish" name="IsFinish" class="mini-combobox" value="2" style="width:200px;" data=@Html.Raw(ViewData["Bool"]) />
+                    </td>
+                    <td style="width: 80px; text-align: right;">附件</td>
+                    <td>
+                        <table>
+                            <tr>
+                                <td style="width:16px">
+                                    <a class="fileedit" onclick="onFileEditClick();"></a>
+                                </td>
+                                <td>
+                                    附件数量：<input id="WFCount" name="WFCount" class="mini-textbox" value="@ViewData["WFCount"]" />
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="center" colspan="4">
+                        <a class="mini-button" iconcls="icon-save" onclick="onSaveClick">保存</a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div title="各天执行情况">
+            <div id="myToolbar" class="mini-toolbar" style="border-bottom: 0px; padding: 0px;">
+                <table style="width: 100%;" cellpadding="0" cellspacing="0">
+                    <tr>
+                        <td style="white-space: nowrap;" align="right">
+                            <a class="mini-button" iconcls="icon-add" plain="true" onclick="onAddClick">新增</a>
+                            <a class="mini-button" iconcls="icon-edit" plain="true" onclick="onEditClick">修改</a>
+                            <a class="mini-button" iconcls="icon-remove" plain="true" onclick="onRemoveClick">删除</a>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="mini-fit">
+                <div id="dgWorkOrderDetail" class="mini-datagrid" style="width: 100%; height: 90%;" idfield="Id" allowmovecolumn="false"
+                     multiselect="true" fitcolumns="false" onlycheckselection="true" showreloadbutton="false" showpager="false">
+                    <div property="columns">
+                        <div type="indexcolumn"></div>
+                        <div type="checkcolumn"></div>
+                        <div field="WorkBeginDate" header="工作开始时间" width="105" dateformat="yyyy-MM-dd HH:mm"></div>
+                        <div field="WorkEndDate" header="工作结束时间" width="105" dateformat="yyyy-MM-dd HH:mm"></div>
+                        <div field="ExecuteSituation" header="执行情况" width="100"></div>
+                        <div field="MaterialConsumption" header="材料消耗" width="100"></div>
+                        <div field="PersonnelNumber" header="人员数量" width="100"></div>
+                        <div field="CarType" header="车辆类型" width="100"></div>
+                        <div type="comboboxcolumn" field="IsFinish" header="是否完成" width="60">
+                            <input property="editor" class="mini-combobox" style="width: 100%;" data=@Html.Raw(ViewData["Bool"]) />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="winWorkOrderDetail" class="mini-window" style="width: 350px; height: 390px;"
+         showmodal="true" allowresize="false">
+        <div id="frmWorkOrderDetail" class="form">
+            <input class="mini-hidden" id="WorkOrderDetailId" name="WorkOrderDetailId" />
+            <input class="mini-hidden" id="WorkOrderId" name="WorkOrderId" />
+            <input class="mini-hidden" id="txt_WFActivityInstanceId" name="txt_WFActivityInstanceId" />
+            <table style="width: 100%;">
+                <tr>
+                    <td style="width: 80px; text-align: right;">
+                        工作起始时间
+                    </td>
+                    <td>
+                        <input id="dp_WorkBeginDate" name="dp_WorkBeginDate" class="mini-datepicker" style="width:98px;" value="new Date()" showclearbutton="false" allowinput="false" />&nbsp;日&nbsp;<input id="sp_BeginHour" name="sp_BeginHour" class="mini-spinner" style="width:42px;" value="8" minvalue="0" maxvalue="23" />时<input id="sp_BeginMinute" name="sp_BeginMinute" class="mini-spinner" style="width:42px;" value="0" minvalue="0" maxvalue="59" />&nbsp;分
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 80px; text-align: right;">
+                        工作结束时间
+                    </td>
+                    <td>
+                        <input id="dp_WorkEndDate" name="dp_WorkEndDate" class="mini-datepicker" style="width:98px;" value="new Date()" showclearbutton="false" allowinput="false" />&nbsp;日&nbsp;<input id="sp_EndHour" name="sp_EndHour" class="mini-spinner" style="width:42px;" value="16" minvalue="0" maxvalue="23" />时<input id="sp_EndMinute" name="sp_EndMinute" class="mini-spinner" style="width:42px;" value="0" minvalue="0" maxvalue="59" />&nbsp;分
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 80px; text-align: right;">执行情况</td>
+                    <td>
+                        <input id="txt_ExecuteSituation" name="txt_ExecuteSituation" class="mini-textarea" requirederrortext="请输入执行情况" required="true" style="width: 230px; height: 50px;" />
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 80px; text-align: right;">消耗材料</td>
+                    <td>
+                        <input id="txt_MaterialConsumption" name="txt_MaterialConsumption" class="mini-textarea" style="width: 230px; height: 50px;" />
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 80px; text-align: right;">人员数量</td>
+                    <td>
+                        <input id="txt_PersonnelNumber" name="txt_PersonnelNumber" class="mini-textarea" style="width: 230px; height: 50px;" />
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 80px; text-align: right;">车辆类型</td>
+                    <td>
+                        <input id="txt_CarType" name="txt_CarType" class="mini-textarea" style="width: 230px; height: 50px;" />
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 80px; text-align: right;">是否完成</td>
+                    <td>
+                        <input id="cb_IsFinish" name="cb_IsFinish" class="mini-combobox" value="2" style="width:230px;" data=@Html.Raw(ViewData["Bool"]) />
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div style="text-align: center; padding: 10px;">
+            <a class="mini-button" iconcls="icon-save" onclick="onDetailSaveClick" style="margin-right: 10px;">保存</a>
+            <a class="mini-button" iconcls="icon-cancel" onclick="onClearClick">清空</a>
+        </div>
+    </div>
+
+</div>
+<script type="text/javascript">
+    mini.parse();
+
+    var frmWorkOrder = new mini.Form("#frmWorkOrder");
+    var txtWorkOrderId = mini.get("Id");
+    var txtWFActivityInstanceId = mini.get("WFActivityInstanceId");
+    var txtWFFileIdList = mini.get("WFFileIdList");
+    var dpWorkBeginDate = mini.get("WorkBeginDate");
+    var spBeginHour = mini.get("BeginHour");
+    var spBeginMinute = mini.get("BeginMinute");
+    var dpWorkEndDate = mini.get("WorkEndDate");
+    var spEndHour = mini.get("EndHour");
+    var spEndMinute = mini.get("EndMinute");
+    var txtExecuteSituation = mini.get("ExecuteSituation");
+    var txtMaterialConsumption = mini.get("MaterialConsumption");
+    var txtPersonnelNumber = mini.get("PersonnelNumber");
+    var txtCarType = mini.get("CarType");
+    var cbIsFinish = mini.get("IsFinish");
+    var winWorkOrderDetail = mini.get("winWorkOrderDetail");
+    var dgWorkOrderDetail = mini.get("dgWorkOrderDetail");
+    var frmWorkOrderDetail = new mini.Form("#frmWorkOrderDetail");
+    var txtWorkOrderDetailId = mini.get("WorkOrderDetailId");
+    var txt_WorkOrderId = mini.get("WorkOrderId");
+    var txt_WFActivityInstanceId = mini.get("txt_WFActivityInstanceId");
+    var dp_WorkBeginDate = mini.get("dp_WorkBeginDate");
+    var sp_BeginHour = mini.get("sp_BeginHour");
+    var sp_BeginMinute = mini.get("sp_BeginMinute");
+    var dp_WorkEndDate = mini.get("dp_WorkEndDate");
+    var sp_EndHour = mini.get("sp_EndHour");
+    var sp_EndMinute = mini.get("sp_EndMinute");
+    var txt_ExecuteSituation = mini.get("txt_ExecuteSituation");
+    var txt_MaterialConsumption = mini.get("txt_MaterialConsumption");
+    var txt_PersonnelNumber = mini.get("txt_PersonnelNumber");
+    var txt_CarType = mini.get("txt_CarType");
+    var cb_IsFinish = mini.get("cb_IsFinish");
+
+    var wfCount = mini.get("WFCount");
+    wfCount.setWidth("10px");
+    if (wfCount.setReadOnly) wfCount.setReadOnly(true);     //只读
+    if (wfCount.setIsValid) wfCount.setIsValid(true);      //去除错误提示
+    if (wfCount.addCls) wfCount.addCls("asLabel");          //增加asLabel外观
+
+    init();
+
+    function init() {
+        dpWorkBeginDate.setValue("@ViewData["WorkBeginDateText"]");
+        dpWorkEndDate.setValue("@ViewData["WorkEndDateText"]");
+        cbIsFinish.setValue("@ViewData["IsFinish"]");
+        txt_WorkOrderId.setValue("@ViewData["Id"]");
+        txt_WFActivityInstanceId.setValue("@ViewData["WFActivityInstanceId"]");
+        BindDgWorkOrderDetail();
+    }
+
+    function BindDgWorkOrderDetail() {
+        if (dgWorkOrderDetail.getUrl() == "") {
+            dgWorkOrderDetail.setUrl("@Url.RouteUrl(new { controller = "BaseStationBM", action = "GetWorkOrderDetail" })");
+        }
+        dgWorkOrderDetail.clearSelect(false);
+        dgWorkOrderDetail.load({ WorkOrderId: txtWorkOrderId.getValue() });
+    }
+
+    function onSaveClick() {
+        frmWorkOrder.validate();
+        if (frmWorkOrder.isValid() == false) return;
+        var loading = mini.loading("处理中,请稍后...", "保存数据");
+        var jsonData = mini.encode(frmWorkOrder.getData());
+        $.ajax({
+            url: "@Url.RouteUrl(new { controller = "BaseStationBM", action = "SaveWorkOrderWF" })",
+            data: AddAntiForgeryToken({ data: jsonData }),
+            type: "post",
+            success: function (result, textStatus) {
+                mini.hideMessageBox(loading);
+                if (result.Code != null && result.Code == 0) {
+                    ShowSucessMessage(result.Message);
+                }
+            },
+            error: function (xmlHttpRequest, textStatus, errorThrown) {
+                mini.hideMessageBox(loading);
+            }
+        });
+    }
+
+    function onFileEditClick() {
+        var el = document.body;
+        mini.mask({
+            el: el,
+            cls: 'mini-mask-loading',
+            html: '加载中...'
+        });
+        setTimeout(function () {
+            $.ajax({
+                url: "@Url.RouteUrl(new { controller = "File", action = "GetWorkOrderWFFiles" })",
+                data: { Id: txtWorkOrderId.getValue(), FileIdList: txtWFFileIdList.getValue() },
+                type: "get",
+                async: false,
+                success: function (result, textStatus) {
+                    mini.unmask(el);
+                    if (result.Code == null || !result.Code) {
+                        mini.open({
+                            url: "@Url.RouteUrl(new { controller = "File", action = "FileManager" })",
+                            title: "各天执行情况",
+                            iconCls: "icon-file",
+                            width: 620,
+                            height: 250,
+                            allowResize: false,
+                            onload: function () {
+                                var iframe = this.getIFrameEl();
+                                var data = result;
+                                iframe.contentWindow.SetDataEdit(data);
+                            },
+                            ondestroy: function (action) {
+                                if (action == "ok") {
+                                    var iframe = this.getIFrameEl();
+                                    var data = iframe.contentWindow.GetData();
+                                    data = mini.clone(data);
+                                    txtWFFileIdList.setValue(data.FileIdList);
+                                }
+                            }
+                        });
+                    }
+                },
+                error: function (xmlHttpRequest, textStatus, errorThrown) {
+                    mini.unmask(el);
+                }
+            });
+        }, 50);
+    }
+
+    function ClearFrmWorkOrderDetail() {
+        var idValue = txtWorkOrderDetailId.getValue();
+        var workOrderDetailIdValue = txt_WorkOrderId.getValue();
+        var wfActivityInstanceIdValue = txt_WFActivityInstanceId.getValue();
+        var workBeginorkDateValue = dp_WorkBeginDate.getFormValue();
+        var workEndDateValue = dp_WorkEndDate.getFormValue();
+        frmWorkOrderDetail.clear();
+        txtWorkOrderDetailId.setValue(idValue);
+        txt_WorkOrderId.setValue(workOrderDetailIdValue);
+        txt_WFActivityInstanceId.setValue(wfActivityInstanceIdValue);
+        dp_WorkBeginDate.setValue(workBeginorkDateValue);
+        dp_WorkEndDate.setValue(workEndDateValue);
+        cb_IsFinish.setValue("2");
+    }
+
+    function onAddClick() {
+        txtWorkOrderDetailId.setValue("");
+        ClearFrmWorkOrderDetail();
+        winWorkOrderDetail.setTitle("新增执行情况");
+        winWorkOrderDetail.show();
+    }
+
+    function onEditClick() {
+        var rows = dgWorkOrderDetail.getSelecteds();
+        if (rows.length == 0) {
+            mini.alert("请选择一条要修改的数据");
+        }
+        else {
+            ClearFrmWorkOrderDetail();
+            winWorkOrderDetail.setTitle("修改执行说明");
+            winWorkOrderDetail.show();
+            var el = winWorkOrderDetail.getEl();
+            mini.mask({
+                el: el,
+                cls: 'mini-mask-loading',
+                html: '加载中...'
+            });
+            setTimeout(function () {
+                $.ajax({
+                    url: "@Url.RouteUrl(new { controller = "BaseStationBM", action = "GetWorkOrderDetailById" })" + "/" + rows[0].Id,
+                    type: "get",
+                    async: false,
+                    success: function (result, textStatus) {
+                        if (result.WorkOrderDetailId != null && result.WorkOrderDetailId == rows[0].Id) {
+                            frmWorkOrderDetail.setData(result);
+                            dp_WorkBeginDate.setValue(result.dp_WorkBeginDateText);
+                            dp_WorkEndDate.setValue(result.dp_WorkEndDateText);
+                            txt_WFActivityInstanceId.setValue("@ViewData["WFActivityInstanceId"]");
+                        }
+                        else {
+                            winWorkOrderDetail.hide();
+                        }
+                    },
+                    error: function (xmlHttpRequest, textStatus, errorThrown) {
+                        winWorkOrderDetail.hide();
+                    }
+                });
+            }, 50);
+            setTimeout(function () {
+                mini.unmask(el);
+            }, 300);
+        }
+    }
+
+    function onRemoveClick() {
+        var rows = dgWorkOrderDetail.getSelecteds();
+        if (rows.length == 0) {
+            mini.alert("请选择要删除的数据");
+        }
+        else {
+            mini.confirm("确定要删除选中的数据？", "删除执行情况",
+            function (action) {
+                if (action == "ok") {
+                    var loading = mini.loading("处理中,请稍后...", "删除数据");
+                    var jsonData = mini.encode(rows);
+                    $.ajax({
+                        url: "@Url.RouteUrl(new { controller = "BaseStationBM", action = "RemoveWorkOrderDetail" })",
+                        data: AddAntiForgeryToken({ data: jsonData }),
+                        type: "post",
+                        success: function (result, textStatus) {
+                            mini.hideMessageBox(loading);
+                            if (result.Code != null && result.Code == 0) {
+                                ShowSucessMessage(result.Message);
+                                BindDgWorkOrderDetail();
+                            }
+                        },
+                        error: function (xmlHttpRequest, textStatus, errorThrown) {
+                            mini.hideMessageBox(loading);
+                        }
+                    });
+                }
+            });
+        }
+    }
+
+    function onDetailSaveClick() {
+        frmWorkOrderDetail.validate();
+        if (frmWorkOrderDetail.isValid() == false) return;
+        var loading = mini.loading("处理中,请稍后...", "保存数据");
+        var jsonData = mini.encode(frmWorkOrderDetail.getData());
+        $.ajax({
+            url: "@Url.RouteUrl(new { controller = "BaseStationBM", action = "SaveWorkOrderDetail" })",
+            data: AddAntiForgeryToken({ data: jsonData }),
+            type: "post",
+            success: function (result, textStatus) {
+                mini.hideMessageBox(loading);
+                if (result.Code != null && result.Code == 0) {
+                    winWorkOrderDetail.hide();
+                    ShowSucessMessage(result.Message);
+                    BindDgWorkOrderDetail();
+                }
+            },
+            error: function (xmlHttpRequest, textStatus, errorThrown) {
+                mini.hideMessageBox(loading);
+            }
+        });
+    }
+
+    function onClearClick() {
+        ClearFrmWorkOrderDetail();
+    }
+</script>

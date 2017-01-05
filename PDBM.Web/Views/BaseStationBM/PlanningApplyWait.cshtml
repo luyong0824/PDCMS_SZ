@@ -1,0 +1,286 @@
+﻿<div id="myToolbar" class="mini-toolbar" style="border-bottom: 0px; padding: 0px;">
+    <table style="width: 100%;" cellpadding="0" cellspacing="0">
+        <tr>
+            <td style="width: 100%;">
+                <a class="mini-button" iconcls="icon-help" plain="true" href="@Url.RouteUrl(new { controller = "File", action = "DownloadHelpFiles" })?FileName=PlanningApply" target="_blank"></a>当前位置：基站建维>规划寻址>待处理基站建设申请
+            </td>
+            <td style="white-space: nowrap;">
+                <a id="btnSearch" class="mini-button" iconcls="icon-search" plain="true" onclick="onSearchClick">查询</a>
+                <a class="mini-button" iconcls="icon-ok" plain="true" onclick="onPlanningAdviceClick">规划意见</a>
+            </td>
+        </tr>
+    </table>
+</div>
+<div class="mini-fit">
+    <div id="dgPlanningApply" class="mini-datagrid" style="width: 100%; height: 100%;" idfield="Id" allowmovecolumn="false"
+         multiselect="true" fitcolumns="false" onlycheckselection="true" showreloadbutton="false" pagesize="15" sizelist="[15,30,50,100]"
+         virtualscroll="false" frozenstartcolumn="0" frozenendcolumn="3" onload="onDgPlanningApplyLoad" ondrawcell="onDrawCell">
+        <div property="columns">
+            <div type="indexcolumn"></div>
+            <div type="checkcolumn"></div>
+            <div field="PlanningCode" header="规划编码" width="80"></div>
+            <div field="PlanningName" header="规划名称" width="150"></div>
+            <div field="AreaName" header="区域" width="80"></div>
+            <div field="ReseauName" header="网格" width="80"></div>
+            <div field="Lng" header="经度" width="80"></div>
+            <div field="Lat" header="纬度" width="80"></div>
+            <div field="Map" header="导航图" width="50"></div>
+            <div field="DetailedAddress" header="详细地址" width="100"></div>
+            <div type="comboboxcolumn" field="Importance" header="重要性程度" width="80">
+                <input property="editor" class="mini-combobox" style="width: 100%;" data=@Html.Raw(ViewData["Importance"]) />
+            </div>
+            <div field="Remarks" header="建设理由" width="100"></div>
+            <div type="comboboxcolumn" field="DoState" header="处理状态" width="80">
+                <input property="editor" class="mini-combobox" style="width: 100%;" data=@Html.Raw(ViewData["DoState"]) />
+            </div>
+            <div type="comboboxcolumn" field="PlanningAdvice" header="规划意见" width="80">
+                <input property="editor" class="mini-combobox" style="width: 100%;" data=@Html.Raw(ViewData["PlanningAdvice"]) />
+            </div>
+            <div field="FullName" header="申请人" width="100"></div>
+            <div field="DepartmentName" header="申请部门" width="100"></div>
+            <div field="CreateDate" header="申请日期" width="100" dateformat="yyyy-MM-dd"></div>
+        </div>
+    </div>
+</div>
+<div id="winQuery" class="mini-window" style="width: 615px; height: 165px;"
+     showmodal="true" allowresize="false" title="查询条件">
+    <table style="width: 100%;">
+        <tr>
+            <td style="width: 80px; text-align: right;">申请日期</td>
+            <td>
+                <table border="0" cellpadding="0" cellspacing="0">
+                    <tr>
+                        <td><input id="dpBeginDate" class="mini-datepicker" style="width:98px;" value="new Date()" showclearbutton="false" allowinput="false" /></td>
+                        <td>至</td>
+                        <td><input id="dpEndDate" class="mini-datepicker" style="width:98px;" value="new Date()" showclearbutton="false" allowinput="false" /></td>
+                    </tr>
+                </table>
+            </td>
+            <td style="width: 80px; text-align: right;">规划名称</td>
+            <td>
+                <input id="txtPlanningName" class="mini-textbox" style="width:208px;" />
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 80px; text-align: right;">区域</td>
+            <td>
+                <input id="cbAreaId" class="mini-combobox" value="00000000-0000-0000-0000-000000000000" style="width:208px;" textfield="AreaName" valuefield="Id" data=@Html.Raw(ViewData["AreasByAll"])
+                       onvaluechanged="onCbAreaIdValueChanged" />
+            </td>
+            <td style="width: 80px; text-align: right;">网格</td>
+            <td>
+                <input id="cbReseauId" class="mini-combobox" value="00000000-0000-0000-0000-000000000000" style="width:208px;" textfield="ReseauName" valuefield="Id" data="[{Id:'00000000-0000-0000-0000-000000000000',ReseauName:'全部'}]"
+                       onload="onCbReseauIdLoad" />
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 80px; text-align: right;">处理状态</td>
+            <td>
+                <input id="cbDoState" class="mini-combobox" value="2" style="width:208px;" data=@Html.Raw(ViewData["DoStateByAll"]) />
+            </td>
+            <td style="width: 80px; text-align: right;">申请人</td>
+            <td>
+                <input id="beCreateUserId" style="width:208px;" allowinput="false" class="mini-buttonedit searchbox" showclose="true" text="全部" value="00000000-0000-0000-0000-000000000000"
+                       onbuttonclick="onCreateUserSelectButtonClick" oncloseclick="onCreateUserSelectButtonCloseClick" />
+            </td>
+        </tr>
+    </table>
+    <div style="text-align: center; padding: 10px;">
+        <a class="mini-button" iconcls="icon-ok" onclick="onOKClick">确定</a>
+    </div>
+</div>
+<div id="winPlanningAdvice" class="mini-window" style="width: 290px; height: 110px;"
+     showmodal="true" allowresize="false" title="规划意见">
+    <table style="width: 100%;">
+        <tr>
+            <td style="width: 60px; text-align: right;">规划意见</td>
+            <td>
+                <input id="cb_PlanningAdvice" name="cb_PlanningAdvice" class="mini-combobox" value="1" style="width:200px;" data=@Html.Raw(ViewData["PlanningAdvice"]) />
+            </td>
+        </tr>
+    </table>
+    <div style="text-align: center; padding: 10px;">
+        <a class="mini-button" iconcls="icon-ok" onclick="onSavePlanningAdviceClick">确定</a>
+    </div>
+</div>
+<script type="text/javascript">
+    mini.parse();
+
+    var btnSearch = mini.get("btnSearch");
+    var dgPlanningApply = mini.get("dgPlanningApply");
+    var winQuery = mini.get("winQuery");
+    var dpBeginDate = mini.get("dpBeginDate");
+    var dpEndDate = mini.get("dpEndDate");
+    var txtPlanningName = mini.get("txtPlanningName");
+    var cbAreaId = mini.get("cbAreaId");
+    var cbReseauId = mini.get("cbReseauId");
+    var cbDoState = mini.get("cbDoState");
+    var beCreateUserId = mini.get("beCreateUserId");
+
+    var winPlanningAdvice = mini.get("winPlanningAdvice");
+    var cb_PlanningAdvice = mini.get("cb_PlanningAdvice");
+
+    Init();
+
+    function Init() {
+        dpBeginDate.setValue(new Date().DateAdd("y", -1));
+        @*beCreateUserId.setValue("@ViewData["UserId"]");
+        beCreateUserId.setText("@ViewData["FullName"]");*@
+        BindDgPlanningApply();
+    }
+
+    function BindDgPlanningApply() {
+        btnSearch.setEnabled(false);
+        var query_BeginDate = dpBeginDate.getFormValue();
+        var query_EndDate = dpEndDate.getFormValue();
+        var query_PlanningName = txtPlanningName.getValue();
+        var query_AreaId = cbAreaId.getValue();
+        var query_ReseauId = cbReseauId.getValue();
+        var query_DoState = cbDoState.getValue();
+        var query_CreateUserId = beCreateUserId.getValue();
+        if (dgPlanningApply.getUrl() == "") {
+            dgPlanningApply.setUrl("@Url.RouteUrl(new { controller = "BaseStationBM", action = "GetPlanningApplysWaitPage" })");
+        }
+        dgPlanningApply.clearSelect(false);
+        dgPlanningApply.load({
+            BeginDate: query_BeginDate, EndDate: query_EndDate, PlanningName: query_PlanningName, AreaId: query_AreaId, ReseauId: query_ReseauId,
+            DoState: query_DoState, CreateUserId: query_CreateUserId
+        });
+    }
+
+    function onDgPlanningApplyLoad() {
+        btnSearch.setEnabled(true);
+    }
+
+    function onDrawCell(e) {
+        if (e.field == "Map") {
+            e.cellHtml = "<a class='navigationmap' onclick='onMapClick(\"" + e.record.Id + "\");'></a>";
+        }
+    }
+
+    function onMapClick(id) {
+        var el = dgPlanningApply.getEl();
+        mini.mask({
+            el: el,
+            cls: 'mini-mask-loading',
+            html: '加载中...'
+        });
+        setTimeout(function () {
+            var url, data, getId;
+
+            url = "@Url.RouteUrl(new { controller = "Map", action = "GetPlanningApplyPoint" })";
+            data = { PlanningApplyId: id, AreaId: "00000000-0000-0000-0000-000000000000", PlanningName: "", Lng: 0, Lat: 0, Profession: 1 };
+            getId = id;
+            $.ajax({
+                url: url,
+                data: data,
+                type: "get",
+                async: false,
+                success: function (result, textStatus) {
+                    mini.unmask(el);
+                    if (result.Id != null && result.Id == getId) {
+                        var title;
+                        title = result.PlanningName;
+                        mini.open({
+                            url: "@Url.RouteUrl(new { controller = "Map", action = "NavigationMap" })",
+                            title: title,
+                            iconCls: "icon-map",
+                            width: 800,
+                            height: 550,
+                            showMaxButton: true,
+                            onload: function () {
+                                var iframe = this.getIFrameEl();
+                                var data = result;
+                                iframe.contentWindow.SetData(data);
+                            }
+                        });
+                    }
+                },
+                error: function (xmlHttpRequest, textStatus, errorThrown) {
+                    mini.unmask(el);
+                }
+            });
+        }, 50);
+    }
+
+    function onCreateUserSelectButtonClick() {
+        var beSelect = this;
+        mini.open({
+            url: "@Url.RouteUrl(new { controller = "CustomControl", action = "UserSelection" })",
+            title: "选择用户",
+            width: 620,
+            height: 350,
+            allowResize: false,
+            ondestroy: function (action) {
+                if (action == "ok") {
+                    var iframe = this.getIFrameEl();
+                    var data = iframe.contentWindow.GetData();
+                    data = mini.clone(data);
+                    beSelect.setValue(data.id);
+                    beSelect.setText(data.text);
+                    beSelect.validate();
+                }
+                else if (action == "cancel") {
+                    beSelect.setValue("00000000-0000-0000-0000-000000000000");
+                    beSelect.setText("全部");
+                    beSelect.validate();
+                }
+            }
+        });
+    }
+
+    function onCreateUserSelectButtonCloseClick() {
+        this.setValue("00000000-0000-0000-0000-000000000000");
+        this.setText("全部");
+        this.validate();
+    }
+
+    function onCbAreaIdValueChanged(e) {
+        BindCbReseauId(e.sender.getValue());
+    }
+
+    function BindCbReseauId(areaId) {
+        cbReseauId.setUrl("@Url.RouteUrl(new { controller = "BaseData", action = "GetUsedReseaus" })" + "/" + areaId + "?getType=1");
+    }
+
+    function onSearchClick() {
+        winQuery.show();
+    }
+
+    function onOKClick() {
+        BindDgPlanningApply();
+        winQuery.hide();
+    }
+
+    function onPlanningAdviceClick() {
+        cb_PlanningAdvice.setValue(1);
+        winPlanningAdvice.show();
+    }
+
+    function onSavePlanningAdviceClick() {
+        var rows = dgPlanningApply.getSelecteds();
+        if (rows.length == 0) {
+            mini.alert("请选择要操作的数据");
+        }
+        else {
+            var loading = mini.loading("处理中,请稍后...", "指定规划意见");
+            var jsonData = mini.encode(rows);
+            $.ajax({
+                url: "@Url.RouteUrl(new { controller = "BaseStationBM", action = "SavePlanningAdvice" })",
+                data: AddAntiForgeryToken({ data: jsonData, PlanningAdvice: cb_PlanningAdvice.getValue() }),
+                type: "post",
+                success: function (result, textStatus) {
+                    mini.hideMessageBox(loading);
+                    if (result.Code != null && result.Code == 0) {
+                        winPlanningAdvice.hide();
+                        ShowSucessMessage(result.Message);
+                        BindDgPlanningApply();
+                    }
+                },
+                error: function (xmlHttpRequest, textStatus, errorThrown) {
+                    mini.hideMessageBox(loading);
+                }
+            });
+        }
+    }
+</script>

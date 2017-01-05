@@ -1,0 +1,102 @@
+﻿<div id="myToolbar" class="mini-toolbar" style="border-bottom: 0px; padding: 0px;">
+    <table style="width: 100%;" cellpadding="0" cellspacing="0">
+        <tr>
+            <td style="width: 100%;">
+                <a class="mini-button" iconcls="icon-help" plain="true" href="@Url.RouteUrl(new { controller = "File", action = "DownloadHelpFiles" })?FileName=Addressing" target="_blank"></a>当前位置：基站建维>基站报表>租赁月报
+            </td>
+            <td style="white-space: nowrap;">
+                <a id="btnSearch" class="mini-button" iconcls="icon-search" plain="true" onclick="onSearchClick">查询</a>
+                <a class="mini-button" iconcls="icon-excel" plain="true" onclick="ExportExcel">导出Excel</a>
+            </td>
+        </tr>
+    </table>
+</div>
+<div class="mini-fit">
+    <div id="dgAddressing" class="mini-datagrid" style="width: 100%; height: 100%;" idfield="Id" allowmovecolumn="false"
+         multiselect="true" fitcolumns="false" onlycheckselection="true" showreloadbutton="false" showpager="false"
+         onload="onDgAddressingLoad">
+        <div property="columns">
+            <div type="indexcolumn"></div>
+            <div field="CreateDate" header="年月" width="100" dateformat="yyyy-MM-dd"></div>
+            <div field="AreaName" header="区域" width="80"></div>
+            <div field="ReseauName" header="网格" width="80"></div>
+            <div field="ACount" header="A类完成数量" width="80"></div>
+            <div field="BCount" header="B类完成数量" width="80"></div>
+            <div field="CCount" header="C类完成数量" width="80"></div>
+            <div field="AddressingScore" header="租赁得分" width="80"></div>
+        </div>
+    </div>
+</div>
+<div id="winQuery" class="mini-window" style="width: 320px; height: 145px;"
+     showmodal="true" allowresize="false" title="查询条件">
+    <table style="width: 100%;">
+        <tr>
+            <td style="width: 80px; text-align: right;">查询月份</td>
+            <td>
+                <input id="dpBeginDate" class="mini-monthpicker" style="width:98px;" value="new Date()" showclearbutton="false" allowinput="false" />
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 80px; text-align: right;">区域</td>
+            <td>
+                <input id="cbAreaId" class="mini-combobox" value="00000000-0000-0000-0000-000000000000" style="width:200px;" textfield="AreaName" valuefield="Id" data=@Html.Raw(ViewData["AreasByAll"]) />
+            </td>
+        </tr>
+    </table>
+    <div style="text-align: center; padding: 10px;">
+        <a class="mini-button" iconcls="icon-ok" onclick="onOKClick">确定</a>
+    </div>
+</div>
+<iframe id="exportIFrame" style="display:none;"></iframe>
+<!--导出Excel相关HTML-->
+<form id="excelForm" action="export.aspx?type=excel" method="post" target="excelIFrame">
+    <input type="hidden" name="columns" id="excelData" />
+</form>
+<iframe id="excelIFrame" name="excelIFrame" style="display:none;"></iframe>
+<script type="text/javascript">
+    mini.parse();
+
+    var btnSearch = mini.get("btnSearch");
+    var dgAddressing = mini.get("dgAddressing");
+    var winQuery = mini.get("winQuery");
+    var dpBeginDate = mini.get("dpBeginDate");
+    //var dpEndDate = mini.get("dpEndDate");
+    var cbAreaId = mini.get("cbAreaId");
+
+    dpBeginDate.setValue(new Date().DateAdd("m", -1));
+
+    function BindDgAddressing() {
+        btnSearch.setEnabled(false);
+        var query_BeginDate = dpBeginDate.getFormValue() + "-01";
+        var query_EndDate = dpBeginDate.getFormValue() + "-01";
+        var query_AreaId = cbAreaId.getValue();
+        if (dgAddressing.getUrl() == "") {
+            dgAddressing.setUrl("@Url.RouteUrl(new { controller = "BaseStationReport", action = "GetAddressingMonthReseau" })");
+        }
+        dgAddressing.clearSelect(false);
+        dgAddressing.load({ BeginDate: query_BeginDate, EndDate: query_EndDate, AreaId: query_AreaId });
+    }
+
+    function onDgAddressingLoad() {
+        btnSearch.setEnabled(true);
+    }
+
+    function onSearchClick() {
+        winQuery.show();
+    }
+
+    function onOKClick() {
+        BindDgAddressing();
+        winQuery.hide();
+    }
+
+    function ExportExcel() {
+        var query_BeginDate = dpBeginDate.getFormValue() + "-01";
+        var query_EndDate = dpBeginDate.getFormValue() + "-01";
+        var query_AreaId = cbAreaId.getValue();
+
+        var excelForm = document.getElementById("excelForm");
+        excelForm.action = "@Url.RouteUrl(new { controller = "DataOutput", action = "ExportAddressingMonthReseauExcel" })" + "?BeginDate=" + query_BeginDate + "&EndDate=" + query_EndDate + "&AreaId=" + query_AreaId + "&Profession=1";
+        excelForm.submit();
+    }
+</script>

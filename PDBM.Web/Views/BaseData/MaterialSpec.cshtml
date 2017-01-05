@@ -1,0 +1,370 @@
+﻿<div id="myToolbar" class="mini-toolbar" style="border-bottom: 0px; padding: 0px;">
+    <table style="width: 100%;" cellpadding="0" cellspacing="0">
+        <tr>
+            <td style="width: 100%;">
+                <a class="mini-button" iconcls="icon-help" plain="true" href="@Url.RouteUrl(new { controller = "File", action = "DownloadHelpFiles" })?FileName=MaterialSpec" target="_blank"></a>当前位置：基础数据>物资管理>设计规格
+            </td>
+            <td style="white-space: nowrap;">
+                <a id="btnSearch" class="mini-button" iconcls="icon-search" plain="true" onclick="onSearchClick">查询</a>
+                <a class="mini-button" iconcls="icon-add" plain="true" onclick="onAddClick">新增</a>
+                <a class="mini-button" iconcls="icon-edit" plain="true" onclick="onEditClick">修改</a>
+                <a class="mini-button" iconcls="icon-remove" plain="true" onclick="onRemoveClick">删除</a>
+            </td>
+        </tr>
+    </table>
+</div>
+<div class="mini-fit">
+    <div class="mini-splitter" style="width:100%;height:100%;">
+        <div showcollapsebutton="false" size="180" maxsize="250" minsize="100">
+            <div id="treeMaterial" class="mini-tree" style="width:100%; height:100%;" showtreeicon="true" textfield="Name" valuefield="Id" idfield="Id" parentfield="PId"
+                 resultastree="false" expandonload="true" onnodeselect="onTreeMaterialNodeSelect" ondrawnode="onDrawnode" expandonnodeclick="true"></div>
+        </div>
+        <div showcollapsebutton="false">
+            <div id="dgMaterialSpec" class="mini-datagrid" style="width: 100%; height: 100%;" idfield="Id" allowmovecolumn="false" borderstyle="border:0px;"
+                 multiselect="true" showpager="false" fitcolumns="false" onlycheckselection="true" url="@Url.RouteUrl(new { controller = "BaseData", action = "GetMaterialSpecs" })"
+                 ondrawcell="onDrawCell" onload="onDgMaterialSpecLoad">
+                <div property="columns">
+                    <div type="indexcolumn"></div>
+                    <div type="checkcolumn"></div>
+                    <div field="MaterialSpecCode" header="规格编码" width="70"></div>
+                    <div field="MaterialSpecName" header="规格名称" width="180"></div>
+                    <div field="UnitName" header="计量单位" width="70"></div>
+                    <div field="Price" header="参考单价" width="70"></div>
+                    @*<div field="CustomerName" header="供应商" width="180"></div>*@
+                    <div type="comboboxcolumn" field="State" header="状态" width="70">
+                        <input property="editor" class="mini-combobox" style="width: 100%;" data=@Html.Raw(ViewData["State"]) />
+                    </div>
+                    <div field="Remarks" header="备注" width="200"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="winMaterialSpec" class="mini-window" style="width: 350px; height: 320px;"
+     showmodal="true" allowresize="false">
+    <div id="frmMaterialSpec" class="form">
+        <input class="mini-hidden" id="Id" name="Id" />
+        <table style="width: 100%;">
+            <tr>
+                <td style="width: 80px; text-align: right;">物资名称</td>
+                <td>
+                    <input id="MaterialId" name="MaterialId" class="mini-combobox" style="width: 200px;" textfield="MaterialName" valuefield="Id"
+                           onvalidation="onMaterialIdValidation" />
+                </td>
+            </tr>
+            <tr>
+                <td style="width: 80px; text-align: right;">规格编码</td>
+                <td>
+                    <input id="MaterialSpecCode" name="MaterialSpecCode" class="mini-textbox" requirederrortext="请输入规格编码" required="true" style="width: 200px;" />
+                </td>
+            </tr>
+            <tr>
+                <td style="width: 80px; text-align: right;">规格名称</td>
+                <td>
+                    <input id="MaterialSpecName" name="MaterialSpecName" class="mini-textbox" requirederrortext="请输入规格名称" required="true" style="width: 200px;" />
+                </td>
+            </tr>
+            <tr>
+                <td style="width: 80px; text-align: right;">计量单位</td>
+                <td>
+                    <input id="UnitId" name="UnitId" class="mini-combobox" value="00000000-0000-0000-0000-000000000000" style="width:200px;" textfield="UnitName" valuefield="Id" data=@Html.Raw(ViewData["Units"])
+                           required="true" onvalidation="onUnitIdValidation" />
+                </td>
+            </tr>
+            <tr>
+                <td style="width: 80px; text-align: right;">参考单价</td>
+                <td>
+                    <input id="Price" name="Price" class="mini-textbox" vtype='float' requirederrortext="请输入参考单价" required="true" style="width: 200px;" />
+                </td>
+            </tr>
+            @*<tr>
+                    <td style="width: 80px; text-align: right;">供应商</td>
+                    <td>
+                        <input id="CustomerId" name="CustomerId" style="width:200px;" allowinput="false" class="mini-buttonedit searchbox" showclose="true" text="请选择" value="00000000-0000-0000-0000-000000000000"
+                               onbuttonclick="onCustomerSelectButtonClick" oncloseclick="onCustomerSelectButtonCloseClick" />
+                    </td>
+                </tr>*@
+            <tr>
+                <td style="width: 80px; text-align: right;">状态</td>
+                <td>
+                    <input id="State" name="State" class="mini-combobox" value="1" style="width: 200px;" data=@Html.Raw(ViewData["State"]) />
+                </td>
+            </tr>
+            <tr>
+                <td style="width: 80px; text-align: right;">备注</td>
+                <td>
+                    <input id="Remarks" name="Remarks" class="mini-textArea" style="width: 200px; height: 60px;" />
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div style="text-align: center; padding: 10px;">
+        <a class="mini-button" iconcls="icon-save" onclick="onSaveClick" style="margin-right: 10px;">保存</a>
+        <a class="mini-button" iconcls="icon-cancel" onclick="onClearClick">清空</a>
+    </div>
+</div>
+<script type="text/javascript">
+    mini.parse();
+
+    var btnSearch = mini.get("btnSearch");
+    var treeMaterial = mini.get("treeMaterial");
+    var dgMaterialSpec = mini.get("dgMaterialSpec");
+    var winMaterialSpec = mini.get("winMaterialSpec");
+    var frmMaterialSpec = new mini.Form("#frmMaterialSpec");
+    var txtMaterialSpecId = mini.get("Id");
+    var cbMaterialId = mini.get("MaterialId");
+    var txtMaterialSpecCode = mini.get("MaterialSpecCode");
+    var cbUnitId = mini.get("UnitId");
+    //var beCustomerId = mini.get("CustomerId");
+    var cbState = mini.get("State");
+
+    Init();
+
+    function Init() {
+        treeMaterial.loadList(@Html.Raw(ViewData["MaterialsTree"]), "Id", "PId");
+        if (treeMaterial.getList().length > 0) {
+            if(treeMaterial.getList().length > 1){
+                treeMaterial.select(1, false);
+            }
+            else if(treeMaterial.getList().length == 1){
+                treeMaterial.select(0, false);
+                treeMaterial.getList()[0].Id="00000000-0000-0000-0000-000000000000";
+
+            }
+            BindCBMaterial(treeMaterial.getValue());
+            BindDgMaterialSpec(treeMaterial.getValue());
+        }
+    }
+
+    function BindDgMaterialSpec(materialId) {
+        btnSearch.setEnabled(false);
+        dgMaterialSpec.clearSelect(false);
+        var el = treeMaterial.getEl();
+        mini.mask({
+            el: el,
+            cls: 'mini-mask-loading',
+            html: '加载中...'
+        });
+        dgMaterialSpec.load({ MaterialId: materialId });
+    }
+
+    function BindCBMaterial(id) {
+        cbMaterialId.setUrl("@Url.RouteUrl(new { controller = "BaseData", action = "GetUsedMaterialsBySelf" })" + "/" + id);
+    }
+
+    function onDgMaterialSpecLoad() {
+        btnSearch.setEnabled(true);
+        var el = treeMaterial.getEl();
+        mini.unmask(el);
+    }
+
+    function onDrawCell(e) {
+        if (e.field == "State" && e.value == 2) {
+            e.cellStyle = "color:red;";
+        }
+    }
+
+    function onTreeMaterialNodeSelect(e) {
+        BindCBMaterial(e.node.Id);
+        BindDgMaterialSpec(e.node.Id);
+    }
+
+    function onMaterialIdValidation(e){
+        if (e.isValid) {
+            if (e.value == "00000000-0000-0000-0000-000000000000") {
+                e.errorText = "请选择物资名称";
+                e.isValid = false;
+            }
+        }
+    }
+
+    function onUnitIdValidation(e) {
+        if (e.isValid) {
+            if (e.value == "00000000-0000-0000-0000-000000000000") {
+                e.errorText = "请选择计量单位";
+                e.isValid = false;
+            }
+        }
+    }
+
+    function onDrawnode(e) {
+        if(treeMaterial.getList().length>1){
+            if(treeMaterial.isLeaf(e.node)==false){
+                e.node.Id="00000000-0000-0000-0000-000000000000";
+            }
+        }
+        else{
+            e.node.Id="00000000-0000-0000-0000-000000000000";
+        }
+    }
+
+    function ClearFrmMaterialSpec() {
+        var idValue = txtMaterialSpecId.getValue();
+        var materialIdValue = cbMaterialId.getValue();
+        frmMaterialSpec.clear();
+        txtMaterialSpecId.setValue(idValue);
+        cbMaterialId.setValue(materialIdValue);
+        cbUnitId.setValue("00000000-0000-0000-0000-000000000000");
+        //beCustomerId.setValue("00000000-0000-0000-0000-000000000000");
+        //beCustomerId.setText("请选择");
+        cbState.setValue(1);
+    }
+
+    function onSearchClick() {
+        var materialId = treeMaterial.getValue();
+        if (materialId == null || materialId == ""){
+            materialId = "00000000-0000-0000-0000-000000000000";
+        }
+        BindCBMaterial(materialId);
+        BindDgMaterialSpec(materialId);
+    }
+
+    function onAddClick() {
+        var materialId = treeMaterial.getValue();
+        if (materialId == null || materialId == "" || materialId == "00000000-0000-0000-0000-000000000000"){
+            mini.alert("请选择一个物资名称");
+        }
+        else {
+            txtMaterialSpecId.setValue("");
+            cbMaterialId.setValue(materialId);
+            cbMaterialId.setEnabled(true);
+            ClearFrmMaterialSpec();
+            winMaterialSpec.setTitle("新增设计规格");
+            winMaterialSpec.show();
+            txtMaterialSpecCode.focus();
+        }
+    }
+
+    function onEditClick() {
+        var rows = dgMaterialSpec.getSelecteds();
+        if (rows.length == 0) {
+            mini.alert("请选择一条要修改的数据");
+        }
+        else {
+            ClearFrmMaterialSpec();
+            winMaterialSpec.setTitle("修改设计规格");
+            winMaterialSpec.show();
+            var el = winMaterialSpec.getEl();
+            mini.mask({
+                el: el,
+                cls: 'mini-mask-loading',
+                html: '加载中...'
+            });
+            setTimeout(function () {
+                $.ajax({
+                    url: "@Url.RouteUrl(new { controller = "BaseData", action = "GetMaterialSpecById" })" + "/" + rows[0].Id,
+                    type: "get",
+                    async: false,
+                    success: function (result, textStatus) {
+                        if (result.Id != null && result.Id == rows[0].Id) {
+                            cbMaterialId.setEnabled(false);
+                            frmMaterialSpec.setData(result);
+                            //beCustomerId.setValue(result.CustomerId);
+                            //beCustomerId.setText(result.CustomerName);
+                            txtMaterialSpecCode.focus();
+                        }
+                        else {
+                            winMaterialSpec.hide();
+                        }
+                    },
+                    error: function (xmlHttpRequest, textStatus, errorThrown) {
+                        winMaterialSpec.hide();
+                    }
+                });
+            }, 50);
+            setTimeout(function () {
+                mini.unmask(el);
+            }, 300);
+        }
+    }
+
+    function onRemoveClick() {
+        var rows = dgMaterialSpec.getSelecteds();
+        if (rows.length == 0) {
+            mini.alert("请选择要删除的数据");
+        }
+        else {
+            mini.confirm("确定要删除选中的数据？", "删除设计规格",
+            function (action) {
+                if (action == "ok") {
+                    var loading = mini.loading("处理中,请稍后...", "删除数据");
+                    var jsonData = mini.encode(rows);
+                    $.ajax({
+                        url: "@Url.RouteUrl(new { controller = "BaseData", action = "RemoveMaterialSpecs" })",
+                        data: AddAntiForgeryToken({ data: jsonData }),
+                        type: "post",
+                        success: function (result, textStatus) {
+                            mini.hideMessageBox(loading);
+                            if (result.Code != null && result.Code == 0) {
+                                ShowSucessMessage(result.Message);
+                                BindDgMaterialSpec(treeMaterial.getValue());
+                            }
+                        },
+                        error: function (xmlHttpRequest, textStatus, errorThrown) {
+                            mini.hideMessageBox(loading);
+                        }
+                    });
+                }
+            });
+        }
+    }
+
+    function onSaveClick() {
+        frmMaterialSpec.validate();
+        if (frmMaterialSpec.isValid() == false) return;
+        var loading = mini.loading("处理中,请稍后...", "保存数据");
+        var jsonData = mini.encode(frmMaterialSpec.getData());
+        $.ajax({
+            url: "@Url.RouteUrl(new { controller = "BaseData", action = "SaveMaterialSpec" })",
+            data: AddAntiForgeryToken({ data: jsonData }),
+            type: "post",
+            success: function (result, textStatus) {
+                mini.hideMessageBox(loading);
+                if (result.Code != null && result.Code == 0) {
+                    winMaterialSpec.hide();
+                    ShowSucessMessage(result.Message);
+                    BindDgMaterialSpec(treeMaterial.getValue());
+                }
+            },
+            error: function (xmlHttpRequest, textStatus, errorThrown) {
+                mini.hideMessageBox(loading);
+            }
+        });
+    }
+
+    function onClearClick() {
+        ClearFrmMaterialSpec();
+        txtMaterialSpecCode.focus();
+    }
+
+    function onCustomerSelectButtonClick() {
+        var beSelect = this;
+        mini.open({
+            url: "@Url.RouteUrl(new { controller = "CustomControl", action = "CustomerSelection" })",
+            title: "选择供应商",
+            width: 685,
+            height: 410,
+            allowResize: false,
+            ondestroy: function (action) {
+                if (action == "ok") {
+                    var iframe = this.getIFrameEl();
+                    var data = iframe.contentWindow.GetData();
+                    data = mini.clone(data);
+                    beSelect.setValue(data.id);
+                    beSelect.setText(data.text);
+                }
+                else if (action == "cancel") {
+                    beSelect.setValue("00000000-0000-0000-0000-000000000000");
+                    beSelect.setText("请选择");
+                }
+                beSelect.validate();
+            }
+        });
+    }
+
+    function onCustomerSelectButtonCloseClick() {
+        this.setValue("00000000-0000-0000-0000-000000000000");
+        this.setText("请选择");
+        this.validate();
+    }
+</script>

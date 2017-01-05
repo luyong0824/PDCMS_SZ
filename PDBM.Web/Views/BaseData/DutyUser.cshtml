@@ -1,0 +1,192 @@
+﻿<div id="myToolbar" class="mini-toolbar" style="border-bottom: 0px; padding: 0px;">
+    <table style="width: 100%;" cellpadding="0" cellspacing="0">
+        <tr>
+            <td style="width: 100%;">
+                <a class="mini-button" iconcls="icon-help" plain="true" href="@Url.RouteUrl(new { controller = "File", action = "DownloadHelpFiles" })?FileName=DutyUser" target="_blank"></a>当前位置：基础数据>用户管理>用户职务
+            </td>
+            <td style="white-space: nowrap;">
+                <input id="cbCompany" class="mini-combobox" width="150" textfield="CompanyName" valuefield="Id" onvaluechanged="onCbCompanyValueChanged" />&nbsp;
+                <input id="cbDepartment" class="mini-combobox" textfield="DepartmentName" valuefield="Id" onload="onCBDepartmentLoad" />
+                <a id="btnSearch" class="mini-button" iconcls="icon-search" plain="true" onclick="onSearchClick">查询</a>
+                <a class="mini-button" iconcls="icon-save" plain="true" onclick="onSaveClick">保存</a>
+            </td>
+        </tr>
+    </table>
+</div>
+<div class="mini-fit">
+    <div class="mini-splitter" style="width:100%;height:100%;">
+        <div showcollapsebutton="false" size="180" maxsize="250" minsize="100">
+            <div id="treeDuty" class="mini-tree" style="width:100%; height:100%;" showtreeicon="true" textfield="text" valuefield="id" idfield="id" parentfield="pid"
+                 resultastree="false" expandonload="true" onnodeselect="onTreeDutyNodeSelect" expandonnodeclick="true"></div>
+        </div>
+        <div showcollapsebutton="false">
+            <div id="treeDgUser" class="mini-treegrid" style="width: 100%; height: 100%;" idfield="Id" treecolumn="Name" showtreeicon="true" parentfield="PId" borderstyle="border:0px;"
+                 allowmovecolumn="false" fitcolumns="false" resultastree="false" showcheckbox="true" onlycheckselection="true" checkrecursive="true" autoload="false" expandonload="true"
+                 ajaxasync="true" multiselect="true" url="@Url.RouteUrl(new { controller = "BaseData", action = "GetDutyUsers" })" onload="onTreeDgUserLoad" onnodecheck="onTreeDgUserNodeCheck"
+                 expandonnodeclick="true">
+                <div property="columns">
+                    <div type="indexcolumn"></div>
+                    <div name="Name" field="Name" width="320">公司/部门/用户</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    mini.parse();
+
+    var isPageInit = true;
+    var btnSearch = mini.get("btnSearch");
+    var cbCompany = mini.get("cbCompany");
+    var cbDepartment = mini.get("cbDepartment");
+    var treeDgUser = mini.get("treeDgUser");
+    var treeDuty = mini.get("treeDuty");
+
+    Init();
+
+    function Init(){
+        treeDuty.loadList(@Html.Raw(ViewData["DutyTree"]), "id", "pid");
+        if (treeDuty.getList().length > 1) {
+            treeDuty.select(1, false);
+        }
+        else {
+            treeDuty.select(0, false);
+        }
+        BindCbCompany();
+        BindTreeDgUser(treeDgUser.getValue());
+    }
+
+    function BindTreeDgUser() {
+        btnSearch.setEnabled(false);
+        var el = treeDuty.getEl();
+        mini.mask({
+            el: el,
+            cls: 'mini-mask-loading',
+            html: '加载中...'
+        });
+        var departmentId = cbDepartment.getValue();
+        var companyId = cbCompany.getValue();
+        var duty = treeDuty.getValue();
+        if (duty == null || duty == "") {
+            duty = "0";
+        }
+        treeDgUser.clearSelect(false);
+        treeDgUser.load({ CompanyId: companyId, DepartmentId: departmentId, Duty: duty });
+    }
+
+    function onTreeDgUserLoad() {
+        var rows = treeDgUser.findRows(function (row) {
+            if (row.DutyUserId != "00000000-0000-0000-0000-000000000000" &&
+                row.isLeaf == true) {
+                return true;
+            }
+        });
+        treeDgUser.checkNodes(rows);
+        treeDgUser.selects(rows);
+        btnSearch.setEnabled(true);
+        var el = treeDuty.getEl();
+        mini.unmask(el);
+    }
+
+    function onTreeDgUserNodeCheck(e) {
+        //选中
+        if (treeDgUser.isCheckedNode(e.node) == true) {
+            //父节点
+            if (e.node.isLeaf == false) {
+                var childNodes = treeDgUser.getAllChildNodes(e.node);
+                if (childNodes.length > 0) {
+                    for (var i = 0; i < childNodes.length; i++) {
+                        if (childNodes[i].isLeaf == true) {
+                            treeDgUser.select(childNodes[i]);
+                        }
+                    }
+                }
+            }
+            else {
+                treeDgUser.select(e.node);
+            }
+        }
+        else {
+            //父节点
+            if (e.node.isLeaf == false) {
+                var childNodes = treeDgUser.getAllChildNodes(e.node);
+                if (childNodes.length > 0)
+                    for (var i = 0; i < childNodes.length; i++) {
+                        if (childNodes[i].isLeaf == true) {
+                            treeDgUser.deselect(childNodes[i]);
+                        }
+                    }
+            }
+            else {
+                treeDgUser.deselect(e.node);
+            }
+        }
+    }
+
+    function onTreeDutyNodeSelect() {
+        BindTreeDgUser();
+    }
+
+    function BindCbCompany(){
+        cbCompany.setData(@Html.Raw(ViewData["Companys"]));
+        cbCompany.setValue("@ViewData["CompanyId"]");
+        BindCbDepartment(cbCompany.getValue());
+    }
+
+    function onCbCompanyValueChanged(){
+        BindCbDepartment(cbCompany.getValue());
+    }
+
+    function BindCbDepartment(companyId){
+        cbDepartment.setUrl("@Url.RouteUrl(new { controller = "BaseData", action = "GetUsedDepartments" })" + "/" + companyId + "?getType=3");
+    }
+
+    function onCBDepartmentLoad(){
+        cbDepartment.setValue("00000000-0000-0000-0000-000000000000");
+    }
+
+    function onSearchClick() {
+        BindTreeDgUser();
+    }
+
+    function onSaveClick() {
+        var duty = treeDuty.getValue();
+        if (duty == null || duty == "" || duty == "0") {
+            mini.alert("请选择一个职务");
+        }
+        else {
+            var rows = treeDgUser.findRows(function (row) {
+                if (row.isLeaf == true) {
+                    if (treeDgUser.isChecked(row) == true && row.DutyUserId == "00000000-0000-0000-0000-000000000000") {
+                        return true;
+                    }
+                    else if (treeDgUser.isChecked(row) == false && row.DutyUserId != "00000000-0000-0000-0000-000000000000") {
+                        return true;
+                    }
+                }
+            });
+            if (rows.length == 0) {
+                mini.alert("未修改数据,无需提交保存");
+            }
+            else {
+                var loading = mini.loading("处理中,请稍后...", "保存数据");
+                var jsonData = mini.encode(rows);
+                $.ajax({
+                    url: "@Url.RouteUrl(new { controller = "BaseData", action = "SaveDutyUsers" })",
+                    data: AddAntiForgeryToken({ data: jsonData, Duty: duty }),
+                    type: "post",
+                    success: function (result, textStatus) {
+                        mini.hideMessageBox(loading);
+                        if (result.Code != null && result.Code == 0) {
+                            ShowSucessMessage(result.Message);
+                            BindTreeDgUser();
+                        }
+                    },
+                    error: function (xmlHttpRequest, textStatus, errorThrown) {
+                        mini.hideMessageBox(loading);
+                    }
+                });
+            }
+        }
+    }
+</script>

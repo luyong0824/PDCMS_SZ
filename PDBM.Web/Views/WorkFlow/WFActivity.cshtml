@@ -1,0 +1,270 @@
+﻿<div id="myToolbar" class="mini-toolbar" style="border-bottom: 0px; padding: 0px;">
+    <table style="width: 100%;" cellpadding="0" cellspacing="0">
+        <tr>
+            <td style="width: 100%;">
+                <a class="mini-button" iconcls="icon-help" plain="true" href="@Url.RouteUrl(new { controller = "File", action = "DownloadHelpFiles" })?FileName=WFActivity" target="_blank"></a>当前位置：业务流程>流程管理>流程步骤
+            </td>
+            <td style="white-space: nowrap;">
+                <a id="btnSearch" class="mini-button" iconcls="icon-search" plain="true" onclick="onSearchClick">查询</a>
+                <a class="mini-button" iconcls="icon-add" plain="true" onclick="onAddClick">新增</a>
+                <a class="mini-button" iconcls="icon-save" plain="true" onclick="onSaveClick">保存</a>
+                <a class="mini-button" iconcls="icon-remove" plain="true" onclick="onRemoveClick">删除</a>
+            </td>
+        </tr>
+    </table>
+</div>
+<div class="mini-fit">
+    <div class="mini-splitter" style="width:100%;height:100%;">
+        <div showcollapsebutton="false" size="180" maxsize="250" minsize="100">
+            <div id="treeWFProcess" class="mini-tree" style="width:100%; height:100%;" showtreeicon="true" textfield="WFProcessName" valuefield="Id" idfield="Id" parentfield="PId"
+                 resultastree="false" expandonload="true" onnodeselect="onTreeWFProcessNodeSelect"></div>
+        </div>
+        <div showcollapsebutton="false">
+            <div id="dgWFActivity" class="mini-datagrid" style="width: 100%; height: 100%;" idfield="Id" allowcelledit="true" allowcellselect="true" allowmovecolumn="false" borderstyle="border:0px;"
+                 multiselect="true" showpager="false" fitcolumns="false" onlycheckselection="true" url="@Url.RouteUrl(new { controller = "WorkFlow", action = "GetWFActivitys" })"
+                 onload="onDgWFActivityLoad" oncellbeginedit="onDgWFActivityCellBeginEdit" oncellcommitedit="onDgWFActivityCellCommitEdit" oncellendedit="onDgWFActivityCellEndEdit">
+                <div property="columns">
+                    <div type="indexcolumn"></div>
+                    <div type="checkcolumn"></div>
+                    <div field="SerialId" header="步骤顺序" width="60"></div>
+                    <div field="WFActivityName" header="步骤名称" width="100">
+                        <input property="editor" class="mini-textbox" style="width:100%;" />
+                    </div>
+                    <div type="comboboxcolumn" field="CompanyId" header="公司" width="90">
+                        <input property="editor" class="mini-combobox" textfield="CompanyName" valuefield="Id" data=@Html.Raw(ViewData["Companys"]) />
+                    </div>
+                    <div field="DepartmentId" displayfield="DepartmentName" header="部门" width="120">
+                        <input property="editor" class="mini-combobox" style="width:100%;" valuefield="Id" textfield="DepartmentName" />
+                    </div>
+                    <div field="UserId" displayfield="FullName" header="用户" width="120">
+                        <input property="editor" class="mini-combobox" style="width:100%;" valuefield="Id" textfield="FullName" />
+                    </div>
+                    <div type="comboboxcolumn" field="PostId" header="岗位" width="120">
+                        <input property="editor" class="mini-combobox" style="width:100%;" valuefield="Id" textfield="PostName" data=@Html.Raw(ViewData["PostsByEmpty"]) />
+                    </div>
+                    <div field="Timelimit" header="时限(小时)" width="70">
+                        <input property="editor" class="mini-spinner" minvalue="0" maxvalue="168" defaultvalue="24" />
+                    </div>
+                    <div type="comboboxcolumn" field="WFActivityOperate" header="操作类型" width="85">
+                        <input property="editor" class="mini-combobox" style="width:100%;" data=@Html.Raw(ViewData["WFActivityOperate"]) />
+                    </div>
+                    <div field="WFActivityEditorId" displayfield="WFActivityEditorName" header="编辑类型" width="120">
+                        <input property="editor" class="mini-combobox" style="width:100%;" valuefield="Id" textfield="WFActivityEditorName" />
+                    </div>
+                    <div type="comboboxcolumn" field="IsMustEdit" displayfield="MustEditName" header="是否必须编辑" width="85">
+                        <input property="editor" class="mini-combobox" style="width:100%;" data=@Html.Raw(ViewData["Bool"]) />
+                    </div>
+                    <div type="comboboxcolumn" field="IsNecessaryStep" header="是否必要步骤" width="85">
+                        <input property="editor" class="mini-combobox" style="width:100%;" data=@Html.Raw(ViewData["Bool"]) />
+                    </div>
+                    <div type="comboboxcolumn" field="WFActivityOrder" header="排序方式" width="70">
+                        <input property="editor" class="mini-combobox" style="width:100%;" data=@Html.Raw(ViewData["WFActivityOrder"]) />
+                    </div>
+                    <div field="RowId" header="" visible="false"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    mini.parse();
+
+    var btnSearch = mini.get("btnSearch");
+    var treeWFProcess = mini.get("treeWFProcess");
+    var dgWFActivity = mini.get("dgWFActivity");
+    var companyId = "@ViewData["CompanyId"]";
+
+    Init();
+
+    function Init() {
+        treeWFProcess.loadList(@Html.Raw(ViewData["WFProcessesTree"]), "Id", "PId");
+        if (treeWFProcess.getList().length > 1) {
+            treeWFProcess.select(1, false);
+        }
+        else {
+            treeWFProcess.select(0, false);
+        }
+        BindDgWFActivity(treeWFProcess.getValue());
+    }
+
+    function BindDgWFActivity(wfProcessId) {
+        btnSearch.setEnabled(false);
+        dgWFActivity.clearSelect(false);
+        var el = treeWFProcess.getEl();
+        mini.mask({
+            el: el,
+            cls: 'mini-mask-loading',
+            html: '加载中...'
+        });
+        dgWFActivity.load({ WFProcessId: wfProcessId });
+    }
+
+    function onDgWFActivityLoad() {
+        btnSearch.setEnabled(true);
+        var el = treeWFProcess.getEl();
+        mini.unmask(el);
+    }
+
+    function onDgWFActivityCellBeginEdit(e) {
+        if (e.field == "DepartmentId") {
+            e.editor.setUrl("@Url.RouteUrl(new { controller = "BaseData", action = "GetUsedDepartments" })" + "/" + e.record.CompanyId + "?getType=1");
+        }
+        else if (e.field == "UserId") {
+            e.editor.setUrl("@Url.RouteUrl(new { controller = "BaseData", action = "GetUsedUsers" })" + "/" + e.record.DepartmentId + "?getType=1");
+        }
+        else if (e.field == "WFActivityEditorId") {
+            if (e.record.WFActivityOperate == 3) {
+                e.editor.setUrl("@Url.RouteUrl(new { controller = "WorkFlow", action = "GetWFActivityEditors" })" + "?WFCategoryId="  + treeWFProcess.getSelectedNode().WFCategoryId);
+            }
+            else {
+                e.editor.setData([{ Id: '00000000-0000-0000-0000-000000000000', WFActivityEditorName: '无' }]);
+            }
+        }
+    }
+
+    function onDgWFActivityCellCommitEdit(e) {
+        var grid = e.sender;
+        var record = e.record;
+        if (e.field == "CompanyId") {
+            grid.updateRow(record, { DepartmentId: "00000000-0000-0000-0000-000000000000", DepartmentName: "请选择", UserId: "00000000-0000-0000-0000-000000000000", FullName: "请选择" });
+        }
+        else if (e.field == "DepartmentId") {
+            grid.updateRow(record, { UserId: "00000000-0000-0000-0000-000000000000", FullName: "请选择" });
+        }
+    }
+
+    function onDgWFActivityCellEndEdit(e) {
+        var grid = e.sender;
+        var record = e.record;
+        if (e.field == "WFActivityOperate") {
+            if (record.WFActivityOperate == 3) {
+                grid.updateRow(record, { WFActivityEditorId: '00000000-0000-0000-0000-000000000000', WFActivityEditorName: '请选择' });
+                grid.updateRow(record, { IsMustEdit: '1', MustEditName: '是' });
+            }
+            else {
+                grid.updateRow(record, { WFActivityEditorId: '00000000-0000-0000-0000-000000000000', WFActivityEditorName: '无' });
+                grid.updateRow(record, { IsMustEdit: '2', MustEditName: '否' });
+            }
+        }
+        else if (e.field == "WFActivityOrder") {
+            var rowCount = grid.getData().length;
+            var startSerialId = 1;
+            for (var i = 0; i < rowCount; i++) {
+                grid.updateRow(grid.getRow(i), { SerialId: startSerialId });
+                if (grid.getRow(i).WFActivityOrder == 1) {
+                    startSerialId++;
+                }
+            }
+        }
+    }
+
+    function onTreeWFProcessNodeSelect(e) {
+        BindDgWFActivity(e.node.Id);
+    }
+
+    function onSearchClick() {
+        var wfProcessId = treeWFProcess.getValue();
+        if (wfProcessId == null || wfProcessId == ""){
+            wfProcessId = "00000000-0000-0000-0000-000000000000";
+        }
+        BindDgWFActivity(wfProcessId);
+    }
+
+    function onAddClick() {
+        var wfProcessId = treeWFProcess.getValue();
+        if (wfProcessId == null || wfProcessId == "" || wfProcessId == "00000000-0000-0000-0000-000000000000") {
+            mini.alert("请选择一个流程");
+        }
+        else {
+            var count = dgWFActivity.getData().length;
+            var newSerialId = 1;
+            if (count > 0) {
+                var lastRow = dgWFActivity.getRow(count - 1);
+                if (lastRow.WFActivityOrder == 1) {
+                    newSerialId = lastRow.SerialId + 1;
+                }
+                else {
+                    newSerialId = lastRow.SerialId;
+                }
+            }
+            var newRow = {
+                Id: '00000000-0000-0000-0000-000000000000', SerialId: newSerialId, WFActivityName: '', CompanyId: companyId, DepartmentId: '00000000-0000-0000-0000-000000000000', DepartmentName: '请选择', UserId: '00000000-0000-0000-0000-000000000000',
+                FullName: '请选择', PostId: '00000000-0000-0000-0000-000000000000', Timelimit: 24, WFActivityOperate: 1, WFActivityEditorId: '00000000-0000-0000-0000-000000000000', WFActivityEditorName: '无', IsMustEdit: 2, MustEditName: '否', IsNecessaryStep: 1, WFActivityOrder: 1
+            };
+            dgWFActivity.addRow(newRow);
+        }
+    }
+
+    function onSaveClick() {
+        var wfProcessId = treeWFProcess.getValue();
+        var errorRows = dgWFActivity.findRows(function (row) {
+            if (row.WFActivityOperate == 3 && row.WFActivityEditorId == "00000000-0000-0000-0000-000000000000") {
+                return true;
+            }
+        });
+        if (wfProcessId == null || wfProcessId == "" || wfProcessId == "00000000-0000-0000-0000-000000000000") {
+            mini.alert("请选择一个流程");
+        }
+        else if (errorRows.length > 0) {
+            mini.alert("第" + (dgWFActivity.indexOf(errorRows[0]) + 1) + "行：请选择一个编辑类型");
+        }
+        else {
+            var loading = mini.loading("处理中,请稍后...", "保存数据");
+            var data = dgWFActivity.getData();
+            for (var i = 0; i < data.length; i++) {
+                data[i].RowId = i + 1;
+            }
+            var jsonData = mini.encode(data);
+            $.ajax({
+                url: "@Url.RouteUrl(new { controller = "WorkFlow", action = "SaveWFActivitys" })",
+                data: AddAntiForgeryToken({ WFProcessId: wfProcessId, data: jsonData }),
+                type: "post",
+                success: function (result, textStatus) {
+                    mini.hideMessageBox(loading);
+                    if (result.Code != null && result.Code == 0) {
+                        ShowSucessMessage(result.Message);
+                        BindDgWFActivity(wfProcessId);
+                    }
+                },
+                error: function (xmlHttpRequest, textStatus, errorThrown) {
+                    mini.hideMessageBox(loading);
+                }
+            });
+        }
+    }
+
+    function onRemoveClick() {
+        var wfProcessId = treeWFProcess.getValue();
+        var rows = dgWFActivity.getSelecteds();
+        if (wfProcessId == null || wfProcessId == "" || wfProcessId == "00000000-0000-0000-0000-000000000000") {
+            mini.alert("请选择一个流程");
+        }
+        else if (rows.length == 0) {
+            mini.alert("请选择要删除的数据");
+        }
+        else {
+            mini.confirm("确定要删除选中的数据？", "删除流程步骤",
+            function (action) {
+                if (action == "ok") {
+                    var loading = mini.loading("处理中,请稍后...", "删除数据");
+                    var jsonData = mini.encode(rows);
+                    $.ajax({
+                        url: "@Url.RouteUrl(new { controller = "WorkFlow", action = "RemoveWFActivitys" })",
+                        data: AddAntiForgeryToken({ WFProcessId: wfProcessId, data: jsonData }),
+                        type: "post",
+                        success: function (result, textStatus) {
+                            mini.hideMessageBox(loading);
+                            if (result.Code != null && result.Code == 0) {
+                                ShowSucessMessage(result.Message);
+                                BindDgWFActivity(treeWFProcess.getValue());
+                            }
+                        },
+                        error: function (xmlHttpRequest, textStatus, errorThrown) {
+                            mini.hideMessageBox(loading);
+                        }
+                    });
+                }
+            });
+        }
+    }
+</script>

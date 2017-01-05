@@ -1,0 +1,141 @@
+﻿body {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.tabIcon {
+    background: url(bootstrap/images/tree/leaf.gif) no-repeat;
+}
+
+.rowIssued {
+    background: #ecedef;
+}
+
+.asLabel .mini-textbox-border,
+.asLabel .mini-textbox-input,
+.asLabel .mini-buttonedit-border,
+.asLabel .mini-buttonedit-input,
+.asLabel .mini-textboxlist-border {
+    border: 0;
+    background: none;
+    cursor: default;
+}
+
+.asLabel .mini-buttonedit-button,
+.asLabel .mini-textboxlist-close {
+    display: none;
+}
+
+.asLabel .mini-textboxlist-item {
+    padding-right: 8px;
+}
+
+html body .searchbox .mini-buttonedit-icon {
+    background: url(icons/search.gif) no-repeat 50% 50%;
+}
+
+.icon-map {
+    background: url(images/map.png) no-repeat;
+}
+
+.icon-excel {
+    background: url(images/excel.png) no-repeat;
+}
+
+.icon-editor {
+    background: url(images/edit.png) no-repeat;
+}
+
+.icon-distance {
+    background: url(images/distance.png) no-repeat;
+}
+
+.navigationmap {
+    width: 16px;
+    height: 16px;
+    overflow: hidden;
+    margin: auto;
+    background: url(images/map.png) no-repeat;
+    text-align: center;
+    display: block;
+    cursor: pointer;
+}
+
+.navigationmapedit {
+    width: 16px;
+    height: 16px;
+    overflow: hidden;
+    background: url(images/map.png) no-repeat;
+    text-align: center;
+    display: block;
+    cursor: pointer;
+}
+
+.icon-file {
+    background: url(images/file.png) no-repeat;
+}
+
+.file {
+    width: 16px;
+    height: 16px;
+    overflow: hidden;
+    margin: auto;
+    background: url(images/file.png) no-repeat;
+    text-align: center;
+    display: block;
+    cursor: pointer;
+}
+
+.fileedit {
+    width: 16px;
+    height: 16px;
+    overflow: hidden;
+    background: url(images/file.png) no-repeat;
+    text-align: center;
+    display: block;
+    cursor: pointer;
+}
+
+.moveup {
+    width: 9px;
+    height: 9px;
+    overflow: hidden;
+    background: url(images/moveup.png) no-repeat;
+    text-align: center;
+    display: block;
+    cursor: pointer;
+}
+
+.movedown {
+    width: 9px;
+    height: 9px;
+    overflow: hidden;
+    background: url(images/movedown.png) no-repeat;
+    text-align: center;
+    display: block;
+    cursor: pointer;
+}
+
+.showdocument {
+    width: 16px;
+    height: 16px;
+    overflow: hidden;
+    background: url(images/show.png) no-repeat;
+    text-align: center;
+    display: block;
+    cursor: pointer;
+}
+
+.showeditor {
+    width: 16px;
+    height: 16px;
+    overflow: hidden;
+    background: url(images/edit.png) no-repeat;
+    text-align: center;
+    display: block;
+    cursor: pointer;
+}

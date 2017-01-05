@@ -1,0 +1,235 @@
+﻿<div id="myToolbar" class="mini-toolbar" style="border-left:0px; border-right:0px; border-top:0px; padding: 0px;">
+    <table style="width: 100%;" cellpadding="0" cellspacing="0">
+        <tr>
+            <td style="width: 100%;"></td>
+            <td style="white-space: nowrap;">
+                <a id="btnSearch" class="mini-button" iconcls="icon-search" plain="true" onclick="onSearchClick">查询</a>
+                <a class="mini-button" iconcls="icon-cancel" plain="true" onclick="onCancelClick">取消</a>
+            </td>
+        </tr>
+    </table>
+</div>
+<div class="mini-fit">
+    <div id="dgPlace" class="mini-datagrid" style="width: 100%; height: 100%;" idfield="Id" allowmovecolumn="false" borderstyle="border-left: 0px; border-right: 0px; border-top: 0px; border-bottom: 0px;"
+         multiselect="false" showreloadbutton="false" pagesize="10" sizelist="[10,25,50]" fitcolumns="false" onlycheckselection="true" frozenstartcolumn="0" frozenendcolumn="2"
+         ondrawcell="onDrawCell" onbeforeload="onDgPlaceBeforeLoad" onload="onDgPlaceLoad" onrowdblclick="onDgPlaceRowDblClick">
+        <div property="columns">
+            <div type="indexcolumn"></div>
+            <div field="PlaceCode" header="站点编码" width="80"></div>
+            <div field="PlaceName" header="站点名称" width="120"></div>
+            <div field="AreaName" header="区域" width="80"></div>
+            <div field="ReseauName" header="网格" width="80"></div>
+            <div type="comboboxcolumn" field="Profession" header="专业" width="50">
+                <input property="editor" class="mini-combobox" style="width: 100%;" data=@Html.Raw(ViewData["Profession"]) />
+            </div>
+            <div field="PlaceCategoryName" header="基站类型" width="80"></div>
+            <div field="Lng" header="经度" width="80"></div>
+            <div field="Lat" header="纬度" width="80"></div>
+            <div field="Map" header="导航图" width="50"></div>
+            <div field="PlaceOwnerName" header="产权" width="50"></div>
+        </div>
+    </div>
+</div>
+<div id="winQuery" class="mini-window" style="width: 570px; height: 165px;"
+     showmodal="true" allowresize="false" title="查询条件">
+    <table style="width: 100%;">
+        <tr>
+            <td style="width: 80px; text-align: right;">站点编码</td>
+            <td>
+                <input id="txtPlaceCode" class="mini-textbox" style="width:180px;" onenter="onTextBoxEnter" />
+            </td>
+            <td style="width: 80px; text-align: right;">站点名称</td>
+            <td>
+                <input id="txtPlaceName" class="mini-textbox" style="width:180px;" onenter="onTextBoxEnter" />
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 80px; text-align: right;">专业</td>
+            <td>
+                <input id="cbProfession" class="mini-combobox" value="0" style="width:180px;" data=@Html.Raw(ViewData["Profession"])
+                       onvaluechanged="onCbProfessionValueChanged" />
+            </td>
+            <td style="width: 80px; text-align: right;">站点类型</td>
+            <td>
+                <input id="cbPlaceCategoryId" class="mini-combobox" value="00000000-0000-0000-0000-000000000000" style="width:180px;" textfield="PlaceCategoryName" valuefield="Id" data="[{Id:'00000000-0000-0000-0000-000000000000',PlaceCategoryName:'全部'}]"
+                       onload="onCbPlaceCategoryIdLoad" />
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 80px; text-align: right;">区域</td>
+            <td>
+                <input id="cbAreaId" class="mini-combobox" value="00000000-0000-0000-0000-000000000000" style="width:180px;" textfield="AreaName" valuefield="Id" data=@Html.Raw(ViewData["Areas"])
+                       onvaluechanged="onCbAreaIdValueChanged" />
+            </td>
+            <td style="width: 80px; text-align: right;">网格</td>
+            <td>
+                <input id="cbReseauId" class="mini-combobox" value="00000000-0000-0000-0000-000000000000" style="width:180px;" textfield="ReseauName" valuefield="Id" data="[{Id:'00000000-0000-0000-0000-000000000000',ReseauName:'全部'}]"
+                       onload="onCbReseauIdLoad" />
+            </td>
+        </tr>
+    </table>
+    <div style="text-align: center; padding: 10px;">
+        <a class="mini-button" iconcls="icon-ok" onclick="onOKClick">确定</a>
+    </div>
+</div>
+<script type="text/javascript">
+    mini.parse();
+
+    var btnSearch = mini.get("btnSearch");
+    var dgPlace = mini.get("dgPlace");
+    var winQuery = mini.get("winQuery");
+    var txtPlaceCode = mini.get("txtPlaceCode");
+    var txtPlaceName = mini.get("txtPlaceName");
+    var cbProfession = mini.get("cbProfession");
+    var cbPlaceCategoryId = mini.get("cbPlaceCategoryId");
+    var cbAreaId = mini.get("cbAreaId");
+    var cbReseauId = mini.get("cbReseauId");
+
+    var data = {};
+
+    Init();
+
+    function Init() {
+        if(@ViewData["ProfessionSelected"] != 0){
+            cbProfession.setValue("@ViewData["ProfessionSelected"]");
+            BindCbPlaceCategoryId(cbProfession.getValue());
+            cbProfession.setEnabled(false);
+        }
+        winQuery.show();
+        txtPlaceName.focus();
+    }
+
+    function BindDgPlace() {
+        var query_PlaceCode = txtPlaceCode.getValue();
+        var query_PlaceName = txtPlaceName.getValue();
+        var query_Profession = cbProfession.getValue();
+        var query_PlaceCategoryId = cbPlaceCategoryId.getValue();
+        var query_AreaId = cbAreaId.getValue();
+        var query_ReseauId = cbReseauId.getValue();
+        if (dgPlace.getUrl() == "") {
+            dgPlace.setUrl("@Url.RouteUrl(new { controller = "BaseData", action = "GetPlacesPageBySelect" })");
+        }
+        dgPlace.clearSelect(false);
+        dgPlace.load({ PlaceCode: query_PlaceCode, PlaceName: query_PlaceName, Profession: query_Profession, PlaceCategoryId: query_PlaceCategoryId, AreaId: query_AreaId, ReseauId: query_ReseauId });
+    }
+
+    function onDgPlaceBeforeLoad() {
+        btnSearch.setEnabled(false);
+    }
+
+    function onDgPlaceLoad() {
+        btnSearch.setEnabled(true);
+    }
+
+    function onDrawCell(e) {
+        if (e.field == "Map") {
+            e.cellHtml = "<a class='navigationmap' onclick='onMapClick(\"" + e.record.Id + "\");'></a>";
+        }
+    }
+
+    function onMapClick(id) {
+        var el = dgPlace.getEl();
+        mini.mask({
+            el: el,
+            cls: 'mini-mask-loading',
+            html: '加载中...'
+        });
+        setTimeout(function () {
+            $.ajax({
+                url: "@Url.RouteUrl(new { controller = "Map", action = "GetPlacePoint" })",
+                data: { PlaceId: id, AreaId: "00000000-0000-0000-0000-000000000000", PlaceName: "", Lng: 0, Lat: 0, Profession: 1 },
+                type: "get",
+                async: false,
+                success: function (result, textStatus) {
+                    mini.unmask(el);
+                    if (result.Id != null && result.Id == id) {
+                        mini.open({
+                            url: "@Url.RouteUrl(new { controller = "Map", action = "NavigationMap" })",
+                            title: result.PlaceName,
+                            iconCls: "icon-map",
+                            width: 800,
+                            height: 550,
+                            showMaxButton: true,
+                            onload: function () {
+                                var iframe = this.getIFrameEl();
+                                var data = result;
+                                iframe.contentWindow.SetData(data);
+                            }
+                        });
+                    }
+                },
+                error: function (xmlHttpRequest, textStatus, errorThrown) {
+                    mini.unmask(el);
+                }
+            });
+        }, 50);
+    }
+
+    function onDgPlaceRowDblClick(e) {
+        data = {};
+        data.Id = e.record.Id;
+        data.PlaceName = e.record.PlaceName;
+        data.PlaceCategoryId = e.record.PlaceCategoryId;
+        data.AreaId = e.record.AreaId;
+        data.ReseauId = e.record.ReseauId;
+        data.Lng = e.record.Lng;
+        data.Lat = e.record.Lat;
+        CloseWindow("ok");
+    }
+
+    function BindCbPlaceCategoryId(profession) {
+        cbPlaceCategoryId.setUrl("@Url.RouteUrl(new { controller = "BaseData", action = "GetUsedPlaceCategorys" })" + "/" + profession + "?getType=2");
+    }
+
+    function BindCbReseauId(areaId) {
+        cbReseauId.setUrl("@Url.RouteUrl(new { controller = "BaseData", action = "GetUsedReseaus" })" + "/" + areaId + "?getType=2");
+    }
+
+    function onCbProfessionValueChanged(e) {
+        BindCbPlaceCategoryId(e.sender.getValue());
+    }
+
+    function onCbAreaIdValueChanged(e) {
+        BindCbReseauId(e.sender.getValue());
+    }
+
+    function onCbPlaceCategoryIdLoad() {
+        cbPlaceCategoryId.setValue("00000000-0000-0000-0000-000000000000");
+    }
+
+    function onCbReseauIdLoad() {
+        cbReseauId.setValue("00000000-0000-0000-0000-000000000000");
+    }
+
+    function GetData() {
+        return data;
+    }
+
+    function CloseWindow(action) {
+        if (window.CloseOwnerWindow) {
+            return window.CloseOwnerWindow(action);
+        }
+        else {
+            window.close();
+        }
+    }
+
+    function onTextBoxEnter() {
+        BindDgPlace();
+        winQuery.hide();
+    }
+
+    function onSearchClick() {
+        winQuery.show();
+    }
+
+    function onOKClick() {
+        BindDgPlace();
+        winQuery.hide();
+    }
+
+    function onCancelClick() {
+        data = {};
+        CloseWindow("cancel");
+    }
+</script>
