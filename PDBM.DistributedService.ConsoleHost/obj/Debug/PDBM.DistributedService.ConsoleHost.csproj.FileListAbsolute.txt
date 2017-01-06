@@ -81,8 +81,6 @@ E:\PDBM\PDBM.DistributedService.ConsoleHost\obj\Debug\PDBM.DistributedService.Co
 E:\PDCMS_SZ\PDBM.DistributedService.ConsoleHost\bin\Debug\PDBM.DistributedService.ConsoleHost.exe.config
 E:\PDCMS_SZ\PDBM.DistributedService.ConsoleHost\bin\Debug\PDBM.DistributedService.ConsoleHost.exe
 E:\PDCMS_SZ\PDBM.DistributedService.ConsoleHost\bin\Debug\PDBM.DistributedService.ConsoleHost.pdb
-E:\PDCMS_SZ\PDBM.DistributedService.ConsoleHost\bin\Debug\EntityFramework.dll
-E:\PDCMS_SZ\PDBM.DistributedService.ConsoleHost\bin\Debug\EntityFramework.SqlServer.dll
 E:\PDCMS_SZ\PDBM.DistributedService.ConsoleHost\bin\Debug\PDBM.DistributedService.dll
 E:\PDCMS_SZ\PDBM.DistributedService.ConsoleHost\bin\Debug\PDBM.Infrastructure.Data.dll
 E:\PDCMS_SZ\PDBM.DistributedService.ConsoleHost\bin\Debug\PDBM.Infrastructure.dll

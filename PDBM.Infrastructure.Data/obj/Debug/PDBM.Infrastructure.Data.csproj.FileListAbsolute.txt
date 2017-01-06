@@ -59,8 +59,6 @@ E:\PDBM\PDBM.Infrastructure.Data\obj\Debug\PDBM.Infrastructure.Data.pdb
 E:\PDCMS_SZ\PDBM.Infrastructure.Data\bin\Debug\PDBM.Infrastructure.Data.dll.config
 E:\PDCMS_SZ\PDBM.Infrastructure.Data\bin\Debug\PDBM.Infrastructure.Data.dll
 E:\PDCMS_SZ\PDBM.Infrastructure.Data\bin\Debug\PDBM.Infrastructure.Data.pdb
-E:\PDCMS_SZ\PDBM.Infrastructure.Data\bin\Debug\EntityFramework.dll
-E:\PDCMS_SZ\PDBM.Infrastructure.Data\bin\Debug\EntityFramework.SqlServer.dll
 E:\PDCMS_SZ\PDBM.Infrastructure.Data\bin\Debug\PDBM.Domain.dll
 E:\PDCMS_SZ\PDBM.Infrastructure.Data\bin\Debug\PDBM.Infrastructure.dll
 E:\PDCMS_SZ\PDBM.Infrastructure.Data\bin\Debug\Microsoft.Practices.Unity.Interception.dll

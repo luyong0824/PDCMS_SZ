@@ -81,8 +81,6 @@ E:\PDBM\PDBM.DistributedService.WASHost\obj\Debug\PDBM.DistributedService.WASHos
 E:\PDCMS_SZ\PDBM.DistributedService.WASHost\bin\PDBM.DistributedService.WASHost.dll.config
 E:\PDCMS_SZ\PDBM.DistributedService.WASHost\bin\PDBM.DistributedService.WASHost.dll
 E:\PDCMS_SZ\PDBM.DistributedService.WASHost\bin\PDBM.DistributedService.WASHost.pdb
-E:\PDCMS_SZ\PDBM.DistributedService.WASHost\bin\EntityFramework.dll
-E:\PDCMS_SZ\PDBM.DistributedService.WASHost\bin\EntityFramework.SqlServer.dll
 E:\PDCMS_SZ\PDBM.DistributedService.WASHost\bin\PDBM.DistributedService.dll
 E:\PDCMS_SZ\PDBM.DistributedService.WASHost\bin\PDBM.Infrastructure.Data.dll
 E:\PDCMS_SZ\PDBM.DistributedService.WASHost\bin\PDBM.Infrastructure.dll

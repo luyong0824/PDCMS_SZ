@@ -47,16 +47,6 @@ E:\PDBM\PDBM.Infrastructure\obj\Debug\PDBM.Infrastructure.dll
 E:\PDBM\PDBM.Infrastructure\obj\Debug\PDBM.Infrastructure.pdb
 E:\PDCMS_SZ\PDBM.Infrastructure\bin\Debug\PDBM.Infrastructure.dll
 E:\PDCMS_SZ\PDBM.Infrastructure\bin\Debug\PDBM.Infrastructure.pdb
-E:\PDCMS_SZ\PDBM.Infrastructure\bin\Debug\EmitMapper.dll
-E:\PDCMS_SZ\PDBM.Infrastructure\bin\Debug\log4net.dll
-E:\PDCMS_SZ\PDBM.Infrastructure\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Common.dll
-E:\PDCMS_SZ\PDBM.Infrastructure\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Data.dll
-E:\PDCMS_SZ\PDBM.Infrastructure\bin\Debug\Microsoft.Practices.Unity.Configuration.dll
-E:\PDCMS_SZ\PDBM.Infrastructure\bin\Debug\Microsoft.Practices.Unity.dll
-E:\PDCMS_SZ\PDBM.Infrastructure\bin\Debug\Microsoft.Practices.Unity.Interception.Configuration.dll
-E:\PDCMS_SZ\PDBM.Infrastructure\bin\Debug\Microsoft.Practices.Unity.Interception.dll
-E:\PDCMS_SZ\PDBM.Infrastructure\bin\Debug\Microsoft.Practices.Unity.RegistrationByConvention.dll
-E:\PDCMS_SZ\PDBM.Infrastructure\bin\Debug\Newtonsoft.Json.dll
 E:\PDCMS_SZ\PDBM.Infrastructure\bin\Debug\log4net.xml
 E:\PDCMS_SZ\PDBM.Infrastructure\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Common.xml
 E:\PDCMS_SZ\PDBM.Infrastructure\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Data.xml

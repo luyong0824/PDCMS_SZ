@@ -51,7 +51,6 @@ E:\PDBM\PDBM.DataTransferObjects\obj\Debug\PDBM.DataTransferObjects.pdb
 E:\PDCMS_SZ\PDBM.DataTransferObjects\bin\Debug\PDBM.DataTransferObjects.dll
 E:\PDCMS_SZ\PDBM.DataTransferObjects\bin\Debug\PDBM.DataTransferObjects.pdb
 E:\PDCMS_SZ\PDBM.DataTransferObjects\bin\Debug\PDBM.Infrastructure.dll
-E:\PDCMS_SZ\PDBM.DataTransferObjects\bin\Debug\protobuf-net.dll
 E:\PDCMS_SZ\PDBM.DataTransferObjects\bin\Debug\Microsoft.Practices.Unity.Interception.dll
 E:\PDCMS_SZ\PDBM.DataTransferObjects\bin\Debug\Microsoft.Practices.Unity.dll
 E:\PDCMS_SZ\PDBM.DataTransferObjects\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Data.dll
