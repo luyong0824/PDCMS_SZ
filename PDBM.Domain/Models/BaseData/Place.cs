@@ -506,6 +506,25 @@ namespace PDBM.Domain.Models.BaseData
             this.State = state;
         }
 
+        /// <summary>
+        /// 基站导入修改
+        /// </summary>
+        /// <param name="placeName">基站名称</param>
+        /// <param name="placeCategoryId">基站类型</param>
+        /// <param name="reseauId">网格Id</param>
+        /// <param name="lng">经度</param>
+        /// <param name="lat">纬度</param>
+        /// <param name="placeOwner">产权</param>
+        /// <param name="importance">重要性程度</param>
+        /// <param name="addressingDepartmentId">租赁部门Id</param>
+        /// <param name="addressingRealName">实际租赁人</param>
+        /// <param name="ownerName">业主</param>
+        /// <param name="ownerContact">业主联系人</param>
+        /// <param name="ownerPhoneNumber">业主联系方式</param>
+        /// <param name="detailedAddress">详细地址</param>
+        /// <param name="remarks">备注</param>
+        /// <param name="state">使用状态</param>
+        /// <param name="modifyUserId">修改人用户Id</param>
         public void ModifyPlaceImport(string placeName, Guid placeCategoryId, Guid reseauId, decimal lng, decimal lat, Guid placeOwner, Importance importance,
             Guid addressingDepartmentId, string addressingRealName, string ownerName, string ownerContact, string ownerPhoneNumber, string detailedAddress, string remarks, State state, Guid modifyUserId)
         {
@@ -539,6 +558,57 @@ namespace PDBM.Domain.Models.BaseData
             this.DetailedAddress = detailedAddress;
             this.Remarks = remarks;
             this.State = state;
+            this.ModifyUserId = modifyUserId;
+            this.ModifyDate = DateTime.Now;
+        }
+
+        /// <summary>
+        /// 批量更新基站
+        /// </summary>
+        /// <param name="placeCategoryId">基站类型</param>
+        /// <param name="reseauId">网格Id</param>
+        /// <param name="lng">经度</param>
+        /// <param name="lat">纬度</param>
+        /// <param name="placeOwner">产权</param>
+        /// <param name="importance">重要性程度</param>
+        /// <param name="addressingDepartmentId">租赁部门Id</param>
+        /// <param name="addressingRealName">实际租赁人</param>
+        /// <param name="ownerName">业主</param>
+        /// <param name="ownerContact">业主联系人</param>
+        /// <param name="ownerPhoneNumber">业主联系方式</param>
+        /// <param name="detailedAddress">详细地址</param>
+        /// <param name="remarks">备注</param>
+        /// <param name="modifyUserId">修改人用户Id</param>
+        public void UpdatePlace(Guid placeCategoryId, Guid reseauId, decimal lng, decimal lat, Importance importance, Guid placeOwner, Guid addressingDepartmentId,
+            string addressingRealName, string ownerName, string ownerContact, string ownerPhoneNumber, string detailedAddress, string remarks, Guid modifyUserId)
+        {
+            placeCategoryId.IsEmpty("基站类型Id");
+            placeOwner.IsEmpty("产权");
+            reseauId.IsEmpty("网格Id");
+            lng.IsNonnegative("经度");
+            lat.IsNonnegative("纬度");
+            importance.IsInvalid("重要性程度");
+            addressingDepartmentId.IsEmpty("租赁部门Id");
+            ownerName.IsNullOrTooLong("业主名称", true, 100);
+            addressingRealName.IsNullOrTooLong("实际租赁人", true, 50);
+            ownerContact.IsNullOrTooLong("业主联系人", true, 100);
+            ownerPhoneNumber.IsNullOrTooLong("业主联系电话", true, 100);
+            detailedAddress.IsNullOrEmptyOrTooLong("详细地址", true, 150);
+            remarks.IsNullOrTooLong("备注", true, 150);
+
+            this.PlaceCategoryId = placeCategoryId;
+            this.PlaceOwner = placeOwner;
+            this.ReseauId = reseauId;
+            this.Lng = lng;
+            this.Lat = lat;
+            this.Importance = importance;
+            this.AddressingDepartmentId = addressingDepartmentId;
+            this.AddressingRealName = addressingRealName;
+            this.OwnerName = ownerName;
+            this.OwnerContact = ownerContact;
+            this.OwnerPhoneNumber = ownerPhoneNumber;
+            this.DetailedAddress = detailedAddress;
+            this.Remarks = remarks;
             this.ModifyUserId = modifyUserId;
             this.ModifyDate = DateTime.Now;
         }

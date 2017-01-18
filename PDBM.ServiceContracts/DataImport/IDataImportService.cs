@@ -81,6 +81,16 @@ namespace PDBM.ServiceContracts.DataImport
         IList<ImportErrorObject> ImportPlace(Guid excelFileId, Guid createUserId);
 
         /// <summary>
+        /// 更新基站
+        /// </summary>
+        /// <param name="excelFileId">Excel文件Id</param>
+        /// <param name="modifyUserId">修改人用户Id</param>
+        /// <returns>导入错误对象列表</returns>
+        [OperationContract]
+        [FaultContract(typeof(FaultObject))]
+        IList<ImportErrorObject> UpdatePlace(Guid excelFileId, Guid modifyUserId);
+
+        /// <summary>
         /// 导入逻辑号
         /// </summary>
         /// <param name="excelFileId">Excel文件Id</param>
@@ -201,5 +211,15 @@ namespace PDBM.ServiceContracts.DataImport
         [OperationContract]
         [FaultContract(typeof(FaultObject))]
         IList<ImportErrorObject> ImportPlaceID(Guid excelFileId, Guid createUserId);
+
+        /// <summary>
+        /// 更新室分
+        /// </summary>
+        /// <param name="excelFileId">Excel文件Id</param>
+        /// <param name="modifyUserId">修改人用户Id</param>
+        /// <returns>导入错误对象列表</returns>
+        [OperationContract]
+        [FaultContract(typeof(FaultObject))]
+        IList<ImportErrorObject> UpdatePlaceID(Guid excelFileId, Guid modifyUserId);
     }
 }

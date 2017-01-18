@@ -2056,6 +2056,373 @@ namespace PDBM.ApplicationService.Services.DataImport
         }
 
         /// <summary>
+        /// 更新基站
+        /// </summary>
+        /// <param name="excelFileId">Excel文件Id</param>
+        /// <param name="modifyUserId">修改人用户Id</param>
+        /// <returns>导入错误对象列表</returns>
+        public IList<ImportErrorObject> UpdatePlace(Guid excelFileId, Guid modifyUserId)
+        {
+            IList<ImportErrorObject> importErrorObjects = new List<ImportErrorObject>();
+            IList<PlaceMaintObject> placeMaintObjects = new List<PlaceMaintObject>();
+            File file = fileRepository.FindByKey(excelFileId);
+            if (file != null)
+            {
+                if (!FileHelper.IsExistFile(file.FilePath))
+                {
+                    throw new ApplicationFault("导入的Excel文件在系统中不存在");
+                }
+
+                DataTable dt = ExcelHelper.ExcelToDataTable(file.FilePath, "Sheet1");
+
+                //列验证
+                if (dt.Columns.Count != 15)
+                {
+                    importErrorObjects.Add(this.BuildImportError("模板", "列数", "导入的模板列数为" + dt.Columns.Count.ToString() + "列，正确的模板列数应为15列"));
+                }
+                else
+                {
+                    if (dt.Columns[0].ColumnName != "基站名称")
+                    {
+                        importErrorObjects.Add(this.BuildImportError("模板", "第一列", "列名必须为基站名称"));
+                    }
+                    if (dt.Columns[1].ColumnName != "基站类型")
+                    {
+                        importErrorObjects.Add(this.BuildImportError("模板", "第二列", "列名必须为基站类型"));
+                    }
+                    if (dt.Columns[2].ColumnName != "区域")
+                    {
+                        importErrorObjects.Add(this.BuildImportError("模板", "第三列", "列名必须为区域"));
+                    }
+                    if (dt.Columns[3].ColumnName != "网格")
+                    {
+                        importErrorObjects.Add(this.BuildImportError("模板", "第四列", "列名必须为网格"));
+                    }
+                    if (dt.Columns[4].ColumnName != "经度")
+                    {
+                        importErrorObjects.Add(this.BuildImportError("模板", "第五列", "列名必须为经度"));
+                    }
+                    if (dt.Columns[5].ColumnName != "纬度")
+                    {
+                        importErrorObjects.Add(this.BuildImportError("模板", "第六列", "列名必须为纬度"));
+                    }
+                    if (dt.Columns[6].ColumnName != "重要性程度")
+                    {
+                        importErrorObjects.Add(this.BuildImportError("模板", "第七列", "列名必须为重要性程度"));
+                    }
+                    if (dt.Columns[7].ColumnName != "产权")
+                    {
+                        importErrorObjects.Add(this.BuildImportError("模板", "第八列", "列名必须为产权"));
+                    }
+                    if (dt.Columns[8].ColumnName != "租赁部门")
+                    {
+                        importErrorObjects.Add(this.BuildImportError("模板", "第九列", "列名必须为租赁部门"));
+                    }
+                    if (dt.Columns[9].ColumnName != "实际租赁人")
+                    {
+                        importErrorObjects.Add(this.BuildImportError("模板", "第十列", "列名必须为实际租赁人"));
+                    }
+                    if (dt.Columns[10].ColumnName != "业主名称")
+                    {
+                        importErrorObjects.Add(this.BuildImportError("模板", "第十一列", "列名必须为业主名称"));
+                    }
+                    if (dt.Columns[11].ColumnName != "联系人")
+                    {
+                        importErrorObjects.Add(this.BuildImportError("模板", "第十二列", "列名必须为联系人"));
+                    }
+                    if (dt.Columns[12].ColumnName != "联系方式")
+                    {
+                        importErrorObjects.Add(this.BuildImportError("模板", "第十三列", "列名必须为联系方式"));
+                    }
+                    if (dt.Columns[13].ColumnName != "详细地址")
+                    {
+                        importErrorObjects.Add(this.BuildImportError("模板", "第十四列", "列名必须为详细地址"));
+                    }
+                    if (dt.Columns[14].ColumnName != "备注")
+                    {
+                        importErrorObjects.Add(this.BuildImportError("模板", "第十五列", "列名必须为备注"));
+                    }
+                }
+
+                //行数验证
+                if (dt.Rows.Count == 0)
+                {
+                    importErrorObjects.Add(this.BuildImportError("模板", "行数", "导入的模板不存在数据行"));
+                }
+                if (dt.Rows.Count > 2000)
+                {
+                    importErrorObjects.Add(this.BuildImportError("模板", "行数", "每次导入的模板数据最多为2000行"));
+                }
+
+                //列或者行有错，直接返回
+                if (importErrorObjects.Count() > 0)
+                {
+                    return importErrorObjects;
+                }
+                else
+                {
+                    //验证规划名称是否重复
+                    var duplicateDatas = (from r in dt.AsEnumerable() group r by r.Field<object>("基站名称") into g where g.Count() > 1 select g.FirstOrDefault());
+                    foreach (var duplicateData in duplicateDatas)
+                    {
+                        if (duplicateData[0].ToString().Trim() != "")
+                        {
+                            importErrorObjects.Add(this.BuildImportError("模板", "基站名称", "" + duplicateData[0].ToString() + "-在导入的模板中存在重复数据"));
+                        }
+                    }
+
+                    //规划名称有重复，直接返回
+                    if (importErrorObjects.Count() > 0)
+                    {
+                        return importErrorObjects;
+                    }
+                    else
+                    {
+                        int rowIndex = 1;
+                        Guid placeId = Guid.Empty;
+                        string placeName = "";
+                        Guid placeCategoryId = Guid.Empty;
+                        Guid placeOwnerId = Guid.Empty;
+                        Guid areaId = Guid.Empty;
+                        Guid reseauId = Guid.Empty;
+                        decimal lng = 0;
+                        decimal lat = 0;
+                        Importance importance = Importance.C;
+                        Guid addressingDepartmentId = Guid.Empty;
+                        string addressingRealName = "";
+                        string ownerName = "";
+                        string ownerContact = "";
+                        string ownerPhoneNumber = "";
+                        string detailedAddress = "";
+                        string remarks = "";
+                        IList<Place> places = new List<Place>(dt.Rows.Count);
+                        IList<PlaceBusinessVolume> placeBusinessVolumes = new List<PlaceBusinessVolume>(dt.Rows.Count);
+
+                        foreach (DataRow dr in dt.Rows)
+                        {
+                            rowIndex++;
+
+                            //规基站称验证
+                            if (dr["基站名称"].ToString().Trim() != "")
+                            {
+                                placeName = dr["基站名称"].ToString().Trim();
+                                Place place = placeRepository.Find(Specification<Place>.Eval(entity => entity.PlaceName == placeName));
+                                if (place != null)
+                                {
+                                    placeId = place.Id;
+                                }
+                                else
+                                {
+                                    importErrorObjects.Add(this.BuildImportError("第" + rowIndex + "行", "基站名称", placeName + "-在系统中不存在"));
+                                }
+                            }
+                            else
+                            {
+                                importErrorObjects.Add(this.BuildImportError("第" + rowIndex + "行", "基站名称", "不能为空"));
+                            }
+
+                            //基站类型验证
+                            if (dr["基站类型"].ToString().Trim() != "")
+                            {
+                                string placeCategoryName = dr["基站类型"].ToString().Trim();
+                                PlaceCategory placeCategory = placeCategoryRepository.Find(Specification<PlaceCategory>.Eval(entity => entity.PlaceCategoryName == placeCategoryName && entity.Profession == Profession.基站));
+                                if (placeCategory != null)
+                                {
+                                    placeCategoryId = placeCategory.Id;
+                                }
+                                else
+                                {
+                                    importErrorObjects.Add(this.BuildImportError("第" + rowIndex + "行", "基站类型", placeCategoryName + "-在系统中不存在"));
+                                }
+                            }
+                            else
+                            {
+                                importErrorObjects.Add(this.BuildImportError("第" + rowIndex + "行", "基站类型", "不能为空"));
+                            }
+
+                            //区域验证
+                            if (dr["区域"].ToString().Trim() != "")
+                            {
+                                string areaName = dr["区域"].ToString().Trim();
+                                Area area = areaRepository.Find(Specification<Area>.Eval(entity => entity.AreaName == areaName));
+                                if (area != null)
+                                {
+                                    areaId = area.Id;
+                                    //网格验证
+                                    if (dr["网格"].ToString().Trim() != "")
+                                    {
+                                        string reseauName = dr["网格"].ToString().Trim();
+                                        Reseau reseau = reseauRepository.Find(Specification<Reseau>.Eval(entity => entity.ReseauName == reseauName && entity.AreaId == areaId));
+                                        if (reseau != null)
+                                        {
+                                            reseauId = reseau.Id;
+                                        }
+                                        else
+                                        {
+                                            importErrorObjects.Add(this.BuildImportError("第" + rowIndex + "行", "网格", reseauName + "-在系统中不存在"));
+                                        }
+                                    }
+                                    else
+                                    {
+                                        importErrorObjects.Add(this.BuildImportError("第" + rowIndex + "行", "网格", "不能为空"));
+                                    }
+                                }
+                                else
+                                {
+                                    importErrorObjects.Add(this.BuildImportError("第" + rowIndex + "行", "区域", areaName + "-在系统中不存在"));
+                                }
+                            }
+                            else
+                            {
+                                importErrorObjects.Add(this.BuildImportError("第" + rowIndex + "行", "区域", "不能为空"));
+                            }
+
+                            //经度验证
+                            if (dr["经度"].ToString().Trim() != "")
+                            {
+                                if (!decimal.TryParse(dr["经度"].ToString().Trim(), out lng))
+                                {
+                                    importErrorObjects.Add(this.BuildImportError("第" + rowIndex + "行", "经度", "必须为数字"));
+                                }
+                            }
+                            else
+                            {
+                                lng = 0;
+                            }
+
+                            //纬度验证
+                            if (dr["纬度"].ToString().Trim() != "")
+                            {
+                                if (!decimal.TryParse(dr["纬度"].ToString().Trim(), out lat))
+                                {
+                                    importErrorObjects.Add(this.BuildImportError("第" + rowIndex + "行", "纬度", "必须为数字"));
+                                }
+                            }
+                            else
+                            {
+                                lat = 0;
+                            }
+
+                            //重要性程度验证
+                            if (dr["重要性程度"].ToString().Trim() != "")
+                            {
+                                if (!System.Enum.TryParse<Importance>(dr["重要性程度"].ToString().Trim(), out importance))
+                                {
+                                    importErrorObjects.Add(this.BuildImportError("第" + rowIndex + "行", "重要性程度", dr["重要性程度"].ToString().Trim() + "-在系统中不存在"));
+                                }
+                                else
+                                {
+                                    if (importance != Importance.A && importance != Importance.B && importance != Importance.C)
+                                    {
+                                        importErrorObjects.Add(this.BuildImportError("第" + rowIndex + "行", "重要性程度", dr["重要性程度"].ToString().Trim() + "-在系统中不存在"));
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                importErrorObjects.Add(this.BuildImportError("第" + rowIndex + "行", "重要性程度", "不能为空"));
+                            }
+
+                            //产权验证
+                            if (dr["产权"].ToString().Trim() != "")
+                            {
+                                string placeOwnerName = dr["产权"].ToString().Trim();
+                                PlaceOwner placeOwner = placeOwnerRepository.Find(Specification<PlaceOwner>.Eval(entity => entity.PlaceOwnerName == placeOwnerName));
+                                if (placeOwner != null)
+                                {
+                                    placeOwnerId = placeOwner.Id;
+                                }
+                                else
+                                {
+                                    importErrorObjects.Add(this.BuildImportError("第" + rowIndex + "行", "产权", placeOwnerName + "-在系统中不存在"));
+                                }
+                            }
+                            else
+                            {
+                                importErrorObjects.Add(this.BuildImportError("第" + rowIndex + "行", "产权", "不能为空"));
+                            }
+
+                            //租赁部门验证
+                            if (dr["租赁部门"].ToString().Trim() != "")
+                            {
+                                string addressingDepartmentName = dr["租赁部门"].ToString().Trim();
+                                Department department = departmentRepository.Find(Specification<Department>.Eval(entity => entity.DepartmentName == addressingDepartmentName));
+                                if (department != null)
+                                {
+                                    addressingDepartmentId = department.Id;
+                                }
+                            }
+
+                            addressingRealName = dr["实际租赁人"].ToString().Trim();
+                            ownerName = dr["业主名称"].ToString().Trim();
+                            ownerContact = dr["联系人"].ToString().Trim();
+                            ownerPhoneNumber = dr["联系方式"].ToString().Trim();
+
+                            //详细地址验证
+                            if (dr["详细地址"].ToString().Trim() != "")
+                            {
+                                detailedAddress = dr["详细地址"].ToString().Trim();
+                            }
+                            else
+                            {
+                                importErrorObjects.Add(this.BuildImportError("第" + rowIndex + "行", "详细地址", "不能为空"));
+                            }
+
+                            remarks = dr["备注"].ToString().Trim();
+
+                            if (importErrorObjects.Count == 0)
+                            {
+                                Place placeMaint = placeRepository.Find(Specification<Place>.Eval(entity => entity.PlaceName == placeName));
+                                placeMaintObjects.Add(BuildUpdatePlaceObject(placeMaint.Id, placeCategoryId, reseauId, lng, lat, importance, placeOwnerId, addressingDepartmentId, addressingRealName,
+                                    ownerName, ownerContact, ownerPhoneNumber, detailedAddress, remarks, modifyUserId));
+                            }
+                        }
+
+                        //存在验证失败，直接返回
+                        if (importErrorObjects.Count > 0)
+                        {
+                            return importErrorObjects;
+                        }
+                        else
+                        {
+                            for (int i = 0; i < placeMaintObjects.Count; i++)
+                            {
+                                Place place = placeRepository.GetByKey(placeMaintObjects[i].Id);
+                                place.UpdatePlace(placeMaintObjects[i].PlaceCategoryId, placeMaintObjects[i].ReseauId, placeMaintObjects[i].Lng, placeMaintObjects[i].Lat,
+                                    (Importance)placeMaintObjects[i].Importance, placeMaintObjects[i].PlaceOwner, placeMaintObjects[i].AddressingDepartmentId,
+                                    placeMaintObjects[i].AddressingRealName, placeMaintObjects[i].OwnerName, placeMaintObjects[i].OwnerContact,
+                                    placeMaintObjects[i].OwnerPhoneNumber, placeMaintObjects[i].DetailedAddress, placeMaintObjects[i].Remarks,
+                                    placeMaintObjects[i].ModifyUserId);
+                                placeRepository.Update(place);
+                            }
+                            try
+                            {
+                                this.Context.Commit();
+                            }
+                            catch (Exception ex)
+                            {
+                                if (ex.Message.Contains("FK_dbo.tbl_Place_dbo.tbl_PlaceCategory_PlaceCategoryId") || ex.Message.Contains("FK_dbo.tbl_Place_dbo.tbl_PlaceCategory_PlaceCategoryId"))
+                                {
+                                    throw new ApplicationFault("选择的站点类型在系统中不存在");
+                                }
+                                else if (ex.Message.Contains("FK_dbo.tbl_Place_dbo.tbl_Reseau_ReseauId") || ex.Message.Contains("FK_dbo.tbl_Place_dbo.tbl_Reseau_ReseauId"))
+                                {
+                                    throw new ApplicationFault("选择的网格在系统中不存在");
+                                }
+                                throw ex;
+                            }
+                        }
+                    }
+                }
+            }
+            else
+            {
+                throw new ApplicationFault("导入的Excel文件在系统中不存在");
+            }
+            return importErrorObjects;
+        }
+
+        /// <summary>
         /// 导入逻辑号
         /// </summary>
         /// <param name="excelFileId">Excel文件Id</param>
@@ -6427,6 +6794,372 @@ namespace PDBM.ApplicationService.Services.DataImport
         }
 
         /// <summary>
+        /// 更新室分
+        /// </summary>
+        /// <param name="excelFileId">Excel文件Id</param>
+        /// <param name="modifyUserId">修改人用户Id</param>
+        /// <returns>导入错误对象列表</returns>
+        public IList<ImportErrorObject> UpdatePlaceID(Guid excelFileId, Guid modifyUserId)
+        {
+            IList<ImportErrorObject> importErrorObjects = new List<ImportErrorObject>();
+            IList<PlaceMaintObject> placeMaintObjects = new List<PlaceMaintObject>();
+            File file = fileRepository.FindByKey(excelFileId);
+            if (file != null)
+            {
+                if (!FileHelper.IsExistFile(file.FilePath))
+                {
+                    throw new ApplicationFault("导入的Excel文件在系统中不存在");
+                }
+
+                DataTable dt = ExcelHelper.ExcelToDataTable(file.FilePath, "Sheet1");
+
+                //列验证
+                if (dt.Columns.Count != 15)
+                {
+                    importErrorObjects.Add(this.BuildImportError("模板", "列数", "导入的模板列数为" + dt.Columns.Count.ToString() + "列，正确的模板列数应为15列"));
+                }
+                else
+                {
+                    if (dt.Columns[0].ColumnName != "室分名称")
+                    {
+                        importErrorObjects.Add(this.BuildImportError("模板", "第一列", "列名必须为室分名称"));
+                    }
+                    if (dt.Columns[1].ColumnName != "室分类型")
+                    {
+                        importErrorObjects.Add(this.BuildImportError("模板", "第二列", "列名必须为室分类型"));
+                    }
+                    if (dt.Columns[2].ColumnName != "区域")
+                    {
+                        importErrorObjects.Add(this.BuildImportError("模板", "第三列", "列名必须为区域"));
+                    }
+                    if (dt.Columns[3].ColumnName != "网格")
+                    {
+                        importErrorObjects.Add(this.BuildImportError("模板", "第四列", "列名必须为网格"));
+                    }
+                    if (dt.Columns[4].ColumnName != "经度")
+                    {
+                        importErrorObjects.Add(this.BuildImportError("模板", "第五列", "列名必须为经度"));
+                    }
+                    if (dt.Columns[5].ColumnName != "纬度")
+                    {
+                        importErrorObjects.Add(this.BuildImportError("模板", "第六列", "列名必须为纬度"));
+                    }
+                    if (dt.Columns[6].ColumnName != "重要性程度")
+                    {
+                        importErrorObjects.Add(this.BuildImportError("模板", "第七列", "列名必须为重要性程度"));
+                    }
+                    if (dt.Columns[7].ColumnName != "产权")
+                    {
+                        importErrorObjects.Add(this.BuildImportError("模板", "第八列", "列名必须为产权"));
+                    }
+                    if (dt.Columns[8].ColumnName != "租赁部门")
+                    {
+                        importErrorObjects.Add(this.BuildImportError("模板", "第九列", "列名必须为租赁部门"));
+                    }
+                    if (dt.Columns[9].ColumnName != "实际租赁人")
+                    {
+                        importErrorObjects.Add(this.BuildImportError("模板", "第十列", "列名必须为实际租赁人"));
+                    }
+                    if (dt.Columns[10].ColumnName != "业主名称")
+                    {
+                        importErrorObjects.Add(this.BuildImportError("模板", "第十一列", "列名必须为业主名称"));
+                    }
+                    if (dt.Columns[11].ColumnName != "联系人")
+                    {
+                        importErrorObjects.Add(this.BuildImportError("模板", "第十二列", "列名必须为联系人"));
+                    }
+                    if (dt.Columns[12].ColumnName != "联系方式")
+                    {
+                        importErrorObjects.Add(this.BuildImportError("模板", "第十三列", "列名必须为联系方式"));
+                    }
+                    if (dt.Columns[13].ColumnName != "详细地址")
+                    {
+                        importErrorObjects.Add(this.BuildImportError("模板", "第十四列", "列名必须为详细地址"));
+                    }
+                    if (dt.Columns[14].ColumnName != "备注")
+                    {
+                        importErrorObjects.Add(this.BuildImportError("模板", "第十五列", "列名必须为备注"));
+                    }
+                }
+
+                //行数验证
+                if (dt.Rows.Count == 0)
+                {
+                    importErrorObjects.Add(this.BuildImportError("模板", "行数", "导入的模板不存在数据行"));
+                }
+                if (dt.Rows.Count > 2000)
+                {
+                    importErrorObjects.Add(this.BuildImportError("模板", "行数", "每次导入的模板数据最多为2000行"));
+                }
+
+                //列或者行有错，直接返回
+                if (importErrorObjects.Count() > 0)
+                {
+                    return importErrorObjects;
+                }
+                else
+                {
+                    //验证规划名称是否重复
+                    var duplicateDatas = (from r in dt.AsEnumerable() group r by r.Field<object>("室分名称") into g where g.Count() > 1 select g.FirstOrDefault());
+                    foreach (var duplicateData in duplicateDatas)
+                    {
+                        if (duplicateData[0].ToString().Trim() != "")
+                        {
+                            importErrorObjects.Add(this.BuildImportError("模板", "室分名称", "" + duplicateData[0].ToString() + "-在导入的模板中存在重复数据"));
+                        }
+                    }
+
+                    //规划名称有重复，直接返回
+                    if (importErrorObjects.Count() > 0)
+                    {
+                        return importErrorObjects;
+                    }
+                    else
+                    {
+                        int rowIndex = 1;
+                        Guid placeId = Guid.Empty;
+                        string placeName = "";
+                        Guid placeCategoryId = Guid.Empty;
+                        Guid placeOwnerId = Guid.Empty;
+                        Guid areaId = Guid.Empty;
+                        Guid reseauId = Guid.Empty;
+                        decimal lng = 0;
+                        decimal lat = 0;
+                        Importance importance = Importance.C;
+                        Guid addressingDepartmentId = Guid.Empty;
+                        string addressingRealName = "";
+                        string ownerName = "";
+                        string ownerContact = "";
+                        string ownerPhoneNumber = "";
+                        string detailedAddress = "";
+                        string remarks = "";
+                        IList<Place> places = new List<Place>(dt.Rows.Count);
+                        IList<PlaceBusinessVolume> placeBusinessVolumes = new List<PlaceBusinessVolume>(dt.Rows.Count);
+
+                        foreach (DataRow dr in dt.Rows)
+                        {
+                            rowIndex++;
+
+                            //规室分称验证
+                            if (dr["室分名称"].ToString().Trim() != "")
+                            {
+                                placeName = dr["室分名称"].ToString().Trim();
+                                Place place = placeRepository.Find(Specification<Place>.Eval(entity => entity.PlaceName == placeName));
+                                if (place != null)
+                                {
+                                    placeId = place.Id;
+                                }
+                                else
+                                {
+                                    importErrorObjects.Add(this.BuildImportError("第" + rowIndex + "行", "室分名称", placeName + "-在系统中不存在"));
+                                }
+                            }
+                            else
+                            {
+                                importErrorObjects.Add(this.BuildImportError("第" + rowIndex + "行", "室分名称", "不能为空"));
+                            }
+
+                            //室分类型验证
+                            if (dr["室分类型"].ToString().Trim() != "")
+                            {
+                                string placeCategoryName = dr["室分类型"].ToString().Trim();
+                                PlaceCategory placeCategory = placeCategoryRepository.Find(Specification<PlaceCategory>.Eval(entity => entity.PlaceCategoryName == placeCategoryName && entity.Profession == Profession.室分));
+                                if (placeCategory != null)
+                                {
+                                    placeCategoryId = placeCategory.Id;
+                                }
+                                else
+                                {
+                                    importErrorObjects.Add(this.BuildImportError("第" + rowIndex + "行", "室分类型", placeCategoryName + "-在系统中不存在"));
+                                }
+                            }
+                            else
+                            {
+                                importErrorObjects.Add(this.BuildImportError("第" + rowIndex + "行", "室分类型", "不能为空"));
+                            }
+
+                            //区域验证
+                            if (dr["区域"].ToString().Trim() != "")
+                            {
+                                string areaName = dr["区域"].ToString().Trim();
+                                Area area = areaRepository.Find(Specification<Area>.Eval(entity => entity.AreaName == areaName));
+                                if (area != null)
+                                {
+                                    areaId = area.Id;
+                                    //网格验证
+                                    if (dr["网格"].ToString().Trim() != "")
+                                    {
+                                        string reseauName = dr["网格"].ToString().Trim();
+                                        Reseau reseau = reseauRepository.Find(Specification<Reseau>.Eval(entity => entity.ReseauName == reseauName && entity.AreaId == areaId));
+                                        if (reseau != null)
+                                        {
+                                            reseauId = reseau.Id;
+                                        }
+                                        else
+                                        {
+                                            importErrorObjects.Add(this.BuildImportError("第" + rowIndex + "行", "网格", reseauName + "-在系统中不存在"));
+                                        }
+                                    }
+                                    else
+                                    {
+                                        importErrorObjects.Add(this.BuildImportError("第" + rowIndex + "行", "网格", "不能为空"));
+                                    }
+                                }
+                                else
+                                {
+                                    importErrorObjects.Add(this.BuildImportError("第" + rowIndex + "行", "区域", areaName + "-在系统中不存在"));
+                                }
+                            }
+                            else
+                            {
+                                importErrorObjects.Add(this.BuildImportError("第" + rowIndex + "行", "区域", "不能为空"));
+                            }
+
+                            //经度验证
+                            if (dr["经度"].ToString().Trim() != "")
+                            {
+                                if (!decimal.TryParse(dr["经度"].ToString().Trim(), out lng))
+                                {
+                                    importErrorObjects.Add(this.BuildImportError("第" + rowIndex + "行", "经度", "必须为数字"));
+                                }
+                            }
+                            else
+                            {
+                                lng = 0;
+                            }
+
+                            //纬度验证
+                            if (dr["纬度"].ToString().Trim() != "")
+                            {
+                                if (!decimal.TryParse(dr["纬度"].ToString().Trim(), out lat))
+                                {
+                                    importErrorObjects.Add(this.BuildImportError("第" + rowIndex + "行", "纬度", "必须为数字"));
+                                }
+                            }
+                            else
+                            {
+                                lat = 0;
+                            }
+
+                            //重要性程度验证
+                            if (dr["重要性程度"].ToString().Trim() != "")
+                            {
+                                if (!System.Enum.TryParse<Importance>(dr["重要性程度"].ToString().Trim(), out importance))
+                                {
+                                    importErrorObjects.Add(this.BuildImportError("第" + rowIndex + "行", "重要性程度", dr["重要性程度"].ToString().Trim() + "-在系统中不存在"));
+                                }
+                                else
+                                {
+                                    if (importance != Importance.A && importance != Importance.B && importance != Importance.C)
+                                    {
+                                        importErrorObjects.Add(this.BuildImportError("第" + rowIndex + "行", "重要性程度", dr["重要性程度"].ToString().Trim() + "-在系统中不存在"));
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                importErrorObjects.Add(this.BuildImportError("第" + rowIndex + "行", "重要性程度", "不能为空"));
+                            }
+
+                            //产权验证
+                            if (dr["产权"].ToString().Trim() != "")
+                            {
+                                string placeOwnerName = dr["产权"].ToString().Trim();
+                                PlaceOwner placeOwner = placeOwnerRepository.Find(Specification<PlaceOwner>.Eval(entity => entity.PlaceOwnerName == placeOwnerName));
+                                if (placeOwner != null)
+                                {
+                                    placeOwnerId = placeOwner.Id;
+                                }
+                                else
+                                {
+                                    importErrorObjects.Add(this.BuildImportError("第" + rowIndex + "行", "产权", placeOwnerName + "-在系统中不存在"));
+                                }
+                            }
+                            else
+                            {
+                                importErrorObjects.Add(this.BuildImportError("第" + rowIndex + "行", "产权", "不能为空"));
+                            }
+
+                            //租赁部门验证
+                            if (dr["租赁部门"].ToString().Trim() != "")
+                            {
+                                string addressingDepartmentName = dr["租赁部门"].ToString().Trim();
+                                Department department = departmentRepository.Find(Specification<Department>.Eval(entity => entity.DepartmentName == addressingDepartmentName));
+                                if (department != null)
+                                {
+                                    addressingDepartmentId = department.Id;
+                                }
+                            }
+
+                            addressingRealName = dr["实际租赁人"].ToString().Trim();
+                            ownerName = dr["业主名称"].ToString().Trim();
+                            ownerContact = dr["联系人"].ToString().Trim();
+                            ownerPhoneNumber = dr["联系方式"].ToString().Trim();
+
+                            //详细地址验证
+                            if (dr["详细地址"].ToString().Trim() != "")
+                            {
+                                detailedAddress = dr["详细地址"].ToString().Trim();
+                            }
+                            else
+                            {
+                                importErrorObjects.Add(this.BuildImportError("第" + rowIndex + "行", "详细地址", "不能为空"));
+                            }
+
+                            remarks = dr["备注"].ToString().Trim();
+
+                            if (importErrorObjects.Count == 0)
+                            {
+                                placeMaintObjects.Add(BuildUpdatePlaceObject(placeId, placeCategoryId, reseauId, lng, lat, importance, placeOwnerId, addressingDepartmentId,
+                                    addressingRealName, ownerName, ownerContact, ownerPhoneNumber, detailedAddress, remarks, modifyUserId));
+                            }
+                        }
+
+                        //存在验证失败，直接返回
+                        if (importErrorObjects.Count > 0)
+                        {
+                            return importErrorObjects;
+                        }
+                        else
+                        {
+                            for (int i = 0; i < placeMaintObjects.Count; i++)
+                            {
+                                Place place = placeRepository.GetByKey(placeMaintObjects[i].Id);
+                                place.UpdatePlace(placeMaintObjects[i].PlaceCategoryId, placeMaintObjects[i].ReseauId, placeMaintObjects[i].Lng, placeMaintObjects[i].Lat,
+                                    (Importance)placeMaintObjects[i].Importance, placeMaintObjects[i].PlaceOwner, placeMaintObjects[i].AddressingDepartmentId,
+                                    placeMaintObjects[i].AddressingRealName, placeMaintObjects[i].OwnerName, placeMaintObjects[i].OwnerContact,
+                                    placeMaintObjects[i].OwnerPhoneNumber, placeMaintObjects[i].DetailedAddress, placeMaintObjects[i].Remarks,
+                                    placeMaintObjects[i].ModifyUserId);
+                                placeRepository.Update(place);
+                            }
+                            try
+                            {
+                                this.Context.Commit();
+                            }
+                            catch (Exception ex)
+                            {
+                                if (ex.Message.Contains("FK_dbo.tbl_Place_dbo.tbl_PlaceCategory_PlaceCategoryId") || ex.Message.Contains("FK_dbo.tbl_Place_dbo.tbl_PlaceCategory_PlaceCategoryId"))
+                                {
+                                    throw new ApplicationFault("选择的站点类型在系统中不存在");
+                                }
+                                else if (ex.Message.Contains("FK_dbo.tbl_Place_dbo.tbl_Reseau_ReseauId") || ex.Message.Contains("FK_dbo.tbl_Place_dbo.tbl_Reseau_ReseauId"))
+                                {
+                                    throw new ApplicationFault("选择的网格在系统中不存在");
+                                }
+                                throw ex;
+                            }
+                        }
+                    }
+                }
+            }
+            else
+            {
+                throw new ApplicationFault("导入的Excel文件在系统中不存在");
+            }
+            return importErrorObjects;
+        }
+
+        /// <summary>
         /// 生成导入错误对象
         /// </summary>
         /// <param name="objectName">对象名称</param>
@@ -6616,6 +7349,48 @@ namespace PDBM.ApplicationService.Services.DataImport
                 LogicalNumber = logicalNumber,
                 TrafficVolumes = trafficVolumes,
                 BusinessVolumes = businessVolumes
+            };
+        }
+
+        /// <summary>
+        /// 基站更新对象
+        /// </summary>
+        /// <param name="placeId">基站Id</param>
+        /// <param name="placeCategoryId">基站类型Id</param>
+        /// <param name="reseauId">网格Id</param>
+        /// <param name="lng">经度</param>
+        /// <param name="lat">纬度</param>
+        /// <param name="importance">重要性程度</param>
+        /// <param name="placeOwner">产权</param>
+        /// <param name="addressingDepartmentId">租赁部门Id</param>
+        /// <param name="addressingRealName">实际租赁人</param>
+        /// <param name="ownerName">业主名称</param>
+        /// <param name="ownerContact">业主联系人</param>
+        /// <param name="ownerPhoneNumber">业主联系电话</param>
+        /// <param name="detailedAddress">详细地址</param>
+        /// <param name="remarks">备注</param>
+        /// <param name="modifyUserId">修改人用户Id</param>
+        /// <returns></returns>
+        private PlaceMaintObject BuildUpdatePlaceObject(Guid placeId, Guid placeCategoryId, Guid reseauId, decimal lng, decimal lat, Importance importance, Guid placeOwner, Guid addressingDepartmentId,
+            string addressingRealName, string ownerName, string ownerContact, string ownerPhoneNumber, string detailedAddress, string remarks, Guid modifyUserId)
+        {
+            return new PlaceMaintObject()
+            {
+                Id = placeId,
+                PlaceCategoryId = placeCategoryId,
+                ReseauId = reseauId,
+                Lng = lng,
+                Lat = lat,
+                Importance = (int)importance,
+                PlaceOwner = placeOwner,
+                AddressingDepartmentId = addressingDepartmentId,
+                AddressingRealName = addressingRealName,
+                OwnerName = ownerName,
+                OwnerContact = ownerContact,
+                OwnerPhoneNumber = ownerPhoneNumber,
+                DetailedAddress = detailedAddress,
+                Remarks = remarks,
+                ModifyUserId = modifyUserId
             };
         }
     }

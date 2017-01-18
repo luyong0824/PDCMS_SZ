@@ -91,6 +91,18 @@ namespace PDBM.DistributedService.Services.DataImport
             }
         }
 
+        public IList<ImportErrorObject> UpdatePlace(Guid excelFileId, Guid modifyUserId)
+        {
+            try
+            {
+                return dataImportServiceImpl.UpdatePlace(excelFileId, modifyUserId);
+            }
+            catch (Exception ex)
+            {
+                throw new FaultException<FaultObject>(FaultObject.CreateFromException(ex), FaultObject.CreateFaultReason(ex));
+            }
+        }
+
         public IList<ImportErrorObject> ImportLogicalNumber(Guid excelFileId, Guid createUserId)
         {
             try
@@ -228,6 +240,18 @@ namespace PDBM.DistributedService.Services.DataImport
             try
             {
                 return dataImportServiceImpl.ImportPlaceID(excelFileId, createUserId);
+            }
+            catch (Exception ex)
+            {
+                throw new FaultException<FaultObject>(FaultObject.CreateFromException(ex), FaultObject.CreateFaultReason(ex));
+            }
+        }
+
+        public IList<ImportErrorObject> UpdatePlaceID(Guid excelFileId, Guid modifyUserId)
+        {
+            try
+            {
+                return dataImportServiceImpl.UpdatePlaceID(excelFileId, modifyUserId);
             }
             catch (Exception ex)
             {

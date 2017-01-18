@@ -137,6 +137,26 @@ namespace PDBM.Web.Controllers
         }
 
         /// <summary>
+        /// 更新基站
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> UpdatePlace()
+        {
+            if (Request["FileId"] == null)
+            {
+                throw new ArgumentNullException("FileId");
+            }
+
+            using (ServiceProxy<IDataImportService> proxy = new ServiceProxy<IDataImportService>())
+            {
+                return Json(await Task.Factory.StartNew(() => proxy.Channel.UpdatePlace(Guid.Parse(Request["FileId"]), this.UserId)),
+                    JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        /// <summary>
         /// 导入逻辑号
         /// </summary>
         /// <returns></returns>
@@ -380,6 +400,26 @@ namespace PDBM.Web.Controllers
             using (ServiceProxy<IDataImportService> proxy = new ServiceProxy<IDataImportService>())
             {
                 return Json(await Task.Factory.StartNew(() => proxy.Channel.ImportPlaceID(Guid.Parse(Request["FileId"]), this.UserId)),
+                    JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        /// <summary>
+        /// 更新室分
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> UpdatePlaceID()
+        {
+            if (Request["FileId"] == null)
+            {
+                throw new ArgumentNullException("FileId");
+            }
+
+            using (ServiceProxy<IDataImportService> proxy = new ServiceProxy<IDataImportService>())
+            {
+                return Json(await Task.Factory.StartNew(() => proxy.Channel.UpdatePlaceID(Guid.Parse(Request["FileId"]), this.UserId)),
                     JsonRequestBehavior.AllowGet);
             }
         }

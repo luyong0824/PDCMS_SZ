@@ -32,8 +32,8 @@ namespace PDBM.Infrastructure.Data.EntityFramework
 
         public static void Initialize()
         {
-            //Database.SetInitializer<PDBMDbContext>(new PDBMDbContextInitializer());
-            Database.SetInitializer<PDBMDbContext>(null);
+            Database.SetInitializer<PDBMDbContext>(new PDBMDbContextInitializer());
+            //Database.SetInitializer<PDBMDbContext>(null);
         }
     }
 }

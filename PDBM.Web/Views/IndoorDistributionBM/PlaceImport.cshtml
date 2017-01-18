@@ -8,6 +8,7 @@
                 <a id="btnSearch" class="mini-button" iconcls="icon-search" plain="true" onclick="onSearchClick">查询</a>
                 <a class="mini-button" iconcls="icon-edit" plain="true" onclick="onEditClick">修改</a>
                 <a class="mini-button" iconcls="icon-add" plain="true" onclick="onImportClick">批量导入</a>
+                <a class="mini-button" iconcls="icon-edit" plain="true" onclick="onUpdateClick">批量更新</a>
             </td>
         </tr>
     </table>
@@ -262,6 +263,42 @@
         </div>
     </div>
 </div>
+<div id="winImport2" class="mini-window" style="width: 330px; height: 150px;"
+     showmodal="true" allowresize="false" title="批量更新基站">
+    <table style="width: 100%;">
+        <tr>
+            <td style="width: 80px; text-align: right;">示例及模板</td>
+            <td>
+                <a href="@Url.RouteUrl(new { controller = "File", action = "DownloadTemplatesAndSamples" })?FileType=5" target="_blank">模板下载</a>&nbsp;&nbsp;<a href="@Url.RouteUrl(new { controller = "File", action = "DownloadTemplatesAndSamples" })?FileType=6" target="_blank">示例下载</a>
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 80px; text-align: right;">导入文件</td>
+            <td>
+                <input id="beFile2" style="width:200px;" allowinput="false" class="mini-buttonedit searchbox" showclose="true" text="请上传" value="00000000-0000-0000-0000-000000000000" required="true"
+                       onbuttonclick="onFileSelectButtonClick" oncloseclick="onFileSelectButtonCloseClick" onvalidation="onBeFileValidation" />
+            </td>
+        </tr>
+    </table>
+    <div style="text-align: center; padding: 10px;">
+        <a class="mini-button" iconcls="icon-ok" onclick="onUpdateOKClick">确定更新</a>
+    </div>
+</div>
+<div id="winImportError2" class="mini-window" style="width: 600px; height: 320px;"
+     showmodal="true" allowresize="false" title="批量更新错误提示">
+    <div class="mini-fit">
+        <div id="dgImportError2" class="mini-datagrid" style="width: 100%; height: 100%;" allowmovecolumn="false"
+             multiselect="true" fitcolumns="false" onlycheckselection="true" showpager="false"
+             virtualscroll="true" ondrawcell="onDgImportErrorDrawCell">
+            <div property="columns">
+                <div type="indexcolumn"></div>
+                <div field="ObjectName" header="对象名称" width="100"></div>
+                <div field="PropertyName" header="属性名称" width="100"></div>
+                <div field="ErrorMessage" header="错误信息" width="320"></div>
+            </div>
+        </div>
+    </div>
+</div>
 <script type="text/javascript">
     mini.parse();
 
@@ -299,6 +336,11 @@
     var beFile = mini.get("beFile");
     var winImportError = mini.get("winImportError");
     var dgImportError = mini.get("dgImportError");
+
+    var winImport2 = mini.get("winImport2");
+    var beFile2 = mini.get("beFile2");
+    var winImportError2 = mini.get("winImportError2");
+    var dgImportError2 = mini.get("dgImportError2");
 
     function BindDgPlace() {
         btnSearch.setEnabled(false);
@@ -765,5 +807,55 @@
         if (e.field == "ErrorMessage") {
             e.cellStyle = "color:red;";
         }
+    }
+
+    function onUpdateClick() {
+        beFile2.setValue("00000000-0000-0000-0000-000000000000");
+        beFile2.setText("请上传");
+        beFile2.setIsValid(true);
+        winImport2.show();
+    }
+
+    function onUpdateOKClick() {
+        beFile2.validate();
+        if (beFile2.isValid() == false) return;
+        var el = winImport2.getEl();
+        mini.mask({
+            el: el,
+            cls: 'mini-mask-loading',
+            html: '数据导入中...'
+        });
+        setTimeout(function () {
+            $.ajax({
+                url: "@Url.RouteUrl(new { controller = "DataImport", action = "UpdatePlaceID" })",
+                type: "post",
+                data: AddAntiForgeryToken({ FileId: beFile2.getValue() }),
+                success: function (result, textStatus) {
+                    mini.unmask(el);
+                    if (!result.Code || result.Code == null) {
+                        if (result.length == 0) {
+                            ShowSucessMessage("数据更新成功");
+                            winImport2.hide();
+                            BindDgPlace();
+                        }
+                        else {
+                            dgImportError2.setData(result);
+                            winImportError2.show();
+                            beFile2.setValue("00000000-0000-0000-0000-000000000000");
+                            beFile2.setText("请上传");
+                        }
+                    }
+                    else {
+                        beFile2.setValue("00000000-0000-0000-0000-000000000000");
+                        beFile2.setText("请上传");
+                    }
+                },
+                error: function (xmlHttpRequest, textStatus, errorThrown) {
+                    mini.unmask(el);
+                    beFile2.setValue("00000000-0000-0000-0000-000000000000");
+                    beFile2.setText("请上传");
+                }
+            });
+        }, 50);
     }
 </script>
